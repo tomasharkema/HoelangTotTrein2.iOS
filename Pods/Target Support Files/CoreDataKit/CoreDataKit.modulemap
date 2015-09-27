@@ -1,0 +1,6 @@
+framework module CoreDataKit {
+  umbrella header "CoreDataKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

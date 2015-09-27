@@ -1,0 +1,35 @@
+PODS:
+  - Alamofire (2.0.2)
+  - CoreDataKit (0.9.0)
+  - Promissum (0.3.0):
+    - Promissum/Core (= 0.3.0)
+  - Promissum/Alamofire (0.3.0):
+    - Alamofire (~> 2.0.0)
+    - Promissum/Core
+  - Promissum/Core (0.3.0)
+  - Promissum/CoreDataKit (0.3.0):
+    - CoreDataKit (~> 0.8)
+    - Promissum/Core
+  - R.swift (0.9.0)
+  - SegueManager (1.1.0):
+    - SegueManager/iOS (= 1.1.0)
+    - SegueManager/OSX (= 1.1.0)
+  - SegueManager/iOS (1.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - CoreDataKit
+  - Promissum
+  - Promissum/Alamofire
+  - Promissum/CoreDataKit
+  - R.swift
+  - SegueManager
+
+SPEC CHECKSUMS:
+  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  CoreDataKit: 6988bc7162111a808c003e3afcd2d9f3eeb5d753
+  Promissum: bfa1008ed6a7b4acb23d60ccc1b791f566b27c6c
+  R.swift: e814826404c4ea84bd5224a661d16771453e8b64
+  SegueManager: 52de82b9f2aac4951a8dbaf45982d0acfd0293ee
+
+COCOAPODS: 0.39.0.beta.4
