@@ -10,11 +10,11 @@ import Foundation
 
 extension FareTime {
   var plannedDate: NSDate {
-    return NSDate(timeIntervalSince1970: planned)
+    return NSDate(timeIntervalSince1970: planned/1000)
   }
 
   var actualDate: NSDate {
-    return NSDate(timeIntervalSince1970: actual)
+    return NSDate(timeIntervalSince1970: actual/1000)
   }
 }
 

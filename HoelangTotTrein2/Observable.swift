@@ -51,7 +51,9 @@ class Observable<T> {
       self?.subjects.append(subscription)
     }
     if let value = value {
-      subject(value)
+      dispatch_async(observeOn) {
+        subject(value)
+      }
     }
     return subscription
   }

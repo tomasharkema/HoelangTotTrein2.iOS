@@ -8,27 +8,36 @@
 
 import UIKit
 import SegueManager
-
+import AFDateHelper
 
 class TickerViewController: ViewController {
 
   var fromStation: Station?
   var toStation: Station?
 
-  @IBOutlet weak var fromButton: UIButton!
-  @IBOutlet weak var toButton: UIButton!
-
   var currentAdviceSubscription: ObservableSubject<Advice>?
   var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>?
 
+  var timer: NSTimer?
+  var currentAdvice: Advice?
+
+  @IBOutlet weak var fromButton: UIButton!
+  @IBOutlet weak var toButton: UIButton!
+  @IBOutlet weak var timerLabel: UILabel!
+
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+
+    timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "tick:", userInfo: nil, repeats: true)
+
     App.travelService.startTimer()
-    currentAdviceSubscription = App.travelService.currentAdviceObservable.subscribe { advice in
-      print(advice)
+
+    currentAdviceSubscription = App.travelService.currentAdviceObservable.subscribe { [weak self] advice in
+      self?.currentAdvice = advice
+      self?.render()
     }
+
     currentAdviceRequestSubscription = App.travelService.currentAdviceRequest.subscribe { [weak self] adviceRequest in
-      print(adviceRequest)
       self?.fromStation = adviceRequest.from
       self?.toStation = adviceRequest.to
       self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Selecteer]", comment: "selecteer"), forState: UIControlState.Normal)
@@ -38,6 +47,10 @@ class TickerViewController: ViewController {
 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
+
+    timer?.invalidate()
+    timer = nil
+
     App.travelService.stopTimer()
     if let currentAdviceSubscription = currentAdviceSubscription {
       App.travelService.currentAdviceObservable.unsubscribe(currentAdviceSubscription)
@@ -62,6 +75,26 @@ class TickerViewController: ViewController {
     }
 
     presentViewController(controller, animated: true, completion: nil)
+  }
+
+  func tick(timer: NSTimer) {
+    render()
+  }
+
+  func render() {
+    if let currentAdvice = currentAdvice {
+      let offset = currentAdvice.vertrek.actualDate.timeIntervalSinceDate(NSDate())
+      let difference = NSDate(timeIntervalSince1970: offset - 60*60)
+
+      let timeString: String
+      if difference.hour() > 0 {
+        timeString = difference.toString(format: .Custom("H:mm"))
+      } else {
+        timeString = difference.toString(format: .Custom("mm:ss"))
+      }
+
+      timerLabel.text = timeString
+    }
   }
 
   @IBAction func fromButtonPressed(sender: AnyObject) {

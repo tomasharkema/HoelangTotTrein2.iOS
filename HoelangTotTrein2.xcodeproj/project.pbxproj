@@ -365,6 +365,7 @@
 				TargetAttributes = {
 					C3E8474E1BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = RSRVS8D9PW;
 					};
 					C3E847651BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
@@ -658,9 +659,10 @@
 			baseConfigurationReference = 31C7FB5B6D66A5D616037600 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -670,9 +672,10 @@
 			baseConfigurationReference = D6EF40B07AFBFB6745292115 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -23,15 +23,13 @@ class StorageAttachment {
   }
 
   func updateStations(stations: [Station]) {
-    print(stations)
-    for station in stations {
-      CDK.performBlockOnBackgroundContext { context in
-        let predicate = NSPredicate(format: "code = %@", station.code)
-        do {
+    CDK.performBlockOnBackgroundContext { context in
+      do {
+        for station in stations {
+          let predicate = NSPredicate(format: "code = %@", station.code)
           if let stationRecord = try context.findFirst(StationRecord.self, predicate: predicate) {
             stationRecord.name = station.name
             stationRecord.land = station.land
-            return .SaveToPersistentStore
           } else {
             let newStation = try context.create(StationRecord.self)
             newStation.name = station.name
@@ -39,13 +37,12 @@ class StorageAttachment {
             newStation.land = station.land
             newStation.lat = station.coords.lat
             newStation.lon = station.coords.lon
-            return .SaveToPersistentStore
           }
-
-        } catch {
-          print(error)
-          return .Undo
         }
+        return .SaveToPersistentStore
+      } catch {
+        print(error)
+        return .Undo
       }
     }
   }

@@ -18,12 +18,13 @@ enum PickerState {
 class PickerViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
   var state: PickerState!
-  var selectedStation: Station!
+  var selectedStation: Station?
 
   var fetchedResultsController: NSFetchedResultsController?
   var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
 
   @IBOutlet weak var tableView: PickerTableView!
+  @IBOutlet weak var currentStation: UILabel!
 
   var cancelHandler: (() -> ())?
   var successHandler: ((Station) -> ())?
@@ -33,6 +34,8 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     tableView.delegate = self
     tableView.dataSource = self
+
+    currentStation.text = selectedStation?.name ?? "Kies station"
 
     do {
       let frq = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
@@ -68,4 +71,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     }
   }
 
+  @IBAction func closedPressed(sender: AnyObject) {
+    cancelHandler?()
+  }
 }
