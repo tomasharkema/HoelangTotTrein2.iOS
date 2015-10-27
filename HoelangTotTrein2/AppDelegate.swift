@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.storageAttachment.attach(CDK.backgroundContext)
     App.travelService.fetchStations()
 
+    application.registerForRemoteNotifications()
+    application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))
+
     return true
   }
 
@@ -53,6 +56,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     self.saveContext()
+  }
+
+  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    let pushUUID = deviceToken.description
+    App.apiService.registerForNotification(UserDefaults.userId, pushUUID:
+      pushUUID
+        .stringByReplacingOccurrencesOfString("<", withString: "")
+        .stringByReplacingOccurrencesOfString(">", withString: "")
+        .stringByReplacingOccurrencesOfString(" ", withString: "")
+    ).then {
+      print($0)
+    }.trap {
+      print($0)
+    }
   }
 
   // MARK: - Core Data stack

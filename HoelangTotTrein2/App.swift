@@ -10,6 +10,7 @@ import Foundation
 
 struct App {
   static let apiService = ApiService()
-  static let travelService = TravelService(apiService: apiService)
+  static let locationService = LocationService()
+  static let travelService = TravelService(apiService: apiService, locationService: locationService)
   static let storageAttachment = StorageAttachment(travelService: travelService)
 }

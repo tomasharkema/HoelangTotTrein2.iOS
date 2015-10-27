@@ -15,19 +15,29 @@ enum PickerState {
   case To
 }
 
+
 class PickerViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
   var state: PickerState!
   var selectedStation: Station?
-
-  var fetchedResultsController: NSFetchedResultsController?
-  var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
 
   @IBOutlet weak var tableView: PickerTableView!
   @IBOutlet weak var currentStation: UILabel!
 
   var cancelHandler: (() -> ())?
   var successHandler: ((Station) -> ())?
+
+  var historyStationsFetchedResultsController: NSFetchedResultsController?
+  var closeFetchedResultController: NSFetchedResultsController?
+  var ordinaryStationsFetchedResultsController: NSFetchedResultsController?
+
+  var fetchedResultControllers: [NSFetchedResultsController?] {
+    return [
+      historyStationsFetchedResultsController,
+      closeFetchedResultController,
+      ordinaryStationsFetchedResultsController
+    ]
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,11 +47,30 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     currentStation.text = selectedStation?.name ?? "Kies station"
 
-    do {
-      let frq = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
+    App.travelService.getCloseStations().then { stations in
+      print(stations)
+      stations.first?.objectID
+      do {
+        if let closeStationsFetchRequest = fetchedRequest(stations) {
+          self.closeFetchedResultController = try CDK.mainThreadContext.fetchedResultsController(closeStationsFetchRequest)
+          self.tableView.reloadData()
+        }
+      } catch {
+        print(error)
+      }
+    }
 
-      fetchedResultsControllerDelegate = StationFetchedResultControllerDelegate(tableView: tableView)
-      fetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(frq, delegate: fetchedResultsControllerDelegate)
+    do {
+      let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
+      let ordinaryStationsFetchedResultsControllerDelegate = StationFetchedResultControllerDelegate(tableView: tableView)
+      ordinaryStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(ordinaryStationsFetchRequest, delegate: ordinaryStationsFetchedResultsControllerDelegate)
+
+      let historyUsedFetchRequest = try CDK.mainThreadContext.createFetchRequest(History.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)])
+      historyUsedFetchRequest.propertiesToGroupBy = ["station"]
+      historyUsedFetchRequest.resultType = .DictionaryResultType
+      historyUsedFetchRequest.propertiesToFetch = ["station"]
+
+      historyStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(historyUsedFetchRequest)
 
       tableView.reloadData()
     } catch {
@@ -50,24 +79,52 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   }
 
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return fetchedResultsController?.sections?.count ?? 0
+    return fetchedResultControllers.count ?? 0
   }
 
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return fetchedResultsController?.sections?[section].numberOfObjects ?? 0
+    if fetchedResultControllers.count > section && fetchedResultControllers.count != 0 {
+      return fetchedResultControllers[section]?.sections?[0].numberOfObjects ?? 0
+    } else {
+      return 0
+    }
+  }
+
+  func getStation(fromIndexPath indexPath: NSIndexPath) -> StationRecord? {
+    let obj = fetchedResultControllers[indexPath.section]?.optionalObjectAtIndexPath(indexPath.section(-indexPath.section))
+
+    if let station = obj as? StationRecord {
+      return station
+    } else if let stationHistory = obj as? [String: AnyObject], stationID = stationHistory["station"] as? NSManagedObjectID, station = (try? CDK.mainThreadContext.find(StationRecord.self, managedObjectID: stationID)) {
+      return station
+    }
+
+    return nil
   }
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.stationCell, forIndexPath: indexPath)! as StationCell
-    if let station = fetchedResultsController?.optionalObjectAtIndexPath(indexPath) as? StationRecord {
+
+    if let station = getStation(fromIndexPath: indexPath) {
       cell.stationLabel.text = station.name
     }
+
     return cell
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if let station = fetchedResultsController?.optionalObjectAtIndexPath(indexPath) as? StationRecord {
+    if let station = getStation(fromIndexPath: indexPath) {
       successHandler?(station.toStation())
+    }
+  }
+
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if section == 0 {
+      return "Laatst gebruikt"
+    } else if section == 1 {
+      return "Dichtbij"
+    } else {
+      return "Stations"
     }
   }
 

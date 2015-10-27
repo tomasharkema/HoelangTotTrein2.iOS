@@ -17,6 +17,7 @@ class StorageAttachment {
   var context: NSManagedObjectContext!
 
   var stationObservableSubscription: ObservableSubject<[Station]>!
+  var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
 
   init (travelService: TravelService) {
     self.travelService = travelService
@@ -52,9 +53,36 @@ class StorageAttachment {
     stationObservableSubscription = travelService.stationsObservable.subscribe(queue) { [weak self] stations in
       self?.updateStations(stations)
     }
+    currentAdviceRequestSubscription = travelService.currentAdviceRequest.subscribe(queue) { [weak self] request in
+      self?.insertHistoryFromRequest(request)
+    }
+  }
+
+  func insertHistoryFromRequest(advice: AdviceRequest) {
+    CDK.performBlockOnBackgroundContext { context in
+      if let historyRecord = try? context.create(History.self), fromStation = advice.from?.getStationRecord(context) {
+        historyRecord.station = fromStation
+        historyRecord.date = NSDate()
+        historyRecord.historyType = .From
+        return .SaveToPersistentStore
+      }
+
+      return .Undo
+    }
+    CDK.performBlockOnBackgroundContext { context in
+      if let historyRecord = try? context.create(History.self), toStation = advice.to?.getStationRecord(context) {
+        historyRecord.station = toStation
+        historyRecord.date = NSDate()
+        historyRecord.historyType = .To
+        return .SaveToPersistentStore
+      }
+
+      return .Undo
+    }
   }
 
   deinit {
     travelService.stationsObservable.unsubscribe(stationObservableSubscription)
+    travelService.currentAdviceRequest.unsubscribe(currentAdviceRequestSubscription)
   }
 }

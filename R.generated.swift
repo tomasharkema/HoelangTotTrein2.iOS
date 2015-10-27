@@ -7,8 +7,6 @@ struct R {
   static func validate() {
     storyboard.launchScreen.validateImages()
     storyboard.launchScreen.validateViewControllers()
-    storyboard.main.validateImages()
-    storyboard.main.validateViewControllers()
   }
   
   struct font {
@@ -20,7 +18,7 @@ struct R {
   }
   
   struct nib {
-    
+    static var launchScreen: _R.nib._LaunchScreen { return _R.nib._LaunchScreen() }
   }
   
   struct reuseIdentifier {
@@ -28,7 +26,7 @@ struct R {
   }
   
   struct segue {
-    
+    static var presentPickerSegue: String { return "presentPickerSegue" }
   }
   
   struct storyboard {
@@ -44,26 +42,23 @@ struct R {
         
       }
     }
-    
-    struct main {
-      static var initialViewController: HoelangTotTrein2.TickerViewController? { return instance.instantiateInitialViewController() as? HoelangTotTrein2.TickerViewController }
-      static var instance: UIStoryboard { return UIStoryboard(name: "Main", bundle: nil) }
-      static var pickerViewController: HoelangTotTrein2.PickerViewController? { return instance.instantiateViewControllerWithIdentifier("PickerViewController") as? HoelangTotTrein2.PickerViewController }
-      
-      static func validateImages() {
-        
-      }
-      
-      static func validateViewControllers() {
-        assert(pickerViewController != nil, "[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'HoelangTotTrein2.PickerViewController'.")
-      }
-    }
   }
 }
 
 struct _R {
   struct nib {
-    
+    struct _LaunchScreen: NibResource {
+      var instance: UINib { return UINib.init(nibName: "LaunchScreen", bundle: nil) }
+      var name: String { return "LaunchScreen" }
+      
+      func firstView(ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]?) -> UIView? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? UIView
+      }
+      
+      func instantiateWithOwner(ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]?) -> [AnyObject] {
+        return instance.instantiateWithOwner(ownerOrNil, options: optionsOrNil)
+      }
+    }
   }
 }
 

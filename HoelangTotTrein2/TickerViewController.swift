@@ -61,20 +61,20 @@ class TickerViewController: ViewController {
   }
 
   func showPickerController(state: PickerState) {
-    let controller = R.storyboard.main.pickerViewController!
-    controller.state = state
-    controller.selectedStation = state == .From ? fromStation : toStation
 
-    controller.successHandler = { station in
-      App.travelService.setStation(state, station: station)
-      controller.dismissViewControllerAnimated(true, completion: nil)
+    segueManager.performSegue(R.segue.presentPickerSegue) { [weak self] (controller: PickerViewController) in
+
+      controller.state = state
+      controller.selectedStation = state == .From ? self?.fromStation : self?.toStation
+      controller.successHandler = { [weak controller] station in
+        App.travelService.setStation(state, station: station, byPicker: true)
+        controller?.dismissViewControllerAnimated(true, completion: nil)
+      }
+
+      controller.cancelHandler = { [weak controller] in
+        controller?.dismissViewControllerAnimated(true, completion: nil)
+      }
     }
-
-    controller.cancelHandler = {
-      controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    presentViewController(controller, animated: true, completion: nil)
   }
 
   func tick(timer: NSTimer) {
@@ -104,5 +104,17 @@ class TickerViewController: ViewController {
   @IBAction func toButtonPressed(sender: AnyObject) {
     showPickerController(.To)
   }
+
+  @IBAction func currentLocationPressed(sender: AnyObject) {
+    App.locationService.requestAuthorization().then { state in
+      App.travelService.travelFromCurrentLocation()
+    }
+  }
+
+  @IBAction func switchPressed(sender: AnyObject) {
+    App.travelService.switchFromTo()
+  }
+
+
 }
 

@@ -13,11 +13,15 @@ struct Coords {
   let lon: Double
 }
 
-struct Station {
+struct Station: Equatable {
   let name: String
   let code: String
   let land: String
   let coords: Coords
+}
+
+func ==(lhs: Station, rhs: Station) -> Bool {
+  return lhs.code == rhs.code
 }
 
 struct StationsResponse {

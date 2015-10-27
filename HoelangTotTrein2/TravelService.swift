@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 import CoreDataKit
+import CoreLocation
+import Promissum
 
 struct AdviceRequest {
   let from: Station?
@@ -24,13 +26,15 @@ struct AdviceRequest {
 }
 
 class TravelService: NSObject {
-
+  let queue = dispatch_queue_create("nl.tomasharkema.TravelService", DISPATCH_QUEUE_SERIAL)
   private let apiService: ApiService
+  private let locationService: LocationService
 
   private var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
 
-  init(apiService: ApiService) {
+  init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
+    self.locationService = locationService
     super.init()
 
     currentAdviceRequestSubscription = currentAdviceRequest.subscribe { [weak self] adviceRequest in
@@ -74,34 +78,35 @@ class TravelService: NSObject {
     }
   }
 
-  func getCurrentAdvice() -> AdviceRequest {
-    do {
-      let from: Station?
-      if let fromCode = UserDefaults.fromStationCode {
-        let fromPredicate = NSPredicate(format: "code = %@", fromCode)
-        from = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: fromPredicate)?.toStation()
-      } else {
-        from = nil
-      }
-      let to: Station?
-      if let toCode = UserDefaults.toStationCode {
-        let toPredicate = NSPredicate(format: "code = %@", toCode)
-        to = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: toPredicate)?.toStation()
-      } else {
-        to = nil
-      }
-
-      return AdviceRequest(from: from, to: to)
-    } catch {
-      return AdviceRequest(from: nil, to: nil)
+  func getCurrentAdvice(context: NSManagedObjectContext = CDK.mainThreadContext) -> AdviceRequest {
+    let from: Station?
+    if let fromCode = UserDefaults.fromStationCode {
+      from = Station.fromCode(fromCode, context: context)
+    } else {
+      from = nil
     }
+    let to: Station?
+    if let toCode = UserDefaults.toStationCode {
+      to = Station.fromCode(toCode, context: context)
+    } else {
+      to = nil
+    }
+
+    return AdviceRequest(from: from, to: to)
   }
 
   func setCurrentAdviceRequest(adviceRequest: AdviceRequest) {
+    if let from = adviceRequest.from, to = adviceRequest.to {
+      App.apiService.registerForNotification(UserDefaults.userId, from: from, to: to).then {
+        print($0)
+      }.trap {
+        print($0)
+      }
+    }
     currentAdviceRequest.next(adviceRequest)
   }
 
-  func setStation(state: PickerState, station: Station) {
+  func setStation(state: PickerState, station: Station, byPicker: Bool = false) {
     let advice = getCurrentAdvice()
     let newAdvice: AdviceRequest
     switch state {
@@ -109,6 +114,15 @@ class TravelService: NSObject {
       newAdvice = advice.setFrom(station)
     case .To:
       newAdvice = advice.setTo(station)
+    }
+
+    if byPicker {
+      switch state {
+      case .From:
+        UserDefaults.fromStationByPickerCode = station.code
+      case .To:
+        UserDefaults.toStationByPickerCode = station.code
+      }
     }
 
     setCurrentAdviceRequest(newAdvice)
@@ -129,6 +143,57 @@ class TravelService: NSObject {
     }
 
     return stationRecord?.toStation()
+  }
+
+  func sortCloseLocations(center: CLLocation, stations: [StationRecord]) -> [StationRecord] {
+    return stations.sort { lhs, rhs in
+      lhs.toStation().coords.location.distanceFromLocation(center) < rhs.toStation().coords.location.distanceFromLocation(center)
+    }
+  }
+
+  func getCloseStations() -> Promise<[StationRecord], ErrorType> {
+    return locationService.currentLocation().flatMap { currentLocation in
+      let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
+
+      let predicate = NSPredicate(format: "lat > %f AND lat < %f AND lon > %f AND lon < %f", circularRegionBounds.latmin, circularRegionBounds.latmax, circularRegionBounds.lonmin, circularRegionBounds.lonmax)
+      if let stations = try? CDK.backgroundContext.find(StationRecord.self, predicate: predicate, sortDescriptors: nil, limit: nil) {
+        return Promise(value: self.sortCloseLocations(currentLocation, stations: stations))
+      }
+
+      return Promise(error: NSError(domain: "HLTT", code: 500, userInfo: nil))
+    }
+  }
+
+  func travelFromCurrentLocation() {
+    dispatch_async(queue) { [weak self] in
+      if let service = self {
+        service.getCloseStations().map { (stationRecords: [StationRecord]) in
+          stationRecords.map { (stationRecord: StationRecord) in
+            stationRecord.toStation()
+          }
+        }.then {
+          if let station = $0.first {
+            let currentAdvice = service.getCurrentAdvice(CDK.backgroundContext)
+
+            let newAdvice: AdviceRequest
+            if currentAdvice.to == station {
+              newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
+            } else {
+              newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
+            }
+
+            service.setCurrentAdviceRequest(newAdvice)
+          }
+        }.trap { error in
+          print(error)
+        }
+      }
+    }
+  }
+
+  func switchFromTo() {
+    let currentAdvice = getCurrentAdvice()
+    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from))
   }
 
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import CoreDataKit
 
 extension NSFetchedResultsController {
 
@@ -19,4 +20,29 @@ extension NSFetchedResultsController {
     return nil
   }
   
+}
+
+func fetchedRequest(objects: [NSManagedObject]) -> NSFetchRequest? {
+  if let object = objects.first {
+
+    let predicate = NSPredicate(format: objects
+      .map { $0.objectID }
+      .reduce("") { prev, element in
+        if prev == "" {
+          return prev + "(SELF = %@)"
+        } else {
+          return prev + " OR (SELF = %@)"
+        }
+      }, argumentArray: objects.map { $0.objectID })
+
+
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) { (lhs, rhs) -> NSComparisonResult in
+      print(lhs, rhs)
+      return NSComparisonResult.OrderedDescending
+    }
+
+    return object.managedObjectContext?.createFetchRequest(object.entity, predicate: predicate, sortDescriptors: [sortDescriptor])
+  }
+
+  return nil
 }

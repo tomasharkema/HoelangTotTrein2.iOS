@@ -16,4 +16,16 @@ class StationRecord: NSManagedObject, NamedManagedObject {
   func toStation() -> Station {
     return Station(name: name, code: code, land: land, coords: Coords(lat: lat.doubleValue, lon: lon.doubleValue))
   }
+
+  var historyUsed: NSNumber {
+    do {
+      return try managedObjectContext?.find(History.self, predicate: NSPredicate(format: "station = %@", self)).count ?? 0
+    } catch {
+      return 0
+    }
+  }
+
+  var firstLetterUpperCase: String {
+    return name.substringWithRange(Range<String.Index>(start: name.startIndex, end: name.startIndex.advancedBy(1))).uppercaseString
+  }
 }

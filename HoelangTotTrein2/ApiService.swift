@@ -11,7 +11,7 @@ import Alamofire
 import Foundation
 
 struct ApiService {
-  let endpoint = "https://hltt.herokuapp.com"
+  let endpoint = "https://hltt-test.herokuapp.com"
   let queue = dispatch_queue_create("nl.tomasharkema.DECODE", DISPATCH_QUEUE_CONCURRENT)
   
   private let manager: Manager
@@ -101,5 +101,17 @@ struct ApiService {
     }
 
     return Promise(error: NSError(domain: "Geen volledige request", code: 100, userInfo: nil))
+  }
+
+  func registerForNotification(userId: String, from: Station, to: Station) -> Promise<SuccessResult, ErrorType> {
+    let url = "\(endpoint)/api/register/\(userId)?from=\(from.code)&to=\(to.code)"
+    return requestGet(url, decoder: SuccessResult.decodeJson)
+      .flatMapError(handleAppErrors)
+  }
+
+  func registerForNotification(userId: String, pushUUID: String) -> Promise<SuccessResult, ErrorType> {
+    let url = "\(endpoint)/api/register/\(userId)/PUSH/\(pushUUID)"
+    return requestGet(url, decoder: SuccessResult.decodeJson)
+      .flatMapError(handleAppErrors)
   }
 }
