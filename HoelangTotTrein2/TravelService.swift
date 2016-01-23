@@ -12,7 +12,7 @@ import CoreDataKit
 import CoreLocation
 import Promissum
 
-struct AdviceRequest {
+struct AdviceRequest: Equatable {
   let from: Station?
   let to: Station?
 
@@ -23,6 +23,10 @@ struct AdviceRequest {
   func setTo(to: Station) -> AdviceRequest {
     return AdviceRequest(from: from, to: to)
   }
+}
+
+func ==(lhs: AdviceRequest, rhs: AdviceRequest) -> Bool {
+  return lhs.from == rhs.from && lhs.to == rhs.to
 }
 
 class TravelService: NSObject {
@@ -52,9 +56,10 @@ class TravelService: NSObject {
   }
 
   let currentAdviceObservable = Observable<Advice>()
-  let currentAdvicesObservable = Observable<[Advice]>()
-  let stationsObservable = Observable<[Station]>()
+  let currentAdvicesObservable = Observable<Advices>()
+  let stationsObservable = Observable<Stations>()
   let currentAdviceRequest = Observable<AdviceRequest>()
+  let nextAdviceObservable = Observable<Advice>()
 
   var timer: NSTimer?
 
@@ -132,6 +137,9 @@ class TravelService: NSObject {
     apiService.advices(adviceRequest).then { [weak self] advices in
       if let firstAdvice = advices.advices.first {
         self?.currentAdviceObservable.next(firstAdvice)
+      }
+      if let secondAdvice = advices.advices[safe: 1] {
+        self?.nextAdviceObservable.next(secondAdvice)
       }
       self?.currentAdvicesObservable.next(advices.advices)
     }

@@ -11,6 +11,8 @@
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
+		C352D2D11C53C8E20066D01C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C352D2D01C53C8E20066D01C /* bg.png */; };
+		C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352D2D21C53DCE50066D01C /* Array+Extensions.swift */; };
 		C3A47C341BBEF05D00A3CDA8 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */; };
 		C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C331BBEF05D00A3CDA8 /* History.swift */; };
 		C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
@@ -20,6 +22,7 @@
 		C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */; };
 		C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */; };
 		C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */; };
+		C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */; };
 		C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847521BB82A01007D17C3 /* AppDelegate.swift */; };
 		C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847541BB82A01007D17C3 /* TickerViewController.swift */; };
 		C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E847561BB82A01007D17C3 /* Main.storyboard */; };
@@ -52,7 +55,6 @@
 		C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BC1BB86058007D17C3 /* StationCell.swift */; };
 		C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */; };
 		C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */; };
-		C3E847C31BB8729B007D17C3 /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847C21BB8729B007D17C3 /* Advice+Services.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
 		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
 		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		C352D2D01C53C8E20066D01C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		C352D2D21C53DCE50066D01C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C3A47C331BBEF05D00A3CDA8 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+Services.swift"; sourceTree = "<group>"; };
@@ -87,7 +91,8 @@
 		C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JsonGen+Alamofire.swift"; sourceTree = "<group>"; };
 		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorJson.swift; path = Json/ErrorJson.swift; sourceTree = "<group>"; };
 		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ErrorJson+JsonGen.swift"; path = "Json/ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
-		C3E8474F1BB82A01007D17C3 /* HoelangTotTrein2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoelangTotTrein2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
+		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
 		C3E847571BB82A01007D17C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -125,7 +130,6 @@
 		C3E847BC1BB86058007D17C3 /* StationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
 		C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationFetchedResultControllerDelegate.swift; sourceTree = "<group>"; };
 		C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Extensions.swift"; sourceTree = "<group>"; };
-		C3E847C21BB8729B007D17C3 /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
 		D6EF40B07AFBFB6745292115 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,7 +182,7 @@
 		C3E847501BB82A01007D17C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3E8474F1BB82A01007D17C3 /* HoelangTotTrein2.app */,
+				C3E8474F1BB82A01007D17C3 /* HLTT.app */,
 				C3E847661BB82A01007D17C3 /* HoelangTotTrein2Tests.xctest */,
 				C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */,
 			);
@@ -195,6 +199,7 @@
 				C3E847541BB82A01007D17C3 /* TickerViewController.swift */,
 				C3E847B61BB8575E007D17C3 /* PickerViewController.swift */,
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
+				C352D2D01C53C8E20066D01C /* bg.png */,
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
@@ -229,6 +234,7 @@
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E847891BB82C0E007D17C3 /* Services */,
 				C3E847861BB82B8D007D17C3 /* Observables */,
+				C352D2D21C53DCE50066D01C /* Array+Extensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -265,10 +271,10 @@
 				C3E8479D1BB83C45007D17C3 /* JsonGen */,
 				C3E847991BB83BC6007D17C3 /* Advice.swift */,
 				C3E8479B1BB83BCE007D17C3 /* Station.swift */,
-				C3E847C21BB8729B007D17C3 /* Advice+Services.swift */,
 				C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */,
 				C32D78B91BDEC4D300603805 /* SuccessResponse.swift */,
 				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
+				C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -348,7 +354,7 @@
 			);
 			name = HoelangTotTrein2;
 			productName = HoelangTotTrein2;
-			productReference = C3E8474F1BB82A01007D17C3 /* HoelangTotTrein2.app */;
+			productReference = C3E8474F1BB82A01007D17C3 /* HLTT.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C3E847651BB82A01007D17C3 /* HoelangTotTrein2Tests */ = {
@@ -442,6 +448,7 @@
 			files = (
 				C3E847601BB82A01007D17C3 /* LaunchScreen.storyboard in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
+				C352D2D11C53C8E20066D01C /* bg.png in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,6 +539,7 @@
 				C3E847941BB83A94007D17C3 /* LogService.swift in Sources */,
 				C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */,
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
+				C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */,
 				C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */,
 				C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */,
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
@@ -539,6 +547,7 @@
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
 				C3E847AD1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift in Sources */,
 				C3E847841BB82B82007D17C3 /* Observable.swift in Sources */,
+				C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
 				C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */,
@@ -561,7 +570,6 @@
 				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
 				C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */,
 				C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */,
-				C3E847C31BB8729B007D17C3 /* Advice+Services.swift in Sources */,
 				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,
 				C3E8479C1BB83BCE007D17C3 /* Station.swift in Sources */,
 				C3E847BB1BB85EBF007D17C3 /* PickerTableView.swift in Sources */,
@@ -711,8 +719,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.beta;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
+				PRODUCT_NAME = HLTT;
 			};
 			name = Debug;
 		};
@@ -724,8 +732,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.beta;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
+				PRODUCT_NAME = HLTT;
 			};
 			name = Release;
 		};

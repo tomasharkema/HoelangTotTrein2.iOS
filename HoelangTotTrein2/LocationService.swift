@@ -10,9 +10,13 @@ import Foundation
 import CoreLocation
 import Promissum
 
-struct SignificantLocation {
+struct SignificantLocation: Equatable {
   let location: CLLocation
   let neighbouringStations: [Station]
+}
+
+func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
+  return lhs.location.isEqual(rhs.location)
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate {

@@ -11,7 +11,17 @@ struct R: Rswift.Validatable {
   }
   
   struct file {
+    static let bgPng = FileResource(bundle: _R.hostingBundle, name: "bg", pathExtension: "png")
     
+    static func bgPng(_: Void) -> NSURL? {
+      let fileResource = R.file.bgPng
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func bgPng(_: Void) -> String? {
+      let fileResource = R.file.bgPng
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
   }
   
   struct font {
@@ -61,7 +71,7 @@ struct R: Rswift.Validatable {
 }
 
 struct _R: Rswift.Validatable {
-  static let hostingBundle = NSBundle(identifier: "nl.tomasharkema.HoelangTotTrein.beta")
+  static let hostingBundle = NSBundle(identifier: "nl.tomasharkema.HoelangTotTrein")
   
   static func validate() throws {
     try storyboard.validate()
@@ -84,7 +94,7 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
       
       static func validate() throws {
-        
+        if UIImage(named: "bg") == nil { throw ValidationError(description: "[R.swift] Image named 'bg' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
       }
     }
     
@@ -99,6 +109,7 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIImage(named: "bg.png") == nil { throw ValidationError(description: "[R.swift] Image named 'bg.png' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().pickerViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
       }
     }

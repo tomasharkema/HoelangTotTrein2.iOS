@@ -11,8 +11,8 @@ import Alamofire
 import Foundation
 
 struct ApiService {
-//  let endpoint = "https://hltt-test.herokuapp.com"
-  let endpoint = "http://server.local:9000"
+  let endpoint = "https://hltt-test.herokuapp.com"
+//  let endpoint = "http://server.local:9000"
 
   let queue = dispatch_queue_create("nl.tomasharkema.DECODE", DISPATCH_QUEUE_CONCURRENT)
   

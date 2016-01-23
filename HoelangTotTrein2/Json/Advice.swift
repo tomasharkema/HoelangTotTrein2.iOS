@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Advice.swift
 //  HoelangTotTrein2
 //
 //  Created by Tomas Harkema on 27-09-15.
@@ -8,15 +8,23 @@
 
 import Foundation
 
-struct FareTime {
+struct FareTime: Equatable {
   let planned: Double
   let actual: Double
 }
 
-struct Melding {
+func ==(lhs: FareTime, rhs: FareTime) -> Bool {
+  return lhs.planned == rhs.planned && lhs.actual == rhs.actual
+}
+
+struct Melding: Equatable {
   let id: String
   let ernstig: Bool
   let text: String
+}
+
+func ==(lhs: Melding, rhs: Melding) -> Bool {
+  return lhs.id == rhs.id && lhs.ernstig == rhs.ernstig && lhs.text == rhs.text
 }
 
 struct Stop {
@@ -35,7 +43,7 @@ enum FareStatus: String {
   case VolgensPlan = "VOLGENS-PLAN"
 }
 
-struct Advice {
+struct Advice: Equatable {
   let overstappen: Int
   let vertrek: FareTime
   let melding: Melding?
@@ -43,6 +51,14 @@ struct Advice {
   let vertrekVertraging: String?
   //let status: FareStatus
   let status: String
+}
+
+func ==(lhs: Advice, rhs: Advice) -> Bool {
+  return lhs.overstappen == rhs.overstappen &&
+    lhs.vertrek == rhs.vertrek &&
+    lhs.melding == rhs.melding &&
+    lhs.vertrekVertraging == rhs.vertrekVertraging &&
+    lhs.status == rhs.status
 }
 
 struct AdvicesResult {

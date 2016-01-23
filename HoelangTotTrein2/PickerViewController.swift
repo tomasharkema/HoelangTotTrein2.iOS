@@ -48,8 +48,6 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     currentStation.text = selectedStation?.name ?? "Kies station"
 
     App.travelService.getCloseStations().then { stations in
-      print(stations)
-      stations.first?.objectID
       do {
         if let closeStationsFetchRequest = fetchedRequest(stations) {
           self.closeFetchedResultController = try CDK.mainThreadContext.fetchedResultsController(closeStationsFetchRequest)

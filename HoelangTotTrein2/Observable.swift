@@ -18,7 +18,7 @@ func ==<T>(lhs: ObservableSubject<T>, rhs: ObservableSubject<T>) -> Bool {
   return lhs.guid == rhs.guid
 }
 
-class Observable<T> {
+class Observable<T where T: Equatable> {
 
   private let queue = dispatch_queue_create("nl.tomasharkema.Observable", DISPATCH_QUEUE_SERIAL)
 
@@ -68,7 +68,9 @@ class Observable<T> {
 
   func next(value: T) {
     dispatch_async(queue) { [weak self] in
-      self?.value = value
+      if value != self?.value {
+        self?.value = value
+      }
     }
   }
 
