@@ -7,14 +7,16 @@ use_frameworks!
 
 link_with 'HoelangTotTrein2'
 
-pod 'Alamofire'
-pod 'R.swift'
-pod 'Promissum'
-pod 'Promissum/CoreDataKit'
-pod 'Promissum/Alamofire'
+pod 'Alamofire', '~> 3.0'
+pod 'Promissum', '~> 0.5'
+pod 'Promissum/CoreDataKit', '~> 0.5'
+pod 'Promissum/Alamofire', '~> 0.5'
+pod 'Promissum/UIKit', '~> 0.5'
+pod 'SegueManager/R.swift', '~> 1.2'
 pod 'CoreDataKit'
-pod 'SegueManager'
 pod 'AFDateHelper'
+
+pod 'R.swift', '~> 1.1.1'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

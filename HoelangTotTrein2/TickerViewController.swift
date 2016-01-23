@@ -61,8 +61,9 @@ class TickerViewController: ViewController {
   }
 
   func showPickerController(state: PickerState) {
+    segueManager.performSegue(R.segue.tickerViewController.presentPickerSegue) { [weak self] segue in
 
-    segueManager.performSegue(R.segue.presentPickerSegue) { [weak self] (controller: PickerViewController) in
+      let controller = segue.destinationViewController
 
       controller.state = state
       controller.selectedStation = state == .From ? self?.fromStation : self?.toStation

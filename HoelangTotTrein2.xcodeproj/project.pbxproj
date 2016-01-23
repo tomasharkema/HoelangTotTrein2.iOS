@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0432576E97ADEEB9DF25C30D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC68A4CC5E6349314E4274F /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0432576E97ADEEB9DF25C30D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC68A4CC5E6349314E4274F /* Pods.framework */; };
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
@@ -17,6 +17,9 @@
 		C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */; };
 		C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */; };
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
+		C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */; };
+		C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */; };
+		C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */; };
 		C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847521BB82A01007D17C3 /* AppDelegate.swift */; };
 		C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847541BB82A01007D17C3 /* TickerViewController.swift */; };
 		C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E847561BB82A01007D17C3 /* Main.storyboard */; };
@@ -81,6 +84,9 @@
 		C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Offset.swift"; sourceTree = "<group>"; };
 		C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
+		C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JsonGen+Alamofire.swift"; sourceTree = "<group>"; };
+		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorJson.swift; path = Json/ErrorJson.swift; sourceTree = "<group>"; };
+		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ErrorJson+JsonGen.swift"; path = "Json/ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HoelangTotTrein2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HoelangTotTrein2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 				C3E847931BB83A94007D17C3 /* LogService.swift */,
 				C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */,
 				C3E847971BB83B9B007D17C3 /* JsonGen.swift */,
+				C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */,
 				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
 				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
 			);
@@ -261,6 +268,7 @@
 				C3E847C21BB8729B007D17C3 /* Advice+Services.swift */,
 				C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */,
 				C32D78B91BDEC4D300603805 /* SuccessResponse.swift */,
+				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -268,6 +276,7 @@
 		C3E8479D1BB83C45007D17C3 /* JsonGen */ = {
 			isa = PBXGroup;
 			children = (
+				C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */,
 				C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */,
 				C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */,
 				C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */,
@@ -524,6 +533,7 @@
 				C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */,
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
 				C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */,
+				C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */,
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
@@ -548,6 +558,8 @@
 				C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */,
 				C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */,
 				C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */,
+				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
+				C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */,
 				C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */,
 				C3E847C31BB8729B007D17C3 /* Advice+Services.swift in Sources */,
 				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,
@@ -699,7 +711,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -712,7 +724,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.beta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

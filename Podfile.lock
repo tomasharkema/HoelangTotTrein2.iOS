@@ -1,38 +1,44 @@
 PODS:
-  - AFDateHelper (3.1.0)
-  - Alamofire (2.0.2)
+  - AFDateHelper (3.1.1)
+  - Alamofire (3.1.5)
   - CoreDataKit (0.9.0)
-  - Promissum (0.3.0):
-    - Promissum/Core (= 0.3.0)
-  - Promissum/Alamofire (0.3.0):
-    - Alamofire (~> 2.0.0)
+  - Promissum (0.5.0):
+    - Promissum/Core (= 0.5.0)
+  - Promissum/Alamofire (0.5.0):
+    - Alamofire (~> 3.0)
     - Promissum/Core
-  - Promissum/Core (0.3.0)
-  - Promissum/CoreDataKit (0.3.0):
-    - CoreDataKit (~> 0.8)
+  - Promissum/Core (0.5.0)
+  - Promissum/CoreDataKit (0.5.0):
+    - CoreDataKit (~> 0.9)
     - Promissum/Core
-  - R.swift (0.9.0)
-  - SegueManager (1.1.0):
-    - SegueManager/iOS (= 1.1.0)
-    - SegueManager/OSX (= 1.1.0)
-  - SegueManager/iOS (1.1.0)
+  - Promissum/UIKit (0.5.0):
+    - Promissum/Core
+  - R.swift (1.1.1):
+    - R.swift.Library (~> 1.0.1)
+  - R.swift.Library (1.0.1)
+  - SegueManager/iOS (1.2.0)
+  - SegueManager/R.swift (1.2.0):
+    - R.swift.Library
+    - SegueManager/iOS
 
 DEPENDENCIES:
   - AFDateHelper
-  - Alamofire
+  - Alamofire (~> 3.0)
   - CoreDataKit
-  - Promissum
-  - Promissum/Alamofire
-  - Promissum/CoreDataKit
-  - R.swift
-  - SegueManager
+  - Promissum (~> 0.5)
+  - Promissum/Alamofire (~> 0.5)
+  - Promissum/CoreDataKit (~> 0.5)
+  - Promissum/UIKit (~> 0.5)
+  - R.swift (~> 1.1.1)
+  - SegueManager/R.swift (~> 1.2)
 
 SPEC CHECKSUMS:
-  AFDateHelper: 346694fc5861bdef77d8115e3825182a3fc697d2
-  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  AFDateHelper: 22d6439a3529a144c89b7e6aa214ebbe4d5c2337
+  Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
   CoreDataKit: 6988bc7162111a808c003e3afcd2d9f3eeb5d753
-  Promissum: bfa1008ed6a7b4acb23d60ccc1b791f566b27c6c
-  R.swift: e814826404c4ea84bd5224a661d16771453e8b64
-  SegueManager: 52de82b9f2aac4951a8dbaf45982d0acfd0293ee
+  Promissum: 178ef117f446ed62e92e58cfbf8dd01bf543dad1
+  R.swift: 5a1b37071a6777ce6ab5e5a443e21955e942543b
+  R.swift.Library: 801000362d9af80918d16c4de31ddf819e003e03
+  SegueManager: 4c8f62abcf9a9d81e1ae55bd52b9f42affd85f19
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
