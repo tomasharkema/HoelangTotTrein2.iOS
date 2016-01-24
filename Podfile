@@ -15,6 +15,7 @@ pod 'Promissum/UIKit', '~> 0.5'
 pod 'SegueManager/R.swift', '~> 1.2'
 pod 'CoreDataKit'
 pod 'AFDateHelper'
+pod 'NewRelicAgent'
 
 pod 'R.swift', '~> 1.1.1'
 

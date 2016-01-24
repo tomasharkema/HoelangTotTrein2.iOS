@@ -31,6 +31,7 @@ class StorageAttachment {
           if let stationRecord = try context.findFirst(StationRecord.self, predicate: predicate) {
             stationRecord.name = station.name
             stationRecord.land = station.land
+            stationRecord.type = station.type.rawValue
           } else {
             let newStation = try context.create(StationRecord.self)
             newStation.name = station.name
@@ -38,6 +39,7 @@ class StorageAttachment {
             newStation.land = station.land
             newStation.lat = station.coords.lat
             newStation.lon = station.coords.lon
+            newStation.type = station.type.rawValue
           }
         }
         return .SaveToPersistentStore

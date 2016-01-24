@@ -16,16 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+
+    NewRelic.startWithApplicationToken("AA37eca143a6cbc43c025498e41838d785d5666a06")
 
     if let persistentStoreCoordinator = NSPersistentStoreCoordinator(automigrating: true) {
       CDK.sharedStack = CoreDataStack(persistentStoreCoordinator: persistentStoreCoordinator)
     }
 
     App.storageAttachment.attach(CDK.backgroundContext)
+    App.travelService.attach()
     App.travelService.fetchStations()
+    App.geofenceService.attach()
+    App.notificationService.attach()
 
     application.registerForRemoteNotifications()
     application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: nil))

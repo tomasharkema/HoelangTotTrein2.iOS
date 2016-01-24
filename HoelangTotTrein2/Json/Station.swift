@@ -13,11 +13,23 @@ struct Coords {
   let lon: Double
 }
 
-struct Station: Equatable {
+enum StationType: String {
+  case MegaStation = "megastation"
+  case KnooppuntIntercityStation = "knooppuntIntercitystation"
+  case KnooppuntSneltreinStation = "knooppuntSneltreinstation"
+  case KnooppuntStoptreinStation = "knooppuntStoptreinstation"
+  case IntercityStation = "intercitystation"
+  case SneltreinStation = "sneltreinstation"
+  case StoptreinStation = "stoptreinstation"
+  case FacultatiefStation = "facultatiefStation"
+}
+
+struct Station: Equatable, Hashable {
   let name: String
   let code: String
   let land: String
   let coords: Coords
+  let type: StationType
 }
 
 func ==(lhs: Station, rhs: Station) -> Bool {
@@ -26,4 +38,10 @@ func ==(lhs: Station, rhs: Station) -> Bool {
 
 struct StationsResponse {
   let stations: [Station]
+}
+
+extension Station {
+  var hashValue: Int {
+    return name.hashValue
+  }
 }

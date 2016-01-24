@@ -13,3 +13,10 @@ extension Array {
     return indices ~= index ? self[index] : nil
   }
 }
+
+
+prefix operator <!> {}
+
+prefix func <!> <T>(array: [T?]) -> [T] {
+  return array.filter{ $0 != nil }.map{ $0! }
+}

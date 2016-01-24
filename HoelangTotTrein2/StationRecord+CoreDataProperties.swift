@@ -19,4 +19,5 @@ extension StationRecord {
   @NSManaged var lat: NSNumber
   @NSManaged var lon: NSNumber
   @NSManaged var name: String
+  @NSManaged var type: String
 }

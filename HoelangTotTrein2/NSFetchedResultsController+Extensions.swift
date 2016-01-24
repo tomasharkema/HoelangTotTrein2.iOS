@@ -36,10 +36,12 @@ func fetchedRequest(objects: [NSManagedObject]) -> NSFetchRequest? {
       }, argumentArray: objects.map { $0.objectID })
 
 
-    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) { (lhs, rhs) -> NSComparisonResult in
-      print(lhs, rhs)
-      return NSComparisonResult.OrderedDescending
-    }
+//    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) { (lhs, rhs) -> NSComparisonResult in
+//      print(lhs, rhs)
+//      return NSComparisonResult.OrderedDescending
+//    }
+
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
 
     return object.managedObjectContext?.createFetchRequest(object.entity, predicate: predicate, sortDescriptors: [sortDescriptor])
   }

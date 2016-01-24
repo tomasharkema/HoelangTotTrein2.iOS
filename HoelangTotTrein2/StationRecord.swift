@@ -14,7 +14,7 @@ class StationRecord: NSManagedObject, NamedManagedObject {
   static var entityName = "StationRecord"
 
   func toStation() -> Station {
-    return Station(name: name, code: code, land: land, coords: Coords(lat: lat.doubleValue, lon: lon.doubleValue))
+    return Station(name: name, code: code, land: land, coords: Coords(lat: lat.doubleValue, lon: lon.doubleValue), type: StationType(rawValue: type)!)
   }
 
   var historyUsed: NSNumber {

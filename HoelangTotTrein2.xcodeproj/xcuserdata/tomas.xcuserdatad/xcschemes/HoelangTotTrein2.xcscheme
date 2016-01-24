@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C3E8474E1BB82A01007D17C3"
-               BuildableName = "HoelangTotTrein2.app"
+               BuildableName = "HLTT.app"
                BlueprintName = "HoelangTotTrein2"
                ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3E8474E1BB82A01007D17C3"
-            BuildableName = "HoelangTotTrein2.app"
+            BuildableName = "HLTT.app"
             BlueprintName = "HoelangTotTrein2"
             ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3E8474E1BB82A01007D17C3"
-            BuildableName = "HoelangTotTrein2.app"
+            BuildableName = "HLTT.app"
             BlueprintName = "HoelangTotTrein2"
             ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C3E8474E1BB82A01007D17C3"
-            BuildableName = "HoelangTotTrein2.app"
+            BuildableName = "HLTT.app"
             BlueprintName = "HoelangTotTrein2"
             ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
          </BuildableReference>

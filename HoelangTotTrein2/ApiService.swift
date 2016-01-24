@@ -101,6 +101,8 @@ struct ApiService {
     decoder: AnyObject throws -> T)
     -> Promise<SuccessResponse<T>, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
+
+    print(url)
     let request = makeRequest(method, url: url, requestFactory: requestFactory)
 
     networkActivityIndicatorManager.increment()
@@ -126,7 +128,6 @@ struct ApiService {
   func advices(adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ErrorType> {
     if let from = adviceRequest.from?.code, to = adviceRequest.to?.code {
       let url = "\(endpoint)/api/advices/future?from=\(from)&to=\(to)"
-
       return requestGet(url, encoding: .URL, decoder: AdvicesResult.decodeJson)
         .mapErrorType()
     }

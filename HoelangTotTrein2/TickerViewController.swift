@@ -27,11 +27,7 @@ class TickerViewController: ViewController {
 
   var nextAdvice: Advice?
 
-  var startTime: NSDate? {
-    didSet {
-      print("startTime", startTime)
-    }
-  }
+  var startTime: NSDate?
 
   @IBOutlet weak var backgroundView: UIImageView!
 
@@ -43,12 +39,14 @@ class TickerViewController: ViewController {
   @IBOutlet weak var timerSecondsLabel: UILabel!
   @IBOutlet weak var platformLabel: UILabel!
   @IBOutlet weak var aankomstVertraging: UILabel!
+  @IBOutlet weak var statusMessageLabel: UILabel!
+  @IBOutlet weak var extraLabel: UILabel!
+  @IBOutlet weak var stepsLabel: UITextView!
 
   //next
   @IBOutlet weak var nextLabel: UILabel!
   @IBOutlet weak var nextView: UIView!
-
-
+  @IBOutlet weak var nextDelayLabel: UILabel!
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -58,13 +56,19 @@ class TickerViewController: ViewController {
     App.travelService.startTimer()
 
     currentAdviceSubscription = App.travelService.currentAdviceObservable.subscribe { [weak self] advice in
+      print("NEW ADVICE! \(advice)")
       self?.startTime = NSDate()
       self?.currentAdvice = advice
       self?.render()
+
+      self?.extraLabel.text = advice.extraMessage
+      self?.statusMessageLabel.text = advice.status.alertDescription
+      self?.platformLabel.text = advice.vertrekSpoor.map { "Spoor \($0)" }
+      self?.aankomstVertraging.text = advice.vertrekVertraging.map { "aankomst: \($0)" }
+      self?.stepsLabel.text = advice.stepsMessage
     }
 
     nextAdviceSubscription = App.travelService.nextAdviceObservable.subscribe { [weak self] advice in
-      self?.startTime = NSDate()
       self?.nextAdvice = advice
       self?.render()
     }
@@ -127,7 +131,7 @@ class TickerViewController: ViewController {
         let startOffset = startTime.timeIntervalSince1970
         let currentOffset = NSDate().timeIntervalSince1970
 
-        let offsetForPercentage = 1 - ((currentOffset - actualOffset) / (startOffset - actualOffset))
+        let offsetForPercentage = min(1, max(0, 1 - ((currentOffset - actualOffset) / (startOffset - actualOffset))))
 
         leftBackgroundOffset = (backgroundView.bounds.width - view.bounds.width) * CGFloat(offsetForPercentage)
       } else {
@@ -151,13 +155,14 @@ class TickerViewController: ViewController {
 
       timerMinutesLabel.text = timeBeforeColonString
       timerSecondsLabel.text = timeAfterColonString
-      platformLabel.text = currentAdvice.vertrekSpoor.map { "Spoor \($0)" }
-      aankomstVertraging.text = currentAdvice.vertrekVertraging
     } else {
       timerMinutesLabel.text = "0"
       timerSecondsLabel.text = "00"
       platformLabel.text = ""
       aankomstVertraging.text = ""
+      statusMessageLabel.text = ""
+      extraLabel.text = ""
+      stepsLabel.text = ""
     }
 
     if let nextAdvice = nextAdvice {
@@ -173,11 +178,12 @@ class TickerViewController: ViewController {
         timeString = difference.toString(format: .Custom("mm:ss"))
       }
 
-      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "")
-
+      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") + " - \(nextAdvice.smallExtraMessage)"
+      nextDelayLabel.text = nextAdvice.vertrekVertraging
       nextView.alpha = 1
     } else {
       nextView.alpha = 0
+      nextDelayLabel.text = ""
     }
   }
 
@@ -201,6 +207,10 @@ class TickerViewController: ViewController {
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
+  }
+
+  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    return .Portrait
   }
 
 }

@@ -19,6 +19,13 @@
 		C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */; };
 		C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */; };
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
+		C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C071C5527D600197471 /* GeofenceService.swift */; };
+		C3C26C0A1C552B3A00197471 /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
+		C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
+		C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
+		C3C26C121C5531E000197471 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C111C5531E000197471 /* GeofenceModel.swift */; };
+		C3C26C141C55321600197471 /* GeofenceModel+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */; };
+		C3C26C161C5556C100197471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C151C5556C100197471 /* NotificationService.swift */; };
 		C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */; };
 		C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */; };
 		C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */; };
@@ -55,6 +62,8 @@
 		C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BC1BB86058007D17C3 /* StationCell.swift */; };
 		C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */; };
 		C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */; };
+		C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
+		C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,10 +97,18 @@
 		C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Offset.swift"; sourceTree = "<group>"; };
 		C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
+		C3C26C071C5527D600197471 /* GeofenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceService.swift; sourceTree = "<group>"; };
+		C3C26C091C552B3A00197471 /* Den Haag HS.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Den Haag HS.gpx"; sourceTree = "<group>"; };
+		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
+		C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sloterdijk.gpx; sourceTree = "<group>"; };
+		C3C26C111C5531E000197471 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeofenceModel.swift; path = Json/GeofenceModel.swift; sourceTree = "<group>"; };
+		C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GeofenceModel+JsonGen.swift"; path = "Json/GeofenceModel+JsonGen.swift"; sourceTree = "<group>"; };
+		C3C26C151C5556C100197471 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JsonGen+Alamofire.swift"; sourceTree = "<group>"; };
 		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorJson.swift; path = Json/ErrorJson.swift; sourceTree = "<group>"; };
 		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ErrorJson+JsonGen.swift"; path = "Json/ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
 		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
+		C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "HoelangToTrein-Bridging-Header.h"; path = "../HoelangToTrein-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +147,8 @@
 		C3E847BC1BB86058007D17C3 /* StationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
 		C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationFetchedResultControllerDelegate.swift; sourceTree = "<group>"; };
 		C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Extensions.swift"; sourceTree = "<group>"; };
+		C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zaandam.gpx; sourceTree = "<group>"; };
+		C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Hoofddorp.gpx; sourceTree = "<group>"; };
 		D6EF40B07AFBFB6745292115 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +224,12 @@
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
+				C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */,
+				C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */,
+				C3C26C091C552B3A00197471 /* Den Haag HS.gpx */,
+				C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */,
+				C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */,
+				C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */,
 			);
 			path = HoelangTotTrein2;
 			sourceTree = "<group>";
@@ -260,6 +285,8 @@
 				C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */,
 				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
 				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
+				C3C26C071C5527D600197471 /* GeofenceService.swift */,
+				C3C26C151C5556C100197471 /* NotificationService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -275,6 +302,7 @@
 				C32D78B91BDEC4D300603805 /* SuccessResponse.swift */,
 				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
 				C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */,
+				C3C26C111C5531E000197471 /* GeofenceModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -282,6 +310,7 @@
 		C3E8479D1BB83C45007D17C3 /* JsonGen */ = {
 			isa = PBXGroup;
 			children = (
+				C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */,
 				C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */,
 				C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */,
 				C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */,
@@ -447,9 +476,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E847601BB82A01007D17C3 /* LaunchScreen.storyboard in Resources */,
+				C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
 				C352D2D11C53C8E20066D01C /* bg.png in Resources */,
+				C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */,
+				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
+				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
+				C3C26C0A1C552B3A00197471 /* Den Haag HS.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,12 +575,14 @@
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
 				C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */,
 				C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */,
+				C3C26C141C55321600197471 /* GeofenceModel+JsonGen.swift in Sources */,
 				C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */,
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
 				C3E847AD1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift in Sources */,
 				C3E847841BB82B82007D17C3 /* Observable.swift in Sources */,
+				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
@@ -568,10 +604,12 @@
 				C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */,
 				C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */,
 				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
+				C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */,
 				C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */,
 				C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */,
 				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,
 				C3E8479C1BB83BCE007D17C3 /* Station.swift in Sources */,
+				C3C26C121C5531E000197471 /* GeofenceModel.swift in Sources */,
 				C3E847BB1BB85EBF007D17C3 /* PickerTableView.swift in Sources */,
 				C3E8478E1BB8312A007D17C3 /* ApiService.swift in Sources */,
 				C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */,
@@ -721,6 +759,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
+				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -734,6 +774,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
+				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -2,6 +2,7 @@ PODS:
   - AFDateHelper (3.1.1)
   - Alamofire (3.1.5)
   - CoreDataKit (0.9.0)
+  - NewRelicAgent (5.3.5)
   - Promissum (0.5.0):
     - Promissum/Core (= 0.5.0)
   - Promissum/Alamofire (0.5.0):
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - AFDateHelper
   - Alamofire (~> 3.0)
   - CoreDataKit
+  - NewRelicAgent
   - Promissum (~> 0.5)
   - Promissum/Alamofire (~> 0.5)
   - Promissum/CoreDataKit (~> 0.5)
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   AFDateHelper: 22d6439a3529a144c89b7e6aa214ebbe4d5c2337
   Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
   CoreDataKit: 6988bc7162111a808c003e3afcd2d9f3eeb5d753
+  NewRelicAgent: 0e5d8312054fe779237efc12e05f10c314884c47
   Promissum: 178ef117f446ed62e92e58cfbf8dd01bf543dad1
   R.swift: 5a1b37071a6777ce6ab5e5a443e21955e942543b
   R.swift.Library: 801000362d9af80918d16c4de31ddf819e003e03

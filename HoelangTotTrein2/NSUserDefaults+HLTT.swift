@@ -14,6 +14,7 @@ struct Keys {
   static let FromStationByPickerCodeKey = "FromStationByPickerCodeKey"
   static let ToStationByPickerCodeKey = "ToStationByPickerCodeKey"
   static let UserIdKey = "UserIdKey"
+  static let GeofenceInfoKey = "GeofenceInfoKey"
 }
 
 let UserDefaults = NSUserDefaults.standardUserDefaults()
@@ -68,5 +69,51 @@ extension NSUserDefaults {
       setObject(returnedUserId, forKey: Keys.UserIdKey)
     }
     return returnedUserId
+  }
+
+
+  var geofenceInfo: [String: [GeofenceModel]]? {
+    set {
+      if let value = newValue {
+        let dict = value.encodeJson({$0}) {
+          $0.encodeJson {
+            $0.encodeJson()
+          }
+        }
+
+        _geofenceInfo = dict
+      }
+    }
+    get {
+      if let dict = _geofenceInfo {
+        do {
+          return try Dictionary.decodeJson({
+            try String.decodeJson($0)
+            }, {
+              return try Array.decodeJson({
+                try GeofenceModel.decodeJson($0)
+              }, $0)
+            }, dict)
+        } catch {
+          print(error)
+        }
+      }
+      return nil
+    }
+  }
+
+
+  private var _geofenceInfo: [String: AnyObject]? {
+    get {
+      if let data = objectForKey(Keys.GeofenceInfoKey) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+        return object as? [String: AnyObject]
+      }
+      return nil
+    }
+    set {
+      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
+        setObject(json, forKey: Keys.GeofenceInfoKey)
+      }
+    }
   }
 }

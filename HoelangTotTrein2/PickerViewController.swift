@@ -23,6 +23,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
   @IBOutlet weak var tableView: PickerTableView!
   @IBOutlet weak var currentStation: UILabel!
+  @IBOutlet weak var searchField: UITextField!
 
   var cancelHandler: (() -> ())?
   var successHandler: ((Station) -> ())?
@@ -70,6 +71,18 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
       historyStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(historyUsedFetchRequest)
 
+      tableView.reloadData()
+    } catch {
+      print(error)
+    }
+  }
+
+  func search(string: String) {
+    let predicate: NSPredicate? = string == "" ? nil : NSPredicate(format: "name CONTAINS[cd] %@", string)
+    do {
+      let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
+      let ordinaryStationsFetchedResultsControllerDelegate = StationFetchedResultControllerDelegate(tableView: tableView)
+      ordinaryStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(ordinaryStationsFetchRequest, delegate: ordinaryStationsFetchedResultsControllerDelegate)
       tableView.reloadData()
     } catch {
       print(error)
@@ -128,5 +141,13 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
   @IBAction func closedPressed(sender: AnyObject) {
     cancelHandler?()
+  }
+
+  @IBAction func texstfieldTouchDown(sender: AnyObject) {
+    search(searchField.text ?? "")
+  }
+
+  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    return .Portrait
   }
 }

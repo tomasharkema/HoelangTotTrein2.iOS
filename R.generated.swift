@@ -12,6 +12,11 @@ struct R: Rswift.Validatable {
   
   struct file {
     static let bgPng = FileResource(bundle: _R.hostingBundle, name: "bg", pathExtension: "png")
+    static let denHaagHSGpx = FileResource(bundle: _R.hostingBundle, name: "Den Haag HS", pathExtension: "gpx")
+    static let hoofddorpGpx = FileResource(bundle: _R.hostingBundle, name: "Hoofddorp", pathExtension: "gpx")
+    static let koogAanDeZaanGpx = FileResource(bundle: _R.hostingBundle, name: "Koog aan de Zaan", pathExtension: "gpx")
+    static let sloterdijkGpx = FileResource(bundle: _R.hostingBundle, name: "sloterdijk", pathExtension: "gpx")
+    static let zaandamGpx = FileResource(bundle: _R.hostingBundle, name: "Zaandam", pathExtension: "gpx")
     
     static func bgPng(_: Void) -> NSURL? {
       let fileResource = R.file.bgPng
@@ -20,6 +25,56 @@ struct R: Rswift.Validatable {
     
     static func bgPng(_: Void) -> String? {
       let fileResource = R.file.bgPng
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func denHaagHSGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.denHaagHSGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func denHaagHSGpx(_: Void) -> String? {
+      let fileResource = R.file.denHaagHSGpx
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func hoofddorpGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.hoofddorpGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func hoofddorpGpx(_: Void) -> String? {
+      let fileResource = R.file.hoofddorpGpx
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func koogAanDeZaanGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.koogAanDeZaanGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func koogAanDeZaanGpx(_: Void) -> String? {
+      let fileResource = R.file.koogAanDeZaanGpx
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func sloterdijkGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.sloterdijkGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func sloterdijkGpx(_: Void) -> String? {
+      let fileResource = R.file.sloterdijkGpx
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func zaandamGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.zaandamGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func zaandamGpx(_: Void) -> String? {
+      let fileResource = R.file.zaandamGpx
       return fileResource.bundle?.pathForResource(fileResource)
     }
   }

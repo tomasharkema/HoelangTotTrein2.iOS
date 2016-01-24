@@ -35,12 +35,14 @@ class TravelService: NSObject {
   private let locationService: LocationService
 
   private var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
+  private var geofenceSubscription: ObservableSubject<GeofenceModel>!
 
   init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
     self.locationService = locationService
-    super.init()
+  }
 
+  func attach() {
     currentAdviceRequestSubscription = currentAdviceRequest.subscribe { [weak self] adviceRequest in
       UserDefaults.fromStationCode = adviceRequest.from?.code
       UserDefaults.toStationCode = adviceRequest.to?.code
@@ -48,11 +50,22 @@ class TravelService: NSObject {
       self?.fetchCurrentAdvices(adviceRequest)
     }
 
+    geofenceSubscription = App.geofenceService.geofenceObservable.subscribe { [weak self] geofence in
+      switch geofence.type {
+      case .Overstap, .End:
+        self?.setStation(.From, station: geofence.station)
+
+      default:
+        break
+      }
+    }
+
     currentAdviceRequest.next(getCurrentAdvice())
   }
 
   deinit {
     currentAdviceRequest.unsubscribe(currentAdviceRequestSubscription)
+    App.geofenceService.geofenceObservable.unsubscribe(geofenceSubscription)
   }
 
   let currentAdviceObservable = Observable<Advice>()
@@ -80,6 +93,8 @@ class TravelService: NSObject {
   func fetchStations() {
     App.apiService.stations().then { [weak self] stations in
       self?.stationsObservable.next(stations.stations)
+    }.trap { error in
+      print(error)
     }
   }
 
@@ -100,15 +115,26 @@ class TravelService: NSObject {
     return AdviceRequest(from: from, to: to)
   }
 
-  func setCurrentAdviceRequest(adviceRequest: AdviceRequest) {
-    if let from = adviceRequest.from, to = adviceRequest.to {
+  func setCurrentAdviceRequest(adviceRequest: AdviceRequest, userInput: Bool) {
+    let correctedAdviceRequest: AdviceRequest
+    if let pickerFrom = UserDefaults.fromStationByPickerCode,
+      pickerTo = UserDefaults.toStationByPickerCode,
+      from = Station.fromCode(pickerFrom), to = Station.fromCode(pickerTo) where !userInput && pickerTo == adviceRequest.from?.code {
+        UserDefaults.fromStationByPickerCode = to.code
+        UserDefaults.toStationByPickerCode = from.code
+        correctedAdviceRequest = AdviceRequest(from: to, to: from)
+    } else {
+      correctedAdviceRequest = adviceRequest
+    }
+
+    if let from = correctedAdviceRequest.from, to = correctedAdviceRequest.to {
       App.apiService.registerForNotification(UserDefaults.userId, from: from, to: to).then {
         print($0)
       }.trap {
         print($0)
       }
     }
-    currentAdviceRequest.next(adviceRequest)
+    currentAdviceRequest.next(correctedAdviceRequest)
   }
 
   func setStation(state: PickerState, station: Station, byPicker: Bool = false) {
@@ -130,18 +156,22 @@ class TravelService: NSObject {
       }
     }
 
-    setCurrentAdviceRequest(newAdvice)
+    setCurrentAdviceRequest(newAdvice, userInput: byPicker)
   }
 
   func fetchCurrentAdvices(adviceRequest: AdviceRequest) {
-    apiService.advices(adviceRequest).then { [weak self] advices in
-      if let firstAdvice = advices.advices.first {
+    apiService.advices(adviceRequest).then { [weak self] advicesResult in
+      let advices = advicesResult.advices.filter {
+        $0.isOngoing
+      }
+
+      if let firstAdvice = advices.first {
         self?.currentAdviceObservable.next(firstAdvice)
       }
-      if let secondAdvice = advices.advices[safe: 1] {
+      if let secondAdvice = advices[safe: 1] {
         self?.nextAdviceObservable.next(secondAdvice)
       }
-      self?.currentAdvicesObservable.next(advices.advices)
+      self?.currentAdvicesObservable.next(advices)
     }
   }
 
@@ -164,7 +194,7 @@ class TravelService: NSObject {
       let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
 
       let predicate = NSPredicate(format: "lat > %f AND lat < %f AND lon > %f AND lon < %f", circularRegionBounds.latmin, circularRegionBounds.latmax, circularRegionBounds.lonmin, circularRegionBounds.lonmax)
-      if let stations = try? CDK.backgroundContext.find(StationRecord.self, predicate: predicate, sortDescriptors: nil, limit: nil) {
+      if let stations = try? CDK.mainThreadContext.find(StationRecord.self, predicate: predicate, sortDescriptors: nil, limit: nil) {
         return Promise(value: self.sortCloseLocations(currentLocation, stations: stations))
       }
 
@@ -190,7 +220,7 @@ class TravelService: NSObject {
               newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
             }
 
-            service.setCurrentAdviceRequest(newAdvice)
+            service.setCurrentAdviceRequest(newAdvice, userInput: true)
           }
         }.trap { error in
           print(error)
@@ -201,7 +231,7 @@ class TravelService: NSObject {
 
   func switchFromTo() {
     let currentAdvice = getCurrentAdvice()
-    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from))
+    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), userInput: true)
   }
 
 }

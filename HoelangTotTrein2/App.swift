@@ -13,4 +13,6 @@ struct App {
   static let locationService = LocationService()
   static let travelService = TravelService(apiService: apiService, locationService: locationService)
   static let storageAttachment = StorageAttachment(travelService: travelService)
+  static let geofenceService = GeofenceService(travelService: travelService)
+  static let notificationService = NotificationService(geofenceService: geofenceService)
 }

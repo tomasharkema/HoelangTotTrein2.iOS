@@ -27,10 +27,16 @@ func ==(lhs: Melding, rhs: Melding) -> Bool {
   return lhs.id == rhs.id && lhs.ernstig == rhs.ernstig && lhs.text == rhs.text
 }
 
-struct Stop {
+struct Stop: Equatable {
   let time: Double
   let spoor: String?
   let name: String
+}
+
+func ==(lhs: Stop, rhs: Stop) -> Bool {
+  return lhs.time == rhs.time &&
+    lhs.spoor == rhs.spoor &&
+    lhs.name == rhs.name
 }
 
 struct ReisDeel {
@@ -41,6 +47,12 @@ struct ReisDeel {
 
 enum FareStatus: String {
   case VolgensPlan = "VOLGENS-PLAN"
+  case Gewijzigd = "GEWIJZIGD"
+  case Nieuw = "NIEUW"
+  case NietOptimaal = "NIET-OPTIMAAL"
+  case Geannuleerd = "GEANNULEERD"
+  case OverstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
+  case Vertraagd = "VERTRAAGD"
 }
 
 struct Advice: Equatable {
@@ -49,8 +61,7 @@ struct Advice: Equatable {
   let melding: Melding?
   let reisDeel: [ReisDeel]
   let vertrekVertraging: String?
-  //let status: FareStatus
-  let status: String
+  let status: FareStatus
 }
 
 func ==(lhs: Advice, rhs: Advice) -> Bool {
