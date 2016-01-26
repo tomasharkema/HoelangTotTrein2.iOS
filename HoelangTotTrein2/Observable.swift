@@ -7,58 +7,62 @@
 //
 
 import Foundation
+import Promissum
 
-struct ObservableSubject<T>: Equatable {
+struct ObservableSubject<ValueType>: Equatable {
   let guid = NSUUID().UUIDString
   let observeOn: dispatch_queue_t
-  let observable: (T) -> ()
+  let observable: (ValueType) -> ()
+  let once: Bool
 }
 
-func ==<T>(lhs: ObservableSubject<T>, rhs: ObservableSubject<T>) -> Bool {
+func ==<ValueType>(lhs: ObservableSubject<ValueType>, rhs: ObservableSubject<ValueType>) -> Bool {
   return lhs.guid == rhs.guid
 }
 
-class Observable<T where T: Equatable> {
+class Observable<ValueType where ValueType: Equatable> {
 
   private let queue = dispatch_queue_create("nl.tomasharkema.Observable", DISPATCH_QUEUE_SERIAL)
 
-  private var value: T? = nil {
+  private var value: ValueType? = nil {
     didSet {
       notifiy()
     }
   }
   
-  private var subjects = [ObservableSubject<T>]()
+  private var subjects = [ObservableSubject<ValueType>]()
 
   private func notifiy() {
-    dispatch_async(queue) { [weak self] in
-      if let value = self?.value, subjects = self?.subjects {
-        for subject in subjects {
-          dispatch_async(subject.observeOn) {
-            subject.observable(value)
-          }
+    if let value = value {
+      for subject in subjects {
+        dispatch_async(subject.observeOn) {
+          subject.observable(value)
         }
-      } else {
-        print("Notifying without value?!")
+        if subject.once {
+          unsubscribe(subject)
+        }
       }
+    } else {
+      print("Notifying without value?!")
     }
   }
 
-  func subscribe(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (T) -> ()) -> ObservableSubject<T> {
-    var subscription: ObservableSubject<T>!
+  func subscribe(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+    var subscription: ObservableSubject<ValueType>!
     dispatch_sync(queue) { [weak self] in
-      subscription = ObservableSubject(observeOn: observeOn, observable: subject)
+      subscription = ObservableSubject(observeOn: observeOn, observable: subject, once: false)
       self?.subjects.append(subscription)
-    }
-    if let value = value {
-      dispatch_async(observeOn) {
-        subject(value)
+
+      if let value = self?.value {
+        dispatch_async(observeOn) {
+          subject(value)
+        }
       }
     }
     return subscription
   }
 
-  func unsubscribe(subject: ObservableSubject<T>) {
+  func unsubscribe(subject: ObservableSubject<ValueType>) {
     dispatch_async(queue) { [weak self] in
       if let index = self?.subjects.indexOf(subject) {
         self?.subjects.removeAtIndex(index)
@@ -66,7 +70,7 @@ class Observable<T where T: Equatable> {
     }
   }
 
-  func next(value: T) {
+  func next(value: ValueType) {
     dispatch_async(queue) { [weak self] in
       if value != self?.value {
         self?.value = value
@@ -76,7 +80,45 @@ class Observable<T where T: Equatable> {
 
   init() {}
 
-  init(initialValue: T) {
+  init(initialValue: ValueType) {
     value = initialValue
+  }
+}
+
+// MARK: Once Trigger
+
+extension Observable {
+  func once(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+    var subscription: ObservableSubject<ValueType>!
+    dispatch_sync(queue) { [weak self] in
+      subscription = ObservableSubject(observeOn: observeOn, observable: subject, once: true)
+      self?.subjects.append(subscription)
+    }
+
+    return subscription
+  }
+}
+
+// MARK: Monad 🤓
+
+extension Observable {
+  func map<NewValueType>(transform: ValueType -> NewValueType) -> (mapSubscription: ObservableSubject<ValueType>, newObservable: Observable<NewValueType>) {
+    let newObservable = Observable<NewValueType>()
+
+    let subscription = subscribe {
+      newObservable.next(transform($0))
+    }
+
+    return (subscription, newObservable)
+  }
+
+  func mapOnce<NewValueType>(transform: ValueType -> NewValueType) -> (mapSubscription: ObservableSubject<ValueType>, newPromise: Promise<NewValueType, NoError>) {
+    let promise = PromiseSource<NewValueType, NoError>()
+
+    let subscription = once {
+      promise.resolve(transform($0))
+    }
+
+    return (subscription, promise.promise)
   }
 }
