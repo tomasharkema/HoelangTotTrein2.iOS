@@ -178,7 +178,7 @@ class TickerViewController: ViewController {
         timeString = difference.toString(format: .Custom("mm:ss"))
       }
 
-      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") + " - \(nextAdvice.smallExtraMessage)"
+      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") //+ " - \(nextAdvice.smallExtraMessage)"
       nextDelayLabel.text = nextAdvice.vertrekVertraging
       nextView.alpha = 1
     } else {

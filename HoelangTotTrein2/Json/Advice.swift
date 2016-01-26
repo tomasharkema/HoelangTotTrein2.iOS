@@ -50,6 +50,7 @@ enum FareStatus: String {
   case Gewijzigd = "GEWIJZIGD"
   case Nieuw = "NIEUW"
   case NietOptimaal = "NIET-OPTIMAAL"
+  case NietMogelijk = "NIET-MOGELIJK"
   case Geannuleerd = "GEANNULEERD"
   case OverstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
   case Vertraagd = "VERTRAAGD"

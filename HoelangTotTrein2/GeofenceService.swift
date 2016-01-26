@@ -76,7 +76,6 @@ class GeofenceService: NSObject {
             if let fromDict = toCreateGeofences[stop.name] {
               if fromDict.type == .TussenStation && geofenceType == .Overstap {
                 toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: fromDict.station, fromStop: fromDict.fromStop, toStop: stop)
-//                print("overstappen op \(fromDict.station.name)")
               }
             } else {
               let predicate = NSPredicate(format: "name = %@", stop.name)
@@ -92,8 +91,8 @@ class GeofenceService: NSObject {
         }
 
         for (_, v) in toCreateGeofences {
-          if var p = service.stationGeofences[v.station.code] {
-            service.stationGeofences[v.station.code] = service.stationGeofences[v.station.code]! + [v]
+          if let arr = service.stationGeofences[v.station.code] {
+            service.stationGeofences[v.station.code] = arr + [v]
           } else {
             service.stationGeofences[v.station.code] = [v]
           }
@@ -117,19 +116,24 @@ extension GeofenceService: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
     dispatch_async(queue) { [weak self] in
+
+      self?.travelService.currentAdviceObservable.once { advices in
+        print("NEW ADVICES AFTER GEOFENCE")
+      }
+
       guard let service = self, geofences = service.stationGeofences[region.identifier] else {
         return
       }
       print("DID ENTER REGION, \(region)")
-
-      let toFireGeofence = geofences.lazy.filter {
-        $0.fromStop?.time > NSDate().timeIntervalSince1970
+      let toFireGeofence = geofences.enumerate().lazy.sort { (l,r) in
+        l.element.fromStop?.time < r.element.fromStop?.time
+      }.filter {
+        $0.element.fromStop?.time > NSDate().timeIntervalSince1970
       }
-      if let geofence = toFireGeofence.first {
+
+      if let (_, geofence) = toFireGeofence.first {
         self?.geofenceObservable.next(geofence)
       }
     }
   }
-
-
 }

@@ -11,7 +11,7 @@ import Alamofire
 import Foundation
 
 struct ApiService {
-  let endpoint = "https://hltt-test.herokuapp.com"
+  let endpoint = "http://ns.harkema.in"
 //  let endpoint = "http://server.local:9000"
 
   let queue = dispatch_queue_create("nl.tomasharkema.DECODE", DISPATCH_QUEUE_CONCURRENT)
@@ -127,7 +127,7 @@ struct ApiService {
 
   func advices(adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ErrorType> {
     if let from = adviceRequest.from?.code, to = adviceRequest.to?.code {
-      let url = "\(endpoint)/api/advices/future?from=\(from)&to=\(to)"
+      let url = "\(endpoint)/api/advices?from=\(from)&to=\(to)"
       return requestGet(url, encoding: .URL, decoder: AdvicesResult.decodeJson)
         .mapErrorType()
     }

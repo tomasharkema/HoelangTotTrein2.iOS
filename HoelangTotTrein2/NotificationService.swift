@@ -42,7 +42,10 @@ class NotificationService {
       fireNotification("Op Station", body: "Je bent op het station. Nog \(timeString)")
 
     case .TussenStation:
-      fireNotification("Tussen Station", body: "Je bent nu op \(geofenceModel.fromStop?.name ?? "")")
+      let timeDiff = geofenceModel.fromStop?.timeDate.timeIntervalSinceDate(NSDate()) ?? 0
+      let timeString = NSDate(timeIntervalSince1970: timeDiff).toString(format: .Custom("mm:ss"))
+      let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
+      fireNotification("Tussen Station", body: "Je bent nu op \(geofenceModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
 
     case .Overstap:
       let timeString = secondsToStringOffset(geofenceModel.toStop?.time ?? 0)

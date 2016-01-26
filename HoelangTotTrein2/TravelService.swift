@@ -159,8 +159,8 @@ class TravelService: NSObject {
     setCurrentAdviceRequest(newAdvice, userInput: byPicker)
   }
 
-  func fetchCurrentAdvices(adviceRequest: AdviceRequest) {
-    apiService.advices(adviceRequest).then { [weak self] advicesResult in
+  func fetchCurrentAdvices(adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, ErrorType> {
+    return apiService.advices(adviceRequest ?? getCurrentAdvice()).then { [weak self] advicesResult in
       let advices = advicesResult.advices.filter {
         $0.isOngoing
       }
@@ -172,6 +172,8 @@ class TravelService: NSObject {
         self?.nextAdviceObservable.next(secondAdvice)
       }
       self?.currentAdvicesObservable.next(advices)
+    }.trap { error in
+      print(error)
     }
   }
 

@@ -15,6 +15,17 @@ enum PickerState {
   case To
 }
 
+extension PickerState: CustomStringConvertible {
+  var description: String {
+    switch self {
+    case .From:
+      return "Van"
+    case .To:
+      return "Naar"
+    }
+  }
+}
+
 
 class PickerViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -32,12 +43,18 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var closeFetchedResultController: NSFetchedResultsController?
   var ordinaryStationsFetchedResultsController: NSFetchedResultsController?
 
+  var isSearching: Bool {
+    return searchField.text ?? "" == ""
+  }
+
   var fetchedResultControllers: [NSFetchedResultsController?] {
-    return [
-      historyStationsFetchedResultsController,
-      closeFetchedResultController,
-      ordinaryStationsFetchedResultsController
-    ]
+
+    return
+      (isSearching ?
+        [historyStationsFetchedResultsController,
+        closeFetchedResultController] :
+        []) +
+      [ordinaryStationsFetchedResultsController]
   }
 
   override func viewDidLoad() {
@@ -46,7 +63,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     tableView.delegate = self
     tableView.dataSource = self
 
-    currentStation.text = selectedStation?.name ?? "Kies station"
+    currentStation.text = state.description
 
     App.travelService.getCloseStations().then { stations in
       do {
@@ -130,6 +147,11 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   }
 
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+    if isSearching {
+      return "Zoek resultaten"
+    }
+
     if section == 0 {
       return "Laatst gebruikt"
     } else if section == 1 {

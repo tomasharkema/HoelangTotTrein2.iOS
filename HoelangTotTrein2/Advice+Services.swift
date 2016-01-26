@@ -34,10 +34,10 @@ extension Advice {
   }
 
   var isOngoing: Bool {
-    return status == .VolgensPlan ||
+    return (status == .VolgensPlan ||
       status == .Gewijzigd ||
       status == .Vertraagd ||
-      status == .Nieuw
+      status == .Nieuw) && vertrek.actualDate.timeIntervalSinceDate(NSDate()) > 0
   }
 
   var mostSignificantStop: Station? {
