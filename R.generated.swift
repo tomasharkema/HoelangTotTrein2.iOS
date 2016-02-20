@@ -84,7 +84,21 @@ struct R: Rswift.Validatable {
   }
   
   struct image {
+    static let current_location = ImageResource(bundle: _R.hostingBundle, name: "current_location")
+    static let settings = ImageResource(bundle: _R.hostingBundle, name: "settings")
+    static let switch_from_to = ImageResource(bundle: _R.hostingBundle, name: "switch_from_to")
     
+    static func current_location(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.current_location, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    static func settings(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.settings, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    static func switch_from_to(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.switch_from_to, compatibleWithTraitCollection: traitCollection)
+    }
   }
   
   private struct intern: Rswift.Validatable {
@@ -164,7 +178,10 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIImage(named: "switch_from_to") == nil { throw ValidationError(description: "[R.swift] Image named 'switch_from_to' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "current_location") == nil { throw ValidationError(description: "[R.swift] Image named 'current_location' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "bg.png") == nil { throw ValidationError(description: "[R.swift] Image named 'bg.png' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "settings") == nil { throw ValidationError(description: "[R.swift] Image named 'settings' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().pickerViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
       }
     }

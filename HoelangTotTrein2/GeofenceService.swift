@@ -128,7 +128,7 @@ extension GeofenceService: CLLocationManagerDelegate {
       let toFireGeofence = geofences.enumerate().lazy.sort { (l,r) in
         l.element.fromStop?.time < r.element.fromStop?.time
       }.filter {
-        $0.element.fromStop?.time > NSDate().timeIntervalSince1970
+        $0.element.fromStop?.time ?? 0 + 5*60 < NSDate().timeIntervalSince1970
       }
 
       if let (_, geofence) = toFireGeofence.first {

@@ -56,14 +56,23 @@ enum FareStatus: String {
   case Vertraagd = "VERTRAAGD"
 }
 
+struct AdviceRequestCodes {
+  let from: String
+  let to: String
+}
+
 struct Advice: Equatable {
   let overstappen: Int
   let vertrek: FareTime
+  let aankomst: FareTime
   let melding: Melding?
   let reisDeel: [ReisDeel]
   let vertrekVertraging: String?
   let status: FareStatus
+  let request: AdviceRequestCodes
 }
+
+typealias Advices = [Advice]
 
 func ==(lhs: Advice, rhs: Advice) -> Bool {
   return lhs.overstappen == rhs.overstappen &&
@@ -74,5 +83,27 @@ func ==(lhs: Advice, rhs: Advice) -> Bool {
 }
 
 struct AdvicesResult {
-  let advices: [Advice]
+  let advices: Advices
+}
+
+struct AdviceRequest: Equatable {
+  let from: Station?
+  let to: Station?
+
+  func setFrom(from: Station) -> AdviceRequest {
+    return AdviceRequest(from: from, to: to)
+  }
+
+  func setTo(to: Station) -> AdviceRequest {
+    return AdviceRequest(from: from, to: to)
+  }
+}
+
+func ==(lhs: AdviceRequest, rhs: AdviceRequest) -> Bool {
+  return lhs.from == rhs.from && lhs.to == rhs.to
+}
+
+struct AdvicesAndRequest {
+  let advices: Advices
+  let adviceRequest: AdviceRequest
 }

@@ -15,6 +15,7 @@ struct Keys {
   static let ToStationByPickerCodeKey = "ToStationByPickerCodeKey"
   static let UserIdKey = "UserIdKey"
   static let GeofenceInfoKey = "GeofenceInfoKey"
+  static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
 }
 
 let UserDefaults = NSUserDefaults.standardUserDefaults()
@@ -113,6 +114,41 @@ extension NSUserDefaults {
     set {
       if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
         setObject(json, forKey: Keys.GeofenceInfoKey)
+      }
+    }
+  }
+
+  var persistedAdvicesAndRequest: AdvicesAndRequest? {
+    set {
+      if let value = newValue {
+
+        let dict = value.encodeJson()
+
+        _persistedAdvicesAndRequest = dict
+      }
+    }
+    get {
+      if let dict = _persistedAdvicesAndRequest {
+        do {
+          return try AdvicesAndRequest.decodeJson(dict)
+        } catch {
+          print(error)
+        }
+      }
+      return nil
+    }
+  }
+
+  private var _persistedAdvicesAndRequest: [String: AnyObject]? {
+    get {
+      if let data = objectForKey(Keys.PersistedAdvicesAndRequest) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+        return object as? [String: AnyObject]
+      }
+      return nil
+    }
+    set {
+      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
+        setObject(json, forKey: Keys.PersistedAdvicesAndRequest)
       }
     }
   }

@@ -44,16 +44,16 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var ordinaryStationsFetchedResultsController: NSFetchedResultsController?
 
   var isSearching: Bool {
-    return searchField.text ?? "" == ""
+    return searchField.text ?? "" != ""
   }
 
   var fetchedResultControllers: [NSFetchedResultsController?] {
 
     return
-      (isSearching ?
+      (isSearching ? [] :
         [historyStationsFetchedResultsController,
-        closeFetchedResultController] :
-        []) +
+        closeFetchedResultController]
+        ) +
       [ordinaryStationsFetchedResultsController]
   }
 

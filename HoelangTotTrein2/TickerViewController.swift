@@ -51,12 +51,15 @@ class TickerViewController: ViewController {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
+    nextLabel.font = UIFont.monospacedDigitSystemFontOfSize(17, weight: UIFontWeightRegular)
+    timerMinutesLabel.font = UIFont.monospacedDigitSystemFontOfSize(120, weight: UIFontWeightThin)
+    timerSecondsLabel.font = UIFont.monospacedDigitSystemFontOfSize(60, weight: UIFontWeightThin)
+    
     timer = NSTimer.scheduledTimerWithTimeInterval(AnimationInterval, target: self, selector: "tick:", userInfo: nil, repeats: true)
 
     App.travelService.startTimer()
 
     currentAdviceSubscription = App.travelService.currentAdviceObservable.subscribe { [weak self] advice in
-      print("NEW ADVICE! \(advice)")
       self?.startTime = NSDate()
       self?.currentAdvice = advice
       self?.render()

@@ -16,7 +16,7 @@ struct SignificantLocation: Equatable {
 }
 
 func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
-  return lhs.location.isEqual(rhs.location)
+  return lhs.location == rhs.location
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate {

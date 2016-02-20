@@ -97,13 +97,17 @@ extension Advice {
   }
 }
 
+extension Advice: Hashable {
+  var hashValue: Int {
+    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)".hashValue
+  }
+}
+
 extension ReisDeel {
   var modalityType: ModalityType {
     return ModalityType.fromString(vervoerType)
   }
 }
-
-typealias Advices = [Advice]
 
 extension Array: Equatable {}
 

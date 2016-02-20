@@ -18,6 +18,7 @@ class StorageAttachment {
 
   var stationObservableSubscription: ObservableSubject<[Station]>!
   var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
+  var currentAdvicesRequestSubscription: ObservableSubject<Advices>!
 
   init (travelService: TravelService) {
     self.travelService = travelService
@@ -52,11 +53,19 @@ class StorageAttachment {
 
   func attach(context: NSManagedObjectContext) {
     self.context = context
+
     stationObservableSubscription = travelService.stationsObservable.subscribe(queue) { [weak self] stations in
       self?.updateStations(stations)
     }
+
     currentAdviceRequestSubscription = travelService.currentAdviceRequest.subscribe(queue) { [weak self] request in
       self?.insertHistoryFromRequest(request)
+    }
+
+    travelService.currentAdvicesObservable.subscribe(queue) { [weak self] advices in
+      if let service = self {
+        service.persistCurrent(advices: advices, forAdviceRequest: service.travelService.getCurrentAdviceRequest())
+      }
     }
   }
 
@@ -81,6 +90,10 @@ class StorageAttachment {
 
       return .Undo
     }
+  }
+
+  private func persistCurrent(advices advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
+    UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 
   deinit {

@@ -12,23 +12,6 @@ import CoreDataKit
 import CoreLocation
 import Promissum
 
-struct AdviceRequest: Equatable {
-  let from: Station?
-  let to: Station?
-
-  func setFrom(from: Station) -> AdviceRequest {
-    return AdviceRequest(from: from, to: to)
-  }
-
-  func setTo(to: Station) -> AdviceRequest {
-    return AdviceRequest(from: from, to: to)
-  }
-}
-
-func ==(lhs: AdviceRequest, rhs: AdviceRequest) -> Bool {
-  return lhs.from == rhs.from && lhs.to == rhs.to
-}
-
 class TravelService: NSObject {
   let queue = dispatch_queue_create("nl.tomasharkema.TravelService", DISPATCH_QUEUE_SERIAL)
   private let apiService: ApiService
@@ -60,7 +43,15 @@ class TravelService: NSObject {
       }
     }
 
-    currentAdviceRequest.next(getCurrentAdvice())
+    stationsObservable.once { [weak self] _ in
+      if let service = self {
+        let adviceRequest = service.getCurrentAdviceRequest()
+        service.currentAdviceRequest.next(adviceRequest)
+        if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest where advicesAndRequest.adviceRequest == adviceRequest {
+          self?.notifyOfNewAdvices(advicesAndRequest.advices)
+        }
+      }
+    }
   }
 
   deinit {
@@ -87,18 +78,22 @@ class TravelService: NSObject {
   }
 
   func tick(timer: NSTimer) {
-    fetchCurrentAdvices(getCurrentAdvice())
+    fetchCurrentAdvices(getCurrentAdviceRequest())
   }
 
-  func fetchStations() {
-    App.apiService.stations().then { [weak self] stations in
-      self?.stationsObservable.next(stations.stations)
+  func fetchStations() -> Promise<Stations, ErrorType> {
+    return App.apiService.stations().map {
+      $0.stations.filter {
+        $0.land == "NL"
+      }
+    }.then { [weak self] stations in
+      self?.stationsObservable.next(stations)
     }.trap { error in
       print(error)
     }
   }
 
-  func getCurrentAdvice(context: NSManagedObjectContext = CDK.mainThreadContext) -> AdviceRequest {
+  func getCurrentAdviceRequest(context: NSManagedObjectContext = CDK.mainThreadContext) -> AdviceRequest {
     let from: Station?
     if let fromCode = UserDefaults.fromStationCode {
       from = Station.fromCode(fromCode, context: context)
@@ -138,7 +133,7 @@ class TravelService: NSObject {
   }
 
   func setStation(state: PickerState, station: Station, byPicker: Bool = false) {
-    let advice = getCurrentAdvice()
+    let advice = getCurrentAdviceRequest()
     let newAdvice: AdviceRequest
     switch state {
     case .From:
@@ -160,21 +155,25 @@ class TravelService: NSObject {
   }
 
   func fetchCurrentAdvices(adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, ErrorType> {
-    return apiService.advices(adviceRequest ?? getCurrentAdvice()).then { [weak self] advicesResult in
-      let advices = advicesResult.advices.filter {
-        $0.isOngoing
-      }
-
-      if let firstAdvice = advices.first {
-        self?.currentAdviceObservable.next(firstAdvice)
-      }
-      if let secondAdvice = advices[safe: 1] {
-        self?.nextAdviceObservable.next(secondAdvice)
-      }
-      self?.currentAdvicesObservable.next(advices)
+    return apiService.advices(adviceRequest ?? getCurrentAdviceRequest()).then { [weak self] advicesResult in
+      self?.notifyOfNewAdvices(advicesResult.advices)
     }.trap { error in
       print(error)
     }
+  }
+
+  private func notifyOfNewAdvices(advices: Advices) {
+    let advices = advices.filter {
+      $0.isOngoing
+    }
+
+    if let firstAdvice = advices.first {
+      currentAdviceObservable.next(firstAdvice)
+    }
+    if let secondAdvice = advices[safe: 1] {
+      nextAdviceObservable.next(secondAdvice)
+    }
+    currentAdvicesObservable.next(advices)
   }
 
   func stationByCode(code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
@@ -213,7 +212,7 @@ class TravelService: NSObject {
           }
         }.then {
           if let station = $0.first {
-            let currentAdvice = service.getCurrentAdvice(CDK.backgroundContext)
+            let currentAdvice = service.getCurrentAdviceRequest(CDK.backgroundContext)
 
             let newAdvice: AdviceRequest
             if currentAdvice.to == station {
@@ -232,7 +231,7 @@ class TravelService: NSObject {
   }
 
   func switchFromTo() {
-    let currentAdvice = getCurrentAdvice()
+    let currentAdvice = getCurrentAdviceRequest()
     setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), userInput: true)
   }
 
