@@ -33,7 +33,7 @@ class GeofenceService: NSObject {
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
 
-        let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.code)
+        let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 300, identifier: station.code)
         locationManager.startMonitoringForRegion(region)
 
       }
@@ -113,7 +113,11 @@ class GeofenceService: NSObject {
 }
 
 extension GeofenceService: CLLocationManagerDelegate {
-
+  
+  func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+    print("didStartMonitoringForRegion", region)
+  }
+  
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
     dispatch_async(queue) { [weak self] in
 
@@ -124,11 +128,19 @@ extension GeofenceService: CLLocationManagerDelegate {
       guard let service = self, geofences = service.stationGeofences[region.identifier] else {
         return
       }
+      
+      let now = NSDate().timeIntervalSince1970
       print("DID ENTER REGION, \(region)")
-      let toFireGeofence = geofences.enumerate().lazy.sort { (l,r) in
+      let stortedGeofences = geofences.enumerate().lazy.sort { (l,r) in
         l.element.fromStop?.time < r.element.fromStop?.time
-      }.filter {
-        $0.element.fromStop?.time ?? 0 + 5*60 < NSDate().timeIntervalSince1970
+      }
+      
+      let toFireGeofence = stortedGeofences.filter {
+        let offset: Double = 13 * 60
+        //let smaller = ($0.element.fromStop?.time ?? 0) + offset < now
+        let greater = ($0.element.fromStop?.time ?? 0) - offset > now
+        
+        return greater//smaller && greater
       }
 
       if let (_, geofence) = toFireGeofence.first {

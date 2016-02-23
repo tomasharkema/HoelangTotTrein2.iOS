@@ -112,10 +112,6 @@ extension ReisDeel {
 extension Array: Equatable {}
 
 public func ==<T: CollectionType>(lhs: T, rhs: T) -> Bool {
-  if lhs.count == rhs.count {
-    return true
-  }
-
   return String(lhs) == String(rhs)
 }
 

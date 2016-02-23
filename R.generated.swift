@@ -15,6 +15,7 @@ struct R: Rswift.Validatable {
     static let denHaagHSGpx = FileResource(bundle: _R.hostingBundle, name: "Den Haag HS", pathExtension: "gpx")
     static let hoofddorpGpx = FileResource(bundle: _R.hostingBundle, name: "Hoofddorp", pathExtension: "gpx")
     static let koogAanDeZaanGpx = FileResource(bundle: _R.hostingBundle, name: "Koog aan de Zaan", pathExtension: "gpx")
+    static let nOIGpx = FileResource(bundle: _R.hostingBundle, name: "NOI", pathExtension: "gpx")
     static let sloterdijkGpx = FileResource(bundle: _R.hostingBundle, name: "sloterdijk", pathExtension: "gpx")
     static let zaandamGpx = FileResource(bundle: _R.hostingBundle, name: "Zaandam", pathExtension: "gpx")
     
@@ -55,6 +56,16 @@ struct R: Rswift.Validatable {
     
     static func koogAanDeZaanGpx(_: Void) -> String? {
       let fileResource = R.file.koogAanDeZaanGpx
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func nOIGpx(_: Void) -> NSURL? {
+      let fileResource = R.file.nOIGpx
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func nOIGpx(_: Void) -> String? {
+      let fileResource = R.file.nOIGpx
       return fileResource.bundle?.pathForResource(fileResource)
     }
     
