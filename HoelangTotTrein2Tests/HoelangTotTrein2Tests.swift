@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import HoelangTotTrein2
+@testable import HLTT
 
 class HoelangTotTrein2Tests: XCTestCase {
     

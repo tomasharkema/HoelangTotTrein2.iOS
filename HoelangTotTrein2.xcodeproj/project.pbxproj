@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0432576E97ADEEB9DF25C30D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC68A4CC5E6349314E4274F /* Pods.framework */; };
+		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
@@ -68,7 +69,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C3E847671BB82A01007D17C3 /* PBXContainerItemProxy */ = {
+		C329C3931C86C95B00F93CA5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
 			proxyType = 1;
@@ -87,6 +88,7 @@
 /* Begin PBXFileReference section */
 		31C7FB5B6D66A5D616037600 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5CC68A4CC5E6349314E4274F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
 		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
 		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
 		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
@@ -242,6 +244,7 @@
 			children = (
 				C3E8476A1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift */,
 				C3E8476C1BB82A01007D17C3 /* Info.plist */,
+				C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */,
 			);
 			path = HoelangTotTrein2Tests;
 			sourceTree = "<group>";
@@ -401,7 +404,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				C3E847681BB82A01007D17C3 /* PBXTargetDependency */,
+				C329C3941C86C95B00F93CA5 /* PBXTargetDependency */,
 			);
 			name = HoelangTotTrein2Tests;
 			productName = HoelangTotTrein2Tests;
@@ -643,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E8476B1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift in Sources */,
+				C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,10 +661,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C3E847681BB82A01007D17C3 /* PBXTargetDependency */ = {
+		C329C3941C86C95B00F93CA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
-			targetProxy = C3E847671BB82A01007D17C3 /* PBXContainerItemProxy */;
+			targetProxy = C329C3931C86C95B00F93CA5 /* PBXContainerItemProxy */;
 		};
 		C3E847731BB82A01007D17C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

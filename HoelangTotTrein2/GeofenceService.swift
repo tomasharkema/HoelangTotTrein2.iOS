@@ -12,6 +12,8 @@ import CoreLocation
 
 class GeofenceService: NSObject {
 
+  typealias StationGeofences = [String: [GeofenceModel]]
+
   private let queue = dispatch_queue_create("nl.tomasharkema.GeofenceService", DISPATCH_QUEUE_SERIAL)
 
   private let locationManager = CLLocationManager()
@@ -20,7 +22,7 @@ class GeofenceService: NSObject {
 
   private var currentAdvicesObservableSubject: ObservableSubject<Advices>!
 
-  private var stationGeofences = [String: [GeofenceModel]]()
+  private var stationGeofences = StationGeofences()
 
   let geofenceObservable = Observable<GeofenceModel>()
 
@@ -48,6 +50,55 @@ class GeofenceService: NSObject {
     }
   }
 
+  func geofencesFromAdvices(advices: Advices) -> StationGeofences {
+    var stationGeofences = StationGeofences()
+
+    for (_, advice) in advices.enumerate() {
+      var toCreateGeofences = [String: GeofenceModel]()
+      for (deelIndex, deel) in advice.reisDeel.enumerate() {
+        for (stopIndex, stop) in deel.stops.enumerate() {
+          let geofenceType: GeofenceType
+          if deelIndex == 0 && stopIndex == 0 {
+            geofenceType = .Start
+          } else if deelIndex != 0 && stopIndex == 0 {
+            geofenceType = .Overstap
+          } else if deelIndex == advice.reisDeel.count-1 && stopIndex == deel.stops.count-1 {
+            geofenceType = .End
+          } else {
+            geofenceType = .TussenStation
+          }
+
+          if let fromDict = toCreateGeofences[stop.name] {
+            if fromDict.type == .TussenStation && geofenceType == .Overstap {
+              toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: fromDict.station, fromStop: fromDict.fromStop, toStop: stop)
+            }
+          } else {
+            let predicate = NSPredicate(format: "name = %@", stop.name)
+            do {
+              if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
+                toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: station, fromStop: stop, toStop: nil)
+              }
+            } catch {
+              print(error)
+            }
+          }
+        }
+
+
+      }
+
+      for (_, v) in toCreateGeofences {
+        if let arr = stationGeofences[v.station.code] {
+          stationGeofences[v.station.code] = arr + [v]
+        } else {
+          stationGeofences[v.station.code] = [v]
+        }
+      }
+    }
+
+    return stationGeofences
+  }
+
   func attach() {
     locationManager.delegate = self
     currentAdvicesObservableSubject = travelService.currentAdvicesObservable.subscribe(queue) { [weak self] advices in
@@ -56,53 +107,15 @@ class GeofenceService: NSObject {
         return
       }
 
-      service.stationGeofences = [String: [GeofenceModel]]()
+      let stationGeofences = service.geofencesFromAdvices(advices)
 
-      for (_, advice) in advices.enumerate() {
-        var toCreateGeofences = [String: GeofenceModel]()
-        for (deelIndex, deel) in advice.reisDeel.enumerate() {
-          for (stopIndex, stop) in deel.stops.enumerate() {
-            let geofenceType: GeofenceType
-            if deelIndex == 0 && stopIndex == 0 {
-              geofenceType = .Start
-            } else if deelIndex != 0 && stopIndex == 0 {
-              geofenceType = .Overstap
-            } else if deelIndex == advice.reisDeel.count-1 && stopIndex == deel.stops.count-1 {
-              geofenceType = .End
-            } else {
-              geofenceType = .TussenStation
-            }
-
-            if let fromDict = toCreateGeofences[stop.name] {
-              if fromDict.type == .TussenStation && geofenceType == .Overstap {
-                toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: fromDict.station, fromStop: fromDict.fromStop, toStop: stop)
-              }
-            } else {
-              let predicate = NSPredicate(format: "name = %@", stop.name)
-              do {
-                if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
-                  toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: station, fromStop: stop, toStop: nil)
-                }
-              } catch {
-                print(error)
-              }
-            }
-          }
-        }
-
-        for (_, v) in toCreateGeofences {
-          if let arr = service.stationGeofences[v.station.code] {
-            service.stationGeofences[v.station.code] = arr + [v]
-          } else {
-            service.stationGeofences[v.station.code] = [v]
-          }
-        }
-      }
       self?.resetGeofences()
-      UserDefaults.geofenceInfo = service.stationGeofences
-      for (stationCode, geo) in service.stationGeofences {
+      UserDefaults.geofenceInfo = stationGeofences
+      for (stationCode, geo) in stationGeofences {
         self?.updateGeofence(stationCode, geofenceModels: geo)
       }
+
+      service.stationGeofences = stationGeofences
     }
   }
 
