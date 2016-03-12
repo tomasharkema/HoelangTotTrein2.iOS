@@ -36,7 +36,7 @@ class TravelService: NSObject {
     geofenceSubscription = App.geofenceService.geofenceObservable.subscribe { [weak self] geofence in
       switch geofence.type {
       case .Overstap, .End:
-        self?.setStation(.From, station: geofence.station)
+        self?.setStation(.From, stationName: geofence.stationName)
 
       default:
         break
@@ -130,6 +130,17 @@ class TravelService: NSObject {
       }
     }
     currentAdviceRequest.next(correctedAdviceRequest)
+  }
+  
+  func setStation(state: PickerState, stationName: StationName, byPicker: Bool = false) {
+    let predicate = NSPredicate(format: "name = %@", stationName)
+    do {
+      if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
+        setStation(state, station: station, byPicker: byPicker)
+      }
+    } catch {
+      print(error)
+    }
   }
 
   func setStation(state: PickerState, station: Station, byPicker: Bool = false) {

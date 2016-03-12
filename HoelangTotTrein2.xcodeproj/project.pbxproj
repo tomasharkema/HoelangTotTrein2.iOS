@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0432576E97ADEEB9DF25C30D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC68A4CC5E6349314E4274F /* Pods.framework */; };
+		4317EEC2754F2DCA5B5A03C8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CC68A4CC5E6349314E4274F /* Pods.framework */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
@@ -69,7 +70,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C329C3931C86C95B00F93CA5 /* PBXContainerItemProxy */ = {
+		C339A7C41C943EC30058E97C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
 			proxyType = 1;
@@ -169,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4317EEC2754F2DCA5B5A03C8 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,14 +399,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3E8477D1BB82A01007D17C3 /* Build configuration list for PBXNativeTarget "HoelangTotTrein2Tests" */;
 			buildPhases = (
+				44DC697EA8BAA6301695F7D1 /* Check Pods Manifest.lock */,
 				C3E847621BB82A01007D17C3 /* Sources */,
 				C3E847631BB82A01007D17C3 /* Frameworks */,
 				C3E847641BB82A01007D17C3 /* Resources */,
+				5FA0CDC7415CA1DBBBB263FB /* Embed Pods Frameworks */,
+				24AEC852AA630F7B915F6B7D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C329C3941C86C95B00F93CA5 /* PBXTargetDependency */,
+				C339A7C51C943EC30058E97C /* PBXTargetDependency */,
 			);
 			name = HoelangTotTrein2Tests;
 			productName = HoelangTotTrein2Tests;
@@ -530,6 +535,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		24AEC852AA630F7B915F6B7D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2DAA6C0B4DDB104CC8182399 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -543,6 +563,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		44DC697EA8BAA6301695F7D1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5FA0CDC7415CA1DBBBB263FB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A5AECA12838D205C8C37D5DE /* Embed Pods Frameworks */ = {
@@ -661,10 +711,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C329C3941C86C95B00F93CA5 /* PBXTargetDependency */ = {
+		C339A7C51C943EC30058E97C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
-			targetProxy = C329C3931C86C95B00F93CA5 /* PBXContainerItemProxy */;
+			targetProxy = C339A7C41C943EC30058E97C /* PBXContainerItemProxy */;
 		};
 		C3E847731BB82A01007D17C3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -806,25 +856,27 @@
 		};
 		C3E8477E1BB82A01007D17C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31C7FB5B6D66A5D616037600 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HoelangTotTrein2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoelangTotTrein2.app/HoelangTotTrein2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Debug;
 		};
 		C3E8477F1BB82A01007D17C3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6EF40B07AFBFB6745292115 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HoelangTotTrein2Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HoelangTotTrein2.app/HoelangTotTrein2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Release;
 		};

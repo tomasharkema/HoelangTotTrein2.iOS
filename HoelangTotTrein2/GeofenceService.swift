@@ -10,9 +10,12 @@ import Foundation
 import CoreDataKit
 import CoreLocation
 
+typealias StationName = String
+
 class GeofenceService: NSObject {
 
-  typealias StationGeofences = [String: [GeofenceModel]]
+  typealias GeofenceModels = [GeofenceModel]
+  typealias StationGeofences = [StationName: GeofenceModels]
 
   private let queue = dispatch_queue_create("nl.tomasharkema.GeofenceService", DISPATCH_QUEUE_SERIAL)
 
@@ -70,28 +73,19 @@ class GeofenceService: NSObject {
 
           if let fromDict = toCreateGeofences[stop.name] {
             if fromDict.type == .TussenStation && geofenceType == .Overstap {
-              toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: fromDict.station, fromStop: fromDict.fromStop, toStop: stop)
+              toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, stationName: fromDict.stationName, fromStop: fromDict.fromStop, toStop: stop)
             }
           } else {
-            let predicate = NSPredicate(format: "name = %@", stop.name)
-            do {
-              if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
-                toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, station: station, fromStop: stop, toStop: nil)
-              }
-            } catch {
-              print(error)
-            }
+            toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, stationName: stop.name, fromStop: stop, toStop: nil)
           }
         }
-
-
       }
 
       for (_, v) in toCreateGeofences {
-        if let arr = stationGeofences[v.station.code] {
-          stationGeofences[v.station.code] = arr + [v]
+        if let arr = stationGeofences[v.stationName] {
+          stationGeofences[v.stationName] = arr + [v]
         } else {
-          stationGeofences[v.station.code] = [v]
+          stationGeofences[v.stationName] = [v]
         }
       }
     }
@@ -131,6 +125,38 @@ extension GeofenceService: CLLocationManagerDelegate {
     print("didStartMonitoringForRegion", region)
   }
   
+  func geofenceFromGeofences(stationGeofences: GeofenceModels, forTime time: NSDate) -> GeofenceModel? {
+    let now = time.timeIntervalSince1970
+    
+    let stortedGeofences = stationGeofences.enumerate().lazy.sort { (l,r) in
+      l.element.fromStop?.time < r.element.fromStop?.time
+    }
+    
+    let toFireGeofence = stortedGeofences.filter { geofence in
+      let offset: Double = 13 * 60
+      
+      switch (geofence.element.fromStop, geofence.element.toStop) {
+      
+      case (let fromStop?, let toStop?):
+        return fromStop.time - offset >= now && toStop.time - 60 > now
+        
+      case (let fromStop?, _):
+        if geofence.element.type == .TussenStation {
+          return fromStop.time + offset >= now
+        }
+        
+        return fromStop.time > now
+        
+      default: return false
+      }
+    }
+    
+    if let (_, geofence) = toFireGeofence.first {
+      return geofence
+    }
+    return nil
+  }
+  
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
     dispatch_async(queue) { [weak self] in
 
@@ -142,21 +168,9 @@ extension GeofenceService: CLLocationManagerDelegate {
         return
       }
       
-      let now = NSDate().timeIntervalSince1970
       print("DID ENTER REGION, \(region)")
-      let stortedGeofences = geofences.enumerate().lazy.sort { (l,r) in
-        l.element.fromStop?.time < r.element.fromStop?.time
-      }
       
-      let toFireGeofence = stortedGeofences.filter {
-        let offset: Double = 13 * 60
-        //let smaller = ($0.element.fromStop?.time ?? 0) + offset < now
-        let greater = ($0.element.fromStop?.time ?? 0) - offset > now
-        
-        return greater//smaller && greater
-      }
-
-      if let (_, geofence) = toFireGeofence.first {
+      if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
         self?.geofenceObservable.next(geofence)
       }
     }

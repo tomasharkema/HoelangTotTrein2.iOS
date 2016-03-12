@@ -18,14 +18,14 @@ enum GeofenceType: String {
 
 struct GeofenceModel: Equatable {
   let type: GeofenceType
-  let station: Station
+  let stationName: String
   let fromStop: Stop?
   let toStop: Stop?
 }
 
 func ==(lhs: GeofenceModel, rhs: GeofenceModel) -> Bool {
   return lhs.type == rhs.type &&
-    lhs.station == rhs.station &&
+    lhs.stationName == rhs.stationName &&
     lhs.fromStop == rhs.fromStop &&
     lhs.toStop == rhs.toStop
 }

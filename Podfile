@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 use_frameworks!
 
-link_with 'HoelangTotTrein2'
+link_with 'HLTT', 'HoelangTotTrein2Tests'
 
 pod 'Alamofire', '~> 3.0'
 pod 'Promissum', '~> 0.5'

@@ -13,52 +13,409 @@ import XCTest
 class GeofenceTests: XCTestCase {
 
   let geofenceService = GeofenceService(travelService: TravelService(apiService: ApiService(), locationService: LocationService()))
-
-  override func setUp() {
-      super.setUp()
-     
-      // Put setup code here. This method is called before the invocation of each test method in the class.
-      
-      // In UI tests it is usually best to stop immediately when a failure occurs.
-      continueAfterFailure = false
-      // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-      XCUIApplication().launch()
-
-      // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-  }
   
-  override func tearDown() {
-      // Put teardown code here. This method is called after the invocation of each test method in the class.
-      super.tearDown()
-  }
-
-  /*
- let overstappen: Int
- let vertrek: FareTime
- let aankomst: FareTime
- let melding: Melding?
- let reisDeel: [ReisDeel]
- let vertrekVertraging: String?
- let status: FareStatus
- let request: AdviceRequestCodes
- */
-
-  func testExample() {
+  // MARK: - GeofencesFromAdvices
+  
+  func testGeofencesFromAdvicesShouldGenerateRightGeofenceModelsWithNoOverstap() {
     let advices = [
       Advice(overstappen: 0,
         vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
         aankomst: FareTime(planned: 1457002049, actual: 1457002049),
         melding: nil,
-        reisDeel: [],
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456902049, spoor: "1", name: "A"),
+            Stop(time: 1456912049, spoor: "1", name: "B")
+            ])
+        ],
         vertrekVertraging: nil,
         status: FareStatus.VolgensPlan,
         request: AdviceRequestCodes(from: "A", to: "B")
       )
     ]
-
-
-      // Use recording to get started writing UI tests.
-      // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    let geofences = geofenceService.geofencesFromAdvices(advices)
+    
+    XCTAssertEqual(Array(geofences.keys), ["B", "A"])
+    
+    // STATION A
+    let A = geofences["A"]
+    XCTAssertNotNil(A)
+    XCTAssertEqual(A!.count, 1)
+    XCTAssertEqual(A!.first!, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
+    
+    // STATION B
+    let B = geofences["B"]
+    XCTAssertNotNil(B)
+    XCTAssertEqual(B!.count, 1)
+    XCTAssertEqual(B!.first!, GeofenceModel(type: .End, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: nil))
   }
 
+  func testGeofencesFromAdvicesShouldGenerateRightGeofenceModelsWithOneOverstap() {
+    let advices = [
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
+        aankomst: FareTime(planned: 1457002049, actual: 1457002049),
+        melding: nil,
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456902049, spoor: "1", name: "A"),
+            Stop(time: 1456912049, spoor: "1", name: "B")
+          ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456922049, spoor: "1", name: "B"),
+            Stop(time: 1456932049, spoor: "1", name: "C"),
+            Stop(time: 1457002049, spoor: "1", name: "D")
+          ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "D")
+      )
+    ]
+    
+    let geofences = geofenceService.geofencesFromAdvices(advices)
+    
+    let keys = geofences.keys
+    XCTAssertTrue(keys.contains("A"))
+    XCTAssertTrue(keys.contains("B"))
+    XCTAssertTrue(keys.contains("C"))
+    XCTAssertTrue(keys.contains("D"))
+    
+    // STATION A
+    let A = geofences["A"]
+    XCTAssertNotNil(A)
+    XCTAssertEqual(A!.count, 1)
+    XCTAssertEqual(A!.first!, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
+    
+    // STATION B
+    let B = geofences["B"]
+    XCTAssertNotNil(B)
+    XCTAssertEqual(B!.count, 1)
+    XCTAssertEqual(B!.first!, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
+    
+    // STATION C
+    let C = geofences["C"]
+    XCTAssertNotNil(C)
+    XCTAssertEqual(C!.count, 1)
+    XCTAssertEqual(C!.first!, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+    
+    // STATION D
+    let D = geofences["D"]
+    XCTAssertNotNil(D)
+    XCTAssertEqual(D!.count, 1)
+    XCTAssertEqual(D!.first!, GeofenceModel(type: .End, stationName: "D", fromStop: Stop(time: 1457002049, spoor: "1", name: "D"), toStop: nil))
+  }
+  
+  func testGeofencesFromAdvicesShouldGenerateRightGeofenceModelsWithTwoOverstappen() {
+    let advices = [
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
+        aankomst: FareTime(planned: 1457002049, actual: 1457002049),
+        melding: nil,
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456902049, spoor: "1", name: "A"),
+            Stop(time: 1456912049, spoor: "1", name: "B")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456922049, spoor: "1", name: "B"),
+            Stop(time: 1456932049, spoor: "1", name: "C"),
+            Stop(time: 1456942049, spoor: "1", name: "D")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456952049, spoor: "1", name: "D"),
+            Stop(time: 1456962049, spoor: "1", name: "E"),
+            Stop(time: 1457002049, spoor: "1", name: "F")
+            ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "F")
+      )
+    ]
+    
+    let geofences = geofenceService.geofencesFromAdvices(advices)
+    
+    let keys = geofences.keys
+    XCTAssertTrue(keys.contains("A"))
+    XCTAssertTrue(keys.contains("B"))
+    XCTAssertTrue(keys.contains("C"))
+    XCTAssertTrue(keys.contains("D"))
+    XCTAssertTrue(keys.contains("E"))
+    XCTAssertTrue(keys.contains("F"))
+    
+    // STATION A
+    let A = geofences["A"]
+    XCTAssertNotNil(A)
+    XCTAssertEqual(A!.count, 1)
+    XCTAssertEqual(A!.first!, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
+    
+    // STATION B
+    let B = geofences["B"]
+    XCTAssertNotNil(B)
+    XCTAssertEqual(B!.count, 1)
+    XCTAssertEqual(B!.first!, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
+    
+    // STATION C
+    let C = geofences["C"]
+    XCTAssertNotNil(C)
+    XCTAssertEqual(C!.count, 1)
+    XCTAssertEqual(C!.first!, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+    
+    // STATION D
+    let D = geofences["D"]
+    XCTAssertNotNil(D)
+    XCTAssertEqual(D!.count, 1)
+    XCTAssertEqual(D!.first!, GeofenceModel(type: .Overstap, stationName: "D", fromStop: Stop(time: 1456942049, spoor: "1", name: "D"), toStop: Stop(time: 1456952049, spoor: "1", name: "D")))
+    
+    
+    // STATION E
+    let E = geofences["E"]
+    XCTAssertNotNil(E)
+    XCTAssertEqual(E!.count, 1)
+    XCTAssertEqual(E!.first!, GeofenceModel(type: .TussenStation, stationName: "E", fromStop: Stop(time: 1456962049, spoor: "1", name: "E"), toStop: nil))
+    
+    
+    // STATION F
+    let F = geofences["F"]
+    XCTAssertNotNil(F)
+    XCTAssertEqual(F!.count, 1)
+    XCTAssertEqual(F!.first!, GeofenceModel(type: .End, stationName: "F", fromStop: Stop(time: 1457002049, spoor: "1", name: "F"), toStop: nil))
+  }
+  
+  func testGeofencesFromAdvicesShouldGenerateRightGeofenceModelsWithTwoOverstappenAndMultipleAdvices() {
+    let advices = [
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
+        aankomst: FareTime(planned: 1457002049, actual: 1457002049),
+        melding: nil,
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456902049, spoor: "1", name: "A"),
+            Stop(time: 1456912049, spoor: "1", name: "B")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456922049, spoor: "1", name: "B"),
+            Stop(time: 1456932049, spoor: "1", name: "C"),
+            Stop(time: 1456942049, spoor: "1", name: "D")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456952049, spoor: "1", name: "D"),
+            Stop(time: 1456962049, spoor: "1", name: "E"),
+            Stop(time: 1457002049, spoor: "1", name: "F")
+            ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "F")
+      ),
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1457002049, actual: 1457002049),
+        aankomst: FareTime(planned: 1458002049, actual: 1458002049),
+        melding: nil,
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457002049, spoor: "1", name: "A"),
+            Stop(time: 1457102049, spoor: "1", name: "B")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457202049, spoor: "1", name: "B"),
+            Stop(time: 1457302049, spoor: "1", name: "C"),
+            Stop(time: 1457402049, spoor: "1", name: "D")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457502049, spoor: "1", name: "D"),
+            Stop(time: 1457602049, spoor: "1", name: "E"),
+            Stop(time: 1458002049, spoor: "1", name: "F")
+            ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "F")
+      )
+    ]
+    
+    let geofences = geofenceService.geofencesFromAdvices(advices)
+    
+    let keys = geofences.keys
+    XCTAssertTrue(keys.contains("A"))
+    XCTAssertTrue(keys.contains("B"))
+    XCTAssertTrue(keys.contains("C"))
+    XCTAssertTrue(keys.contains("D"))
+    XCTAssertTrue(keys.contains("E"))
+    XCTAssertTrue(keys.contains("F"))
+    
+    // STATION A
+    let A = geofences["A"]
+    XCTAssertNotNil(A)
+    XCTAssertEqual(A!.count, 2)
+    XCTAssertEqual(A!.first!, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
+    
+    // STATION B
+    let B = geofences["B"]
+    XCTAssertNotNil(B)
+    XCTAssertEqual(B!.count, 2)
+    XCTAssertEqual(B!.first!, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
+    
+    // STATION C
+    let C = geofences["C"]
+    XCTAssertNotNil(C)
+    XCTAssertEqual(C!.count, 2)
+    XCTAssertEqual(C!.first!, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+    
+    // STATION D
+    let D = geofences["D"]
+    XCTAssertNotNil(D)
+    XCTAssertEqual(D!.count, 2)
+    XCTAssertEqual(D!.first!, GeofenceModel(type: .Overstap, stationName: "D", fromStop: Stop(time: 1456942049, spoor: "1", name: "D"), toStop: Stop(time: 1456952049, spoor: "1", name: "D")))
+    
+    
+    // STATION E
+    let E = geofences["E"]
+    XCTAssertNotNil(E)
+    XCTAssertEqual(E!.count, 2)
+    XCTAssertEqual(E!.first!, GeofenceModel(type: .TussenStation, stationName: "E", fromStop: Stop(time: 1456962049, spoor: "1", name: "E"), toStop: nil))
+    
+    
+    // STATION F
+    let F = geofences["F"]
+    XCTAssertNotNil(F)
+    XCTAssertEqual(F!.count, 2)
+    XCTAssertEqual(F!.first!, GeofenceModel(type: .End, stationName: "F", fromStop: Stop(time: 1457002049, spoor: "1", name: "F"), toStop: nil))
+  }
+  
+  // MARK: - GeofenceFromGeofencesFromTime
+  
+  private func prepareGeofenceModels() -> GeofenceService.StationGeofences {
+    let advices = [
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
+        aankomst: FareTime(planned: 1457002049, actual: 1457002049),
+        melding: nil, 
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456902049, spoor: "1", name: "A"),
+            Stop(time: 1456912049, spoor: "1", name: "B")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456922049, spoor: "1", name: "B"),
+            Stop(time: 1456932049, spoor: "1", name: "C"),
+            Stop(time: 1456942049, spoor: "1", name: "D")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1456952049, spoor: "1", name: "D"),
+            Stop(time: 1456962049, spoor: "1", name: "E"),
+            Stop(time: 1457002049, spoor: "1", name: "F")
+            ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "F")
+      ),
+      Advice(overstappen: 0,
+        vertrek:  FareTime(planned: 1457002049, actual: 1457002049),
+        aankomst: FareTime(planned: 1458002049, actual: 1458002049),
+        melding: nil,
+        reisDeel: [
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457002049, spoor: "1", name: "A"),
+            Stop(time: 1457102049, spoor: "1", name: "B")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457202049, spoor: "1", name: "B"),
+            Stop(time: 1457302049, spoor: "1", name: "C"),
+            Stop(time: 1457402049, spoor: "1", name: "D")
+            ]),
+          ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+            Stop(time: 1457502049, spoor: "1", name: "D"),
+            Stop(time: 1457602049, spoor: "1", name: "E"),
+            Stop(time: 1458002049, spoor: "1", name: "F")
+            ])
+        ],
+        vertrekVertraging: nil,
+        status: FareStatus.VolgensPlan,
+        request: AdviceRequestCodes(from: "A", to: "F")
+      )
+    ]
+    
+    return geofenceService.geofencesFromAdvices(advices)
+  }
+  
+  // MARK: Start Geofences
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnNextStartGeofenceOnTime() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: NSDate(timeIntervalSince1970: 1456902049))
+    XCTAssertEqual(model, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1457002049, spoor: "1", name: "A"), toStop: nil))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnStartGeofenceBefore() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: NSDate(timeIntervalSince1970: 1456901049))
+    XCTAssertEqual(model, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
+  }
+  
+  // MARK: Overstap Geofences
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelBefore() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456901049))
+    XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnNextOverstappenModelOnTime() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912049))
+    XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelJustAfter() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912050))
+    XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelAfter() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456901060))
+    XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnNextOverstappenModelWhenTooLate() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912050))
+    XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
+  }
+
+  // MARK: Tussenstation Geofences
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenTooEarly() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932000))
+    XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenOnTime() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932049))
+    XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+  }
+  
+  func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenTooLate() {
+    let geofenceModels = prepareGeofenceModels()
+    
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932060))
+    XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
+  }
+  
 }
