@@ -380,9 +380,9 @@
 				C3E8474B1BB82A01007D17C3 /* Sources */,
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
-				C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */,
 				A5AECA12838D205C8C37D5DE /* Embed Pods Frameworks */,
 				08BEAA5E57378C4093C8E9AD /* Copy Pods Resources */,
+				C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -584,7 +584,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n/bin/sh \"${SCRIPT}\" \"AA37eca143a6cbc43c025498e41838d785d5666a06\"";
+			shellScript = "if [[ \"$CONFIGURATION\" == *Release ]]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n/bin/sh \"${SCRIPT}\" \"AA37eca143a6cbc43c025498e41838d785d5666a06\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
