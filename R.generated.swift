@@ -11,7 +11,8 @@ struct R: Rswift.Validatable {
   }
   
   struct file {
-    static let bgPng = FileResource(bundle: _R.hostingBundle, name: "bg", pathExtension: "png")
+    static let aKKURATLTtf = FileResource(bundle: _R.hostingBundle, name: "AKKURATL", pathExtension: "ttf")
+    static let aKKURATTtf = FileResource(bundle: _R.hostingBundle, name: "AKKURAT", pathExtension: "ttf")
     static let denHaagHSGpx = FileResource(bundle: _R.hostingBundle, name: "Den Haag HS", pathExtension: "gpx")
     static let hoofddorpGpx = FileResource(bundle: _R.hostingBundle, name: "Hoofddorp", pathExtension: "gpx")
     static let koogAanDeZaanGpx = FileResource(bundle: _R.hostingBundle, name: "Koog aan de Zaan", pathExtension: "gpx")
@@ -19,13 +20,23 @@ struct R: Rswift.Validatable {
     static let sloterdijkGpx = FileResource(bundle: _R.hostingBundle, name: "sloterdijk", pathExtension: "gpx")
     static let zaandamGpx = FileResource(bundle: _R.hostingBundle, name: "Zaandam", pathExtension: "gpx")
     
-    static func bgPng(_: Void) -> NSURL? {
-      let fileResource = R.file.bgPng
+    static func aKKURATLTtf(_: Void) -> NSURL? {
+      let fileResource = R.file.aKKURATLTtf
       return fileResource.bundle?.URLForResource(fileResource)
     }
     
-    static func bgPng(_: Void) -> String? {
-      let fileResource = R.file.bgPng
+    static func aKKURATLTtf(_: Void) -> String? {
+      let fileResource = R.file.aKKURATLTtf
+      return fileResource.bundle?.pathForResource(fileResource)
+    }
+    
+    static func aKKURATTtf(_: Void) -> NSURL? {
+      let fileResource = R.file.aKKURATTtf
+      return fileResource.bundle?.URLForResource(fileResource)
+    }
+    
+    static func aKKURATTtf(_: Void) -> String? {
+      let fileResource = R.file.aKKURATTtf
       return fileResource.bundle?.pathForResource(fileResource)
     }
     
@@ -91,13 +102,27 @@ struct R: Rswift.Validatable {
   }
   
   struct font {
+    static let akkurat = FontResource(fontName: "Akkurat")
+    static let akkuratLight = FontResource(fontName: "Akkurat-Light")
     
+    static func akkurat(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: akkurat, size: size)
+    }
+    
+    static func akkuratLight(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: akkuratLight, size: size)
+    }
   }
   
   struct image {
+    static let bg = ImageResource(bundle: _R.hostingBundle, name: "bg")
     static let current_location = ImageResource(bundle: _R.hostingBundle, name: "current_location")
     static let settings = ImageResource(bundle: _R.hostingBundle, name: "settings")
     static let switch_from_to = ImageResource(bundle: _R.hostingBundle, name: "switch_from_to")
+    
+    static func bg(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg, compatibleWithTraitCollection: traitCollection)
+    }
     
     static func current_location(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.current_location, compatibleWithTraitCollection: traitCollection)
@@ -191,8 +216,8 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIImage(named: "switch_from_to") == nil { throw ValidationError(description: "[R.swift] Image named 'switch_from_to' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "current_location") == nil { throw ValidationError(description: "[R.swift] Image named 'current_location' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIImage(named: "bg.png") == nil { throw ValidationError(description: "[R.swift] Image named 'bg.png' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "settings") == nil { throw ValidationError(description: "[R.swift] Image named 'settings' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "bg") == nil { throw ValidationError(description: "[R.swift] Image named 'bg' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().pickerViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'pickerViewController' could not be loaded from storyboard 'Main' as 'PickerViewController'.") }
       }
     }

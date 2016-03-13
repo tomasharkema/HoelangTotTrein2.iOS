@@ -89,8 +89,8 @@ extension Advice {
       if let from = item.stops.first, to = item.stops.last {
         let fromTimeString = from.timeDate.toString(format: .Custom("HH:mm"))
         let toTimeString = to.timeDate.toString(format: .Custom("HH:mm"))
-
-        return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) 👉 \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
+        //👉
+        return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) → \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
       }
       return prev
     }

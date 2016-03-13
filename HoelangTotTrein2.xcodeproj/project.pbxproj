@@ -13,8 +13,9 @@
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
-		C352D2D11C53C8E20066D01C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C352D2D01C53C8E20066D01C /* bg.png */; };
 		C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352D2D21C53DCE50066D01C /* Array+Extensions.swift */; };
+		C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
+		C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C3A47C341BBEF05D00A3CDA8 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */; };
 		C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C331BBEF05D00A3CDA8 /* History.swift */; };
 		C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
@@ -93,8 +94,9 @@
 		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
 		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
 		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
-		C352D2D01C53C8E20066D01C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		C352D2D21C53DCE50066D01C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
+		C37626901C947356006A42A7 /* AKKURATL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURATL.ttf; sourceTree = "<group>"; };
 		C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C3A47C331BBEF05D00A3CDA8 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+Services.swift"; sourceTree = "<group>"; };
@@ -224,12 +226,13 @@
 				C3E847541BB82A01007D17C3 /* TickerViewController.swift */,
 				C3E847B61BB8575E007D17C3 /* PickerViewController.swift */,
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
-				C352D2D01C53C8E20066D01C /* bg.png */,
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
+				C376268E1C947309006A42A7 /* AKKURAT.ttf */,
+				C37626901C947356006A42A7 /* AKKURATL.ttf */,
 				C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */,
 				C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */,
 				C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */,
@@ -493,10 +496,11 @@
 				C3E847601BB82A01007D17C3 /* LaunchScreen.storyboard in Resources */,
 				C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
-				C352D2D11C53C8E20066D01C /* bg.png in Resources */,
 				C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
+				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
+				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
 				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
 				C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */,
 				C3C26C0A1C552B3A00197471 /* Den Haag HS.gpx in Resources */,

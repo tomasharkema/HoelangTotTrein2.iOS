@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10115" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10084"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="AKKURAT.ttf">
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+            <string>Akkurat</string>
+        </mutableArray>
+        <mutableArray key="AKKURATL.ttf">
+            <string>Akkurat-Light</string>
+            <string>Akkurat-Light</string>
+            <string>Akkurat-Light</string>
+            <string>Akkurat-Light</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Ticker View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -17,8 +38,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="c9S-xq-hoZ">
-                                <rect key="frame" x="0.0" y="0.0" width="3200" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="c9S-xq-hoZ">
+                                <rect key="frame" x="0.0" y="0.0" width="1920" height="600"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFI-zy-KqB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -29,16 +50,16 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gG-lj-dDF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="112"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3a-l2-yVn">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="112"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kJa-bx-CCW">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="112"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTz-Sx-lAl" userLabel="Switch">
-                                            <rect key="frame" x="16" y="41" width="28" height="30"/>
+                                            <rect key="frame" x="16" y="45" width="28" height="30"/>
                                             <state key="normal" image="switch_from_to">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
@@ -47,51 +68,68 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9R-fo-HvB" userLabel="CurrentLocation">
-                                            <rect key="frame" x="559" y="42" width="25" height="27"/>
+                                            <rect key="frame" x="559" y="46" width="25" height="27"/>
                                             <state key="normal" image="current_location"/>
                                             <connections>
                                                 <action selector="currentLocationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P17-uy-33N"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Van:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHA-oj-5sp">
-                                            <rect key="frame" x="60" y="29" width="41" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.92549019607843142" green="0.86274509803921573" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="van:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHA-oj-5sp">
+                                            <rect key="frame" x="60" y="33" width="39" height="16"/>
+                                            <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
+                                            <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCV-JQ-SZY">
-                                            <rect key="frame" x="109" y="56" width="98" height="36"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <rect key="frame" x="107" y="60" width="102" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="8tb-pp-Lg0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="20"/>
                                             <state key="normal" title="[Selecteer]">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="8tb-pp-Lg0"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <action selector="toButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6FP-DR-6Oa"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Naar:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPg-ni-FAK">
-                                            <rect key="frame" x="60" y="65" width="41" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.92549019607843142" green="0.86274509803921573" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kPQ-Th-bO4">
-                                            <rect key="frame" x="0.0" y="56" width="600" height="0.0"/>
+                                            <rect key="frame" x="0.0" y="60" width="600" height="0.0"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" id="PFh-0S-QA0"/>
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWL-5w-9C2">
-                                            <rect key="frame" x="109" y="20" width="98" height="36"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <rect key="frame" x="107" y="20" width="102" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Syu-ej-a7w"/>
+                                                <constraint firstAttribute="height" constant="40" id="hZd-nQ-23S"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="20"/>
                                             <state key="normal" title="[Selecteer]">
                                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Syu-ej-a7w"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <action selector="fromButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eQF-Wb-D51"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="naar:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPg-ni-FAK">
+                                            <rect key="frame" x="60" y="70" width="39" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="pWL-5w-9C2" firstAttribute="leading" secondItem="GHA-oj-5sp" secondAttribute="trailing" constant="8" id="0Pe-cL-hOl"/>
@@ -101,6 +139,7 @@
                                         <constraint firstItem="GHA-oj-5sp" firstAttribute="leading" secondItem="iTz-Sx-lAl" secondAttribute="trailing" constant="8" id="P7d-hg-rv4"/>
                                         <constraint firstItem="hCV-JQ-SZY" firstAttribute="leading" secondItem="CPg-ni-FAK" secondAttribute="trailing" constant="8" id="RSZ-p9-iaJ"/>
                                         <constraint firstItem="hCV-JQ-SZY" firstAttribute="top" secondItem="pWL-5w-9C2" secondAttribute="bottom" constant="8" id="W0F-Ng-mca"/>
+                                        <constraint firstItem="hCV-JQ-SZY" firstAttribute="height" secondItem="pWL-5w-9C2" secondAttribute="height" id="WeP-c1-Nbd"/>
                                         <constraint firstAttribute="trailing" secondItem="kPQ-Th-bO4" secondAttribute="trailing" id="ZoU-d8-gxu"/>
                                         <constraint firstAttribute="bottom" secondItem="W9R-fo-HvB" secondAttribute="bottom" constant="19" id="aV7-V9-W76"/>
                                         <constraint firstItem="CPg-ni-FAK" firstAttribute="leading" secondItem="iTz-Sx-lAl" secondAttribute="trailing" constant="16" id="aXG-yr-PAd"/>
@@ -128,14 +167,14 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euJ-GX-gYL">
-                                <rect key="frame" x="185" y="240" width="230" height="120"/>
+                                <rect key="frame" x="171" y="231" width="258" height="138"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4xx-hz-qeD">
-                                        <rect key="frame" x="0.0" y="0.0" width="145" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="171" height="138"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="117" id="Oke-PR-jWN"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="100"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="150"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -145,17 +184,17 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXn-uH-a7U">
-                                        <rect key="frame" x="145" y="38" width="15" height="72"/>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="60"/>
+                                        <rect key="frame" x="171" y="8" width="18" height="56"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="60"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWj-7h-sU7">
-                                        <rect key="frame" x="160" y="38" width="70" height="72"/>
+                                        <rect key="frame" x="189" y="8" width="69" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Myk-Vm-7Kh"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="60"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="60"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -172,8 +211,10 @@
                                     <constraint firstItem="4xx-hz-qeD" firstAttribute="top" secondItem="euJ-GX-gYL" secondAttribute="top" id="9k1-r4-y1G"/>
                                     <constraint firstAttribute="bottom" secondItem="4xx-hz-qeD" secondAttribute="bottom" id="HNT-lP-1ZK"/>
                                     <constraint firstItem="yWj-7h-sU7" firstAttribute="leading" secondItem="eXn-uH-a7U" secondAttribute="trailing" id="IXH-S8-aEB"/>
+                                    <constraint firstItem="yWj-7h-sU7" firstAttribute="top" secondItem="euJ-GX-gYL" secondAttribute="top" constant="8" id="JBU-eB-GTo"/>
                                     <constraint firstAttribute="bottom" secondItem="4xx-hz-qeD" secondAttribute="bottom" id="Mrg-6x-xLR"/>
                                     <constraint firstAttribute="trailing" secondItem="yWj-7h-sU7" secondAttribute="trailing" id="Plj-Ei-AgL"/>
+                                    <constraint firstItem="yWj-7h-sU7" firstAttribute="baseline" secondItem="eXn-uH-a7U" secondAttribute="baseline" id="d7B-Jq-4ly"/>
                                     <constraint firstItem="4xx-hz-qeD" firstAttribute="leading" secondItem="euJ-GX-gYL" secondAttribute="leading" id="eqY-hG-mmy"/>
                                     <constraint firstItem="4xx-hz-qeD" firstAttribute="leading" secondItem="euJ-GX-gYL" secondAttribute="leading" id="u73-ae-HYg"/>
                                     <constraint firstItem="eXn-uH-a7U" firstAttribute="leading" secondItem="4xx-hz-qeD" secondAttribute="trailing" id="wLd-sm-LC0"/>
@@ -185,48 +226,50 @@
                                         <exclude reference="3Nd-la-TL4"/>
                                         <exclude reference="Mrg-6x-xLR"/>
                                         <exclude reference="eqY-hG-mmy"/>
+                                        <exclude reference="wka-h0-xkd"/>
+                                        <exclude reference="4si-Ab-xIh"/>
                                         <exclude reference="4wM-H7-0TA"/>
                                         <exclude reference="y1E-eR-zGK"/>
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oww-Is-Sld">
-                                <rect key="frame" x="185" y="212" width="61" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oww-Is-Sld">
+                                <rect key="frame" x="171" y="205" width="60" height="16"/>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
+                                <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPTIMAAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7b-qJ-0ni">
-                                <rect key="frame" x="331" y="368" width="84" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="347" y="377" width="82" height="16"/>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
+                                <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SPR &gt; IC &gt; SPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLr-tD-qnL">
-                                <rect key="frame" x="297" y="212" width="118" height="21"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SPR &gt; IC &gt; SPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLr-tD-qnL">
+                                <rect key="frame" x="311" y="202" width="118" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0u5-p5-7cS">
-                                <rect key="frame" x="328" y="515" width="252" height="41"/>
+                                <rect key="frame" x="330" y="520" width="250" height="36"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="55a-f5-eDd">
-                                    <rect key="frame" x="0.0" y="0.0" width="252" height="41"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="36"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1i-M9-RNT">
-                                <rect key="frame" x="328" y="515" width="252" height="41"/>
+                                <rect key="frame" x="330" y="520" width="250" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88:88 - spoor 88b" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4Z-bj-1HT">
-                                        <rect key="frame" x="81" y="10" width="143" height="21"/>
+                                        <rect key="frame" x="85" y="10" width="137" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="145" id="dSZ-6P-Xwd"/>
                                             <constraint firstAttribute="width" constant="140" id="nHz-MH-KCb"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
+                                        <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -235,15 +278,15 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="▼" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-Fh-Mh9">
-                                        <rect key="frame" x="231" y="10" width="10" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▼" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-Fh-Mh9">
+                                        <rect key="frame" x="230" y="10" width="10" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+10 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3g7-hR-0wc">
-                                        <rect key="frame" x="10" y="10" width="61" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="10" y="10" width="65" height="16"/>
+                                        <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
                                         <color key="textColor" red="0.92549019610000005" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -268,10 +311,10 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="Zaandam 3 → Amsterdam 4" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sGh-ww-Rvn">
-                                <rect key="frame" x="20" y="408" width="560" height="87"/>
-                                <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Zaandam 3 → Amsterdam 4" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="sGh-ww-Rvn">
+                                <rect key="frame" x="20" y="413" width="560" height="87"/>
+                                <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="73i-WU-wxg">
@@ -284,8 +327,8 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EnI-Xt-Wmv">
-                                <rect key="frame" x="185" y="368" width="138" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="171" y="377" width="144" height="16"/>
+                                <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="17"/>
                                 <color key="textColor" red="0.92549019607843142" green="0.57647058823529407" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -341,6 +384,7 @@
                                 <exclude reference="NFI-zy-KqB"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="nQf-AV-Fdb"/>
                                 <exclude reference="dyM-cP-apD"/>
                                 <exclude reference="2j9-Sz-dF9"/>
                                 <exclude reference="CRN-pv-9Ct"/>
@@ -382,23 +426,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZS-xi-a9i">
-                                <rect key="frame" x="20" y="36" width="64" height="32"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                <rect key="frame" x="20" y="36" width="69" height="30"/>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="27"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-PK-uu2">
-                                <rect key="frame" x="530" y="36" width="50" height="32"/>
+                                <rect key="frame" x="530" y="36" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="TF3-tu-bWH"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="15"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="closedPressed:" destination="Qt9-SQ-BCh" eventType="touchUpInside" id="hVi-bY-zxG"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zoeken..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-8m-pdb">
-                                <rect key="frame" x="100" y="38" width="414" height="29"/>
+                                <rect key="frame" x="105" y="38" width="409" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -406,19 +451,19 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rgu-9e-uT3" customClass="PickerTableView" customModule="HLTT" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="600" height="512"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="514"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" id="IOw-n0-lSb" customClass="StationCell" customModule="HLTT" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOw-n0-lSb" id="1D0-0G-fad">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBl-Ai-mXE">
-                                                    <rect key="frame" x="18" y="8" width="564" height="27"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
+                                                    <rect key="frame" x="18" y="11" width="564" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="22"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -471,7 +516,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg.png" width="3200" height="2000"/>
+        <image name="bg" width="1920" height="1200"/>
         <image name="current_location" width="25" height="27"/>
         <image name="settings" width="25" height="25"/>
         <image name="switch_from_to" width="28" height="30"/>
