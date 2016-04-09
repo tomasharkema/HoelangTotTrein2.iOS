@@ -52,7 +52,9 @@ class TravelService: NSObject {
     stationsObservable.asObservable().single().subscribeNext { [weak self] _ in
       if let service = self {
         let adviceRequest = service.getCurrentAdviceRequest()
-        service.currentAdviceRequest.value = adviceRequest
+        if service.currentAdviceRequest.value != adviceRequest {
+          service.currentAdviceRequest.value = adviceRequest
+        }
         if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest where advicesAndRequest.adviceRequest == adviceRequest {
           self?.notifyOfNewAdvices(advicesAndRequest.advices)
         }
@@ -90,7 +92,9 @@ class TravelService: NSObject {
         $0.land == "NL"
       }
     }.then { [weak self] stations in
-      self?.stationsObservable.value = stations
+      if self?.stationsObservable.value != stations {
+        self?.stationsObservable.value = stations
+      }
     }.trap { error in
       print(error)
     }
@@ -132,7 +136,9 @@ class TravelService: NSObject {
         print($0)
       }
     }
-    currentAdviceRequest.value = correctedAdviceRequest
+    if currentAdviceRequest.value != correctedAdviceRequest {
+      currentAdviceRequest.value = correctedAdviceRequest
+    }
   }
   
   func setStation(state: PickerState, stationName: StationName, byPicker: Bool = false) {
@@ -182,12 +188,18 @@ class TravelService: NSObject {
     }
 
     if let firstAdvice = advices.first {
-      currentAdviceObservable.value = firstAdvice
+      if currentAdviceObservable.value != firstAdvice {
+        currentAdviceObservable.value = firstAdvice
+      }
     }
     if let secondAdvice = advices[safe: 1] {
-      nextAdviceObservable.value = secondAdvice
+      if nextAdviceObservable.value != secondAdvice {
+        nextAdviceObservable.value = secondAdvice
+      }
     }
-    currentAdvicesObservable.value = advices
+    if currentAdvicesObservable.value != advices {
+      currentAdvicesObservable.value = advices
+    }
   }
 
   func stationByCode(code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {

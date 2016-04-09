@@ -120,7 +120,9 @@ class GeofenceService: NSObject {
         App.travelService.currentAdviceObservable.asObservable().map { _ in value }
       }
       .subscribeNext { [weak self] value in
-        self?.geofenceObservableAfterAdvicesUpdate.value = value
+        if self?.geofenceObservableAfterAdvicesUpdate.value != value {
+          self?.geofenceObservableAfterAdvicesUpdate.value = value
+        }
       }
 
   }
@@ -135,7 +137,7 @@ class GeofenceService: NSObject {
 extension GeofenceService: CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-    print("didStartMonitoringForRegion", region)
+    print("didStartMonitoringForRegion", region.identifier)
   }
   
   func geofenceFromGeofences(stationGeofences: GeofenceModels, forTime time: NSDate) -> GeofenceModel? {
@@ -179,7 +181,9 @@ extension GeofenceService: CLLocationManagerDelegate {
       print("DID ENTER REGION, \(region)")
       
       if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
-        self?.geofenceObservable.value = geofence
+        if self?.geofenceObservable.value != geofence {
+          self?.geofenceObservable.value = geofence
+        }
       }
     }
   }

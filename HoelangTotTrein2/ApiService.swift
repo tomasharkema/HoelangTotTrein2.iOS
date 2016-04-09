@@ -102,10 +102,7 @@ struct ApiService {
     decoder: AnyObject throws -> T)
     -> Promise<SuccessResponse<T>, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
-
-    print(url)
     let request = makeRequest(method, url: url, requestFactory: requestFactory)
-
     networkActivityIndicatorManager.increment()
     return request
       .responseJsonDecodePromise(decoder: decoder)
