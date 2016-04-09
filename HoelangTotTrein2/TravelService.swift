@@ -36,8 +36,13 @@ class TravelService: NSObject {
       guard let adviceRequest = adviceRequest else {
         return
       }
-      UserDefaults.fromStationCode = adviceRequest.from?.code
-      UserDefaults.toStationCode = adviceRequest.to?.code
+      if let from = adviceRequest.from {
+        UserDefaults.fromStationCode = from.code
+      }
+
+      if let to = adviceRequest.to {
+        UserDefaults.toStationCode = to.code
+      }
 
       self?.fetchCurrentAdvices(adviceRequest)
     }

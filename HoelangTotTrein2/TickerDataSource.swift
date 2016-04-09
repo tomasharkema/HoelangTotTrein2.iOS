@@ -22,8 +22,11 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
   }
 
   func initialize() {
-    itemSize = UIScreen.mainScreen().bounds.size
+//    itemSize = UIScreen.mainScreen().bounds.size
+    minimumLineSpacing = 0
+    minimumInteritemSpacing = 0
   }
+
 
 }
 
@@ -110,6 +113,10 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
 
   func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     didDecellerateObservable.value = 1
+  }
+
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    return collectionView.frame.size
   }
 }
 

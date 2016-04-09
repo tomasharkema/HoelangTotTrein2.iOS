@@ -33,6 +33,7 @@ class TickerViewController: ViewController {
   var startTime: NSDate?
 
   @IBOutlet weak var backgroundView: UIImageView!
+  @IBOutlet weak var stackIndicatorView: UIStackView!
 
   @IBOutlet weak var fromButton: UIButton!
   @IBOutlet weak var toButton: UIButton!
@@ -50,6 +51,8 @@ class TickerViewController: ViewController {
     super.viewWillAppear(animated)
 
     startTimer()
+
+    updateTickerView(0,total: 0)
 
     collectionView.backgroundView = UIView()
     collectionView.backgroundColor = UIColor.clearColor()
@@ -71,8 +74,13 @@ class TickerViewController: ViewController {
       service.onScreenAdviceDisposable?.dispose()
       service.onScreenAdviceDisposable = service.dataSource?.onScreenAdviceObservable
         .filter { $0 != nil }
-        .subscribeNext {
-          UserDefaults.currentAdviceHash = $0!.hashValue
+        .subscribeNext { [weak self] advice in
+          UserDefaults.currentAdviceHash = advice!.hashValue
+
+
+          let index = advices.enumerate().filter { $0.element == advice }.first
+
+          self?.updateTickerView(index?.index ?? 0, total: advices.count)
         }
     }
 
@@ -80,7 +88,10 @@ class TickerViewController: ViewController {
       .delaySubscription(0.1, scheduler: MainScheduler.asyncInstance)
       .filter { $0 != nil }
       .subscribeNext { [weak self] in
-        self?.scrollToPersistedAdvice($0!)
+        let advice = self?.scrollToPersistedAdvice($0!)
+        let index = $0!.enumerate().filter { $0.element == advice }.first
+        
+        self?.updateTickerView(index?.index ?? 0, total: $0!.count)
       }
 
     currentAdviceSubscription = App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
@@ -236,16 +247,17 @@ class TickerViewController: ViewController {
     return .Portrait
   }
 
-  private func scrollToPersistedAdvice(advices: Advices) {
+  private func scrollToPersistedAdvice(advices: Advices) -> Advice? {
 
     let persistedHash = UserDefaults.currentAdviceHash
 
     let adviceAndIndexOpt = advices.enumerate().lazy.filter { $0.element.hashValue == persistedHash }.first
     guard let adviceAndIndex = adviceAndIndexOpt else {
-      return
+      return nil
     }
 
     collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: adviceAndIndex.index, inSection: 0), atScrollPosition: .Top, animated: false)
+    return adviceAndIndex.element
   }
 
   deinit {
@@ -257,5 +269,25 @@ class TickerViewController: ViewController {
     nextAdviceSubscription?.dispose()
   }
 
+}
+
+extension TickerViewController {
+  private func updateTickerView(i: Int, total: Int) {
+    stackIndicatorView.arrangedSubviews.forEach {
+      $0.removeFromSuperview()
+      self.stackIndicatorView.removeArrangedSubview($0)
+    }
+
+    (0..<total).forEach {
+      let image: UIImage
+      if $0 == i {
+        image = R.image.closed()!
+      } else {
+        image = R.image.open()!
+      }
+
+      stackIndicatorView.addArrangedSubview(UIImageView(image: image))
+    }
+  }
 }
 
