@@ -22,6 +22,9 @@
 		C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */; };
 		C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */; };
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
+		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
+		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
+		C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */; };
 		C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C071C5527D600197471 /* GeofenceService.swift */; };
 		C3C26C0A1C552B3A00197471 /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
 		C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
@@ -51,7 +54,6 @@
 		C3E8479C1BB83BCE007D17C3 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479B1BB83BCE007D17C3 /* Station.swift */; };
 		C3E847A01BB83C4F007D17C3 /* Advice+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */; };
 		C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */; };
-		C3E847A31BB840E5007D17C3 /* Promissium+Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A21BB840E5007D17C3 /* Promissium+Threading.swift */; };
 		C3E847A61BB8447B007D17C3 /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */; };
 		C3E847A91BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A71BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift */; };
 		C3E847AA1BB846FC007D17C3 /* StationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A81BB846FC007D17C3 /* StationRecord.swift */; };
@@ -104,6 +106,9 @@
 		C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Offset.swift"; sourceTree = "<group>"; };
 		C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
+		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
+		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceCell.swift; sourceTree = "<group>"; };
+		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdviceCell.xib; sourceTree = "<group>"; };
 		C3C26C071C5527D600197471 /* GeofenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceService.swift; sourceTree = "<group>"; };
 		C3C26C091C552B3A00197471 /* Den Haag HS.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Den Haag HS.gpx"; sourceTree = "<group>"; };
 		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
@@ -140,7 +145,6 @@
 		C3E8479B1BB83BCE007D17C3 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Station.swift; path = Json/Station.swift; sourceTree = "<group>"; };
 		C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Advice+JsonGen.swift"; path = "Json/Advice+JsonGen.swift"; sourceTree = "<group>"; };
 		C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Station+JsonGen.swift"; path = "Json/Station+JsonGen.swift"; sourceTree = "<group>"; };
-		C3E847A21BB840E5007D17C3 /* Promissium+Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Promissium+Threading.swift"; sourceTree = "<group>"; };
 		C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
 		C3E847A71BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StationRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C3E847A81BB846FC007D17C3 /* StationRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationRecord.swift; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
 				C3C26C071C5527D600197471 /* GeofenceService.swift */,
 				C3C26C151C5556C100197471 /* NotificationService.swift */,
+				C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -335,7 +340,6 @@
 		C3E847A41BB840E9007D17C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C3E847A21BB840E5007D17C3 /* Promissium+Threading.swift */,
 				C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */,
 				C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */,
 				C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */,
@@ -371,6 +375,8 @@
 			children = (
 				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
 				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
+				C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */,
+				C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -513,6 +519,7 @@
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
 				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
 				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
+				C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */,
 				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
 				C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */,
 				C3C26C0A1C552B3A00197471 /* Den Haag HS.gpx in Resources */,
@@ -678,17 +685,18 @@
 				C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */,
 				C3E847AA1BB846FC007D17C3 /* StationRecord.swift in Sources */,
 				C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */,
-				C3E847A31BB840E5007D17C3 /* Promissium+Threading.swift in Sources */,
 				C3E8475B1BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld in Sources */,
 				C3A47C341BBEF05D00A3CDA8 /* History+CoreDataProperties.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
 				C3E8479A1BB83BC6007D17C3 /* Advice.swift in Sources */,
 				C3E847901BB832E6007D17C3 /* TravelService.swift in Sources */,
+				C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */,
 				C3E847981BB83B9B007D17C3 /* JsonGen.swift in Sources */,
 				C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */,
 				C3E847A01BB83C4F007D17C3 /* Advice+JsonGen.swift in Sources */,
 				C3E847B31BB855AA007D17C3 /* SegueManagerController.swift in Sources */,
 				C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */,
+				C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */,
 				C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */,
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
 				C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */,

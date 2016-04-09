@@ -19,8 +19,10 @@ class TickerViewController: ViewController {
   var toStation: Station?
 
   var currentAdviceSubscription: Disposable?
+  var currentAdvicesSubscription: Disposable?
   var currentAdviceRequestSubscription: Disposable?
-
+  var onScreenAdviceDisposable: Disposable?
+  var currentAdvicesSubscriptionDelayed: Disposable?
   var nextAdviceSubscription: Disposable?
 
   var timer: NSTimer?
@@ -35,16 +37,8 @@ class TickerViewController: ViewController {
   @IBOutlet weak var fromButton: UIButton!
   @IBOutlet weak var toButton: UIButton!
 
-  // cell things
-  @IBOutlet weak var timerMinutesLabel: UILabel!
-  @IBOutlet weak var timerSecondsLabel: UILabel!
-  @IBOutlet weak var timeContainerView: UIView!
-  @IBOutlet weak var platformLabel: UILabel!
-  @IBOutlet weak var aankomstVertraging: UILabel!
-  @IBOutlet weak var statusMessageLabel: UILabel!
-  @IBOutlet weak var extraLabel: UILabel!
-  @IBOutlet weak var stepsLabel: UITextView!
-  @IBOutlet weak var stepsStackView: UIStackView!
+  @IBOutlet weak var collectionView: UICollectionView!
+  var dataSource: TickerDataSource?
 
   //next
   @IBOutlet weak var nextLabel: UILabel!
@@ -54,8 +48,11 @@ class TickerViewController: ViewController {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    
+
     startTimer()
+
+    collectionView.backgroundView = UIView()
+    collectionView.backgroundColor = UIColor.clearColor()
 
     App.travelService.startTimer()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "startTimer", name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -66,6 +63,26 @@ class TickerViewController: ViewController {
     fromButton.titleLabel?.bounds = fromButton.bounds
     toButton.titleLabel?.bounds = toButton.bounds
 
+    currentAdvicesSubscription = App.travelService.currentAdvicesObservable.asObservable().subscribeNext { [weak self] advices in
+      guard let advices = advices, service = self else {
+        return
+      }
+      service.dataSource = TickerDataSource(advices: advices, collectionView: service.collectionView)
+      service.onScreenAdviceDisposable?.dispose()
+      service.onScreenAdviceDisposable = service.dataSource?.onScreenAdviceObservable
+        .filter { $0 != nil }
+        .subscribeNext {
+          UserDefaults.currentAdviceHash = $0!.hashValue
+        }
+    }
+
+    currentAdvicesSubscriptionDelayed = App.travelService.currentAdvicesObservable.asObservable()
+      .delaySubscription(0.1, scheduler: MainScheduler.asyncInstance)
+      .filter { $0 != nil }
+      .subscribeNext { [weak self] in
+        self?.scrollToPersistedAdvice($0!)
+      }
+
     currentAdviceSubscription = App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
       guard let advice = advice else {
         return
@@ -73,14 +90,6 @@ class TickerViewController: ViewController {
       self?.startTime = NSDate()
       self?.currentAdvice = advice
       self?.render()
-
-      self?.extraLabel.text = advice.extraMessage
-      self?.statusMessageLabel.text = advice.status.alertDescription
-      self?.platformLabel.text = advice.vertrekSpoor.map { "Spoor \($0)" }
-      self?.aankomstVertraging.text = advice.vertrekVertraging.map { "aankomst: \($0)" }
-      self?.stepsLabel.text = advice.stepsMessage
-
-      self?.renderSteps(advice.stepModels)
     }
 
     nextAdviceSubscription = App.travelService.nextAdviceObservable.asObservable().subscribeNext { [weak self] advice in
@@ -143,6 +152,7 @@ class TickerViewController: ViewController {
 
   func tick(timer: NSTimer) {
     render()
+    dataSource?.tick()
   }
 
   func render() {
@@ -167,33 +177,11 @@ class TickerViewController: ViewController {
         self?.backgroundView.transform = CGAffineTransformMakeTranslation(-leftBackgroundOffset/2, 0)
       }
 
-      let timeBeforeColonString: String
-      let timeAfterColonString: String
-      if difference.hour() > 0 {
-        timeBeforeColonString = difference.toString(format: .Custom("H"))
-        timeAfterColonString = difference.toString(format: .Custom("mm"))
-
-      } else {
-        timeBeforeColonString = difference.toString(format: .Custom("mm"))
-        timeAfterColonString = difference.toString(format: .Custom("ss"))
-      }
-
-      timerMinutesLabel.text = timeBeforeColonString
-      timerSecondsLabel.text = timeAfterColonString
-      timeContainerView.hidden = false
       nextView.hidden = false
       nextViewBlur.hidden = false
     } else {
       nextViewBlur.hidden = true
       nextView.hidden = true
-      timeContainerView.hidden = true
-      timerMinutesLabel.text = "0"
-      timerSecondsLabel.text = "00"
-      platformLabel.text = ""
-      aankomstVertraging.text = ""
-      statusMessageLabel.text = ""
-      extraLabel.text = ""
-      stepsLabel.text = ""
     }
 
     if let nextAdvice = nextAdvice {
@@ -216,20 +204,6 @@ class TickerViewController: ViewController {
       nextView.alpha = 0
       nextDelayLabel.text = ""
     }
-  }
-
-  func renderSteps(stepModels: [StepViewModel]) {
-    stepsStackView.arrangedSubviews.forEach { [weak self] view in
-      self?.stepsStackView.removeArrangedSubview(view)
-      view.removeFromSuperview()
-    }
-
-    let views: [StepView] = stepModels.map {
-      let view = R.nib.stepView.firstView(owner: nil)!
-      view.viewModel = $0
-      return view
-    }
-    views.forEach { [weak self] view in self?.stepsStackView.addArrangedSubview(view) }
   }
 
   func applyErrorState() {
@@ -260,6 +234,27 @@ class TickerViewController: ViewController {
 
   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
     return .Portrait
+  }
+
+  private func scrollToPersistedAdvice(advices: Advices) {
+
+    let persistedHash = UserDefaults.currentAdviceHash
+
+    let adviceAndIndexOpt = advices.enumerate().lazy.filter { $0.element.hashValue == persistedHash }.first
+    guard let adviceAndIndex = adviceAndIndexOpt else {
+      return
+    }
+
+    collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: adviceAndIndex.index, inSection: 0), atScrollPosition: .Top, animated: false)
+  }
+
+  deinit {
+    currentAdviceSubscription?.dispose()
+    currentAdvicesSubscription?.dispose()
+    currentAdviceRequestSubscription?.dispose()
+    onScreenAdviceDisposable?.dispose()
+    currentAdvicesSubscriptionDelayed?.dispose()
+    nextAdviceSubscription?.dispose()
   }
 
 }

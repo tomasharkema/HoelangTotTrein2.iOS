@@ -16,6 +16,7 @@ struct Keys {
   static let UserIdKey = "UserIdKey"
   static let GeofenceInfoKey = "GeofenceInfoKey"
   static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
+  static let CurrentAdviceHash = "CurrentAdviceHash"
 }
 
 let UserDefaults = NSUserDefaults.standardUserDefaults()
@@ -150,6 +151,17 @@ extension NSUserDefaults {
       if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
         setObject(json, forKey: Keys.PersistedAdvicesAndRequest)
       }
+    }
+  }
+
+  var currentAdviceHash: Int? {
+    get {
+      let value = integerForKey(Keys.CurrentAdviceHash)
+      return value == 0 ? nil : value
+    }
+
+    set {
+      setInteger(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
     }
   }
 }
