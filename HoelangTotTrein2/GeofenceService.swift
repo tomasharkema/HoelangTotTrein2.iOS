@@ -9,6 +9,7 @@
 import Foundation
 import CoreDataKit
 import CoreLocation
+import RxSwift
 
 typealias StationName = String
 
@@ -17,28 +18,30 @@ class GeofenceService: NSObject {
   typealias GeofenceModels = [GeofenceModel]
   typealias StationGeofences = [StationName: GeofenceModels]
 
-  private let queue = dispatch_queue_create("nl.tomasharkema.GeofenceService", DISPATCH_QUEUE_SERIAL)
-
+  private static let queue = dispatch_queue_create("nl.tomasharkema.GeofenceService", DISPATCH_QUEUE_SERIAL)
+  private let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.GeofenceService")
   private let locationManager = CLLocationManager()
 
   private let travelService: TravelService
 
-  private var currentAdvicesObservableSubject: ObservableSubject<Advices>!
+  private var currentAdvicesObservableSubject: Disposable?
+  private var geofenceObservableAfterAdvicesUpdateSubject: Disposable?
 
   private var stationGeofences = StationGeofences()
 
-  let geofenceObservable = Observable<GeofenceModel>()
+  let geofenceObservable = Variable<GeofenceModel?>(nil)
+  let geofenceObservableAfterAdvicesUpdate = Variable<GeofenceModel?>(nil)
 
   init(travelService: TravelService) {
     self.travelService = travelService
   }
 
-  private func updateGeofence(stationCode: String, geofenceModels: [GeofenceModel]) {
-    let predicate = NSPredicate(format: "code = %@", stationCode)
+  private func updateGeofenceWithStationName(stationName: StationName, geofenceModels: [GeofenceModel]) {
+    let predicate = NSPredicate(format: "name = %@", stationName)
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
 
-        let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 300, identifier: station.code)
+        let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.name)
         locationManager.startMonitoringForRegion(region)
 
       }
@@ -95,9 +98,9 @@ class GeofenceService: NSObject {
 
   func attach() {
     locationManager.delegate = self
-    currentAdvicesObservableSubject = travelService.currentAdvicesObservable.subscribe(queue) { [weak self] advices in
+    currentAdvicesObservableSubject = travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribeNext { [weak self] advices in
 
-      guard let service = self else {
+      guard let service = self, advices = advices else {
         return
       }
 
@@ -105,16 +108,26 @@ class GeofenceService: NSObject {
 
       self?.resetGeofences()
       UserDefaults.geofenceInfo = stationGeofences
-      for (stationCode, geo) in stationGeofences {
-        self?.updateGeofence(stationCode, geofenceModels: geo)
+      for (stationName, geo) in stationGeofences {
+        self?.updateGeofenceWithStationName(stationName, geofenceModels: geo)
       }
 
       service.stationGeofences = stationGeofences
     }
+
+    geofenceObservableAfterAdvicesUpdateSubject = geofenceObservable.asObservable().observeOn(scheduler)
+      .flatMap { value in
+        App.travelService.currentAdviceObservable.asObservable().map { _ in value }
+      }
+      .subscribeNext { [weak self] value in
+        self?.geofenceObservableAfterAdvicesUpdate.value = value
+      }
+
   }
 
   deinit {
-    travelService.currentAdvicesObservable.unsubscribe(currentAdvicesObservableSubject)
+    currentAdvicesObservableSubject?.dispose()
+    geofenceObservableAfterAdvicesUpdateSubject?.dispose()
   }
 
 }
@@ -158,12 +171,7 @@ extension GeofenceService: CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    dispatch_async(queue) { [weak self] in
-
-      self?.travelService.currentAdviceObservable.once { advices in
-        print("NEW ADVICES AFTER GEOFENCE")
-      }
-
+    dispatch_sync(GeofenceService.queue) { [weak self] in
       guard let service = self, geofences = service.stationGeofences[region.identifier] else {
         return
       }
@@ -171,7 +179,7 @@ extension GeofenceService: CLLocationManagerDelegate {
       print("DID ENTER REGION, \(region)")
       
       if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
-        self?.geofenceObservable.next(geofence)
+        self?.geofenceObservable.value = geofence
       }
     }
   }

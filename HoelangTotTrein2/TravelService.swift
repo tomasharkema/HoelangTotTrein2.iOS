@@ -11,42 +11,48 @@ import CoreData
 import CoreDataKit
 import CoreLocation
 import Promissum
+import RxSwift
 
 class TravelService: NSObject {
   let queue = dispatch_queue_create("nl.tomasharkema.TravelService", DISPATCH_QUEUE_SERIAL)
   private let apiService: ApiService
   private let locationService: LocationService
 
-  private var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
-  private var geofenceSubscription: ObservableSubject<GeofenceModel>!
+  private var currentAdviceRequestSubscription: Disposable?
+  private var geofenceSubscription: Disposable?
 
   init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
     self.locationService = locationService
+
+    super.init()
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "startTimer", name: UIApplicationDidBecomeActiveNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "stopTimer", name: UIApplicationDidEnterBackgroundNotification, object: nil)
   }
 
   func attach() {
-    currentAdviceRequestSubscription = currentAdviceRequest.subscribe { [weak self] adviceRequest in
+    currentAdviceRequestSubscription = currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+      guard let adviceRequest = adviceRequest else {
+        return
+      }
       UserDefaults.fromStationCode = adviceRequest.from?.code
       UserDefaults.toStationCode = adviceRequest.to?.code
 
       self?.fetchCurrentAdvices(adviceRequest)
     }
 
-    geofenceSubscription = App.geofenceService.geofenceObservable.subscribe { [weak self] geofence in
-      switch geofence.type {
-      case .Overstap, .End:
-        self?.setStation(.From, stationName: geofence.stationName)
-
-      default:
-        break
+    geofenceSubscription = App.geofenceService.geofenceObservable.asObservable().subscribeNext { [weak self] geofence in
+      guard let geofence = geofence else {
+        return
       }
+      self?.setStation(.From, stationName: geofence.stationName)
     }
 
-    stationsObservable.once { [weak self] _ in
+    stationsObservable.asObservable().single().subscribeNext { [weak self] _ in
       if let service = self {
         let adviceRequest = service.getCurrentAdviceRequest()
-        service.currentAdviceRequest.next(adviceRequest)
+        service.currentAdviceRequest.value = adviceRequest
         if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest where advicesAndRequest.adviceRequest == adviceRequest {
           self?.notifyOfNewAdvices(advicesAndRequest.advices)
         }
@@ -54,21 +60,18 @@ class TravelService: NSObject {
     }
   }
 
-  deinit {
-    currentAdviceRequest.unsubscribe(currentAdviceRequestSubscription)
-    App.geofenceService.geofenceObservable.unsubscribe(geofenceSubscription)
-  }
-
-  let currentAdviceObservable = Observable<Advice>()
-  let currentAdvicesObservable = Observable<Advices>()
-  let stationsObservable = Observable<Stations>()
-  let currentAdviceRequest = Observable<AdviceRequest>()
-  let nextAdviceObservable = Observable<Advice>()
+  let currentAdviceObservable = Variable<Advice?>(nil)
+  let currentAdvicesObservable = Variable<Advices?>(nil)
+  let stationsObservable = Variable<Stations?>(nil)
+  let currentAdviceRequest = Variable<AdviceRequest?>(nil)
+  let nextAdviceObservable = Variable<Advice?>(nil)
 
   var timer: NSTimer?
 
   func startTimer() {
-    timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "tick:", userInfo: nil, repeats: true)
+    if timer == nil {
+      timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+    }
     tick(timer!)
   }
 
@@ -87,7 +90,7 @@ class TravelService: NSObject {
         $0.land == "NL"
       }
     }.then { [weak self] stations in
-      self?.stationsObservable.next(stations)
+      self?.stationsObservable.value = stations
     }.trap { error in
       print(error)
     }
@@ -129,7 +132,7 @@ class TravelService: NSObject {
         print($0)
       }
     }
-    currentAdviceRequest.next(correctedAdviceRequest)
+    currentAdviceRequest.value = correctedAdviceRequest
   }
   
   func setStation(state: PickerState, stationName: StationName, byPicker: Bool = false) {
@@ -179,12 +182,12 @@ class TravelService: NSObject {
     }
 
     if let firstAdvice = advices.first {
-      currentAdviceObservable.next(firstAdvice)
+      currentAdviceObservable.value = firstAdvice
     }
     if let secondAdvice = advices[safe: 1] {
-      nextAdviceObservable.next(secondAdvice)
+      nextAdviceObservable.value = secondAdvice
     }
-    currentAdvicesObservable.next(advices)
+    currentAdvicesObservable.value = advices
   }
 
   func stationByCode(code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
@@ -202,12 +205,17 @@ class TravelService: NSObject {
   }
 
   func getCloseStations() -> Promise<[StationRecord], ErrorType> {
-    return locationService.currentLocation().flatMap { currentLocation in
+    return locationService.currentLocation().flatMap { [weak self] currentLocation in
+
+      guard let service = self else {
+        return Promise(error: NSError(domain: "HLTT", code: 500, userInfo: nil))
+      }
+
       let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
 
       let predicate = NSPredicate(format: "lat > %f AND lat < %f AND lon > %f AND lon < %f", circularRegionBounds.latmin, circularRegionBounds.latmax, circularRegionBounds.lonmin, circularRegionBounds.lonmax)
       if let stations = try? CDK.mainThreadContext.find(StationRecord.self, predicate: predicate, sortDescriptors: nil, limit: nil) {
-        return Promise(value: self.sortCloseLocations(currentLocation, stations: stations))
+        return Promise(value: service.sortCloseLocations(currentLocation, stations: stations))
       }
 
       return Promise(error: NSError(domain: "HLTT", code: 500, userInfo: nil))
@@ -244,6 +252,12 @@ class TravelService: NSObject {
   func switchFromTo() {
     let currentAdvice = getCurrentAdviceRequest()
     setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), userInput: true)
+  }
+
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+    currentAdviceRequestSubscription?.dispose()
+    geofenceSubscription?.dispose()
   }
 
 }

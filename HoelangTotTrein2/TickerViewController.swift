@@ -9,6 +9,7 @@
 import UIKit
 import SegueManager
 import AFDateHelper
+import RxSwift
 
 class TickerViewController: ViewController {
 
@@ -17,10 +18,10 @@ class TickerViewController: ViewController {
   var fromStation: Station?
   var toStation: Station?
 
-  var currentAdviceSubscription: ObservableSubject<Advice>?
-  var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>?
+  var currentAdviceSubscription: Disposable?
+  var currentAdviceRequestSubscription: Disposable?
 
-  var nextAdviceSubscription: ObservableSubject<Advice>?
+  var nextAdviceSubscription: Disposable?
 
   var timer: NSTimer?
   var currentAdvice: Advice?
@@ -37,25 +38,38 @@ class TickerViewController: ViewController {
   // cell things
   @IBOutlet weak var timerMinutesLabel: UILabel!
   @IBOutlet weak var timerSecondsLabel: UILabel!
+  @IBOutlet weak var timeContainerView: UIView!
   @IBOutlet weak var platformLabel: UILabel!
   @IBOutlet weak var aankomstVertraging: UILabel!
   @IBOutlet weak var statusMessageLabel: UILabel!
   @IBOutlet weak var extraLabel: UILabel!
   @IBOutlet weak var stepsLabel: UITextView!
+  @IBOutlet weak var stepsStackView: UIStackView!
 
   //next
   @IBOutlet weak var nextLabel: UILabel!
   @IBOutlet weak var nextView: UIView!
+  @IBOutlet weak var nextViewBlur: UIVisualEffectView!
   @IBOutlet weak var nextDelayLabel: UILabel!
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
-    timer = NSTimer.scheduledTimerWithTimeInterval(AnimationInterval, target: self, selector: "tick:", userInfo: nil, repeats: true)
+    startTimer()
 
     App.travelService.startTimer()
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "startTimer", name: UIApplicationDidBecomeActiveNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "stopTimer", name: UIApplicationDidEnterBackgroundNotification, object: nil)
 
-    currentAdviceSubscription = App.travelService.currentAdviceObservable.subscribe { [weak self] advice in
+    fromButton.clipsToBounds = false
+    toButton.clipsToBounds = false
+    fromButton.titleLabel?.bounds = fromButton.bounds
+    toButton.titleLabel?.bounds = toButton.bounds
+
+    currentAdviceSubscription = App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
+      guard let advice = advice else {
+        return
+      }
       self?.startTime = NSDate()
       self?.currentAdvice = advice
       self?.render()
@@ -65,14 +79,19 @@ class TickerViewController: ViewController {
       self?.platformLabel.text = advice.vertrekSpoor.map { "Spoor \($0)" }
       self?.aankomstVertraging.text = advice.vertrekVertraging.map { "aankomst: \($0)" }
       self?.stepsLabel.text = advice.stepsMessage
+
+      self?.renderSteps(advice.stepModels)
     }
 
-    nextAdviceSubscription = App.travelService.nextAdviceObservable.subscribe { [weak self] advice in
+    nextAdviceSubscription = App.travelService.nextAdviceObservable.asObservable().subscribeNext { [weak self] advice in
       self?.nextAdvice = advice
       self?.render()
     }
 
-    currentAdviceRequestSubscription = App.travelService.currentAdviceRequest.subscribe { [weak self] adviceRequest in
+    currentAdviceRequestSubscription = App.travelService.currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+      guard let adviceRequest = adviceRequest else {
+        return
+      }
       self?.fromStation = adviceRequest.from
       self?.toStation = adviceRequest.to
       self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Selecteer]", comment: "selecteer"), forState: UIControlState.Normal)
@@ -85,16 +104,23 @@ class TickerViewController: ViewController {
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
 
-    timer?.invalidate()
-    timer = nil
+    stopTimer()
+    NSNotificationCenter.defaultCenter().removeObserver(self)
 
     App.travelService.stopTimer()
-    if let currentAdviceSubscription = currentAdviceSubscription {
-      App.travelService.currentAdviceObservable.unsubscribe(currentAdviceSubscription)
+    currentAdviceSubscription?.dispose()
+    currentAdviceRequestSubscription?.dispose()
+  }
+
+  func startTimer() {
+    if timer == nil {
+      timer = NSTimer.scheduledTimerWithTimeInterval(AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
-    if let currentAdviceRequestSubscription = currentAdviceRequestSubscription {
-      App.travelService.currentAdviceRequest.unsubscribe(currentAdviceRequestSubscription)
-    }
+  }
+
+  func stopTimer() {
+    timer?.invalidate()
+    timer = nil
   }
 
   func showPickerController(state: PickerState) {
@@ -138,7 +164,7 @@ class TickerViewController: ViewController {
       }
 
       UIView.animateWithDuration(AnimationInterval) { [weak self] in
-        self?.backgroundView.transform = CGAffineTransformMakeTranslation(-leftBackgroundOffset, 0)
+        self?.backgroundView.transform = CGAffineTransformMakeTranslation(-leftBackgroundOffset/2, 0)
       }
 
       let timeBeforeColonString: String
@@ -154,7 +180,13 @@ class TickerViewController: ViewController {
 
       timerMinutesLabel.text = timeBeforeColonString
       timerSecondsLabel.text = timeAfterColonString
+      timeContainerView.hidden = false
+      nextView.hidden = false
+      nextViewBlur.hidden = false
     } else {
+      nextViewBlur.hidden = true
+      nextView.hidden = true
+      timeContainerView.hidden = true
       timerMinutesLabel.text = "0"
       timerSecondsLabel.text = "00"
       platformLabel.text = ""
@@ -184,6 +216,24 @@ class TickerViewController: ViewController {
       nextView.alpha = 0
       nextDelayLabel.text = ""
     }
+  }
+
+  func renderSteps(stepModels: [StepViewModel]) {
+    stepsStackView.arrangedSubviews.forEach { [weak self] view in
+      self?.stepsStackView.removeArrangedSubview(view)
+      view.removeFromSuperview()
+    }
+
+    let views: [StepView] = stepModels.map {
+      let view = R.nib.stepView.firstView(owner: nil)!
+      view.viewModel = $0
+      return view
+    }
+    views.forEach { [weak self] view in self?.stepsStackView.addArrangedSubview(view) }
+  }
+
+  func applyErrorState() {
+
   }
 
   @IBAction func fromButtonPressed(sender: AnyObject) {

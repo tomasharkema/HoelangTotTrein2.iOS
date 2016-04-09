@@ -95,6 +95,15 @@ extension Advice {
       return prev
     }
   }
+
+  var stepModels: [StepViewModel] {
+    return reisDeel.flatMap { item in
+      if let from = item.stops.first, to = item.stops.last {
+        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.timeDate.toString(format: .Custom("HH:mm")), toTime: to.timeDate.toString(format: .Custom("HH:mm")))
+      }
+      return nil
+    }
+  }
 }
 
 extension Advice: Hashable {

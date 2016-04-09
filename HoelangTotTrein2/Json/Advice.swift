@@ -54,6 +54,7 @@ enum FareStatus: String {
   case Geannuleerd = "GEANNULEERD"
   case OverstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
   case Vertraagd = "VERTRAAGD"
+  case PlanGewijzigd = "PLAN-GEWIJZGD"
 }
 
 struct AdviceRequestCodes {

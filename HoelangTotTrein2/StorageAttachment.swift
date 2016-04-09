@@ -9,16 +9,18 @@
 import Foundation
 import CoreData
 import CoreDataKit
+import RxSwift
 
 class StorageAttachment {
-  let queue = dispatch_queue_create("nl.tomasharkema.StorageAttachment", DISPATCH_QUEUE_SERIAL)
+  static let queue = dispatch_queue_create("nl.tomasharkema.StorageAttachment", DISPATCH_QUEUE_SERIAL)
+  let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   let travelService: TravelService
 
   var context: NSManagedObjectContext!
 
-  var stationObservableSubscription: ObservableSubject<[Station]>!
-  var currentAdviceRequestSubscription: ObservableSubject<AdviceRequest>!
-  var currentAdvicesRequestSubscription: ObservableSubject<Advices>!
+  var stationObservableSubscription: Disposable?
+  var currentAdviceRequestSubscription: Disposable?
+  var currentAdvicesRequestSubscription: Disposable?
 
   init (travelService: TravelService) {
     self.travelService = travelService
@@ -54,17 +56,30 @@ class StorageAttachment {
   func attach(context: NSManagedObjectContext) {
     self.context = context
 
-    stationObservableSubscription = travelService.stationsObservable.subscribe(queue) { [weak self] stations in
-      self?.updateStations(stations)
+    stationObservableSubscription = travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
+      switch $0 {
+      case let .Next(stations?):
+        self?.updateStations(stations)
+      default: break;
+      }
     }
 
-    currentAdviceRequestSubscription = travelService.currentAdviceRequest.subscribe(queue) { [weak self] request in
-      self?.insertHistoryFromRequest(request)
+
+    currentAdviceRequestSubscription = travelService.currentAdviceRequest.asObservable().observeOn(scheduler).subscribe { [weak self] in
+      switch $0 {
+      case let .Next(request?):
+        self?.insertHistoryFromRequest(request)
+      default: break;
+      }
     }
 
-    travelService.currentAdvicesObservable.subscribe(queue) { [weak self] advices in
+    currentAdvicesRequestSubscription = travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
       if let service = self {
-        service.persistCurrent(advices: advices, forAdviceRequest: service.travelService.getCurrentAdviceRequest())
+        switch $0 {
+        case let .Next(advices?):
+          service.persistCurrent(advices: advices, forAdviceRequest: service.travelService.getCurrentAdviceRequest())
+        default: break;
+        }
       }
     }
   }
@@ -97,7 +112,8 @@ class StorageAttachment {
   }
 
   deinit {
-    travelService.stationsObservable.unsubscribe(stationObservableSubscription)
-    travelService.currentAdviceRequest.unsubscribe(currentAdviceRequestSubscription)
+    stationObservableSubscription?.dispose()
+    currentAdviceRequestSubscription?.dispose()
+    currentAdvicesRequestSubscription?.dispose()
   }
 }

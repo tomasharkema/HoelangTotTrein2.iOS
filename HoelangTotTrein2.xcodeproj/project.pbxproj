@@ -41,7 +41,6 @@
 		C3E847601BB82A01007D17C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */; };
 		C3E8476B1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8476A1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift */; };
 		C3E847761BB82A01007D17C3 /* HoelangTotTrein2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847751BB82A01007D17C3 /* HoelangTotTrein2UITests.swift */; };
-		C3E847841BB82B82007D17C3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847831BB82B82007D17C3 /* Observable.swift */; };
 		C3E8478E1BB8312A007D17C3 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8478D1BB8312A007D17C3 /* ApiService.swift */; };
 		C3E847901BB832E6007D17C3 /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8478F1BB832E6007D17C3 /* TravelService.swift */; };
 		C3E847921BB836A5007D17C3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847911BB836A5007D17C3 /* App.swift */; };
@@ -66,6 +65,8 @@
 		C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */; };
 		C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */; };
 		C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
+		C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F72ABE1C95D3E30024CF2C /* StepView.swift */; };
+		C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F72AC01C95D3F60024CF2C /* StepView.xib */; };
 		C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
 		C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
 /* End PBXBuildFile section */
@@ -129,7 +130,6 @@
 		C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTrein2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847751BB82A01007D17C3 /* HoelangTotTrein2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoelangTotTrein2UITests.swift; sourceTree = "<group>"; };
 		C3E847771BB82A01007D17C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C3E847831BB82B82007D17C3 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C3E8478D1BB8312A007D17C3 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		C3E8478F1BB832E6007D17C3 /* TravelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelService.swift; sourceTree = "<group>"; };
 		C3E847911BB836A5007D17C3 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -154,6 +154,8 @@
 		C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationFetchedResultControllerDelegate.swift; sourceTree = "<group>"; };
 		C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Extensions.swift"; sourceTree = "<group>"; };
 		C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NOI.gpx; sourceTree = "<group>"; };
+		C3F72ABE1C95D3E30024CF2C /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		C3F72AC01C95D3F60024CF2C /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
 		C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zaandam.gpx; sourceTree = "<group>"; };
 		C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Hoofddorp.gpx; sourceTree = "<group>"; };
 		D6EF40B07AFBFB6745292115 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 		C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */ = {
 			isa = PBXGroup;
 			children = (
+				C3F72ABD1C95D3C20024CF2C /* Views */,
 				C3E847851BB82B87007D17C3 /* Helpers */,
 				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
 				C3E847BA1BB85EBF007D17C3 /* PickerTableView.swift */,
@@ -278,7 +281,6 @@
 		C3E847861BB82B8D007D17C3 /* Observables */ = {
 			isa = PBXGroup;
 			children = (
-				C3E847831BB82B82007D17C3 /* Observable.swift */,
 			);
 			name = Observables;
 			sourceTree = "<group>";
@@ -362,6 +364,15 @@
 				C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C3F72ABD1C95D3C20024CF2C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
+				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		D0C057901F604CFCDFB4FDA7 /* Pods */ = {
@@ -497,6 +508,7 @@
 				C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
 				C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */,
+				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
 				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
@@ -659,7 +671,6 @@
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
 				C3E847AD1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift in Sources */,
-				C3E847841BB82B82007D17C3 /* Observable.swift in Sources */,
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
@@ -679,6 +690,7 @@
 				C3E847B31BB855AA007D17C3 /* SegueManagerController.swift in Sources */,
 				C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */,
 				C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */,
+				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
 				C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */,
 				C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */,
 				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
@@ -834,10 +846,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -849,10 +863,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

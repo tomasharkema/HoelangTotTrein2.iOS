@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import Promissum
+import RxSwift
 
 struct SignificantLocation: Equatable {
   let location: CLLocation
@@ -23,7 +24,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
 
   let manager: CLLocationManager
 
-  let significantLocationChangeObservable = Observable<SignificantLocation>()
+  let significantLocationChangeObservable = Variable<SignificantLocation?>(nil).asObservable()
 
   override init() {
     manager = CLLocationManager()

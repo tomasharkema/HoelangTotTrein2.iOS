@@ -47,7 +47,11 @@ class Observable<ValueType where ValueType: Equatable> {
     }
   }
 
-  func subscribe(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+  func subscribe(subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+    return subscribe(dispatch_get_main_queue(), subject: subject)
+  }
+
+  func subscribe(observeOn: dispatch_queue_t, subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
     var subscription: ObservableSubject<ValueType>!
     dispatch_sync(queue) { [weak self] in
       subscription = ObservableSubject(observeOn: observeOn, observable: subject, once: false)
@@ -71,7 +75,7 @@ class Observable<ValueType where ValueType: Equatable> {
   }
 
   func next(value: ValueType) {
-    dispatch_async(queue) { [weak self] in
+    dispatch_sync(queue) { [weak self] in
       if value != self?.value {
         self?.value = value
       }
@@ -120,5 +124,17 @@ extension Observable {
     }
 
     return (subscription, promise.promise)
+  }
+
+  func flatMap<NewValueType>(transfrom: ValueType -> Observable<NewValueType>) -> (flatMapSubscription: ObservableSubject<ValueType>, newObservable: Observable<NewValueType>) {
+    let newObservable = Observable<NewValueType>()
+
+    let subscription = subscribe {
+      transfrom($0).once {
+        newObservable.next($0)
+      }
+    }
+
+    return (subscription, newObservable)
   }
 }

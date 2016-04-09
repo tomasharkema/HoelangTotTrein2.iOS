@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class NotificationService {
   let geofenceService: GeofenceService
 
-  var geofenceSubscription: ObservableSubject<GeofenceModel>!
+  var geofenceSubscription: Disposable!
 
   init(geofenceService: GeofenceService) {
     self.geofenceService = geofenceService
@@ -35,7 +36,6 @@ class NotificationService {
   }
 
   private func notifyForGeofenceModel(geofenceModel: GeofenceModel) {
-
     switch geofenceModel.type {
     case .Start:
       let timeString = secondsToStringOffset(geofenceModel.fromStop?.time ?? 0)
@@ -53,18 +53,19 @@ class NotificationService {
 
     case .End:
       fireNotification("Eindstation", body: "Stap hier uit. Vergeet niet uit te checken!")
-
     }
-
   }
 
   func attach() {
-    geofenceSubscription = geofenceService.geofenceObservable.subscribe { [weak self] geofenceModel in
+    geofenceSubscription = geofenceService.geofenceObservableAfterAdvicesUpdate.asObservable().subscribeNext { [weak self] geofenceModel in
+      guard let geofenceModel = geofenceModel else {
+        return
+      }
       self?.notifyForGeofenceModel(geofenceModel)
     }
   }
 
   deinit {
-    geofenceService.geofenceObservable.unsubscribe(geofenceSubscription)
+    geofenceSubscription?.dispose()
   }
 }

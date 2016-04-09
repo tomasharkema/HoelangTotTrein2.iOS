@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 use_frameworks!
 
-link_with 'HLTT', 'HoelangTotTrein2Tests'
+#link_with 'HLTT'
 
 pod 'Alamofire', '~> 3.0'
 pod 'Promissum', '~> 0.5'
@@ -15,9 +15,14 @@ pod 'Promissum/UIKit', '~> 0.5'
 pod 'SegueManager/R.swift', '~> 1.2'
 pod 'CoreDataKit'
 pod 'AFDateHelper'
-pod 'NewRelicAgent'
+pod 'NewRelicAgent', '~> 5.4.0'
 
-pod 'R.swift', '~> 1.1.1'
+pod 'RxSwift',    '~> 2.0'
+pod 'RxCocoa',    '~> 2.0'
+pod 'RxBlocking', '~> 2.0'
+#pod 'RxTests',    '~> 2.0'
+
+pod 'R.swift'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
