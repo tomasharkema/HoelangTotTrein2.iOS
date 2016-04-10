@@ -43,7 +43,6 @@
 		C3E8475B1BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */; };
 		C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
 		C3E847601BB82A01007D17C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */; };
-		C3E8476B1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8476A1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift */; };
 		C3E847761BB82A01007D17C3 /* HoelangTotTrein2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847751BB82A01007D17C3 /* HoelangTotTrein2UITests.swift */; };
 		C3E8478E1BB8312A007D17C3 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8478D1BB8312A007D17C3 /* ApiService.swift */; };
 		C3E847901BB832E6007D17C3 /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8478F1BB832E6007D17C3 /* TravelService.swift */; };
@@ -132,7 +131,6 @@
 		C3E8475F1BB82A01007D17C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3E847611BB82A01007D17C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E847661BB82A01007D17C3 /* HoelangTotTrein2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTrein2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3E8476A1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoelangTotTrein2Tests.swift; sourceTree = "<group>"; };
 		C3E8476C1BB82A01007D17C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTrein2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847751BB82A01007D17C3 /* HoelangTotTrein2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoelangTotTrein2UITests.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 		C3E847691BB82A01007D17C3 /* HoelangTotTrein2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C3E8476A1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift */,
 				C3E8476C1BB82A01007D17C3 /* Info.plist */,
 				C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */,
 			);
@@ -723,7 +720,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3E8476B1BB82A01007D17C3 /* HoelangTotTrein2Tests.swift in Sources */,
 				C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

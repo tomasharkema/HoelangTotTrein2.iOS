@@ -1,15 +1,15 @@
+////
+////  HoelangTotTrein2UITests.swift
+////  HoelangTotTrein2UITests
+////
+////  Created by Tomas Harkema on 27-09-15.
+////  Copyright © 2015 Tomas Harkema. All rights reserved.
+////
 //
-//  HoelangTotTrein2UITests.swift
-//  HoelangTotTrein2UITests
+//import XCTest
 //
-//  Created by Tomas Harkema on 27-09-15.
-//  Copyright © 2015 Tomas Harkema. All rights reserved.
-//
-
-import XCTest
-
-class HoelangTotTrein2UITests: XCTestCase {
-        
+//class HoelangTotTrein2UITests: XCTestCase {
+//        
 //    override func setUp() {
 //        super.setUp()
 //        
@@ -29,8 +29,22 @@ class HoelangTotTrein2UITests: XCTestCase {
 //    }
 //    
 //    func testExample() {
-//        // Use recording to get started writing UI tests.
-//        // Use XCTAssert and related functions to verify your tests produce the correct results.
+//      
+//      let app = XCUIApplication()
+//      let element = app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(2).childrenMatchingType(.Other).elementBoundByIndex(2)
+//      element.childrenMatchingType(.Button).matchingIdentifier("[Selecteer]").elementBoundByIndex(0).tap()
+//      
+//      let tablesQuery = app.tables
+//      tablesQuery.staticTexts["'s-Hertogenbosch"].tap()
+//      app.buttons["[Selecteer]"].tap()
+//      tablesQuery.staticTexts["Almelo"].tap()
+//      
+//      let element2 = app.collectionViews.cells.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element
+//      element2.tap()
+//      element2.tap()
+//      element2.tap()
+//      element.childrenMatchingType(.Button).elementBoundByIndex(1).tap()
+//
 //    }
-  
-}
+//  
+//}
