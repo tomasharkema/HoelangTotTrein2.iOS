@@ -47,12 +47,11 @@ class TravelService: NSObject {
       self?.fetchCurrentAdvices(adviceRequest)
     }
 
-    geofenceSubscription = App.geofenceService.geofenceObservable.asObservable().subscribeNext { [weak self] geofence in
-      guard let geofence = geofence else {
-        return
+    geofenceSubscription = App.geofenceService.geofenceObservable.asObservable()
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribeNext { [weak self] geofence in
+        self?.setStation(.From, stationName: geofence.stationName)
       }
-      self?.setStation(.From, stationName: geofence.stationName)
-    }
 
     stationsObservable.asObservable().single().subscribeNext { [weak self] _ in
       if let service = self {
@@ -147,6 +146,7 @@ class TravelService: NSObject {
   }
   
   func setStation(state: PickerState, stationName: StationName, byPicker: Bool = false) {
+    assert(NSThread.isMainThread())
     let predicate = NSPredicate(format: "name = %@", stationName)
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {

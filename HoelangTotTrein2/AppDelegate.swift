@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.storageAttachment.attach(CDK.backgroundContext)
     App.travelService.attach()
     App.travelService.fetchStations()
-    App.geofenceService.attach()
     App.notificationService.attach()
 
     application.registerForRemoteNotifications()

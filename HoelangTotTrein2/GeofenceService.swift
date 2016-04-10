@@ -10,6 +10,7 @@ import Foundation
 import CoreDataKit
 import CoreLocation
 import RxSwift
+import RxCocoa
 
 typealias StationName = String
 
@@ -24,19 +25,21 @@ class GeofenceService: NSObject {
 
   private let travelService: TravelService
 
-  private var currentAdvicesObservableSubject: Disposable?
-  private var geofenceObservableAfterAdvicesUpdateSubject: Disposable?
+  private let disposeBag = DisposeBag()
 
   private var stationGeofences = StationGeofences()
 
-  let geofenceObservable = Variable<GeofenceModel?>(nil)
-  let geofenceObservableAfterAdvicesUpdate = Variable<GeofenceModel?>(nil)
+  private(set) var geofenceObservable: Observable<GeofenceModel>!
+  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
   init(travelService: TravelService) {
     self.travelService = travelService
+    super.init()
+    attach()
   }
 
   private func updateGeofenceWithStationName(stationName: StationName, geofenceModels: [GeofenceModel]) {
+    assert(NSThread.isMainThread())
     let predicate = NSPredicate(format: "name = %@", stationName)
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
@@ -51,6 +54,7 @@ class GeofenceService: NSObject {
   }
 
   private func resetGeofences() {
+    assert(NSThread.isMainThread())
     for region in locationManager.monitoredRegions {
       locationManager.stopMonitoringForRegion(region)
     }
@@ -96,40 +100,84 @@ class GeofenceService: NSObject {
     return stationGeofences
   }
 
-  func attach() {
+  private func attach() {
+    assert(NSThread.isMainThread())
     locationManager.delegate = self
-    currentAdvicesObservableSubject = travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribeNext { [weak self] advices in
+    let obs = travelService.currentAdvicesObservable
+      .asObservable()
+      .observeOn(scheduler)
+      .filterOptional()
+      .map { [weak self] advices -> StationGeofences? in
 
-      guard let service = self, advices = advices else {
+        guard let service = self else {
+          return nil
+        }
+
+        let stationGeofences = service.geofencesFromAdvices(advices)
+
+        return stationGeofences
+      }
+      .filterOptional()
+
+    obs.subscribeNext { [weak self] stationGeofences in
+      guard let service = self else {
         return
       }
-
-      let stationGeofences = service.geofencesFromAdvices(advices)
-
-      self?.resetGeofences()
-      UserDefaults.geofenceInfo = stationGeofences
-      for (stationName, geo) in stationGeofences {
-        self?.updateGeofenceWithStationName(stationName, geofenceModels: geo)
-      }
-
       service.stationGeofences = stationGeofences
-    }
+    }.addDisposableTo(disposeBag)
 
-    geofenceObservableAfterAdvicesUpdateSubject = geofenceObservable.asObservable().observeOn(scheduler)
-      .flatMap { value in
-        App.travelService.currentAdviceObservable.asObservable().map { _ in value }
-      }
-      .subscribeNext { [weak self] value in
-        if self?.geofenceObservableAfterAdvicesUpdate.value != value {
-          self?.geofenceObservableAfterAdvicesUpdate.value = value
+    obs
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribeNext { [weak self] stationGeofences in
+        guard let service = self else {
+          return
         }
+
+        service.resetGeofences()
+        UserDefaults.geofenceInfo = stationGeofences
+        for (stationName, geo) in stationGeofences {
+          service.updateGeofenceWithStationName(stationName, geofenceModels: geo)
+        }
+      }.addDisposableTo(disposeBag)
+
+    geofenceObservable = locationManager
+      .rx_didEnterRegion
+      .observeOn(scheduler)
+      .map { [weak self] region -> GeofenceModel? in
+        guard let service = self, geofences = service.stationGeofences[region.identifier] else {
+          return nil
+        }
+
+        print("DID ENTER REGION, \(region)")
+
+        if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
+          return geofence
+        }
+
+        return nil
       }
+      .filterOptional()
+      .distinctUntilChanged()
 
-  }
-
-  deinit {
-    currentAdvicesObservableSubject?.dispose()
-    geofenceObservableAfterAdvicesUpdateSubject?.dispose()
+    geofenceObservableAfterAdvicesUpdate = geofenceObservable
+      .flatMap { value -> Observable<GeofenceModel?> in
+        App.travelService.currentAdviceObservable
+          .asObservable()
+          .filterOptional()
+          .distinctUntilChanged()
+          .map { _ in
+            value
+          }
+      }
+      .filterOptional()
+      .debounce(1.0, scheduler: scheduler)
+      .map { [weak self] oldModel -> (GeofenceModel, GeofenceModel)? in
+        guard let models = self?.stationGeofences[oldModel.stationName], newModel = self?.geofenceFromGeofences(models, forTime: NSDate()) else {
+          return nil
+        }
+        return (oldModel, newModel)
+      }
+      .filterOptional()
   }
 
 }
@@ -144,7 +192,7 @@ extension GeofenceService: CLLocationManagerDelegate {
     let now = time.timeIntervalSince1970
     
     let stortedGeofences = stationGeofences.enumerate().lazy.sort { (l,r) in
-      l.element.fromStop?.time < r.element.fromStop?.time
+      l.element.fromStop?.time < r.element.fromStop?.time && l.element.toStop?.time < r.element.toStop?.time
     }
     
     let toFireGeofence = stortedGeofences.filter { geofence in
@@ -170,21 +218,5 @@ extension GeofenceService: CLLocationManagerDelegate {
       return geofence
     }
     return nil
-  }
-  
-  func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    dispatch_sync(GeofenceService.queue) { [weak self] in
-      guard let service = self, geofences = service.stationGeofences[region.identifier] else {
-        return
-      }
-      
-      print("DID ENTER REGION, \(region)")
-      
-      if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
-        if self?.geofenceObservable.value != geofence {
-          self?.geofenceObservable.value = geofence
-        }
-      }
-    }
   }
 }

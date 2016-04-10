@@ -11,8 +11,7 @@ import RxSwift
 
 class NotificationService {
   let geofenceService: GeofenceService
-
-  var geofenceSubscription: Disposable!
+  private let disposeBag = DisposeBag()
 
   init(geofenceService: GeofenceService) {
     self.geofenceService = geofenceService
@@ -29,27 +28,28 @@ class NotificationService {
     UIApplication.sharedApplication().presentLocalNotificationNow(notification)
   }
 
-  private func secondsToStringOffset(time: Double) -> String {
-    let offset = NSDate(timeIntervalSince1970: time).timeIntervalSinceDate(NSDate())
+  private func secondsToStringOffset(jsTime jsTime: Double) -> String {
+    let offset = NSDate(timeIntervalSince1970: jsTime / 1000).timeIntervalSinceDate(NSDate())
     let difference = NSDate(timeIntervalSince1970: offset - 60*60)
     return difference.toString(format: .Custom("mm:ss"))
   }
-
-  private func notifyForGeofenceModel(geofenceModel: GeofenceModel) {
-    switch geofenceModel.type {
+  //TODO: FIX OLD AND NEW GEOFENCE MODEL!!
+  private func notifyForGeofenceModel(oldModel: GeofenceModel, _ updatedModel: GeofenceModel) {
+    assert(NSThread.isMainThread())
+    switch oldModel.type {
     case .Start:
-      let timeString = secondsToStringOffset(geofenceModel.fromStop?.time ?? 0)
+      let timeString = secondsToStringOffset(jsTime: oldModel.fromStop?.time ?? 0)
       fireNotification("Op Station", body: "Je bent op het station. Nog \(timeString)")
 
     case .TussenStation:
-      let timeDiff = geofenceModel.fromStop?.timeDate.timeIntervalSinceDate(NSDate()) ?? 0
+      let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSinceDate(NSDate()) ?? 0
       let timeString = NSDate(timeIntervalSince1970: timeDiff).toString(format: .Custom("mm:ss"))
       let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
-      fireNotification("Tussen Station", body: "Je bent nu op \(geofenceModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
+      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
 
     case .Overstap:
-      let timeString = secondsToStringOffset(geofenceModel.toStop?.time ?? 0)
-      fireNotification("Overstappen!", body: "Stap over naar spoor \(geofenceModel.toStop?.spoor ?? ""). Je hebt nog \(timeString) min")
+      let timeString = secondsToStringOffset(jsTime: updatedModel.fromStop?.time ?? 0)
+      fireNotification("Overstappen!", body: "Stap over naar spoor \(updatedModel.fromStop?.spoor ?? ""). Je hebt nog \(timeString) min")
 
     case .End:
       fireNotification("Eindstation", body: "Stap hier uit. Vergeet niet uit te checken!")
@@ -57,15 +57,11 @@ class NotificationService {
   }
 
   func attach() {
-    geofenceSubscription = geofenceService.geofenceObservableAfterAdvicesUpdate.asObservable().subscribeNext { [weak self] geofenceModel in
-      guard let geofenceModel = geofenceModel else {
-        return
-      }
-      self?.notifyForGeofenceModel(geofenceModel)
-    }
-  }
-
-  deinit {
-    geofenceSubscription?.dispose()
+    geofenceService.geofenceObservableAfterAdvicesUpdate
+      .distinctUntilChanged { $0.lhs.oldModel == $0.rhs.oldModel && $0.lhs.updatedModel == $0.rhs.updatedModel }
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribeNext { [weak self] (geofenceModel, updatedModel) in
+        self?.notifyForGeofenceModel(geofenceModel, updatedModel)
+      }.addDisposableTo(disposeBag)
   }
 }
