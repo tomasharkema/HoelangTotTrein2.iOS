@@ -4,6 +4,26 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>HLTT (Complication).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
+		<key>HLTT (Glance).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>HLTT (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>12</integer>
+		</dict>
+		<key>HLTT.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>HoelangTotTrein2.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +43,11 @@
 			<true/>
 		</dict>
 		<key>C3E847701BB82A01007D17C3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3FD07CE1CC767FA002893B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

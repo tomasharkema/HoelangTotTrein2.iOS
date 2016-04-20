@@ -85,7 +85,7 @@ struct ApiService {
         log(.DEBUG, section: "API", message: "[RID: \(requestId)]: STATUS \(resp.statusCode) \(urlDescription)")
       }
       else if let error = error {
-        //log(.DEBUG, section: "API", message: "[RID: \(requestId)]: ERROR \(urlDescription) \(toNSError(error).localizedDescription)")
+        log(.DEBUG, section: "API", message: "[RID: \(requestId)]: ERROR \(urlDescription) \(error.localizedDescription)")
       }
       else {
         log(.DEBUG, section: "API", message: "[RID: \(requestId)]: EMPTY RESPONSE \(urlDescription)")

@@ -48,7 +48,7 @@ class NotificationService {
       let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSinceDate(NSDate()) ?? 0
       let timeString = NSDate(timeIntervalSince1970: timeDiff).toString(format: .Custom("mm:ss"))
       let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
-//      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
+      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
 
     case .Overstap:
       let timeString = secondsToStringOffset(jsTime: correctModel.fromStop?.time ?? 0)
