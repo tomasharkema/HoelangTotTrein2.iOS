@@ -30,7 +30,7 @@ class GeofenceService: NSObject {
   private var stationGeofences = StationGeofences()
 
   private(set) var geofenceObservable: Observable<GeofenceModel>!
-  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
+//  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
   init(travelService: TravelService) {
     self.travelService = travelService
@@ -143,6 +143,7 @@ class GeofenceService: NSObject {
     geofenceObservable = locationManager
       .rx_didEnterRegion
       .observeOn(scheduler)
+      .distinctUntilChanged()
       .map { [weak self] region -> GeofenceModel? in
         guard let service = self, geofences = service.stationGeofences[region.identifier] else {
           return nil
@@ -155,27 +156,6 @@ class GeofenceService: NSObject {
         }
 
         return nil
-      }
-      .filterOptional()
-      .distinctUntilChanged()
-
-    geofenceObservableAfterAdvicesUpdate = geofenceObservable
-      .flatMap { value -> Observable<GeofenceModel?> in
-        App.travelService.currentAdviceObservable
-          .asObservable()
-          .filterOptional()
-          .distinctUntilChanged()
-          .map { _ in
-            value
-          }
-      }
-      .filterOptional()
-      .debounce(1.0, scheduler: scheduler)
-      .map { [weak self] oldModel -> (GeofenceModel, GeofenceModel)? in
-        guard let models = self?.stationGeofences[oldModel.stationName], newModel = self?.geofenceFromGeofences(models, forTime: NSDate()) else {
-          return nil
-        }
-        return (oldModel, newModel)
       }
       .filterOptional()
   }
@@ -206,6 +186,10 @@ extension GeofenceService: CLLocationManagerDelegate {
       case (let fromStop?, _):
         if geofence.element.type == .TussenStation {
           return fromStop.time + offset >= now
+        }
+
+        if geofence.element.type == .Overstap {
+          return fromStop.time + 5 * 60 > now
         }
         
         return fromStop.time > now

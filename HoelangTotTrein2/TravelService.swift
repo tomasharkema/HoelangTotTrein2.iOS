@@ -18,8 +18,7 @@ class TravelService: NSObject {
   private let apiService: ApiService
   private let locationService: LocationService
 
-  private var currentAdviceRequestSubscription: Disposable?
-  private var geofenceSubscription: Disposable?
+  private var disposeBag = DisposeBag()
 
   init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
@@ -32,7 +31,7 @@ class TravelService: NSObject {
   }
 
   func attach() {
-    currentAdviceRequestSubscription = currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+    currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -45,13 +44,14 @@ class TravelService: NSObject {
       }
 
       self?.fetchCurrentAdvices(adviceRequest)
-    }
+    }.addDisposableTo(disposeBag)
 
-    geofenceSubscription = App.geofenceService.geofenceObservable.asObservable()
+    App.geofenceService.geofenceObservable.asObservable()
       .observeOn(MainScheduler.asyncInstance)
+      .filter { $0.type != .TussenStation }
       .subscribeNext { [weak self] geofence in
         self?.setStation(.From, stationName: geofence.stationName)
-      }
+      }.addDisposableTo(disposeBag)
 
     stationsObservable.asObservable().single().subscribeNext { [weak self] _ in
       if let service = self {
@@ -63,7 +63,7 @@ class TravelService: NSObject {
           self?.notifyOfNewAdvices(advicesAndRequest.advices)
         }
       }
-    }
+    }.addDisposableTo(disposeBag)
   }
 
   let currentAdviceObservable = Variable<Advice?>(nil)
@@ -273,8 +273,7 @@ class TravelService: NSObject {
 
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self)
-    currentAdviceRequestSubscription?.dispose()
-    geofenceSubscription?.dispose()
+    
   }
 
 }

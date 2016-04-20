@@ -18,9 +18,7 @@ class StorageAttachment {
 
   var context: NSManagedObjectContext!
 
-  var stationObservableSubscription: Disposable?
-  var currentAdviceRequestSubscription: Disposable?
-  var currentAdvicesRequestSubscription: Disposable?
+  var disposeBag = DisposeBag()
 
   init (travelService: TravelService) {
     self.travelService = travelService
@@ -56,24 +54,24 @@ class StorageAttachment {
   func attach(context: NSManagedObjectContext) {
     self.context = context
 
-    stationObservableSubscription = travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
+    travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
       switch $0 {
       case let .Next(stations?):
         self?.updateStations(stations)
       default: break;
       }
-    }
+    }.addDisposableTo(disposeBag)
 
 
-    currentAdviceRequestSubscription = travelService.currentAdviceRequest.asObservable().observeOn(scheduler).subscribe { [weak self] in
+    travelService.currentAdviceRequest.asObservable().observeOn(scheduler).subscribe { [weak self] in
       switch $0 {
       case let .Next(request?):
         self?.insertHistoryFromRequest(request)
       default: break;
       }
-    }
+    }.addDisposableTo(disposeBag)
 
-    currentAdvicesRequestSubscription = travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
+    travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
       if let service = self {
         switch $0 {
         case let .Next(advices?):
@@ -81,7 +79,7 @@ class StorageAttachment {
         default: break;
         }
       }
-    }
+    }.addDisposableTo(disposeBag)
   }
 
   func insertHistoryFromRequest(advice: AdviceRequest) {
@@ -109,11 +107,5 @@ class StorageAttachment {
 
   private func persistCurrent(advices advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
     UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
-  }
-
-  deinit {
-    stationObservableSubscription?.dispose()
-    currentAdviceRequestSubscription?.dispose()
-    currentAdvicesRequestSubscription?.dispose()
   }
 }
