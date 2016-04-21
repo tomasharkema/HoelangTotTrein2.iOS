@@ -19,9 +19,9 @@ extension PickerState: CustomStringConvertible {
   var description: String {
     switch self {
     case .From:
-      return "Van"
+      return "From"
     case .To:
-      return "Naar"
+      return "To"
     }
   }
 }
@@ -149,13 +149,13 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
     if isSearching {
-      return "Zoek resultaten"
+      return "Searchresults"
     }
 
     if section == 0 {
-      return "Laatst gebruikt"
+      return "Recently Used"
     } else if section == 1 {
-      return "Dichtbij"
+      return "Nearby"
     } else {
       return "Stations"
     }

@@ -327,7 +327,7 @@
         <!--Picker View Controller-->
         <scene sceneID="0rG-lb-idO">
             <objects>
-                <viewController restorationIdentifier="PickerViewController" storyboardIdentifier="PickerViewController" id="Qt9-SQ-BCh" customClass="PickerViewController" customModule="HLTT" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="PickerViewController" storyboardIdentifier="PickerViewController" modalPresentationStyle="overCurrentContext" id="Qt9-SQ-BCh" customClass="PickerViewController" customModule="HLTT" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Olt-hC-xTf"/>
                         <viewControllerLayoutGuide type="bottom" id="Eaj-bj-9kl"/>
@@ -337,32 +337,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lZS-xi-a9i">
-                                <rect key="frame" x="20" y="36" width="69" height="30"/>
+                                <rect key="frame" x="20" y="36" width="69" height="33"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="27"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-PK-uu2">
-                                <rect key="frame" x="530" y="36" width="50" height="30"/>
+                                <rect key="frame" x="530" y="36" width="50" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="TF3-tu-bWH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="closedPressed:" destination="Qt9-SQ-BCh" eventType="touchUpInside" id="hVi-bY-zxG"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Zoeken..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-8m-pdb">
-                                <rect key="frame" x="105" y="38" width="409" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <rect key="frame" x="105" y="34" width="409" height="33"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.77898015200000004" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="texstfieldTouchDown:" destination="Qt9-SQ-BCh" eventType="editingChanged" id="It2-c2-UfD"/>
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rgu-9e-uT3" customClass="PickerTableView" customModule="HLTT" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="514"/>
+                                <rect key="frame" x="0.0" y="89" width="600" height="511"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StationCell" id="IOw-n0-lSb" customClass="StationCell" customModule="HLTT" customModuleProvider="target">
@@ -372,8 +377,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBl-Ai-mXE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBl-Ai-mXE">
                                                     <rect key="frame" x="18" y="11" width="564" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="26" id="epb-Xj-V0V"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="22"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -392,25 +400,29 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.77898015202702697" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bqZ-PK-uu2" firstAttribute="bottom" secondItem="lZS-xi-a9i" secondAttribute="bottom" id="0fi-Hf-r0Q"/>
                             <constraint firstItem="bqZ-PK-uu2" firstAttribute="top" secondItem="Olt-hC-xTf" secondAttribute="bottom" constant="12" id="2Vy-N6-znu"/>
                             <constraint firstItem="bqZ-PK-uu2" firstAttribute="top" secondItem="lZS-xi-a9i" secondAttribute="top" id="4va-ZJ-0xd"/>
                             <constraint firstAttribute="trailing" secondItem="bqZ-PK-uu2" secondAttribute="trailing" constant="20" id="6ev-ja-Nwx"/>
                             <constraint firstItem="Eaj-bj-9kl" firstAttribute="top" secondItem="rgu-9e-uT3" secondAttribute="bottom" id="98I-kY-Pw7"/>
+                            <constraint firstItem="WjT-8m-pdb" firstAttribute="height" secondItem="lZS-xi-a9i" secondAttribute="height" id="IRr-9Y-jPK"/>
                             <constraint firstItem="WjT-8m-pdb" firstAttribute="leading" secondItem="lZS-xi-a9i" secondAttribute="trailing" constant="16" id="JBG-yh-mHw"/>
                             <constraint firstAttribute="trailing" secondItem="rgu-9e-uT3" secondAttribute="trailing" id="Mq4-eM-RVA"/>
                             <constraint firstItem="rgu-9e-uT3" firstAttribute="top" secondItem="lZS-xi-a9i" secondAttribute="bottom" constant="20" id="OgI-ZW-8fh"/>
                             <constraint firstItem="WjT-8m-pdb" firstAttribute="baseline" secondItem="lZS-xi-a9i" secondAttribute="baseline" id="UTC-6h-X5y"/>
                             <constraint firstItem="lZS-xi-a9i" firstAttribute="top" secondItem="Olt-hC-xTf" secondAttribute="bottom" constant="16" id="df6-3y-68Q"/>
-                            <constraint firstItem="WjT-8m-pdb" firstAttribute="top" secondItem="Olt-hC-xTf" secondAttribute="bottom" constant="18" id="euE-0u-lgQ"/>
+                            <constraint firstItem="WjT-8m-pdb" firstAttribute="top" secondItem="Olt-hC-xTf" secondAttribute="bottom" constant="14" id="euE-0u-lgQ"/>
                             <constraint firstItem="rgu-9e-uT3" firstAttribute="leading" secondItem="b1P-Te-Xoo" secondAttribute="leading" id="fzp-RV-Qpm"/>
                             <constraint firstItem="lZS-xi-a9i" firstAttribute="leading" secondItem="b1P-Te-Xoo" secondAttribute="leading" constant="20" id="k4l-WQ-10w"/>
+                            <constraint firstItem="WjT-8m-pdb" firstAttribute="baseline" secondItem="lZS-xi-a9i" secondAttribute="baseline" id="qxz-Rd-n7W"/>
                             <constraint firstItem="bqZ-PK-uu2" firstAttribute="leading" secondItem="WjT-8m-pdb" secondAttribute="trailing" constant="16" id="x1h-1m-GVZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="UTC-6h-X5y"/>
+                                <exclude reference="qxz-Rd-n7W"/>
                                 <exclude reference="2Vy-N6-znu"/>
                             </mask>
                         </variation>
