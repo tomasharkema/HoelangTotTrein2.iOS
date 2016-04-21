@@ -30,7 +30,7 @@
                         <rect key="frame" x="0.0" y="130" width="478" height="371"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gIq-XJ-OkO">
-                                <rect key="frame" x="8" y="217" width="462" height="10"/>
+                                <rect key="frame" x="8" y="208" width="462" height="10"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A0Q-ht-Qef">
                                         <rect key="frame" x="0.0" y="0.0" width="462" height="10"/>
@@ -54,7 +54,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="op tijd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-dB-jZF">
-                                <rect key="frame" x="318" y="185" width="50" height="23"/>
+                                <rect key="frame" x="318" y="177" width="50" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="UcL-WZ-n6P"/>
                                 </constraints>
@@ -63,7 +63,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqN-qO-TEO">
-                                <rect key="frame" x="110" y="177" width="144" height="16"/>
+                                <rect key="frame" x="110" y="177" width="144" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="bFb-wa-DKM"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="17"/>
                                 <color key="textColor" red="0.92549019610000005" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -155,10 +158,10 @@
                             <constraint firstItem="uf3-dB-jZF" firstAttribute="trailing" secondItem="nuo-js-mkb" secondAttribute="trailing" id="GmA-zK-U1k"/>
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="gIq-XJ-OkO" secondAttribute="bottom" id="IzK-Hh-sgm"/>
                             <constraint firstAttribute="trailing" secondItem="gIq-XJ-OkO" secondAttribute="trailing" constant="8" id="KMW-rB-4o6"/>
-                            <constraint firstItem="uf3-dB-jZF" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="bottom" constant="8" id="LCn-SW-w3P"/>
+                            <constraint firstItem="uf3-dB-jZF" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="bottom" id="LCn-SW-w3P"/>
                             <constraint firstItem="nuo-js-mkb" firstAttribute="leading" secondItem="uf3-dB-jZF" secondAttribute="leading" id="Vpm-OR-plB"/>
                             <constraint firstItem="OqN-qO-TEO" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="bottom" id="Z2e-k1-jjR"/>
-                            <constraint firstItem="gIq-XJ-OkO" firstAttribute="top" secondItem="uf3-dB-jZF" secondAttribute="bottom" constant="9" id="adg-vO-d7K"/>
+                            <constraint firstItem="gIq-XJ-OkO" firstAttribute="top" secondItem="uf3-dB-jZF" secondAttribute="bottom" constant="8" id="adg-vO-d7K"/>
                             <constraint firstItem="nuo-js-mkb" firstAttribute="top" secondItem="uf3-dB-jZF" secondAttribute="bottom" constant="8" id="bB3-9u-zLL"/>
                             <constraint firstItem="nuo-js-mkb" firstAttribute="leading" secondItem="hHG-CH-dE5" secondAttribute="leading" id="fmf-w3-N70"/>
                             <constraint firstItem="nuo-js-mkb" firstAttribute="top" secondItem="hHG-CH-dE5" secondAttribute="bottom" constant="8" id="gZc-Iq-nDJ"/>

@@ -78,7 +78,6 @@
 		C3FD07E31CC767FA002893B3 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* InterfaceController.swift */; };
 		C3FD07E51CC767FA002893B3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
 		C3FD07E71CC767FA002893B3 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E61CC767FA002893B3 /* NotificationController.swift */; };
-		C3FD07E91CC767FA002893B3 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E81CC767FA002893B3 /* GlanceController.swift */; };
 		C3FD07EB1CC767FA002893B3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */; };
 		C3FD07ED1CC767FA002893B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07EC1CC767FA002893B3 /* Assets.xcassets */; };
 		C3FD07F11CC767FA002893B3 /* HLTT.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C3FD07CF1CC767FA002893B3 /* HLTT.app */; };
@@ -242,7 +241,6 @@
 		C3FD07E21CC767FA002893B3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		C3FD07E61CC767FA002893B3 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		C3FD07E81CC767FA002893B3 /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		C3FD07EC1CC767FA002893B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3FD07EE1CC767FA002893B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -515,7 +513,6 @@
 				C3FD07E21CC767FA002893B3 /* InterfaceController.swift */,
 				C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */,
 				C3FD07E61CC767FA002893B3 /* NotificationController.swift */,
-				C3FD07E81CC767FA002893B3 /* GlanceController.swift */,
 				C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */,
 				C3FD07EC1CC767FA002893B3 /* Assets.xcassets */,
 				C3FD07EE1CC767FA002893B3 /* Info.plist */,
@@ -931,7 +928,6 @@
 				C3FD08001CC76C9D002893B3 /* ErrorJson+JsonGen.swift in Sources */,
 				C3FD07FF1CC76C9D002893B3 /* GeofenceModel+JsonGen.swift in Sources */,
 				C3FD08051CC76CB0002893B3 /* ErrorJson.swift in Sources */,
-				C3FD07E91CC767FA002893B3 /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

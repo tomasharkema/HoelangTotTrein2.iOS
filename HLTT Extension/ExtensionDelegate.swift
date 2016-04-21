@@ -8,33 +8,71 @@
 
 import WatchKit
 import WatchConnectivity
+import ClockKit
+
+let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   let session = WCSession.defaultSession()
 
+  var cachedAdvice: Advice? = UserDefaults.persistedAdvices?.first
+
   func applicationDidFinishLaunching() {
     session.delegate = self
     session.activateSession()
-    sendCurrentState()
+
+    session.activateSession()
+
+    print(session.outstandingUserInfoTransfers)
   }
 
   func applicationDidBecomeActive() {
-    sendCurrentState()
+    requestInitialState()
   }
 
-  private func sendCurrentState() {
-    let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest
-
-    guard let advice = advicesAndRequest?.advices.first else {
-      return 
-    }
-    session.sendEvent(.AdviceChange(advice: advice))
+  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    requestInitialState()
   }
 
-    func applicationWillResignActive() {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, etc.
+  func session(session: WCSession, didReceiveMessageData messageData: NSData) {
+    guard let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
+      return
     }
 
+    decodeEvent(json)
+  }
+
+  private func decodeEvent(message: [String: AnyObject]) {
+    guard let event = TravelEvent.decode(message) else {
+      return
+    }
+
+    switch event {
+    case let .AdviceChange(advice: advice):
+      cachedAdvice = advice
+      UserDefaults.persistedAdvices = [advice]
+      NSNotificationCenter.defaultCenter().postNotificationName(AdvicesDidChangeNotification, object: nil)
+      CLKComplicationServer.sharedInstance().activeComplications?.forEach {
+        CLKComplicationServer.sharedInstance().reloadTimelineForComplication($0)
+      }
+    }
+  }
+
+  func requestInitialState() {
+
+    guard let someData = NSData(base64EncodedString: "initialstate", options: []) else {
+      return
+    }
+
+    session.sendMessageData(someData, replyHandler: { [weak self] messageData in
+      guard let service = self, json = nsdataToJSON(messageData) as? [String : AnyObject] else {
+        return
+      }
+
+      service.decodeEvent(json)
+    }) { error in
+      print(error)
+    }
+  }
 }

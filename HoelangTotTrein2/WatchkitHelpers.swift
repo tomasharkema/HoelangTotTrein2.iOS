@@ -1,4 +1,4 @@
-//
+
 //  WatchkitHelpers.swift
 //  HoelangTotTrein2
 //
@@ -47,7 +47,6 @@ extension TravelEvent {
       do {
         return TravelEvent.AdviceChange(advice: try Advice.decodeJson(message))
       } catch {
-        print(error)
         return nil
       }
 
@@ -65,7 +64,7 @@ extension WCSession {
           print(error)
         })
       } else {
-        try self.updateApplicationContext(event.encode)
+        //try self.updateApplicationContext(event.encode)
       }
     } catch {
       assertionFailure("Some failiure: \(error)")

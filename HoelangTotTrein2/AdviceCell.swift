@@ -19,7 +19,6 @@ class AdviceCell: UICollectionViewCell {
 
   var advice: Advice? {
     didSet {
-      print(advice)
       renderTimer()
       renderInfo()
     }
@@ -56,8 +55,8 @@ class AdviceCell: UICollectionViewCell {
     }
 //    extraLabel.text = advice.extraMessage
     statusMessageLabel.text = advice.status.alertDescription
-    platformLabel.text = advice.vertrekSpoor.map { "Spoor \($0)" }
-    aankomstVertragingLabel.text = advice.vertrekVertraging.map { "aankomst: \($0)" }
+    platformLabel.text = advice.vertrekSpoor.map { "platform \($0)" }
+    aankomstVertragingLabel.text = advice.vertrekVertraging.map { "arrival: \($0)" }
 //    stepsLabel.text = advice.stepsMessage
     renderSteps(advice.stepModels)
   }

@@ -77,7 +77,13 @@ class TravelService: NSObject, WCSessionDelegate {
         return
       }
 
-      service.session.sendEvent(TravelEvent.AdviceChange(advice: advice))
+      if service.session.reachable {
+        service.session.sendEvent(TravelEvent.AdviceChange(advice: advice))
+        let complicationUpdate = service.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+        print(complicationUpdate)
+      } else {
+        try? service.session.updateApplicationContext(advice.encodeJson())
+      }
     }.addDisposableTo(disposeBag)
 
     currentAdvicesObservable.asObservable().filterOptional().subscribeNext { [weak self] advices in
@@ -104,7 +110,7 @@ class TravelService: NSObject, WCSessionDelegate {
     if timer == nil {
       timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
-    tick(timer!)
+    tick()
   }
 
   func stopTimer() {
@@ -112,7 +118,7 @@ class TravelService: NSObject, WCSessionDelegate {
     timer = nil
   }
 
-  func tick(timer: NSTimer) {
+  func tick() {
     fetchCurrentAdvices(getCurrentAdviceRequest())
   }
 
@@ -308,5 +314,4 @@ class TravelService: NSObject, WCSessionDelegate {
 
     replyHandler(data)
   }
-
 }

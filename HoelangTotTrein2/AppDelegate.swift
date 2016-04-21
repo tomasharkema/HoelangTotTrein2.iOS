@@ -10,6 +10,7 @@
 import UIKit
 import CoreData
 import CoreDataKit
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -70,6 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print($0)
     }.trap {
       print($0)
+    }
+  }
+
+  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    App.travelService.attach()
+    App.travelService.tick()
+    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(10, scheduler: MainScheduler.asyncInstance).single().subscribeNext { _ in
+      completionHandler(.NewData)
     }
   }
 }

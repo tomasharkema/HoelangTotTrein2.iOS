@@ -114,8 +114,8 @@ class TickerViewController: ViewController {
       }
       self?.fromStation = adviceRequest.from
       self?.toStation = adviceRequest.to
-      self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Selecteer]", comment: "selecteer"), forState: UIControlState.Normal)
-      self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Selecteer]", comment: "selecteer"), forState: UIControlState.Normal)
+      self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
+      self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
     }
 
     render()

@@ -105,13 +105,13 @@ extension FareStatus {
   var alertDescription: String {
     switch self {
     case .Vertraagd:
-      return "vertraagd"
+      return "delayed"
     case .NietOptimaal:
-      return "niet optimaal"
+      return "not optimal"
     case .VolgensPlan:
-      return "op tijd"
+      return "on time"
     default:
-      return "whaa moeilijk"
+      return "somethings wrong"
     }
   }
 }

@@ -10,74 +10,56 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class InterfaceController: WKInterfaceController, WCSessionDelegate {
+class InterfaceController: WKInterfaceController {
 
-  let session: WCSession
-
+  @IBOutlet var platformLabel: WKInterfaceLabel!
   @IBOutlet var fromButton: WKInterfaceButton!
   @IBOutlet var toButton: WKInterfaceButton!
   @IBOutlet var timerLabel: WKInterfaceTimer!
-
-  override init() {
-    session = WCSession.defaultSession()
-    super.init()
-    session.delegate = self
-  }
-
-  func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
-    decodeEvent(message)
-  }
-
-  func session(session: WCSession, didReceiveMessageData messageData: NSData) {
-    guard let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
-      return
-    }
-
-    decodeEvent(json)
-  }
+  @IBOutlet var tickerContainer: WKInterfaceGroup!
+  @IBOutlet var loadingLabel: WKInterfaceLabel!
+  @IBOutlet var delayLabel: WKInterfaceLabel!
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    session.activateSession()
-    session.sendMessageData(NSData(base64EncodedString: "initialstate", options: [])!, replyHandler: { [weak self] messageData in
-      guard let service = self, json = nsdataToJSON(messageData) as? [String : AnyObject] else {
-        return
-      }
 
-      service.decodeEvent(json)
-    }) { error in
-      print(error)
-    }
+    loadingLabel.setHidden(false)
+    tickerContainer.setHidden(true)
     print(context)
+    adviceDidChange()
   }
 
   override func willActivate() {
-      // This method is called when watch view controller is about to be visible to user
-      super.willActivate()
+    // This method is called when watch view controller is about to be visible to user
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(adviceDidChange), name: AdvicesDidChangeNotification, object: nil)
+    (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.requestInitialState()
+    super.willActivate()
   }
 
   override func didDeactivate() {
-      // This method is called when watch view controller is no longer visible
-      super.didDeactivate()
+    // This method is called when watch view controller is no longer visible
+    super.didDeactivate()
   }
 
-  private func decodeEvent(message: [String: AnyObject]) {
-    guard let event = TravelEvent.decode(message) else {
+  func adviceDidChange() {
+    guard let advice = UserDefaults.persistedAdvices?.first else {
       return
     }
-    handleEvent(event)
+
+    fromButton.setTitle(advice.startStation)
+    toButton.setTitle(advice.endStation)
+    timerLabel.setDate(advice.vertrek.actualDate)
+    timerLabel.start()
+
+    platformLabel.setText(advice.vertrekSpoor)
+    delayLabel.setText(advice.vertrekVertraging)
+
+    loadingLabel.setHidden(true)
+    tickerContainer.setHidden(false)
   }
 
-  private func handleEvent(event: TravelEvent) {
-    switch event {
-    case let .AdviceChange(advice):
-      fromButton.setTitle(advice.startStation)
-      toButton.setTitle(advice.endStation)
-      timerLabel.setDate(advice.vertrek.actualDate)
-      timerLabel.start()
-    }
-
-    print(event)
+  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+    print(userInfo)
   }
-
+  
 }

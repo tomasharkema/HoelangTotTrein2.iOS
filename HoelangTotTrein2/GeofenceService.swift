@@ -164,10 +164,6 @@ class GeofenceService: NSObject {
 
 extension GeofenceService: CLLocationManagerDelegate {
   
-  func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-    print("didStartMonitoringForRegion", region.identifier)
-  }
-  
   func geofenceFromGeofences(stationGeofences: GeofenceModels, forTime time: NSDate) -> GeofenceModel? {
     let now = time.timeIntervalSince1970
     

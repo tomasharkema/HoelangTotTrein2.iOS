@@ -17,13 +17,16 @@ class NotificationService {
     self.geofenceService = geofenceService
   }
 
-  private func fireNotification(title: String, body: String) {
+  private func fireNotification(title: String, body: String, userInfo: [String: AnyObject]?) {
     let notification = UILocalNotification()
     notification.alertTitle = title
     notification.alertBody = body
 
     notification.soundName = UILocalNotificationDefaultSoundName
-    notification.alertAction = "Bekijk"
+    notification.alertAction = "Show"
+
+    notification.userInfo = userInfo
+    notification.category = userInfo == nil ? nil : "nextStationNotification"
 
     UIApplication.sharedApplication().presentLocalNotificationNow(notification)
   }
@@ -42,20 +45,20 @@ class NotificationService {
     switch oldModel.type {
     case .Start:
       let timeString = secondsToStringOffset(jsTime: oldModel.fromStop?.time ?? 0)
-      fireNotification("Op Station", body: "Je bent op het station. Nog \(timeString)")
+      fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", userInfo: oldModel.encodeJson())
 
     case .TussenStation:
       let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSinceDate(NSDate()) ?? 0
       let timeString = NSDate(timeIntervalSince1970: timeDiff).toString(format: .Custom("mm:ss"))
       let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
-      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)")
+//      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)", userInfo: oldModel.encodeJson())
 
     case .Overstap:
       let timeString = secondsToStringOffset(jsTime: correctModel.fromStop?.time ?? 0)
-      fireNotification("Overstappen!", body: "Stap over naar spoor \(correctModel.fromStop?.spoor ?? ""). Je hebt nog \(timeString) min")
+      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", userInfo: oldModel.encodeJson())
 
     case .End:
-      fireNotification("Eindstation", body: "Stap hier uit. Vergeet niet uit te checken!")
+      fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", userInfo: nil)
     }
   }
 

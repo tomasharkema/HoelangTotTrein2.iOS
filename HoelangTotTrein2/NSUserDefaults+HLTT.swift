@@ -17,6 +17,7 @@ struct Keys {
   static let GeofenceInfoKey = "GeofenceInfoKey"
   static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
   static let CurrentAdviceHash = "CurrentAdviceHash"
+  static let PersistedAdvices = "PersistedAdvices"
 }
 
 let UserDefaults = NSUserDefaults(suiteName: "group.tomas.hltt")!
@@ -29,6 +30,7 @@ extension NSUserDefaults {
     }
     set {
       setObject(newValue, forKey: Keys.FromStationCodeKey)
+      synchronize()
     }
   }
 
@@ -39,6 +41,7 @@ extension NSUserDefaults {
     }
     set {
       setObject(newValue, forKey: Keys.ToStationCodeKey)
+      synchronize()
     }
   }
 
@@ -49,6 +52,7 @@ extension NSUserDefaults {
     }
     set {
       setObject(newValue, forKey: Keys.FromStationByPickerCodeKey)
+      synchronize()
     }
   }
 
@@ -59,6 +63,7 @@ extension NSUserDefaults {
     }
     set {
       setObject(newValue, forKey: Keys.ToStationByPickerCodeKey)
+      synchronize()
     }
   }
 
@@ -69,6 +74,7 @@ extension NSUserDefaults {
     } else {
       returnedUserId = NSUUID().UUIDString
       setObject(returnedUserId, forKey: Keys.UserIdKey)
+      synchronize()
     }
     return returnedUserId
   }
@@ -115,6 +121,7 @@ extension NSUserDefaults {
     set {
       if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
         setObject(json, forKey: Keys.GeofenceInfoKey)
+        synchronize()
       }
     }
   }
@@ -150,6 +157,7 @@ extension NSUserDefaults {
     set {
       if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
         setObject(json, forKey: Keys.PersistedAdvicesAndRequest)
+        synchronize()
       }
     }
   }
@@ -162,6 +170,45 @@ extension NSUserDefaults {
 
     set {
       setInteger(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
+      synchronize()
+    }
+  }
+
+  var persistedAdvices: Advices? {
+    set {
+      if let value = newValue {
+        let array = value.encodeJson {
+          $0.encodeJson()
+        }
+        _persistedAdvices = array
+      }
+    }
+    get {
+      if let array = _persistedAdvices {
+        do {
+          return try Array.decodeJson({
+            try Advice.decodeJson($0)
+          }, array)
+        } catch {
+          print(error)
+        }
+      }
+      return nil
+    }
+  }
+
+  private var _persistedAdvices: [AnyObject]? {
+    get {
+      if let data = objectForKey(Keys.PersistedAdvices) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+        return object as? [AnyObject]
+      }
+      return nil
+    }
+    set {
+      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
+        setObject(json, forKey: Keys.PersistedAdvices)
+        synchronize()
+      }
     }
   }
 }

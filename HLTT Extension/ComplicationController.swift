@@ -7,6 +7,7 @@
 //
 
 import ClockKit
+import WatchKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
@@ -60,27 +61,37 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
 
   private func getTemplateForFamily(complication: CLKComplication) -> CLKComplicationTemplate? {
+    let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+
+    let delayString: String
+    if let delay = UserDefaults.persistedAdvices?.first, delayMessage = delay.vertrekVertraging {
+      delayString = delayMessage
+    } else {
+      delayString = "✅"
+    }
+
     let template: CLKComplicationTemplate?
     switch complication.family {
 
     case .ModularSmall:
       let modularTemplate = CLKComplicationTemplateModularSmallSimpleText()
-      modularTemplate.textProvider = CLKSimpleTextProvider(text: "+3 min")
+      modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
     case .CircularSmall:
 
       let modularTemplate = CLKComplicationTemplateCircularSmallSimpleText()
-      modularTemplate.textProvider = CLKSimpleTextProvider(text: "+3 min")
-//      modularTemplate.fillFraction = 0.7
-//      modularTemplate.ringStyle = CLKComplicationRingStyle.Closed
+      modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
     case .UtilitarianSmall:
       let modularTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
-      modularTemplate.textProvider = CLKSimpleTextProvider(text: "+3 min")
-//      modularTemplate.fillFraction = 0.7
-//      modularTemplate.ringStyle = CLKComplicationRingStyle.Closed
+      modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
+      template = modularTemplate
+
+    case .UtilitarianLarge:
+      let modularTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
+      modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
     default:
