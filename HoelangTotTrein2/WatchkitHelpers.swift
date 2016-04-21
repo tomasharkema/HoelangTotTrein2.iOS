@@ -9,16 +9,66 @@
 import Foundation
 import WatchConnectivity
 
-struct WatchkitHelpers {
-  static func sendCurrentAdvice(session: WCSession, from: String, to: String) {
-    if session.reachable {
-      session.sendMessage(["message": "adviceChange", "adviceFrom": from, "adviceTo": to], replyHandler: nil, errorHandler: nil)
-    } else {
+enum TravelEvent {
+  case AdviceChange(advice: Advice)
+}
+
+extension TravelEvent {
+  var name: String {
+    switch self {
+    case .AdviceChange:
+      return "adviceChange"
+    }
+  }
+}
+
+//MARK: - TravelEvent Encode
+extension TravelEvent {
+  var encode: [String: AnyObject] {
+    let array: [String: AnyObject] = { this in
+      switch this {
+      case let .AdviceChange(advice):
+        return advice.encodeJson()
+      }
+    }(self)
+
+    var arrayAndMessage = array
+    arrayAndMessage["name"] = self.name
+    return arrayAndMessage
+  }
+}
+
+//MARK: - TravelEvent Decode 
+
+extension TravelEvent {
+  static func decode(message: [String: AnyObject]) -> TravelEvent? {
+    switch message["name"] as? String {
+    case "adviceChange"?:
       do {
-        try session.updateApplicationContext(["message": "adviceChange", "adviceFrom": from, "adviceTo": to])
+        return TravelEvent.AdviceChange(advice: try Advice.decodeJson(message))
       } catch {
         print(error)
+        return nil
       }
+
+    default:
+      return nil
+    }
+  }
+}
+
+extension WCSession {
+  func sendEvent(event: TravelEvent) {
+    do {
+      if let data = jsonToNSData(event.encode) where self.reachable {
+        self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
+          print(error)
+        })
+      } else {
+        try self.updateApplicationContext(event.encode)
+      }
+    } catch {
+      assertionFailure("Some failiure: \(error)")
     }
   }
 }

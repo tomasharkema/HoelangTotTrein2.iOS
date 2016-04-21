@@ -38,7 +38,7 @@ class TravelService: NSObject, WCSessionDelegate {
     session.delegate = self
     session.activateSession()
 
-    currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+    firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest, service = self else {
         return
       }
@@ -51,12 +51,6 @@ class TravelService: NSObject, WCSessionDelegate {
       }
 
       self?.fetchCurrentAdvices(adviceRequest)
-
-      guard let from = adviceRequest.from?.name, to = adviceRequest.to?.name else {
-        return
-      }
-
-      WatchkitHelpers.sendCurrentAdvice(service.session, from: from, to: to)
     }.addDisposableTo(disposeBag)
 
     App.geofenceService.geofenceObservable.asObservable()
@@ -69,21 +63,40 @@ class TravelService: NSObject, WCSessionDelegate {
     stationsObservable.asObservable().single().subscribeNext { [weak self] _ in
       if let service = self {
         let adviceRequest = service.getCurrentAdviceRequest()
-        if service.currentAdviceRequest.value != adviceRequest {
-          service.currentAdviceRequest.value = adviceRequest
+        if service.firstAdviceRequest.value != adviceRequest {
+          service.firstAdviceRequest.value = adviceRequest
         }
         if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest where advicesAndRequest.adviceRequest == adviceRequest {
           self?.notifyOfNewAdvices(advicesAndRequest.advices)
         }
       }
     }.addDisposableTo(disposeBag)
+
+    currentAdviceOnScreenVariable.asObservable().filterOptional().subscribeNext { [weak self] advice in
+      guard let service = self else {
+        return
+      }
+
+      service.session.sendEvent(TravelEvent.AdviceChange(advice: advice))
+    }.addDisposableTo(disposeBag)
+
+    currentAdvicesObservable.asObservable().filterOptional().subscribeNext { [weak self] advices in
+      guard let service = self else {
+        return
+      }
+
+      let element = advices.enumerate().filter { $0.element.hashValue == UserDefaults.currentAdviceHash }.first?.element ?? advices.first
+
+      service.currentAdviceOnScreenVariable.value = element
+    }.addDisposableTo(disposeBag)
   }
 
   let currentAdviceObservable = Variable<Advice?>(nil)
   let currentAdvicesObservable = Variable<Advices?>(nil)
   let stationsObservable = Variable<Stations?>(nil)
-  let currentAdviceRequest = Variable<AdviceRequest?>(nil)
+  let firstAdviceRequest = Variable<AdviceRequest?>(nil)
   let nextAdviceObservable = Variable<Advice?>(nil)
+  let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
 
   var timer: NSTimer?
 
@@ -153,8 +166,8 @@ class TravelService: NSObject, WCSessionDelegate {
         print($0)
       }
     }
-    if currentAdviceRequest.value != correctedAdviceRequest {
-      currentAdviceRequest.value = correctedAdviceRequest
+    if firstAdviceRequest.value != correctedAdviceRequest {
+      firstAdviceRequest.value = correctedAdviceRequest
     }
   }
   
@@ -286,7 +299,14 @@ class TravelService: NSObject, WCSessionDelegate {
 
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self)
-    
+  }
+
+  func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
+    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), data = jsonToNSData(advice) else {
+      return
+    }
+
+    replyHandler(data)
   }
 
 }

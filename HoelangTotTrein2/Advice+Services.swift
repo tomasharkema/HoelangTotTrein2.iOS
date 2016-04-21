@@ -38,6 +38,14 @@ extension Advice {
       status == .Vertraagd ||
       status == .Nieuw) && vertrek.actualDate.timeIntervalSinceDate(NSDate()) > 0
   }
+
+  var startStation: String? {
+    return self.reisDeel.first?.stops.first?.name
+  }
+
+  var endStation: String? {
+    return self.reisDeel.last?.stops.last?.name
+  }
 }
 
 extension Advice: Hashable {

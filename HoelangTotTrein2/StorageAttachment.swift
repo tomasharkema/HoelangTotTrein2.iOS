@@ -63,21 +63,13 @@ class StorageAttachment {
     }.addDisposableTo(disposeBag)
 
 
-    travelService.currentAdviceRequest.asObservable().observeOn(scheduler).subscribe { [weak self] in
-      switch $0 {
-      case let .Next(request?):
-        self?.insertHistoryFromRequest(request)
-      default: break;
-      }
+    travelService.firstAdviceRequest.asObservable().observeOn(scheduler).filterOptional().subscribeNext { [weak self] in
+      self?.insertHistoryFromRequest($0)
     }.addDisposableTo(disposeBag)
 
-    travelService.currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
+    travelService.currentAdvicesObservable.asObservable().observeOn(MainScheduler.asyncInstance).filterOptional().subscribeNext { [weak self] advices in
       if let service = self {
-        switch $0 {
-        case let .Next(advices?):
-          service.persistCurrent(advices: advices, forAdviceRequest: service.travelService.getCurrentAdviceRequest())
-        default: break;
-        }
+        service.persistCurrent(advices: advices, forAdviceRequest: service.travelService.getCurrentAdviceRequest())
       }
     }.addDisposableTo(disposeBag)
   }
@@ -106,6 +98,7 @@ class StorageAttachment {
   }
 
   private func persistCurrent(advices advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
+    assert(NSThread.isMainThread(), "Must be main thread")
     UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }

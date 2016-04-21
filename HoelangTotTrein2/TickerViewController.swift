@@ -77,9 +77,9 @@ class TickerViewController: ViewController {
         .subscribeNext { [weak self] advice in
           UserDefaults.currentAdviceHash = advice!.hashValue
 
-
           let index = advices.enumerate().filter { $0.element == advice }.first
 
+          App.travelService.currentAdviceOnScreenVariable.value = index?.element
           self?.updateTickerView(index?.index ?? 0, total: advices.count)
         }
     }
@@ -90,7 +90,7 @@ class TickerViewController: ViewController {
       .subscribeNext { [weak self] in
         let advice = self?.scrollToPersistedAdvice($0!)
         let index = $0!.enumerate().filter { $0.element == advice }.first
-        
+        App.travelService.currentAdviceOnScreenVariable.value = index?.element
         self?.updateTickerView(index?.index ?? 0, total: $0!.count)
       }
 
@@ -108,7 +108,7 @@ class TickerViewController: ViewController {
       self?.render()
     }
 
-    currentAdviceRequestSubscription = App.travelService.currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+    currentAdviceRequestSubscription = App.travelService.firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }

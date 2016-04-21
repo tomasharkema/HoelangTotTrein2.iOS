@@ -8,7 +8,21 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="HLTT" customModuleProvider="target"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="HLTT" customModuleProvider="target">
+                    <items>
+                        <button width="1" alignment="center" title="Button" id="mAe-Ox-jHG"/>
+                        <timer alignment="center" verticalAlignment="center" id="zw6-yr-Paz">
+                            <fontDescription key="font" type="system" pointSize="39"/>
+                            <calendarUnit key="units" minute="YES" second="YES"/>
+                        </timer>
+                        <button width="1" alignment="center" verticalAlignment="bottom" title="Button" id="0Hr-zn-oTE"/>
+                    </items>
+                    <connections>
+                        <outlet property="fromButton" destination="mAe-Ox-jHG" id="eYB-7H-aSj"/>
+                        <outlet property="timerLabel" destination="zw6-yr-Paz" id="7WN-zs-VPT"/>
+                        <outlet property="toButton" destination="0Hr-zn-oTE" id="yFM-dV-xPs"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
         </scene>

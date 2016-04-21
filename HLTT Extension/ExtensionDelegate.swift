@@ -16,13 +16,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   func applicationDidFinishLaunching() {
     session.delegate = self
     session.activateSession()
-
-    WatchkitHelpers.sendCurrentAdvice(session, from: UserDefaults.fromStationCode ?? "", to: UserDefaults.toStationCode ?? "")
+    sendCurrentState()
   }
 
   func applicationDidBecomeActive() {
+    sendCurrentState()
+  }
 
-    
+  private func sendCurrentState() {
+    let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest
+
+    guard let advice = advicesAndRequest?.advices.first else {
+      return 
+    }
+    session.sendEvent(.AdviceChange(advice: advice))
   }
 
     func applicationWillResignActive() {
