@@ -8,13 +8,35 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
+class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
-class InterfaceController: WKInterfaceController {
+  let session: WCSession
+
+  override init() {
+    session = WCSession.defaultSession()
+    super.init()
+    session.delegate = self
+  }
+
+  func session(session: WCSession, didReceiveMessage message: [String : AnyObject]) {
+    print(message)
+
+    switch message["type"] as? String {
+    case "adviceChange"?:
+      print(message["from"])
+
+    default:
+      assertionFailure("Unhandled message")
+    }
+
+  }
 
     override func awakeWithContext(context: AnyObject?) {
         super.awakeWithContext(context)
-        
+
+        session.activateSession()
         // Configure interface objects here.
     }
 

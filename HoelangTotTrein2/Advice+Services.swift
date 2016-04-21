@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreDataKit
 
 enum ModalityType {
   case Sprinter
@@ -38,71 +37,6 @@ extension Advice {
       status == .Gewijzigd ||
       status == .Vertraagd ||
       status == .Nieuw) && vertrek.actualDate.timeIntervalSinceDate(NSDate()) > 0
-  }
-
-  var mostSignificantStop: Station? {
-    let stations = reisDeel.lazy.map { deel in
-      return deel.stops[1..<deel.stops.count-1].map { (stop: Stop) -> Station?? in
-        let predicate = NSPredicate(format: "name = %@", stop.name)
-
-        return try? CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation()
-      }
-    }.flatten()
-
-    let optionalStations = stations.flatMap { (element: Station??) -> Station? in
-      if element != nil {
-        if element! != nil {
-          return element!
-        }
-      }
-
-      return nil
-    }
-
-    let filteredStations = optionalStations
-      .filter { $0.type != .StoptreinStation }
-      .sort { $0.type.score > $1.type.score }
-
-    return filteredStations.first
-  }
-
-  var smallExtraMessage: String {
-
-    if let _ = reisDeel.first where reisDeel.count == 1 {
-      return ""
-    }
-
-    return mostSignificantStop?.code ?? ""
-  }
-
-  var extraMessage: String {
-
-    if let firstReisDeel = reisDeel.first where reisDeel.count == 1 {
-      return firstReisDeel.vervoerType
-    }
-
-    return mostSignificantStop.map { "Via: \($0.name)" } ?? ""
-  }
-
-  var stepsMessage: String {
-    return reisDeel.reduce("") { (prev, item) in
-      if let from = item.stops.first, to = item.stops.last {
-        let fromTimeString = from.timeDate.toString(format: .Custom("HH:mm"))
-        let toTimeString = to.timeDate.toString(format: .Custom("HH:mm"))
-        //👉
-        return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) → \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
-      }
-      return prev
-    }
-  }
-
-  var stepModels: [StepViewModel] {
-    return reisDeel.flatMap { item in
-      if let from = item.stops.first, to = item.stops.last {
-        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.timeDate.toString(format: .Custom("HH:mm")), toTime: to.timeDate.toString(format: .Custom("HH:mm")))
-      }
-      return nil
-    }
   }
 }
 

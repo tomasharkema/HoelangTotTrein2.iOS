@@ -19,7 +19,7 @@ struct Keys {
   static let CurrentAdviceHash = "CurrentAdviceHash"
 }
 
-let UserDefaults = NSUserDefaults.standardUserDefaults()
+let UserDefaults = NSUserDefaults(suiteName: "group.tomas.hltt")!
 
 extension NSUserDefaults {
   var fromStationCode: String? {

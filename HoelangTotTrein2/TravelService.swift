@@ -12,13 +12,16 @@ import CoreDataKit
 import CoreLocation
 import Promissum
 import RxSwift
+import WatchConnectivity
 
-class TravelService: NSObject {
+class TravelService: NSObject, WCSessionDelegate {
   let queue = dispatch_queue_create("nl.tomasharkema.TravelService", DISPATCH_QUEUE_SERIAL)
   private let apiService: ApiService
   private let locationService: LocationService
 
   private var disposeBag = DisposeBag()
+
+  let session = WCSession.defaultSession()
 
   init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
@@ -31,8 +34,12 @@ class TravelService: NSObject {
   }
 
   func attach() {
+
+    session.delegate = self
+    session.activateSession()
+
     currentAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
-      guard let adviceRequest = adviceRequest else {
+      guard let adviceRequest = adviceRequest, service = self else {
         return
       }
       if let from = adviceRequest.from {
@@ -44,6 +51,12 @@ class TravelService: NSObject {
       }
 
       self?.fetchCurrentAdvices(adviceRequest)
+
+      guard let from = adviceRequest.from?.name, to = adviceRequest.to?.name else {
+        return
+      }
+
+      WatchkitHelpers.sendCurrentAdvice(service.session, from: from, to: to)
     }.addDisposableTo(disposeBag)
 
     App.geofenceService.geofenceObservable.asObservable()
