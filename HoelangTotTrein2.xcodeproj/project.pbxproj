@@ -1071,13 +1071,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2e6f4f5a-eda8-479a-bca4-312ed04c0094";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1155,13 +1155,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = HLTT_Extension;
 				INFOPLIST_FILE = HLTT/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "57feca73-89db-4b05-a2e6-e09e92a0c26a";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -1195,10 +1196,12 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "d1ef0198-28ce-4e83-8629-703651067bbd";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
