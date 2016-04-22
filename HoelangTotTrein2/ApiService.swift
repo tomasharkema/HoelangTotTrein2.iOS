@@ -12,7 +12,7 @@ import Foundation
 
 struct ApiService {
   let endpoint = "http://ns.harkema.in"
-//  let endpoint = "http://tomas.local:9000"
+//  let endpoint = "http://mac-server.local:9000"
 //  let endpoint = "https://hltt-test.herokuapp.com"
 
   let queue = dispatch_queue_create("nl.tomasharkema.DECODE", DISPATCH_QUEUE_CONCURRENT)
@@ -139,8 +139,8 @@ struct ApiService {
       .mapErrorType()
   }
 
-  func registerForNotification(userId: String, pushUUID: String) -> Promise<SuccessResult, ErrorType> {
-    let url = "\(endpoint)/api/register/\(userId)/PUSH/\(pushUUID)"
+  func registerForNotification(userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ErrorType> {
+    let url = "\(endpoint)/api/register/\(userId)/PUSH/\(pushUUID)?env=\(env)"
     return requestGet(url, encoding: .URL, decoder: SuccessResult.decodeJson)
       .mapErrorType()
   }
