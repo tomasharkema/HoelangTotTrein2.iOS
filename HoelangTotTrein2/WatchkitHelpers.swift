@@ -10,14 +10,17 @@ import Foundation
 import WatchConnectivity
 
 enum TravelEvent {
-  case AdviceChange(advice: Advice)
+  case AdvicesChange(advice: Advices)
+  case CurrentAdviceChange(hash: Int)
 }
 
 extension TravelEvent {
   var name: String {
     switch self {
-    case .AdviceChange:
-      return "adviceChange"
+    case .AdvicesChange:
+      return "advicesChange"
+    case .CurrentAdviceChange:
+      return "currentAdviceChange"
     }
   }
 }
@@ -27,8 +30,13 @@ extension TravelEvent {
   var encode: [String: AnyObject] {
     let array: [String: AnyObject] = { this in
       switch this {
-      case let .AdviceChange(advice):
-        return advice.encodeJson()
+      case let .AdvicesChange(advices):
+        return ["advices": advices.encodeJson {
+          $0.encodeJson()
+        }]
+
+      case let .CurrentAdviceChange(hash):
+        return ["hash": hash]
       }
     }(self)
 
@@ -43,12 +51,21 @@ extension TravelEvent {
 extension TravelEvent {
   static func decode(message: [String: AnyObject]) -> TravelEvent? {
     switch message["name"] as? String {
-    case "adviceChange"?:
+    case "advicesChange"?:
+      guard let advices = message["advices"] as? [AnyObject] else {
+        return nil
+      }
       do {
-        return TravelEvent.AdviceChange(advice: try Advice.decodeJson(message))
+        return TravelEvent.AdvicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) }, advices))
       } catch {
         return nil
       }
+
+    case "currentAdviceChange"?:
+      guard let hash = message["hash"] as? Int else {
+        return nil
+      }
+      return TravelEvent.CurrentAdviceChange(hash: hash)
 
     default:
       return nil
@@ -59,6 +76,7 @@ extension TravelEvent {
 extension WCSession {
   func sendEvent(event: TravelEvent) {
     do {
+      print("SEND EVENT: \(event)")
       if let data = jsonToNSData(event.encode) where self.reachable {
         self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
           print(error)

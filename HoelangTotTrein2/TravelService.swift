@@ -72,18 +72,14 @@ class TravelService: NSObject, WCSessionDelegate {
       }
     }.addDisposableTo(disposeBag)
 
-    currentAdviceOnScreenVariable.asObservable().filterOptional().subscribeNext { [weak self] advice in
+    currentAdviceOnScreenVariable.asObservable().filterOptional().debounce(3, scheduler: MainScheduler.asyncInstance).subscribeNext { [weak self] advice in
       guard let service = self else {
         return
       }
 
-      if service.session.reachable {
-        service.session.sendEvent(TravelEvent.AdviceChange(advice: advice))
-        let complicationUpdate = service.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-        print(complicationUpdate)
-      } else {
-        try? service.session.updateApplicationContext(advice.encodeJson())
-      }
+      service.session.sendEvent(TravelEvent.CurrentAdviceChange(hash: advice.hashValue))
+      let complicationUpdate = service.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+      print(complicationUpdate)
     }.addDisposableTo(disposeBag)
 
     currentAdvicesObservable.asObservable().filterOptional().subscribeNext { [weak self] advices in
@@ -235,6 +231,7 @@ class TravelService: NSObject, WCSessionDelegate {
       }
     }
     if currentAdvicesObservable.value != advices {
+      session.sendEvent(TravelEvent.AdvicesChange(advice: advices))
       currentAdvicesObservable.value = advices
     }
   }

@@ -20,6 +20,8 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var loadingLabel: WKInterfaceLabel!
   @IBOutlet var delayLabel: WKInterfaceLabel!
 
+  var refreshTimer: NSTimer?
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
@@ -42,7 +44,16 @@ class InterfaceController: WKInterfaceController {
   }
 
   func adviceDidChange() {
-    guard let advice = UserDefaults.persistedAdvices?.first else {
+    let currentHash = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
+    let advices = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
+
+    let adviceOpt = advices?.filter {
+      $0.hashValue == currentHash && $0.isOngoing
+    }.first ?? advices?.filter {
+      $0.isOngoing
+    }.first
+
+    guard let advice = adviceOpt else {
       return
     }
 
@@ -56,6 +67,10 @@ class InterfaceController: WKInterfaceController {
 
     loadingLabel.setHidden(true)
     tickerContainer.setHidden(false)
+
+    refreshTimer?.invalidate()
+    let finished = advice.vertrek.actualDate.timeIntervalSinceNow
+    refreshTimer = NSTimer.scheduledTimerWithTimeInterval(finished, target: self, selector: #selector(adviceDidChange), userInfo: nil, repeats: false)
   }
 
   func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {

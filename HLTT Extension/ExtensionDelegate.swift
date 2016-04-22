@@ -16,7 +16,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   let session = WCSession.defaultSession()
 
-  var cachedAdvice: Advice? = UserDefaults.persistedAdvices?.first
+  var cachedAdvices: [Advice] = UserDefaults.persistedAdvices ?? []
+  var cachedAdviceHash: Int? = UserDefaults.currentAdviceHash
 
   func applicationDidFinishLaunching() {
     session.delegate = self
@@ -49,14 +50,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
 
     switch event {
-    case let .AdviceChange(advice: advice):
-      cachedAdvice = advice
-      UserDefaults.persistedAdvices = [advice]
-      NSNotificationCenter.defaultCenter().postNotificationName(AdvicesDidChangeNotification, object: nil)
-      CLKComplicationServer.sharedInstance().activeComplications?.forEach {
-        CLKComplicationServer.sharedInstance().reloadTimelineForComplication($0)
-      }
+    case let .AdvicesChange(advice: advices):
+      cachedAdvices = advices
+      UserDefaults.persistedAdvices = advices
+
+    case let .CurrentAdviceChange(currentHash):
+      cachedAdviceHash = currentHash
+      UserDefaults.currentAdviceHash = currentHash
+
     }
+
+    NSNotificationCenter.defaultCenter().postNotificationName(AdvicesDidChangeNotification, object: nil)
+    CLKComplicationServer.sharedInstance().activeComplications?.forEach {
+      CLKComplicationServer.sharedInstance().reloadTimelineForComplication($0)
+    }
+
   }
 
   func requestInitialState() {
