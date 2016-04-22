@@ -202,19 +202,19 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0u5-p5-7cS">
-                                <rect key="frame" x="330.5" y="564" width="249.5" height="36"/>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0u5-p5-7cS">
+                                <rect key="frame" x="331" y="564" width="249" height="36"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="55a-f5-eDd">
-                                    <rect key="frame" x="0.0" y="0.0" width="249.5" height="36"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="249" height="36"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1i-M9-RNT">
-                                <rect key="frame" x="330.5" y="564" width="249.5" height="36"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1i-M9-RNT">
+                                <rect key="frame" x="331" y="564" width="249" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="88:88 - spoor 88b" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4Z-bj-1HT">
-                                        <rect key="frame" x="84.5" y="10" width="137" height="16"/>
+                                        <rect key="frame" x="85" y="10" width="137" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="145" id="dSZ-6P-Xwd"/>
                                             <constraint firstAttribute="width" constant="140" id="nHz-MH-KCb"/>
@@ -230,13 +230,13 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▼" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kn3-Fh-Mh9">
-                                        <rect key="frame" x="229.5" y="10" width="10" height="16"/>
+                                        <rect key="frame" x="230" y="10" width="10" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+10 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3g7-hR-0wc">
-                                        <rect key="frame" x="10" y="10" width="64.5" height="16"/>
+                                        <rect key="frame" x="10" y="10" width="65" height="16"/>
                                         <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
                                         <color key="textColor" red="0.92549019610000005" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -374,7 +374,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IOw-n0-lSb" id="1D0-0G-fad">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rBl-Ai-mXE">

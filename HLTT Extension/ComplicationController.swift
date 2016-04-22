@@ -63,6 +63,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
   private func getTemplateForFamily(complication: CLKComplication) -> CLKComplicationTemplate? {
     let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
 
+    myDelegate.requestInitialState()
+    
     let delayString: String
     if let delay = UserDefaults.persistedAdvices?.first, delayMessage = delay.vertrekVertraging {
       delayString = delayMessage

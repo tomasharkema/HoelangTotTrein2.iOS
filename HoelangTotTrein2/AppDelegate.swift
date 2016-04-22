@@ -1,4 +1,3 @@
-
 //
 //  AppDelegate.swift
 //  HoelangTotTrein2
@@ -17,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  var disposeBag = DisposeBag()
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
 
@@ -62,7 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
     let pushUUID = deviceToken.description
-    App.apiService.registerForNotification(UserDefaults.userId, pushUUID:
+    #if RELEASE
+    let env = "production"
+    #else
+    let env = "sandbox"
+    #endif
+    
+    App.apiService.registerForNotification(UserDefaults.userId, env: env, pushUUID:
       pushUUID
         .stringByReplacingOccurrencesOfString("<", withString: "")
         .stringByReplacingOccurrencesOfString(">", withString: "")
@@ -79,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.travelService.tick()
     App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(10, scheduler: MainScheduler.asyncInstance).single().subscribeNext { _ in
       completionHandler(.NewData)
-    }
+    }.addDisposableTo(disposeBag)
   }
 }
 
