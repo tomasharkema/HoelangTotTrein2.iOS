@@ -149,7 +149,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
     if isSearching {
-      return "Searchresults"
+      return "Search results"
     }
 
     if section == 0 {
