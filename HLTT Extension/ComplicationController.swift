@@ -32,8 +32,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
-
-      handler(getTemplateForFamily(complication).map { CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: $0) })
+      let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+      myDelegate.requestInitialState { _ in
+        handler(self.getTemplateForFamily(complication).map { CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: $0) })
+      }
     }
     
     func getTimelineEntriesForComplication(complication: CLKComplication, beforeDate date: NSDate, limit: Int, withHandler handler: (([CLKComplicationTimelineEntry]?) -> Void)) {
@@ -57,16 +59,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getPlaceholderTemplateForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
-      handler(getTemplateForFamily(complication))
+        handler(getTemplateForFamily(complication))
     }
 
   private func getTemplateForFamily(complication: CLKComplication) -> CLKComplicationTemplate? {
-    let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
-
-    myDelegate.requestInitialState()
     
     let delayString: String
-    if let delay = UserDefaults.persistedAdvices?.first, delayMessage = delay.vertrekVertraging {
+    if let delay = getCurrentAdvice(), delayMessage = delay.vertrekVertraging {
       delayString = delayMessage
     } else {
       delayString = "✅"

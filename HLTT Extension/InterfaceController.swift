@@ -34,7 +34,10 @@ class InterfaceController: WKInterfaceController {
   override func willActivate() {
     // This method is called when watch view controller is about to be visible to user
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(adviceDidChange), name: AdvicesDidChangeNotification, object: nil)
-    (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.requestInitialState()
+    (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.requestInitialState { error in
+      print("INITIAL STATE WITH: \(error)")
+      self.adviceDidChange()
+    }
     super.willActivate()
   }
 
@@ -44,16 +47,9 @@ class InterfaceController: WKInterfaceController {
   }
 
   func adviceDidChange() {
-    let currentHash = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
-    let advices = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
 
-    let adviceOpt = advices?.filter {
-      $0.hashValue == currentHash && $0.isOngoing
-    }.first ?? advices?.filter {
-      $0.isOngoing
-    }.first
 
-    guard let advice = adviceOpt else {
+    guard let advice = getCurrentAdvice() else {
       return
     }
 

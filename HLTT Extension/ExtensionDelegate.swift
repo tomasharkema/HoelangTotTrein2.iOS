@@ -12,6 +12,19 @@ import ClockKit
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
+func getCurrentAdvice() -> Advice? {
+  let currentHash = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
+  let advices = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
+
+  let adviceOpt = advices?.filter {
+    $0.hashValue == currentHash && $0.isOngoing
+  }.first ?? advices?.filter {
+    $0.isOngoing
+  }.first
+
+  return adviceOpt
+}
+
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   let session = WCSession.defaultSession()
@@ -22,9 +35,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   func applicationDidFinishLaunching() {
     session.delegate = self
     session.activateSession()
-
-    session.activateSession()
-
     print(session.outstandingUserInfoTransfers)
   }
 
@@ -64,14 +74,19 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     CLKComplicationServer.sharedInstance().activeComplications?.forEach {
       CLKComplicationServer.sharedInstance().reloadTimelineForComplication($0)
     }
-
   }
 
-  func requestInitialState() {
+  func requestInitialState(completionHandler: ((NSError?) -> ())? = nil) {
 
     guard let someData = NSData(base64EncodedString: "initialstate", options: []) else {
       return
     }
+
+    if session.activationState != .Activated {
+      session.activateSession()
+    }
+
+    try? session.updateApplicationContext(["boot!": "Boot!"])
 
     session.sendMessageData(someData, replyHandler: { [weak self] messageData in
       guard let service = self, json = nsdataToJSON(messageData) as? [String : AnyObject] else {
@@ -79,8 +94,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
       }
 
       service.decodeEvent(json)
+      completionHandler?(nil)
     }) { error in
       print(error)
+      completionHandler?(error)
     }
+  }
+
+  func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    requestInitialState()
   }
 }
