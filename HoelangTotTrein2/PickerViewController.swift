@@ -63,6 +63,9 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     tableView.delegate = self
     tableView.dataSource = self
 
+    tableView.backgroundView = UIView()
+    tableView.backgroundColor = UIColor.clearColor()
+
     currentStation.text = state.description
 
     App.travelService.getCloseStations().then { stations in
@@ -137,6 +140,9 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
       cell.stationLabel.text = station.name
     }
 
+    cell.backgroundColor = UIColor.clearColor()
+    cell.backgroundView = UIView()
+
     return cell
   }
 
@@ -171,5 +177,9 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
   override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
     return .Portrait
+  }
+
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
   }
 }

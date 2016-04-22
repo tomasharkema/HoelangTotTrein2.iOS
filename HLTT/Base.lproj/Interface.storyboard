@@ -25,7 +25,6 @@
                                         </group>
                                         <timer alignment="center" verticalAlignment="center" id="zw6-yr-Paz">
                                             <fontDescription key="font" type="system" pointSize="26"/>
-                                            <calendarUnit key="units" minute="YES" second="YES"/>
                                         </timer>
                                     </items>
                                 </group>

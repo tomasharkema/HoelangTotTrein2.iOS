@@ -10,6 +10,12 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
+func formatTime(date: NSDate) -> String {
+  let format = NSDateFormatter()
+  format.dateFormat = "HH:mm"
+  return format.stringFromDate(date)
+}
+
 class InterfaceController: WKInterfaceController {
 
   @IBOutlet var platformLabel: WKInterfaceLabel!
@@ -24,9 +30,6 @@ class InterfaceController: WKInterfaceController {
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-
-    loadingLabel.setHidden(false)
-    tickerContainer.setHidden(true)
     print(context)
     adviceDidChange()
   }
@@ -47,14 +50,16 @@ class InterfaceController: WKInterfaceController {
   }
 
   func adviceDidChange() {
-
-
     guard let advice = getCurrentAdvice() else {
+      loadingLabel.setHidden(false)
+      tickerContainer.setHidden(true)
       return
     }
 
-    fromButton.setTitle(advice.startStation)
-    toButton.setTitle(advice.endStation)
+    WKInterfaceDevice.currentDevice().playHaptic(.Click);
+
+    fromButton.setTitle("\(formatTime(advice.vertrek.actualDate))\n\(advice.startStation ?? "")")
+    toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actualDate))")
     timerLabel.setDate(advice.vertrek.actualDate)
     timerLabel.start()
 
