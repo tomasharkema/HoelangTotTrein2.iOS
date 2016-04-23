@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10112" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="AKKURATL.ttf">
-            <string>Akkurat-Light</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -21,23 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HLTT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Mi-eu-XcF">
-                                <rect key="frame" x="184" y="254" width="233" height="92"/>
-                                <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="100"/>
-                                <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="sCT-IV-fzw">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="hltt-logo-no-bg" translatesAutoresizingMaskIntoConstraints="NO" id="3HA-do-bCh">
+                                <rect key="frame" x="190" y="190" width="220" height="219"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Mi-eu-XcF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Tps-C1-kXc"/>
+                            <constraint firstItem="3HA-do-bCh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="V6p-1t-hMI"/>
                             <constraint firstAttribute="trailing" secondItem="sCT-IV-fzw" secondAttribute="trailing" id="ZSH-R3-BCQ"/>
                             <constraint firstItem="sCT-IV-fzw" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="aFq-Ls-459"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="sCT-IV-fzw" secondAttribute="bottom" id="fAE-U7-c8r"/>
-                            <constraint firstItem="3Mi-eu-XcF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mb5-PQ-Fgi"/>
+                            <constraint firstItem="3HA-do-bCh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="foN-8e-h0h"/>
                             <constraint firstItem="sCT-IV-fzw" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="mkl-KF-poc"/>
                         </constraints>
                     </view>
@@ -49,5 +41,6 @@
     </scenes>
     <resources>
         <image name="bg" width="1920" height="1200"/>
+        <image name="hltt-logo-no-bg" width="220" height="219"/>
     </resources>
 </document>
