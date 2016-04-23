@@ -1,10 +1,10 @@
 # HoelangTotTrein2.iOS
-Hi there! 👋 Welcome to the HLTTv2 repository. This is my scholarship entry for WWDC 2016.
+Hi there! 👋 Welcome to the HLTTv2 repository. 
+
+This also is scholarship entry for WWDC 2016.
 
 ### _HoelangTotTrein: How long 'till train_
 
-
-=========
 
 # Installation
 
@@ -18,23 +18,19 @@ Hi there! 👋 Welcome to the HLTTv2 repository. This is my scholarship entry fo
 
 - Enjoy!
 
-=========
-
 # Features
 
 - Geofence for start, change and arrival.
-- SmartFare for convienient 
+- Reverse-advice on arrival
 - (background) Push notifications for delays
 - watchOS 2 app for easy access from the wrist
 - Memorizes your current advice; 
 
-=========
 
 # API
 
 This project makes use of [NSApi.Scala](https://github.com/tomasharkema/NSApi.Scala) (an JSON wrapper for [The NS API](http://www.ns.nl/en/travel-information/ns-api)'s XML/SOAP api) for it's travel data.
 
-=========
 
 # Future plans
 
