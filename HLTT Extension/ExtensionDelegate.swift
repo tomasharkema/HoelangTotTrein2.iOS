@@ -35,7 +35,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   func applicationDidFinishLaunching() {
     session.delegate = self
     session.activateSession()
-    print(session.outstandingUserInfoTransfers)
   }
 
   func applicationDidBecomeActive() {

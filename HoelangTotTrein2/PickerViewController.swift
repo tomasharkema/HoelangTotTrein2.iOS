@@ -68,6 +68,8 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     currentStation.text = state.description
 
+    searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.4)])
+
     App.travelService.getCloseStations().then { stations in
       do {
         if let closeStationsFetchRequest = fetchedRequest(stations) {
@@ -148,6 +150,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if let station = getStation(fromIndexPath: indexPath) {
+      searchField.resignFirstResponder()
       successHandler?(station.toStation())
     }
   }

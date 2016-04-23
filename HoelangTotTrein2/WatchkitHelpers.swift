@@ -76,7 +76,6 @@ extension TravelEvent {
 extension WCSession {
   func sendEvent(event: TravelEvent) {
     do {
-      print("SEND EVENT: \(event)")
       if let data = jsonToNSData(event.encode) where self.reachable {
         self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
           print(error)

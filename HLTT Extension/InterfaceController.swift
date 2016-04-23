@@ -27,10 +27,10 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var delayLabel: WKInterfaceLabel!
 
   var refreshTimer: NSTimer?
+  var oneMinuteToGoTimer: NSTimer?
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    print(context)
     adviceDidChange()
   }
 
@@ -49,6 +49,8 @@ class InterfaceController: WKInterfaceController {
     super.didDeactivate()
   }
 
+  var previousAdvice: Advice?
+
   func adviceDidChange() {
     guard let advice = getCurrentAdvice() else {
       loadingLabel.setHidden(false)
@@ -56,7 +58,11 @@ class InterfaceController: WKInterfaceController {
       return
     }
 
-    WKInterfaceDevice.currentDevice().playHaptic(.Click);
+    if let _ = advice.vertrekVertraging where previousAdvice?.vertrekVertraging != advice.vertrekVertraging {
+      WKInterfaceDevice.currentDevice().playHaptic(.Failure)
+    }
+
+    previousAdvice = advice
 
     fromButton.setTitle("\(formatTime(advice.vertrek.actualDate))\n\(advice.startStation ?? "")")
     toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actualDate))")
@@ -72,10 +78,16 @@ class InterfaceController: WKInterfaceController {
     refreshTimer?.invalidate()
     let finished = advice.vertrek.actualDate.timeIntervalSinceNow
     refreshTimer = NSTimer.scheduledTimerWithTimeInterval(finished, target: self, selector: #selector(adviceDidChange), userInfo: nil, repeats: false)
+    oneMinuteToGoTimer?.invalidate()
+
+    let oneMinuteToGoOffset = finished - 60
+    if oneMinuteToGoOffset > 60 {
+      oneMinuteToGoTimer = NSTimer.scheduledTimerWithTimeInterval(oneMinuteToGoOffset, target: self, selector: #selector(oneMinuteToGo), userInfo: nil, repeats: false)
+    }
   }
 
-  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
-    print(userInfo)
+  @objc func oneMinuteToGo() {
+    WKInterfaceDevice.currentDevice().playHaptic(.DirectionUp)
   }
   
 }

@@ -217,7 +217,7 @@ class TravelService: NSObject, WCSessionDelegate {
 
   private func notifyOfNewAdvices(advices: Advices) {
     let advices = advices.filter {
-      $0.isOngoing
+      return $0.isOngoing
     }
 
     if let firstAdvice = advices.first {

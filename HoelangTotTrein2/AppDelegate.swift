@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     #else
     let env = "sandbox"
     #endif
-    
+    print(env)
     App.apiService.registerForNotification(UserDefaults.userId, env: env, pushUUID:
       pushUUID
         .stringByReplacingOccurrencesOfString("<", withString: "")
@@ -84,9 +84,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
     App.travelService.attach()
     App.travelService.tick()
-    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(10, scheduler: MainScheduler.asyncInstance).single().subscribeNext { _ in
+    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(5, scheduler: MainScheduler.asyncInstance).single().subscribeNext { _ in
       completionHandler(.NewData)
     }.addDisposableTo(disposeBag)
+
+    guard let message = userInfo["message"] as? String else {
+      return
+    }
+
+    let not = UILocalNotification()
+    not.alertTitle = "Delay"
+    not.alertBody = message
+    not.applicationIconBadgeNumber = 0
+    application.presentLocalNotificationNow(not)
   }
 }
 

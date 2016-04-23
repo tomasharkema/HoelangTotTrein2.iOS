@@ -18,12 +18,8 @@ class TickerViewController: ViewController {
   var fromStation: Station?
   var toStation: Station?
 
-  var currentAdviceSubscription: Disposable?
-  var currentAdvicesSubscription: Disposable?
-  var currentAdviceRequestSubscription: Disposable?
+  let disposeBag = DisposeBag()
   var onScreenAdviceDisposable: Disposable?
-  var currentAdvicesSubscriptionDelayed: Disposable?
-  var nextAdviceSubscription: Disposable?
 
   var timer: NSTimer?
   var currentAdvice: Advice?
@@ -52,7 +48,7 @@ class TickerViewController: ViewController {
 
     startTimer()
 
-    updateTickerView(0,total: 0)
+    updateTickerView(0, advices: [])
 
     collectionView.backgroundView = UIView()
     collectionView.backgroundColor = UIColor.clearColor()
@@ -66,7 +62,7 @@ class TickerViewController: ViewController {
     fromButton.titleLabel?.bounds = fromButton.bounds
     toButton.titleLabel?.bounds = toButton.bounds
 
-    currentAdvicesSubscription = App.travelService.currentAdvicesObservable.asObservable().subscribeNext { [weak self] advices in
+    App.travelService.currentAdvicesObservable.asObservable().subscribeNext { [weak self] advices in
       guard let advices = advices, service = self else {
         return
       }
@@ -80,35 +76,35 @@ class TickerViewController: ViewController {
           let index = advices.enumerate().filter { $0.element == advice }.first
 
           App.travelService.currentAdviceOnScreenVariable.value = index?.element
-          self?.updateTickerView(index?.index ?? 0, total: advices.count)
+          self?.updateTickerView(index?.index ?? 0, advices: advices)
         }
-    }
+    }.addDisposableTo(disposeBag)
 
-    currentAdvicesSubscriptionDelayed = App.travelService.currentAdvicesObservable.asObservable()
+    App.travelService.currentAdvicesObservable.asObservable()
       .delaySubscription(0.1, scheduler: MainScheduler.asyncInstance)
       .filter { $0 != nil }
       .subscribeNext { [weak self] in
         let advice = self?.scrollToPersistedAdvice($0!)
         let index = $0!.enumerate().filter { $0.element == advice }.first
         App.travelService.currentAdviceOnScreenVariable.value = index?.element
-        self?.updateTickerView(index?.index ?? 0, total: $0!.count)
-      }
+        self?.updateTickerView(index?.index ?? 0, advices: $0!)
+      }.addDisposableTo(disposeBag)
 
-    currentAdviceSubscription = App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
+    App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
       guard let advice = advice else {
         return
       }
       self?.startTime = NSDate()
       self?.currentAdvice = advice
       self?.render()
-    }
+    }.addDisposableTo(disposeBag)
 
-    nextAdviceSubscription = App.travelService.nextAdviceObservable.asObservable().subscribeNext { [weak self] advice in
+    App.travelService.nextAdviceObservable.asObservable().subscribeNext { [weak self] advice in
       self?.nextAdvice = advice
       self?.render()
-    }
+    }.addDisposableTo(disposeBag)
 
-    currentAdviceRequestSubscription = App.travelService.firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+    App.travelService.firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -116,7 +112,7 @@ class TickerViewController: ViewController {
       self?.toStation = adviceRequest.to
       self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
       self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
-    }
+    }.addDisposableTo(disposeBag)
 
     render()
   }
@@ -128,8 +124,6 @@ class TickerViewController: ViewController {
     NSNotificationCenter.defaultCenter().removeObserver(self)
 
     App.travelService.stopTimer()
-    currentAdviceSubscription?.dispose()
-    currentAdviceRequestSubscription?.dispose()
   }
 
   func startTimer() {
@@ -187,12 +181,6 @@ class TickerViewController: ViewController {
       UIView.animateWithDuration(AnimationInterval) { [weak self] in
         self?.backgroundView.transform = CGAffineTransformMakeTranslation(-leftBackgroundOffset/2, 0)
       }
-
-      nextView.hidden = false
-      nextViewBlur.hidden = false
-    } else {
-      nextViewBlur.hidden = true
-      nextView.hidden = true
     }
 
     if let nextAdvice = nextAdvice {
@@ -260,33 +248,56 @@ class TickerViewController: ViewController {
     return adviceAndIndex.element
   }
 
-  deinit {
-    currentAdviceSubscription?.dispose()
-    currentAdvicesSubscription?.dispose()
-    currentAdviceRequestSubscription?.dispose()
-    onScreenAdviceDisposable?.dispose()
-    currentAdvicesSubscriptionDelayed?.dispose()
-    nextAdviceSubscription?.dispose()
-  }
-
+  private var _indicatorStackViewCache = [Int: UIView]()
 }
 
 extension TickerViewController {
-  private func updateTickerView(i: Int, total: Int) {
-    stackIndicatorView.arrangedSubviews.forEach {
-      $0.removeFromSuperview()
-      self.stackIndicatorView.removeArrangedSubview($0)
-    }
 
-    (0..<total).forEach {
-      let image: UIImage
-      if $0 == i {
-        image = R.image.closed()!
+  private func createIndicatorView() -> UIView {
+    let width: CGFloat = 15
+    let height: CGFloat = width
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+    view.layer.cornerRadius = width/2
+    view.layer.borderWidth = 1
+    view.layer.borderColor = UIColor.whiteColor().CGColor
+
+    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width))
+    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height))
+    return view
+  }
+
+  private func updateTickerView(i: Int, advices: Advices) {
+    assert(NSThread.isMainThread(), "call from main thread")
+    advices.enumerate().forEach { (idx, element) in
+
+      let view: UIView
+      if let cachedView = _indicatorStackViewCache[idx] {
+        view = cachedView
       } else {
-        image = R.image.open()!
+        let newView = createIndicatorView()
+        self._indicatorStackViewCache[idx] = newView
+        self.stackIndicatorView.addArrangedSubview(newView)
+        view = newView
       }
 
-      stackIndicatorView.addArrangedSubview(UIImageView(image: image))
+      view.hidden = false
+
+      let bgColor: UIColor
+      if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
+        bgColor = UIColor.redTintColor()
+      } else if idx == i {
+        bgColor = UIColor.whiteColor()
+      } else if (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
+        bgColor = UIColor.redTintColor().colorWithAlphaComponent(0.3)
+      } else {
+        bgColor = UIColor.clearColor()
+      }
+
+      view.backgroundColor = bgColor
+    }
+
+    stackIndicatorView.arrangedSubviews.skip(advices.count).forEach {
+      $0.hidden = true
     }
   }
 }

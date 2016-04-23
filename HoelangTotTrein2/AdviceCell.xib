@@ -53,7 +53,7 @@
                                 <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="op tijd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-dB-jZF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="op tijd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-dB-jZF">
                                 <rect key="frame" x="318" y="177" width="50" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="UcL-WZ-n6P"/>
@@ -62,7 +62,7 @@
                                 <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqN-qO-TEO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqN-qO-TEO">
                                 <rect key="frame" x="110" y="177" width="144" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="bFb-wa-DKM"/>
@@ -71,10 +71,10 @@
                                 <color key="textColor" red="0.92549019610000005" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-js-mkb">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-js-mkb">
                                 <rect key="frame" x="110" y="39" width="257.5" height="138"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw5-Po-FWp">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw5-Po-FWp">
                                         <rect key="frame" x="0.0" y="0.0" width="170.5" height="138"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="117" id="9jM-wd-6A6"/>
@@ -88,13 +88,13 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIJ-Xb-9Uk">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIJ-Xb-9Uk">
                                         <rect key="frame" x="170" y="8" width="18" height="56"/>
                                         <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="60"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-DY-99O">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-DY-99O">
                                         <rect key="frame" x="188" y="8" width="69" height="56"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="n6I-u5-FcK"/>
@@ -115,6 +115,7 @@
                                     <constraint firstAttribute="bottom" secondItem="8UC-DY-99O" secondAttribute="bottom" id="9ai-s5-br3"/>
                                     <constraint firstItem="qIJ-Xb-9Uk" firstAttribute="baseline" secondItem="Mw5-Po-FWp" secondAttribute="baseline" id="Di8-JK-aTN"/>
                                     <constraint firstItem="Mw5-Po-FWp" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="top" id="DrP-xE-Czg"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="260" id="GOz-5o-BYz"/>
                                     <constraint firstItem="8UC-DY-99O" firstAttribute="leading" secondItem="qIJ-Xb-9Uk" secondAttribute="trailing" id="MSW-dk-AUd"/>
                                     <constraint firstItem="qIJ-Xb-9Uk" firstAttribute="leading" secondItem="Mw5-Po-FWp" secondAttribute="trailing" id="RKR-Zm-ZiO"/>
                                     <constraint firstItem="Mw5-Po-FWp" firstAttribute="leading" secondItem="nuo-js-mkb" secondAttribute="leading" id="WI3-Z5-gtu"/>
@@ -140,7 +141,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-CH-dE5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-CH-dE5">
                                 <rect key="frame" x="110" y="8" width="60" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="WmK-A0-MIo"/>
