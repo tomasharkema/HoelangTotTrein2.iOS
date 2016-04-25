@@ -55,7 +55,7 @@ class NotificationService {
 
     case .Overstap:
       let timeString = secondsToStringOffset(jsTime: correctModel.fromStop?.time ?? 0)
-      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", userInfo: oldModel.encodeJson())
+      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", userInfo: ["geofenceModel": oldModel.encodeJson()])
 
     case .End:
       fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", userInfo: nil)
