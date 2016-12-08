@@ -33,3 +33,4 @@ Pods/
 Carthage/Build
 
 R.generated.swift
+node_modules

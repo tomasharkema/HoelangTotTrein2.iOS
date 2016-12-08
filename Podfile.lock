@@ -1,7 +1,7 @@
 PODS:
   - AFDateHelper (3.3.0)
-  - Alamofire (3.3.1)
-  - CoreDataKit (0.10.0)
+  - Alamofire (3.5.0)
+  - CoreDataKit (0.11.0)
   - NewRelicAgent (5.4.1)
   - Promissum (0.5.0):
     - Promissum/Core (= 0.5.0)
@@ -17,11 +17,11 @@ PODS:
   - R.swift (2.1.0):
     - R.swift.Library (~> 2.0.0)
   - R.swift.Library (2.0.0)
-  - RxBlocking (2.4):
-    - RxSwift (~> 2.4)
-  - RxCocoa (2.4):
-    - RxSwift (~> 2.4)
-  - RxSwift (2.4)
+  - RxBlocking (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxCocoa (2.6.0):
+    - RxSwift (~> 2.5)
+  - RxSwift (2.6.0)
   - SegueManager/iOS (1.3.0)
   - SegueManager/R.swift (1.3.0):
     - R.swift.Library
@@ -29,29 +29,32 @@ PODS:
 
 DEPENDENCIES:
   - AFDateHelper
-  - CoreDataKit
+  - Alamofire (~> 3.5)
+  - CoreDataKit (~> 0.11.0)
   - NewRelicAgent (~> 5.4.0)
   - Promissum (~> 0.5)
   - Promissum/Alamofire (~> 0.5)
   - Promissum/CoreDataKit (~> 0.5)
   - Promissum/UIKit (~> 0.5)
   - R.swift
-  - RxBlocking (~> 2.0)
-  - RxCocoa (~> 2.0)
-  - RxSwift (~> 2.0)
+  - RxBlocking (~> 2.6)
+  - RxCocoa (~> 2.6)
+  - RxSwift (~> 2.6)
   - SegueManager/R.swift (~> 1.2)
 
 SPEC CHECKSUMS:
   AFDateHelper: 137b5b9d70fe13b810e1817fa2d8c116d7988f5c
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
-  CoreDataKit: 75f73e4ed6d6040f2c32073fec48397e907b8438
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  CoreDataKit: 419300fa1f26cc22be55180e9bbc839883763e2b
   NewRelicAgent: c85f94358d6e02761cae6707364c4402a352a08f
   Promissum: 178ef117f446ed62e92e58cfbf8dd01bf543dad1
   R.swift: efff131531b5cf142e28fd94957806ff71ccbcf2
   R.swift.Library: 9f4b2d12040daa1ffe336d8f7e1574f73721fd01
-  RxBlocking: 1226c1fa0ca1e0ca5f964d4330ca3649f2128680
-  RxCocoa: 7d6cd877de99f5640306b3d6cf87f580c1d91b61
-  RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
+  RxBlocking: f2e0a7e74d5e9d3029d2b1118e2af01f583fbdd8
+  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
+  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
   SegueManager: 211998990ba79d1ebe48bbfd0cd0c05df500e202
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: a3856d30adc50229c336590f629fdf155c196383
+
+COCOAPODS: 1.1.1

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A703009EA819A4B7D8EC88AE /* Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2920294B7D6391F480A368A /* Pods_HoelangTotTrein2.framework */; };
+		6495B9FAA235B22237E5B6F3 /* Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
@@ -159,10 +159,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		007261355F30C646379EC3F4 /* Pods-HoelangTotTrein2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.debug.xcconfig"; sourceTree = "<group>"; };
+		1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
+		3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.debug.xcconfig"; sourceTree = "<group>"; };
 		5CC68A4CC5E6349314E4274F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		641C8E347FA7EF483748ACC6 /* Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
-		B2920294B7D6391F480A368A /* Pods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
 		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
 		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A703009EA819A4B7D8EC88AE /* Pods_HoelangTotTrein2.framework in Frameworks */,
+				6495B9FAA235B22237E5B6F3 /* Pods_HoelangTotTrein2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,16 +297,16 @@
 			isa = PBXGroup;
 			children = (
 				5CC68A4CC5E6349314E4274F /* Pods.framework */,
-				B2920294B7D6391F480A368A /* Pods_HoelangTotTrein2.framework */,
+				78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		2A482B6FCFF2FEC2EA3E3333 /* Pods */ = {
+		876C5AAC680F3F681C665ABC /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				007261355F30C646379EC3F4 /* Pods-HoelangTotTrein2.debug.xcconfig */,
-				641C8E347FA7EF483748ACC6 /* Pods-HoelangTotTrein2.release.xcconfig */,
+				3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */,
+				1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -321,7 +321,7 @@
 				C3FD07DF1CC767FA002893B3 /* HLTT Extension */,
 				C3E847501BB82A01007D17C3 /* Products */,
 				09A521EB6C856AE8207FF398 /* Frameworks */,
-				2A482B6FCFF2FEC2EA3E3333 /* Pods */,
+				876C5AAC680F3F681C665ABC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -542,15 +542,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3E8477A1BB82A01007D17C3 /* Build configuration list for PBXNativeTarget "HoelangTotTrein2" */;
 			buildPhases = (
-				9267C1C6C88B53C49DF38B51 /* Check Pods Manifest.lock */,
+				3C95262F88DED6218CB025E3 /* [CP] Check Pods Manifest.lock */,
 				C3E847AE1BB85518007D17C3 /* ShellScript */,
 				C3E8474B1BB82A01007D17C3 /* Sources */,
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
 				C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */,
 				C3FD07F91CC767FA002893B3 /* Embed Watch Content */,
-				E9C6EA5C203D64C3C2D97FCA /* Embed Pods Frameworks */,
-				E0067506B692B8F2193486D5 /* Copy Pods Resources */,
+				8D7B83227E05370D3444ACAF /* [CP] Embed Pods Frameworks */,
+				262550C09297736B5220082B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -646,6 +646,8 @@
 					C3E8474E1BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = RSRVS8D9PW;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -669,6 +671,8 @@
 					C3FD07CE1CC767FA002893B3 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = RSRVS8D9PW;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -678,6 +682,8 @@
 					C3FD07DA1CC767FA002893B3 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = RSRVS8D9PW;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -763,19 +769,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9267C1C6C88B53C49DF38B51 /* Check Pods Manifest.lock */ = {
+		262550C09297736B5220082B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C95262F88DED6218CB025E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D7B83227E05370D3444ACAF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C3E847AE1BB85518007D17C3 /* ShellScript */ = {
@@ -803,36 +839,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$CONFIGURATION\" == *Release ]]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n/bin/sh \"${SCRIPT}\" \"AA37eca143a6cbc43c025498e41838d785d5666a06\"\nfi";
-		};
-		E0067506B692B8F2193486D5 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E9C6EA5C203D64C3C2D97FCA /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1075,40 +1081,44 @@
 		};
 		C3E8477B1BB82A01007D17C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 007261355F30C646379EC3F4 /* Pods-HoelangTotTrein2.debug.xcconfig */;
+			baseConfigurationReference = 3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
-				PROVISIONING_PROFILE = "2e6f4f5a-eda8-479a-bca4-312ed04c0094";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		C3E8477C1BB82A01007D17C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 641C8E347FA7EF483748ACC6 /* Pods-HoelangTotTrein2.release.xcconfig */;
+			baseConfigurationReference = 1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
-				PROVISIONING_PROFILE = "ff36065f-ca50-40c6-94a4-e38a4895178c";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1169,14 +1179,16 @@
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				IBSC_MODULE = HLTT_Extension;
 				INFOPLIST_FILE = HLTT/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57feca73-89db-4b05-a2e6-e09e92a0c26a";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1190,15 +1202,17 @@
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				IBSC_MODULE = HLTT_Extension;
 				INFOPLIST_FILE = HLTT/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "721cb220-9499-4611-8cfd-9e159255839d";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1211,13 +1225,15 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "07de8644-25c3-457d-bbc8-71126d352364";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1230,14 +1246,16 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "db3c4af5-d84e-4a9d-b93b-c9d239bf3fb6";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};

@@ -32,7 +32,19 @@ class TravelService: NSObject, WCSessionDelegate {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(startTimer), name: UIApplicationDidBecomeActiveNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(stopTimer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
   }
-
+  
+  func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+    /* stub */
+  }
+  
+  func sessionDidBecomeInactive(session: WCSession) {
+    /* stub */
+  }
+  
+  public func sessionDidDeactivate(session: WCSession) {
+    /* stub */
+  }
+  
   func attach() {
 
     session.delegate = self

@@ -22,7 +22,7 @@ class NetworkActivityIndicatorManager: NSObject {
 
   func increment() {
     objc_sync_enter(self)
-    activityCount++
+    activityCount += 1
     objc_sync_exit(self)
 
     dispatch_async(dispatch_get_main_queue()) {
@@ -48,7 +48,7 @@ class NetworkActivityIndicatorManager: NSObject {
       }
     } else {
       activityIndicatorVisibilityTimer?.invalidate()
-      activityIndicatorVisibilityTimer = NSTimer(timeInterval: 0.2, target: self, selector: "updateNetworkActivityIndicatorVisibility", userInfo: nil, repeats: false)
+      activityIndicatorVisibilityTimer = NSTimer(timeInterval: 0.2, target: self, selector: #selector(NetworkActivityIndicatorManager.updateNetworkActivityIndicatorVisibility), userInfo: nil, repeats: false)
       activityIndicatorVisibilityTimer!.tolerance = 0.2
       NSRunLoop.mainRunLoop().addTimer(activityIndicatorVisibilityTimer!, forMode: NSRunLoopCommonModes)
     }
