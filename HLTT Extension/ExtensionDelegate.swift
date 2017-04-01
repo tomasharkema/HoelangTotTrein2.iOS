@@ -75,7 +75,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
   }
 
-  func requestInitialState(_ completionHandler: ((NSError?) -> ())? = nil) {
+  func requestInitialState(_ completionHandler: ((Error?) -> ())? = nil) {
 
     guard let someData = Data(base64Encoded: "initialstate", options: []) else {
       return
@@ -88,7 +88,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     try? session.updateApplicationContext(["boot!": "Boot!"])
 
     session.sendMessageData(someData, replyHandler: { [weak self] messageData in
-      guard let service = self, json = nsdataToJSON(messageData) as? [String : AnyObject] else {
+      guard let service = self, let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
         return
       }
 

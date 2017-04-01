@@ -1,60 +1,71 @@
 PODS:
-  - AFDateHelper (3.3.0)
-  - Alamofire (3.5.0)
-  - CoreDataKit (0.11.0)
+  - AFDateHelper (4.1.2)
+  - Alamofire (4.4.0)
   - NewRelicAgent (5.4.1)
-  - Promissum (0.5.0):
-    - Promissum/Core (= 0.5.0)
-  - Promissum/Alamofire (0.5.0):
-    - Alamofire (~> 3.0)
+  - Promissum (1.0.0):
+    - Promissum/Core (= 1.0.0)
+  - Promissum/Alamofire (1.0.0):
+    - Alamofire (~> 4.0)
     - Promissum/Core
-  - Promissum/Core (0.5.0)
-  - Promissum/CoreDataKit (0.5.0):
-    - CoreDataKit (~> 0.9)
+  - Promissum/Core (1.0.0)
+  - Promissum/UIKit (1.0.0):
     - Promissum/Core
-  - Promissum/UIKit (0.5.0):
-    - Promissum/Core
-  - R.swift (2.1.0):
-    - R.swift.Library (~> 2.0.0)
-  - R.swift.Library (2.0.0)
-  - RxBlocking (2.6.0):
-    - RxSwift (~> 2.5)
-  - RxCocoa (2.6.0):
-    - RxSwift (~> 2.5)
-  - RxSwift (2.6.0)
-  - SegueManager/iOS (1.3.0)
-  - SegueManager/R.swift (1.3.0):
+  - R.swift (3.2.0):
+    - R.swift.Library (~> 3.0.2)
+  - R.swift.Library (3.0.2)
+  - RxBlocking (3.3.1):
+    - RxSwift (~> 3.3)
+  - RxCocoa (3.3.1):
+    - RxSwift (~> 3.3)
+  - RxSwift (3.3.1)
+  - SegueManager/iOS (3.1.0)
+  - SegueManager/R.swift (3.1.0):
     - R.swift.Library
     - SegueManager/iOS
+  - Statham (1.2.0):
+    - Statham/Core (= 1.2.0)
+  - Statham/Alamofire+Promissum (1.2.0):
+    - Promissum/Alamofire (~> 1.0)
+    - Statham/Core
+  - Statham/Core (1.2.0)
 
 DEPENDENCIES:
-  - AFDateHelper
-  - Alamofire (~> 3.5)
-  - CoreDataKit (~> 0.11.0)
+  - AFDateHelper (~> 4.0)
+  - Alamofire (~> 4.4)
   - NewRelicAgent (~> 5.4.0)
-  - Promissum (~> 0.5)
-  - Promissum/Alamofire (~> 0.5)
-  - Promissum/CoreDataKit (~> 0.5)
-  - Promissum/UIKit (~> 0.5)
-  - R.swift
-  - RxBlocking (~> 2.6)
-  - RxCocoa (~> 2.6)
-  - RxSwift (~> 2.6)
-  - SegueManager/R.swift (~> 1.2)
+  - Promissum (~> 1.0)
+  - Promissum/Alamofire (~> 1.0)
+  - Promissum/UIKit (~> 1.0)
+  - R.swift (~> 3.2)
+  - RxBlocking (~> 3.0)
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
+  - SegueManager/R.swift (~> 3.1.0)
+  - Statham (from `https://github.com/tomasharkema/Statham.git`)
+  - Statham/Alamofire+Promissum (from `https://github.com/tomasharkema/Statham.git`)
+
+EXTERNAL SOURCES:
+  Statham:
+    :git: https://github.com/tomasharkema/Statham.git
+
+CHECKOUT OPTIONS:
+  Statham:
+    :commit: d74510d6201fad7652c8cf2d35e34f093ec53251
+    :git: https://github.com/tomasharkema/Statham.git
 
 SPEC CHECKSUMS:
-  AFDateHelper: 137b5b9d70fe13b810e1817fa2d8c116d7988f5c
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
-  CoreDataKit: 419300fa1f26cc22be55180e9bbc839883763e2b
+  AFDateHelper: b19c83daa132e398b34fbea085a1554ce07adfe9
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   NewRelicAgent: c85f94358d6e02761cae6707364c4402a352a08f
-  Promissum: 178ef117f446ed62e92e58cfbf8dd01bf543dad1
-  R.swift: efff131531b5cf142e28fd94957806ff71ccbcf2
-  R.swift.Library: 9f4b2d12040daa1ffe336d8f7e1574f73721fd01
-  RxBlocking: f2e0a7e74d5e9d3029d2b1118e2af01f583fbdd8
-  RxCocoa: 89ab00d5753502520227940e3a0e0a0413683c6b
-  RxSwift: 77f3a0b15324baa7a1c9bfa9f199648a82424e26
-  SegueManager: 211998990ba79d1ebe48bbfd0cd0c05df500e202
+  Promissum: d1ef42a34fa40f119f011ed89e26234a2f6164c1
+  R.swift: 207a372a2b5977caef440c696a368009460641d1
+  R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
+  RxBlocking: c5918ecb86b8c205a8ccc6d1ff2abb338ddc50a0
+  RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
+  RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
+  SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
+  Statham: c30278d494d0aeefb9b7229fae919d7905099166
 
-PODFILE CHECKSUM: a3856d30adc50229c336590f629fdf155c196383
+PODFILE CHECKSUM: 89f0afcfe7658f1b4b02ad0b164cf9a2134bfaf4
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

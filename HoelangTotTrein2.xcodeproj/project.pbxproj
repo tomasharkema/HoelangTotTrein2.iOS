@@ -7,27 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6495B9FAA235B22237E5B6F3 /* Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */; };
+		C3188D211E8FDA63006775D8 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D201E8FDA63006775D8 /* DataStore.swift */; };
+		C3188D231E8FE1D1006775D8 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D221E8FE1D1006775D8 /* HistoryType.swift */; };
+		C3188D251E903B34006775D8 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D241E903B34006775D8 /* SessionManager+Request.swift */; };
+		C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
 		C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
 		C338D6BF1CC9063A00613A60 /* JsonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */; };
-		C338D6C01CC9063E00613A60 /* JsonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */; };
 		C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C352D2D21C53DCE50066D01C /* Array+Extensions.swift */; };
 		C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
 		C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
-		C3A47C341BBEF05D00A3CDA8 /* History+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */; };
-		C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C331BBEF05D00A3CDA8 /* History.swift */; };
 		C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
 		C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */; };
 		C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */; };
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
 		C3B484DA1CCB8F1400EB25D5 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
-		C3BA351A1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
-		C3BA351B1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
-		C3BA351C1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
 		C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */; };
@@ -38,7 +35,6 @@
 		C3C26C121C5531E000197471 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C111C5531E000197471 /* GeofenceModel.swift */; };
 		C3C26C141C55321600197471 /* GeofenceModel+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */; };
 		C3C26C161C5556C100197471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C151C5556C100197471 /* NotificationService.swift */; };
-		C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */; };
 		C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */; };
 		C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */; };
 		C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */; };
@@ -55,14 +51,11 @@
 		C3E847921BB836A5007D17C3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847911BB836A5007D17C3 /* App.swift */; };
 		C3E847941BB83A94007D17C3 /* LogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847931BB83A94007D17C3 /* LogService.swift */; };
 		C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */; };
-		C3E847981BB83B9B007D17C3 /* JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847971BB83B9B007D17C3 /* JsonGen.swift */; };
 		C3E8479A1BB83BC6007D17C3 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847991BB83BC6007D17C3 /* Advice.swift */; };
 		C3E8479C1BB83BCE007D17C3 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479B1BB83BCE007D17C3 /* Station.swift */; };
 		C3E847A01BB83C4F007D17C3 /* Advice+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */; };
 		C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */; };
 		C3E847A61BB8447B007D17C3 /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */; };
-		C3E847A91BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A71BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift */; };
-		C3E847AA1BB846FC007D17C3 /* StationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847A81BB846FC007D17C3 /* StationRecord.swift */; };
 		C3E847AD1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */; };
 		C3E847B31BB855AA007D17C3 /* SegueManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847B21BB855AA007D17C3 /* SegueManagerController.swift */; };
 		C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847B41BB85608007D17C3 /* ViewController.swift */; };
@@ -77,32 +70,9 @@
 		C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F72AC01C95D3F60024CF2C /* StepView.xib */; };
 		C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
 		C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
-		C3FD07D31CC767FA002893B3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07D11CC767FA002893B3 /* Interface.storyboard */; };
-		C3FD07D51CC767FA002893B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07D41CC767FA002893B3 /* Assets.xcassets */; };
-		C3FD07DC1CC767FA002893B3 /* HLTT Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C3FD07DB1CC767FA002893B3 /* HLTT Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C3FD07E31CC767FA002893B3 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* InterfaceController.swift */; };
-		C3FD07E51CC767FA002893B3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
-		C3FD07E71CC767FA002893B3 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E61CC767FA002893B3 /* NotificationController.swift */; };
-		C3FD07EB1CC767FA002893B3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */; };
-		C3FD07ED1CC767FA002893B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07EC1CC767FA002893B3 /* Assets.xcassets */; };
-		C3FD07F11CC767FA002893B3 /* HLTT.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = C3FD07CF1CC767FA002893B3 /* HLTT.app */; };
-		C3FD07FB1CC76BE5002893B3 /* NSUserDefaults+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */; };
-		C3FD07FC1CC76C88002893B3 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C111C5531E000197471 /* GeofenceModel.swift */; };
-		C3FD07FD1CC76C8C002893B3 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847991BB83BC6007D17C3 /* Advice.swift */; };
-		C3FD07FE1CC76C92002893B3 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479B1BB83BCE007D17C3 /* Station.swift */; };
-		C3FD07FF1CC76C9D002893B3 /* GeofenceModel+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */; };
-		C3FD08001CC76C9D002893B3 /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */; };
-		C3FD08011CC76C9D002893B3 /* Advice+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */; };
-		C3FD08021CC76C9D002893B3 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */; };
-		C3FD08031CC76C9D002893B3 /* Station+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */; };
-		C3FD08041CC76CAA002893B3 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78B91BDEC4D300603805 /* SuccessResponse.swift */; };
-		C3FD08051CC76CB0002893B3 /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */; };
-		C3FD08061CC76CB9002893B3 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
-		C3FD08071CC76CB9002893B3 /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */; };
 		C3FD08091CC76D83002893B3 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08081CC76D83002893B3 /* WatchkitHelpers.swift */; };
-		C3FD080A1CC76D85002893B3 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08081CC76D83002893B3 /* WatchkitHelpers.swift */; };
-		C3FD08141CC7CAEB002893B3 /* JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847971BB83B9B007D17C3 /* JsonGen.swift */; };
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
+		CB7802F18C4CEA02FB2E40BA /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3792CBC26C8872F46C6B2E86 /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,52 +90,23 @@
 			remoteGlobalIDString = C3E8474E1BB82A01007D17C3;
 			remoteInfo = HoelangTotTrein2;
 		};
-		C3FD07DD1CC767FA002893B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C3FD07DA1CC767FA002893B3;
-			remoteInfo = "HLTT Extension";
-		};
-		C3FD07EF1CC767FA002893B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C3FD07CE1CC767FA002893B3;
-			remoteInfo = HLTT;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C3FD07F71CC767FA002893B3 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				C3FD07DC1CC767FA002893B3 /* HLTT Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C3FD07F91CC767FA002893B3 /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				C3FD07F11CC767FA002893B3 /* HLTT.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
+		211FA834DB35E21965AF197B /* Pods-HLTT Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HLTT Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-HLTT Extension/Pods-HLTT Extension.release.xcconfig"; sourceTree = "<group>"; };
+		3792CBC26C8872F46C6B2E86 /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinPods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		383E75807402A70BB2DEBF21 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinPods-HoelangTotTrein2.release.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTreinPods-HoelangTotTrein2/Pods-HoelangTotTreinPods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
 		3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2.debug.xcconfig"; sourceTree = "<group>"; };
 		5CC68A4CC5E6349314E4274F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		600576A30D03663369758751 /* Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DBB30F07894EDA1E219C5CF /* Pods-HLTT Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HLTT Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HLTT Extension/Pods-HLTT Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		9BD67E73AA0D925DB3BF7D51 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinPods-HoelangTotTrein2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HoelangTotTreinPods-HoelangTotTrein2/Pods-HoelangTotTreinPods-HoelangTotTrein2.debug.xcconfig"; sourceTree = "<group>"; };
+		C3188D201E8FDA63006775D8 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		C3188D221E8FE1D1006775D8 /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
+		C3188D241E903B34006775D8 /* SessionManager+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionManager+Request.swift"; sourceTree = "<group>"; };
+		C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
 		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
 		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
@@ -175,15 +116,12 @@
 		C352D2D21C53DCE50066D01C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
 		C37626901C947356006A42A7 /* AKKURATL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURATL.ttf; sourceTree = "<group>"; };
-		C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "History+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C3A47C331BBEF05D00A3CDA8 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+Services.swift"; sourceTree = "<group>"; };
 		C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Offset.swift"; sourceTree = "<group>"; };
 		C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
 		C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
-		C3BA35191E12A471000BA4A5 /* harkemaio.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = harkemaio.cer; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceCell.swift; sourceTree = "<group>"; };
 		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdviceCell.xib; sourceTree = "<group>"; };
@@ -194,7 +132,6 @@
 		C3C26C111C5531E000197471 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeofenceModel.swift; path = Json/GeofenceModel.swift; sourceTree = "<group>"; };
 		C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GeofenceModel+JsonGen.swift"; path = "Json/GeofenceModel+JsonGen.swift"; sourceTree = "<group>"; };
 		C3C26C151C5556C100197471 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JsonGen+Alamofire.swift"; sourceTree = "<group>"; };
 		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorJson.swift; path = Json/ErrorJson.swift; sourceTree = "<group>"; };
 		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ErrorJson+JsonGen.swift"; path = "Json/ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
 		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
@@ -218,14 +155,11 @@
 		C3E847911BB836A5007D17C3 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C3E847931BB83A94007D17C3 /* LogService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityManagerService.swift; sourceTree = "<group>"; };
-		C3E847971BB83B9B007D17C3 /* JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonGen.swift; sourceTree = "<group>"; };
 		C3E847991BB83BC6007D17C3 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Advice.swift; path = Json/Advice.swift; sourceTree = "<group>"; };
 		C3E8479B1BB83BCE007D17C3 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Station.swift; path = Json/Station.swift; sourceTree = "<group>"; };
 		C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Advice+JsonGen.swift"; path = "Json/Advice+JsonGen.swift"; sourceTree = "<group>"; };
 		C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Station+JsonGen.swift"; path = "Json/Station+JsonGen.swift"; sourceTree = "<group>"; };
 		C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
-		C3E847A71BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StationRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C3E847A81BB846FC007D17C3 /* StationRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationRecord.swift; sourceTree = "<group>"; };
 		C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+HLTT.swift"; sourceTree = "<group>"; };
 		C3E847B21BB855AA007D17C3 /* SegueManagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueManagerController.swift; sourceTree = "<group>"; };
 		C3E847B41BB85608007D17C3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -240,11 +174,9 @@
 		C3F72AC01C95D3F60024CF2C /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
 		C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zaandam.gpx; sourceTree = "<group>"; };
 		C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Hoofddorp.gpx; sourceTree = "<group>"; };
-		C3FD07CF1CC767FA002893B3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FD07D21CC767FA002893B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		C3FD07D41CC767FA002893B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3FD07D61CC767FA002893B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C3FD07DB1CC767FA002893B3 /* HLTT Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HLTT Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		C3FD07E21CC767FA002893B3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -258,18 +190,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9C4808B5B05574A025A38E1F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3E8474C1BB82A01007D17C3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6495B9FAA235B22237E5B6F3 /* Pods_HoelangTotTrein2.framework in Frameworks */,
+				CB7802F18C4CEA02FB2E40BA /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,13 +212,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3FD07D81CC767FA002893B3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -302,6 +220,8 @@
 			children = (
 				5CC68A4CC5E6349314E4274F /* Pods.framework */,
 				78BDC9C09013C3850065A3F5 /* Pods_HoelangTotTrein2.framework */,
+				3792CBC26C8872F46C6B2E86 /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework */,
+				600576A30D03663369758751 /* Pods_HLTT_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -311,6 +231,10 @@
 			children = (
 				3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */,
 				1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */,
+				9BD67E73AA0D925DB3BF7D51 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.debug.xcconfig */,
+				383E75807402A70BB2DEBF21 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.release.xcconfig */,
+				8DBB30F07894EDA1E219C5CF /* Pods-HLTT Extension.debug.xcconfig */,
+				211FA834DB35E21965AF197B /* Pods-HLTT Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -335,8 +259,6 @@
 				C3E8474F1BB82A01007D17C3 /* HLTT.app */,
 				C3E847661BB82A01007D17C3 /* HoelangTotTrein2Tests.xctest */,
 				C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */,
-				C3FD07CF1CC767FA002893B3 /* HLTT.app */,
-				C3FD07DB1CC767FA002893B3 /* HLTT Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -356,7 +278,6 @@
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */,
-				C3BA35191E12A471000BA4A5 /* harkemaio.cer */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C376268E1C947309006A42A7 /* AKKURAT.ttf */,
 				C37626901C947356006A42A7 /* AKKURATL.ttf */,
@@ -419,13 +340,12 @@
 				C3E8478F1BB832E6007D17C3 /* TravelService.swift */,
 				C3E847931BB83A94007D17C3 /* LogService.swift */,
 				C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */,
-				C3E847971BB83B9B007D17C3 /* JsonGen.swift */,
-				C3CEB9161C53A76F00C6FBFF /* JsonGen+Alamofire.swift */,
 				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
 				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
 				C3C26C071C5527D600197471 /* GeofenceService.swift */,
 				C3C26C151C5556C100197471 /* NotificationService.swift */,
 				C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */,
+				C3188D201E8FDA63006775D8 /* DataStore.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -442,6 +362,7 @@
 				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
 				C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */,
 				C3C26C111C5531E000197471 /* GeofenceModel.swift */,
+				C3188D221E8FE1D1006775D8 /* HistoryType.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -469,6 +390,8 @@
 				C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */,
 				C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */,
 				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
+				C3188D241E903B34006775D8 /* SessionManager+Request.swift */,
+				C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -476,10 +399,6 @@
 		C3E847AB1BB84A87007D17C3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				C3A47C321BBEF05D00A3CDA8 /* History+CoreDataProperties.swift */,
-				C3A47C331BBEF05D00A3CDA8 /* History.swift */,
-				C3E847A71BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift */,
-				C3E847A81BB846FC007D17C3 /* StationRecord.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -553,14 +472,12 @@
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
 				C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */,
-				C3FD07F91CC767FA002893B3 /* Embed Watch Content */,
 				8D7B83227E05370D3444ACAF /* [CP] Embed Pods Frameworks */,
 				262550C09297736B5220082B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C3FD07F01CC767FA002893B3 /* PBXTargetDependency */,
 			);
 			name = HoelangTotTrein2;
 			productName = HoelangTotTrein2;
@@ -603,41 +520,6 @@
 			productReference = C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		C3FD07CE1CC767FA002893B3 /* HLTT */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C3FD07F81CC767FA002893B3 /* Build configuration list for PBXNativeTarget "HLTT" */;
-			buildPhases = (
-				C3FD07CD1CC767FA002893B3 /* Resources */,
-				C3FD07F71CC767FA002893B3 /* Embed App Extensions */,
-				9C4808B5B05574A025A38E1F /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C3FD07DE1CC767FA002893B3 /* PBXTargetDependency */,
-			);
-			name = HLTT;
-			productName = HLTT;
-			productReference = C3FD07CF1CC767FA002893B3 /* HLTT.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		C3FD07DA1CC767FA002893B3 /* HLTT Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C3FD07F61CC767FA002893B3 /* Build configuration list for PBXNativeTarget "HLTT Extension" */;
-			buildPhases = (
-				C3FD07D71CC767FA002893B3 /* Sources */,
-				C3FD07D81CC767FA002893B3 /* Frameworks */,
-				C3FD07D91CC767FA002893B3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "HLTT Extension";
-			productName = "HLTT Extension";
-			productReference = C3FD07DB1CC767FA002893B3 /* HLTT Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -645,7 +527,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Tomas Harkema";
 				TargetAttributes = {
 					C3E8474E1BB82A01007D17C3 = {
@@ -675,28 +557,6 @@
 						LastSwiftMigration = 0830;
 						TestTargetID = C3E8474E1BB82A01007D17C3;
 					};
-					C3FD07CE1CC767FA002893B3 = {
-						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					C3FD07DA1CC767FA002893B3 = {
-						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = C3E8474A1BB82A01007D17C3 /* Build configuration list for PBXProject "HoelangTotTrein2" */;
@@ -715,8 +575,6 @@
 				C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */,
 				C3E847651BB82A01007D17C3 /* HoelangTotTrein2Tests */,
 				C3E847701BB82A01007D17C3 /* HoelangTotTrein2UITests */,
-				C3FD07CE1CC767FA002893B3 /* HLTT */,
-				C3FD07DA1CC767FA002893B3 /* HLTT Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -730,7 +588,6 @@
 				C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
 				C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */,
-				C3BA351A1E12A471000BA4A5 /* harkemaio.cer in Resources */,
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
@@ -757,25 +614,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3FD07CD1CC767FA002893B3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3FD07D51CC767FA002893B3 /* Assets.xcassets in Resources */,
-				C3FD07D31CC767FA002893B3 /* Interface.storyboard in Resources */,
-				C3BA351B1E12A471000BA4A5 /* harkemaio.cer in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C3FD07D91CC767FA002893B3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3BA351C1E12A471000BA4A5 /* harkemaio.cer in Resources */,
-				C3FD07ED1CC767FA002893B3 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -791,7 +629,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTreinPods-HoelangTotTrein2/Pods-HoelangTotTreinPods-HoelangTotTrein2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3C95262F88DED6218CB025E3 /* [CP] Check Pods Manifest.lock */ = {
@@ -821,7 +659,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTrein2/Pods-HoelangTotTrein2-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HoelangTotTreinPods-HoelangTotTrein2/Pods-HoelangTotTreinPods-HoelangTotTrein2-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C3E847AE1BB85518007D17C3 /* ShellScript */ = {
@@ -862,6 +700,7 @@
 				C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */,
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
 				C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */,
+				C3188D211E8FDA63006775D8 /* DataStore.swift in Sources */,
 				C3E847A11BB83C4F007D17C3 /* Station+JsonGen.swift in Sources */,
 				C3C26C141C55321600197471 /* GeofenceModel+JsonGen.swift in Sources */,
 				C3CEB91D1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift in Sources */,
@@ -872,20 +711,18 @@
 				C3E847AD1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift in Sources */,
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C3D155D31CBA6469003D67A8 /* Observable+FilterOptional.swift in Sources */,
+				C3188D231E8FE1D1006775D8 /* HistoryType.swift in Sources */,
 				C3CEB91F1C53B60000C6FBFF /* Advice+Services.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
 				C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */,
-				C3E847AA1BB846FC007D17C3 /* StationRecord.swift in Sources */,
 				C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */,
 				C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */,
 				C3E8475B1BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld in Sources */,
-				C3A47C341BBEF05D00A3CDA8 /* History+CoreDataProperties.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
 				C3E8479A1BB83BC6007D17C3 /* Advice.swift in Sources */,
 				C3E847901BB832E6007D17C3 /* TravelService.swift in Sources */,
 				C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */,
-				C3E847981BB83B9B007D17C3 /* JsonGen.swift in Sources */,
 				C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */,
 				C3E847A01BB83C4F007D17C3 /* Advice+JsonGen.swift in Sources */,
 				C3E847B31BB855AA007D17C3 /* SegueManagerController.swift in Sources */,
@@ -895,20 +732,19 @@
 				C32D78BC1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift in Sources */,
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
 				C3FD08091CC76D83002893B3 /* WatchkitHelpers.swift in Sources */,
-				C3A47C351BBEF05D00A3CDA8 /* History.swift in Sources */,
 				C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */,
 				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
 				C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */,
-				C3CEB9171C53A76F00C6FBFF /* JsonGen+Alamofire.swift in Sources */,
 				C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */,
 				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,
 				C3E8479C1BB83BCE007D17C3 /* Station.swift in Sources */,
+				C3188D251E903B34006775D8 /* SessionManager+Request.swift in Sources */,
 				C3C26C121C5531E000197471 /* GeofenceModel.swift in Sources */,
 				C3E847BB1BB85EBF007D17C3 /* PickerTableView.swift in Sources */,
 				C3E8478E1BB8312A007D17C3 /* ApiService.swift in Sources */,
+				C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */,
 				C3A47C3B1BBFFA1500A3CDA8 /* LocationService.swift in Sources */,
 				C3B484DA1CCB8F1400EB25D5 /* Array+Helpers.swift in Sources */,
-				C3E847A91BB846FC007D17C3 /* StationRecord+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,33 +764,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3FD07D71CC767FA002893B3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C3FD07E71CC767FA002893B3 /* NotificationController.swift in Sources */,
-				C3FD08071CC76CB9002893B3 /* Advice+Services.swift in Sources */,
-				C3FD08031CC76C9D002893B3 /* Station+JsonGen.swift in Sources */,
-				C338D6C01CC9063E00613A60 /* JsonHelpers.swift in Sources */,
-				C3FD080A1CC76D85002893B3 /* WatchkitHelpers.swift in Sources */,
-				C3FD07FE1CC76C92002893B3 /* Station.swift in Sources */,
-				C3FD08011CC76C9D002893B3 /* Advice+JsonGen.swift in Sources */,
-				C3FD07E51CC767FA002893B3 /* ExtensionDelegate.swift in Sources */,
-				C3FD08021CC76C9D002893B3 /* SuccessResponse+JsonGen.swift in Sources */,
-				C3FD08061CC76CB9002893B3 /* Station+Services.swift in Sources */,
-				C3FD07FC1CC76C88002893B3 /* GeofenceModel.swift in Sources */,
-				C3FD07FD1CC76C8C002893B3 /* Advice.swift in Sources */,
-				C3FD07EB1CC767FA002893B3 /* ComplicationController.swift in Sources */,
-				C3FD08141CC7CAEB002893B3 /* JsonGen.swift in Sources */,
-				C3FD07FB1CC76BE5002893B3 /* NSUserDefaults+HLTT.swift in Sources */,
-				C3FD08041CC76CAA002893B3 /* SuccessResponse.swift in Sources */,
-				C3FD07E31CC767FA002893B3 /* InterfaceController.swift in Sources */,
-				C3FD08001CC76C9D002893B3 /* ErrorJson+JsonGen.swift in Sources */,
-				C3FD07FF1CC76C9D002893B3 /* GeofenceModel+JsonGen.swift in Sources */,
-				C3FD08051CC76CB0002893B3 /* ErrorJson.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -967,16 +776,6 @@
 			isa = PBXTargetDependency;
 			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
 			targetProxy = C3E847721BB82A01007D17C3 /* PBXContainerItemProxy */;
-		};
-		C3FD07DE1CC767FA002893B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C3FD07DA1CC767FA002893B3 /* HLTT Extension */;
-			targetProxy = C3FD07DD1CC767FA002893B3 /* PBXContainerItemProxy */;
-		};
-		C3FD07F01CC767FA002893B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C3FD07CE1CC767FA002893B3 /* HLTT */;
-			targetProxy = C3FD07EF1CC767FA002893B3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1021,8 +820,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1044,7 +845,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1065,8 +866,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1082,23 +885,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		C3E8477B1BB82A01007D17C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3ADC3D08B032B62548D9A7C0 /* Pods-HoelangTotTrein2.debug.xcconfig */;
+			baseConfigurationReference = 9BD67E73AA0D925DB3BF7D51 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
@@ -1112,15 +917,16 @@
 		};
 		C3E8477C1BB82A01007D17C3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1586766FF156894A1F29F26C /* Pods-HoelangTotTrein2.release.xcconfig */;
+			baseConfigurationReference = 383E75807402A70BB2DEBF21 /* Pods-HoelangTotTreinPods-HoelangTotTrein2.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
@@ -1185,96 +991,6 @@
 			};
 			name = Release;
 		};
-		C3FD07F21CC767FA002893B3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				IBSC_MODULE = HLTT_Extension;
-				INFOPLIST_FILE = HLTT/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Debug;
-		};
-		C3FD07F31CC767FA002893B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
-				IBSC_MODULE = HLTT_Extension;
-				INFOPLIST_FILE = HLTT/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Release;
-		};
-		C3FD07F41CC767FA002893B3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "HLTT Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Debug;
-		};
-		C3FD07F51CC767FA002893B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "HLTT Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1310,24 +1026,6 @@
 			buildConfigurations = (
 				C3E847811BB82A01007D17C3 /* Debug */,
 				C3E847821BB82A01007D17C3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C3FD07F61CC767FA002893B3 /* Build configuration list for PBXNativeTarget "HLTT Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C3FD07F41CC767FA002893B3 /* Debug */,
-				C3FD07F51CC767FA002893B3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C3FD07F81CC767FA002893B3 /* Build configuration list for PBXNativeTarget "HLTT" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C3FD07F21CC767FA002893B3 /* Debug */,
-				C3FD07F31CC767FA002893B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

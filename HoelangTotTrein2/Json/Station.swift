@@ -29,8 +29,9 @@ struct Station: Equatable, Hashable {
   let code: String
   let land: String
   let coords: Coords
-  let type: StationType
+  let type: StationType?
 }
+
 
 func ==(lhs: Station, rhs: Station) -> Bool {
   return lhs.code == rhs.code

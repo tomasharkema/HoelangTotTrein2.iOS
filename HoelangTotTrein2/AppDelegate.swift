@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import CoreDataKit
+//import CoreDataKit
 import RxSwift
 
 @UIApplicationMain
@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     NewRelic.start(withApplicationToken: "AA37eca143a6cbc43c025498e41838d785d5666a06")
 
-    if let persistentStoreCoordinator = NSPersistentStoreCoordinator(automigrating: true) {
-      CDK.sharedStack = CoreDataStack(persistentStoreCoordinator: persistentStoreCoordinator)
-    }
+//    if let persistentStoreCoordinator = NSPersistentStoreCoordinator(automigrating: true) {
+//      CDK.sharedStack = CoreDataStack(persistentStoreCoordinator: persistentStoreCoordinator)
+//    }
 
-    App.storageAttachment.attach(CDK.backgroundContext)
+    App.storageAttachment.attach()
     App.travelService.attach()
     App.travelService.fetchStations()
     App.notificationService.attach()
@@ -62,31 +62,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    let pushUUID = deviceToken.description
     #if RELEASE
     let env = "production"
     #else
     let env = "sandbox"
     #endif
-    print(env)
-    App.apiService.registerForNotification(UserDefaults.userId, env: env, pushUUID:
-      pushUUID
-        .stringByReplacingOccurrencesOfString("<", withString: "")
-        .stringByReplacingOccurrencesOfString(">", withString: "")
-        .stringByReplacingOccurrencesOfString(" ", withString: "")
-    ).then {
-      print($0)
-    }.trap {
-      print($0)
+    var token = ""
+    for i in 0..<deviceToken.count {
+      token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
     }
+
+    App.apiService.registerForNotification(UserDefaults.userId, env: env, pushUUID: token)
+      .then {
+        print($0)
+      }
+      .trap {
+        print($0)
+      }
   }
 
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     App.travelService.attach()
     App.travelService.tick()
-    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(5, scheduler: MainScheduler.asyncInstance).single().subscribeNext { _ in
-      completionHandler(.NewData)
-    }.addDisposableTo(disposeBag)
+    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(5, scheduler: MainScheduler.asyncInstance).single().subscribe(onNext: { _ in
+      completionHandler(.newData)
+    }).addDisposableTo(disposeBag)
 
     guard let message = userInfo["message"] as? String else {
       return

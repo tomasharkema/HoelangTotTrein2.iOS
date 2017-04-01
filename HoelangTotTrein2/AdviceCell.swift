@@ -33,7 +33,8 @@ class AdviceCell: UICollectionViewCell {
     let difference = Date(timeIntervalSince1970: offset - 60*60)
     let timeBeforeColonString: String
     let timeAfterColonString: String
-    if difference.hour() > 0 {
+
+    if Calendar.current.component(.hour, from: difference) > 0 {
       timeBeforeColonString = difference.toString(format: .custom("H"))
       timeAfterColonString = difference.toString(format: .custom("mm"))
 

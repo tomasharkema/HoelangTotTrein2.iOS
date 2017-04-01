@@ -58,7 +58,7 @@ class InterfaceController: WKInterfaceController {
       return
     }
 
-    if let _ = advice.vertrekVertraging where previousAdvice?.vertrekVertraging != advice.vertrekVertraging {
+    if let _ = advice.vertrekVertraging, previousAdvice?.vertrekVertraging != advice.vertrekVertraging {
       WKInterfaceDevice.current().play(.failure)
     }
 

@@ -53,9 +53,9 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
   }
 
-  fileprivate var requestAuthorizationPromise: PromiseSource<CLAuthorizationStatus, ErrorType>?
+  fileprivate var requestAuthorizationPromise: PromiseSource<CLAuthorizationStatus, Error>?
 
-  func requestAuthorization() -> Promise<CLAuthorizationStatus, ErrorType> {
+  func requestAuthorization() -> Promise<CLAuthorizationStatus, Error> {
     let currentState = CLLocationManager.authorizationStatus()
 
     switch currentState {
@@ -63,21 +63,21 @@ class LocationService: NSObject, CLLocationManagerDelegate {
       return Promise(value: currentState)
 
     default:
-      requestAuthorizationPromise = PromiseSource<CLAuthorizationStatus, ErrorProtocol>()
+      requestAuthorizationPromise = PromiseSource<CLAuthorizationStatus, Error>()
       manager.requestAlwaysAuthorization()
       return requestAuthorizationPromise?.promise ?? Promise(error: NSError(domain: "HLTT", code: 500, userInfo: nil))
     }
   }
 
-  fileprivate var currentLocationPromise: PromiseSource<CLLocation, ErrorType>?
+  fileprivate var currentLocationPromise: PromiseSource<CLLocation, Error>?
 
-  func currentLocation() -> Promise<CLLocation, ErrorType> {
+  func currentLocation() -> Promise<CLLocation, Error> {
 
-    if let location = manager.location where Date().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 < 60 {
+    if let location = manager.location, Date().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 < 60 {
       return Promise(value: location)
     }
 
-    currentLocationPromise = PromiseSource<CLLocation, ErrorProtocol>()
+    currentLocationPromise = PromiseSource<CLLocation, Error>()
     manager.requestLocation()
     return currentLocationPromise!.promise
   }

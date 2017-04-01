@@ -19,6 +19,6 @@ class TableViewController: UITableViewController, SegueManagerController {
   }
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    segueManager.prepareForSegue(segue)
+    segueManager.prepare(for: segue)
   }
 }

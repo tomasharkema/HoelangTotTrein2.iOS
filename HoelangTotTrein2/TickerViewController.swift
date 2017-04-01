@@ -62,57 +62,57 @@ class TickerViewController: ViewController {
     fromButton.titleLabel?.bounds = fromButton.bounds
     toButton.titleLabel?.bounds = toButton.bounds
 
-    App.travelService.currentAdvicesObservable.asObservable().subscribeNext { [weak self] advices in
-      guard let advices = advices, service = self else {
+    App.travelService.currentAdvicesObservable.asObservable().subscribe(onNext: { [weak self] advices in
+      guard let advices = advices, let service = self else {
         return
       }
       service.dataSource = TickerDataSource(advices: advices, collectionView: service.collectionView)
       service.onScreenAdviceDisposable?.dispose()
       service.onScreenAdviceDisposable = service.dataSource?.onScreenAdviceObservable
         .filter { $0 != nil }
-        .subscribeNext { [weak self] advice in
+        .subscribe(onNext: { [weak self] advice in
           UserDefaults.currentAdviceHash = advice!.hashValue
 
-          let index = advices.enumerate().filter { $0.element == advice }.first
+          let index = advices.enumerated().filter { $0.element == advice }.first
 
           App.travelService.currentAdviceOnScreenVariable.value = index?.element
-          self?.updateTickerView(index?.index ?? 0, advices: advices)
-        }
-    }.addDisposableTo(disposeBag)
+          self?.updateTickerView(index?.offset ?? 0, advices: advices)
+        })
+    }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdvicesObservable.asObservable()
       .delaySubscription(0.1, scheduler: MainScheduler.asyncInstance)
       .filter { $0 != nil }
-      .subscribeNext { [weak self] in
+      .subscribe(onNext: { [weak self] in
         let advice = self?.scrollToPersistedAdvice($0!)
-        let index = $0!.enumerate().filter { $0.element == advice }.first
+        let index = $0!.enumerated().filter { $0.element == advice }.first
         App.travelService.currentAdviceOnScreenVariable.value = index?.element
-        self?.updateTickerView(index?.index ?? 0, advices: $0!)
-      }.addDisposableTo(disposeBag)
+        self?.updateTickerView(index?.offset ?? 0, advices: $0!)
+      }).addDisposableTo(disposeBag)
 
-    App.travelService.currentAdviceObservable.asObservable().subscribeNext { [weak self] advice in
+    App.travelService.currentAdviceObservable.asObservable().subscribe(onNext:  { [weak self] advice in
       guard let advice = advice else {
         return
       }
-      self?.startTime = NSDate()
+      self?.startTime = Date()
       self?.currentAdvice = advice
       self?.render()
-    }.addDisposableTo(disposeBag)
+    }).addDisposableTo(disposeBag)
 
-    App.travelService.nextAdviceObservable.asObservable().subscribeNext { [weak self] advice in
+    App.travelService.nextAdviceObservable.asObservable().subscribe(onNext: { [weak self] advice in
       self?.nextAdvice = advice
       self?.render()
-    }.addDisposableTo(disposeBag)
+    }).addDisposableTo(disposeBag)
 
-    App.travelService.firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
+    App.travelService.firstAdviceRequest.asObservable().subscribe(onNext: { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
       self?.fromStation = adviceRequest.from
       self?.toStation = adviceRequest.to
-      self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
-      self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), forState: UIControlState.Normal)
-    }.addDisposableTo(disposeBag)
+      self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), for: .normal)
+      self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), for: .normal)
+    }).addDisposableTo(disposeBag)
 
     render()
   }
@@ -138,19 +138,20 @@ class TickerViewController: ViewController {
   }
 
   func showPickerController(_ state: PickerState) {
-    segueManager.performSegue(R.segue.tickerViewController.presentPickerSegue) { [weak self] segue in
 
-      let controller = segue.destinationViewController
+    segueManager.performSegue(withIdentifier: R.segue.tickerViewController.presentPickerSegue.identifier) { [weak self] segue in
+
+      let controller = segue.destination as! PickerViewController
 
       controller.state = state
-      controller.selectedStation = state == .From ? self?.fromStation : self?.toStation
+      controller.selectedStation = state == .from ? self?.fromStation : self?.toStation
       controller.successHandler = { [weak controller] station in
         App.travelService.setStation(state, station: station, byPicker: true)
-        controller?.dismissViewControllerAnimated(true, completion: nil)
+        controller?.dismiss(animated: true, completion: nil)
       }
 
       controller.cancelHandler = { [weak controller] in
-        controller?.dismissViewControllerAnimated(true, completion: nil)
+        controller?.dismiss(animated: true, completion: nil)
       }
     }
   }
@@ -189,7 +190,7 @@ class TickerViewController: ViewController {
       let difference = Date(timeIntervalSince1970: offset - 60*60)
 
       let timeString: String
-      if difference.hour() > 0 {
+      if Calendar.current.component(.hour, from: difference) > 0 {
         timeString = difference.toString(format: .custom("H:mm"))
 
       } else {
@@ -239,12 +240,13 @@ class TickerViewController: ViewController {
 
     let persistedHash = UserDefaults.currentAdviceHash
 
-    let adviceAndIndexOpt = advices.enumerated().lazy.filter { $0.element.hashValue == persistedHash }.first
+    let adviceAndIndexOpt = advices.enumerated().lazy
+      .first{ $0.element.hashValue == persistedHash }
     guard let adviceAndIndex = adviceAndIndexOpt else {
       return nil
     }
 
-    collectionView.scrollToItem(at: IndexPath(row: adviceAndIndex.index, section: 0), at: .top, animated: false)
+    collectionView.scrollToItem(at: IndexPath(row: adviceAndIndex.offset, section: 0), at: .top, animated: false)
     return adviceAndIndex.element
   }
 

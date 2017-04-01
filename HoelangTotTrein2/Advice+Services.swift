@@ -63,7 +63,7 @@ extension ReisDeel {
 extension Array: Equatable {}
 
 public func ==<T: Collection>(lhs: T, rhs: T) -> Bool {
-  return String(lhs) == String(rhs)
+  return String(describing: lhs) == String(describing: rhs)
 }
 
 typealias Stations = [Station]

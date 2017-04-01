@@ -9,11 +9,11 @@
 import Foundation
 
 // Convert from NSData to json object
-public func nsdataToJSON(_ data: Data) -> AnyObject? {
+public func nsdataToJSON(_ data: Data) -> Any? {
   return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
 }
 
 // Convert from JSON to nsdata
-public func jsonToNSData(_ json: AnyObject) -> Data?{
+public func jsonToNSData(_ json: Any) -> Data?{
   return try? JSONSerialization.data(withJSONObject: json, options: [])
 }

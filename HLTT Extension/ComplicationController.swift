@@ -65,7 +65,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
   fileprivate func getTemplateForFamily(_ complication: CLKComplication) -> CLKComplicationTemplate? {
     
     let delayString: String
-    if let delay = getCurrentAdvice(), delayMessage = delay.vertrekVertraging {
+    if let delay = getCurrentAdvice(), let delayMessage = delay.vertrekVertraging {
       delayString = delayMessage
     } else {
       delayString = "✅"

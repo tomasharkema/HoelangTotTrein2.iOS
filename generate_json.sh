@@ -1,5 +1,5 @@
 echo "Installing version-locked swift-json-gen"
-npm install --dev swift-json-gen@0.3
+npm install --prefix . --only=dev swift-json-gen@1.0
 
 echo "Generating JSON..."
 

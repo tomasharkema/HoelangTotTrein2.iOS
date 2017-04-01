@@ -17,7 +17,7 @@ class NotificationService {
     self.geofenceService = geofenceService
   }
 
-  fileprivate func fireNotification(_ title: String, body: String, userInfo: [String: AnyObject]?) {
+  fileprivate func fireNotification(_ title: String, body: String, userInfo: [String: Any]?) {
     let notification = UILocalNotification()
     notification.alertTitle = title
     notification.alertBody = body
@@ -31,7 +31,7 @@ class NotificationService {
     UIApplication.shared.presentLocalNotificationNow(notification)
   }
 
-  fileprivate func secondsToStringOffset(jsTime: Double) -> String {
+  fileprivate func secondsToStringOffset(_ jsTime: Double) -> String {
     let offset = Date(timeIntervalSince1970: jsTime / 1000).timeIntervalSince(Date())
     let difference = Date(timeIntervalSince1970: offset - 60*60)
     return difference.toString(format: .custom("mm:ss"))
@@ -44,7 +44,7 @@ class NotificationService {
 
     switch oldModel.type {
     case .Start:
-      let timeString = secondsToStringOffset(jsTime: oldModel.fromStop?.time ?? 0)
+      let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
       fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", userInfo: oldModel.encodeJson())
 
     case .TussenStation:
@@ -54,7 +54,7 @@ class NotificationService {
 //      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)", userInfo: oldModel.encodeJson())
 
     case .Overstap:
-      let timeString = secondsToStringOffset(jsTime: correctModel.fromStop?.time ?? 0)
+      let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
       fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", userInfo: ["geofenceModel": oldModel.encodeJson()])
 
     case .End:
@@ -63,10 +63,10 @@ class NotificationService {
   }
 
   func attach() {
-    geofenceService.geofenceObservable
+    geofenceService.geofenceObservable?
       .observeOn(MainScheduler.asyncInstance)
-      .subscribeNext { [weak self] geofenceModel in
+      .subscribe(onNext: { [weak self] geofenceModel in
         self?.notifyForGeofenceModel(geofenceModel)
-      }.addDisposableTo(disposeBag)
+      }).addDisposableTo(disposeBag)
   }
 }

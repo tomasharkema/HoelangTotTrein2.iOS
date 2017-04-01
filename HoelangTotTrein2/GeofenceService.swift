@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import CoreDataKit
 import CoreLocation
 import RxSwift
 import RxCocoa
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -37,33 +37,31 @@ class GeofenceService: NSObject {
   fileprivate let locationManager = CLLocationManager()
 
   fileprivate let travelService: TravelService
+  private let dataStore: DataStore
 
   fileprivate let disposeBag = DisposeBag()
 
   fileprivate var stationGeofences = StationGeofences()
 
-  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
+  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>?
 //  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
-  init(travelService: TravelService) {
+  init(travelService: TravelService, dataStore: DataStore) {
     self.travelService = travelService
+    self.dataStore = dataStore
     super.init()
     attach()
   }
 
   fileprivate func updateGeofenceWithStationName(_ stationName: StationName, geofenceModels: [GeofenceModel]) {
     assert(Thread.isMainThread)
-    let predicate = NSPredicate(format: "name = %@", stationName)
-    do {
-      if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
 
+    dataStore.find(stationName: stationName)
+      .then { station in
         let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.name)
-        locationManager.startMonitoringForRegion(region)
-
+        self.locationManager.startMonitoring(for: region)
       }
-    } catch {
-      print(error)
-    }
+      .trap { print($0) }
   }
 
   fileprivate func resetGeofences() {
@@ -132,16 +130,16 @@ class GeofenceService: NSObject {
       }
       .filterOptional()
 
-    obs.subscribeNext { [weak self] stationGeofences in
+    obs.subscribe(onNext: { [weak self] stationGeofences in
       guard let service = self else {
         return
       }
       service.stationGeofences = stationGeofences
-    }.addDisposableTo(disposeBag)
+    }).addDisposableTo(disposeBag)
 
     obs
       .observeOn(MainScheduler.asyncInstance)
-      .subscribeNext { [weak self] stationGeofences in
+      .subscribe(onNext: { [weak self] stationGeofences in
         guard let service = self else {
           return
         }
@@ -151,26 +149,25 @@ class GeofenceService: NSObject {
         for (stationName, geo) in stationGeofences {
           service.updateGeofenceWithStationName(stationName, geofenceModels: geo)
         }
-      }.addDisposableTo(disposeBag)
+      }).addDisposableTo(disposeBag)
 
-    geofenceObservable = locationManager
-      .rx_didEnterRegion
-      .observeOn(scheduler)
-      .distinctUntilChanged()
-      .map { [weak self] region -> GeofenceModel? in
-        guard let service = self, geofences = service.stationGeofences[region.identifier] else {
-          return nil
-        }
-
-        print("DID ENTER REGION, \(region)")
-
-        if let geofence = service.geofenceFromGeofences(geofences, forTime: NSDate()) {
-          return geofence
-        }
-
-        return nil
-      }
-      .filterOptional()
+//    locationManager.rx.didEnterRegion
+//      .observeOn(scheduler)
+//      .distinctUntilChanged()
+//      .map { [weak self] region -> GeofenceModel? in
+//        guard let service = self, let geofences = service.stationGeofences[region.identifier] else {
+//          return nil
+//        }
+//
+//        print("DID ENTER REGION, \(region)")
+//
+//        if let geofence = service.geofenceFromGeofences(geofences, forTime: Date()) {
+//          return geofence
+//        }
+//
+//        return nil
+//      }
+//      .filterOptional()
   }
 
 }

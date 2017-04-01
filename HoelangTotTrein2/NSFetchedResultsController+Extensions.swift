@@ -8,12 +8,12 @@
 
 import Foundation
 import CoreData
-import CoreDataKit
+//import CoreDataKit
 
 extension NSFetchedResultsController {
 
-  func optionalObjectAtIndexPath(_ indexPath: IndexPath) -> AnyObject? {
-    if let objects = sections?[indexPath.section].objects where indexPath.row < objects.count {
+  func optionalObjectAtIndexPath(_ indexPath: IndexPath) -> Any? {
+    if let objects = sections?[indexPath.section].objects, indexPath.row < objects.count {
       return objects[indexPath.row]
     }
 
@@ -22,29 +22,29 @@ extension NSFetchedResultsController {
   
 }
 
-func fetchedRequest(_ objects: [NSManagedObject]) -> NSFetchRequest? {
-  if let object = objects.first {
-
-    let predicate = NSPredicate(format: objects
-      .map { $0.objectID }
-      .reduce("") { prev, element in
-        if prev == "" {
-          return prev + "(SELF = %@)"
-        } else {
-          return prev + " OR (SELF = %@)"
-        }
-      }, argumentArray: objects.map { $0.objectID })
-
-
-//    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) { (lhs, rhs) -> NSComparisonResult in
-//      print(lhs, rhs)
-//      return NSComparisonResult.OrderedDescending
-//    }
-
-    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-
-    return object.managedObjectContext?.createFetchRequest(object.entity, predicate: predicate, sortDescriptors: [sortDescriptor])
-  }
-
-  return nil
-}
+//func fetchedRequest(_ objects: [NSManagedObject]) -> NSFetchRequest? {
+//  if let object = objects.first {
+//
+//    let predicate = NSPredicate(format: objects
+//      .map { $0.objectID }
+//      .reduce("") { prev, element in
+//        if prev == "" {
+//          return prev + "(SELF = %@)"
+//        } else {
+//          return prev + " OR (SELF = %@)"
+//        }
+//      }, argumentArray: objects.map { $0.objectID })
+//
+//
+////    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true) { (lhs, rhs) -> NSComparisonResult in
+////      print(lhs, rhs)
+////      return NSComparisonResult.OrderedDescending
+////    }
+//
+//    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+//
+//    return object.managedObjectContext?.createFetchRequest(object.entity, predicate: predicate, sortDescriptors: [sortDescriptor])
+//  }
+//
+//  return nil
+//}

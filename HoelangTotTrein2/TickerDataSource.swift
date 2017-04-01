@@ -43,7 +43,7 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     self.advices = advices
     self.collectionView = collectionView
     super.init()
-    collectionView.registerNib(R.nib.adviceCell)
+    collectionView.register(R.nib.adviceCell)
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.reloadData()
@@ -56,21 +56,21 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
           return nil
         }
 
-        let sortedCells = cv.indexPathsForVisibleItems()
+        let sortedCells = cv.indexPathsForVisibleItems
           .flatMap {
-            cv.layoutAttributesForItemAtIndexPath($0)
+            cv.layoutAttributesForItem(at: $0)
           }
           .map {
-            (cv.convertPoint($0.center, toView: cv.superview), $0)
+            (cv.convert($0.center, to: cv.superview), $0)
           }
-          .sort {
-            let l = abs($0.0.0.y - (UIScreen.mainScreen().bounds.height/2))
-            let r = abs($0.1.0.y - (UIScreen.mainScreen().bounds.height/2))
+          .sorted {
+            let l = abs($0.0.0.y - (UIScreen.main.bounds.height/2))
+            let r = abs($0.1.0.y - (UIScreen.main.bounds.height/2))
             return l < r
           }
 
         let cells = sortedCells.lazy.map { (center: CGPoint, el: UICollectionViewLayoutAttributes) in
-          cv.cellForItemAtIndexPath(el.indexPath)
+          cv.cellForItem(at: el.indexPath)
         }
 
         guard let advice = (cells.first as? AdviceCell)?.advice else {
@@ -94,7 +94,7 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.adviceCell, forIndexPath: indexPath)!
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.adviceCell, for: indexPath)!
 
     cell.advice = advices[indexPath.row]
 

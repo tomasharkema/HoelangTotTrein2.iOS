@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Statham
 
 struct Keys {
   static let FromStationCodeKey = "FromStationCodeKey"
@@ -89,19 +90,19 @@ extension Foundation.UserDefaults {
           }
         }
 
-        _geofenceInfo = dict
+        geofenceInfoObject = dict
       }
     }
     get {
-      if let dict = _geofenceInfo {
+      if let dict = geofenceInfoObject {
         do {
           return try Dictionary.decodeJson({
             try String.decodeJson($0)
             }, {
               return try Array.decodeJson({
                 try GeofenceModel.decodeJson($0)
-              }, $0)
-            }, dict)
+              })($0)
+            })(dict)
         } catch {
           print(error)
         }
@@ -111,18 +112,20 @@ extension Foundation.UserDefaults {
   }
 
 
-  fileprivate var _geofenceInfo: [String: AnyObject]? {
+  fileprivate var geofenceInfoObject: [String: Any]? {
     get {
-      if let data = object(forKey: Keys.GeofenceInfoKey) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
-        return object as? [String: AnyObject]
-      }
+//      guard let data = object(forKey: Keys.GeofenceInfoKey) as? Data,
+//        let object = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+//        return nil
+//      }
+//      return object
       return nil
     }
     set {
-      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        set(json, forKey: Keys.GeofenceInfoKey)
-        synchronize()
-      }
+//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+//        set(json, forKey: Keys.GeofenceInfoKey)
+//        synchronize()
+//      }
     }
   }
 
@@ -132,11 +135,11 @@ extension Foundation.UserDefaults {
 
         let dict = value.encodeJson()
 
-        _persistedAdvicesAndRequest = dict
+        persistedAdvicesAndRequestObject = dict
       }
     }
     get {
-      if let dict = _persistedAdvicesAndRequest {
+      if let dict = persistedAdvicesAndRequestObject {
         do {
           return try AdvicesAndRequest.decodeJson(dict)
         } catch {
@@ -147,18 +150,18 @@ extension Foundation.UserDefaults {
     }
   }
 
-  fileprivate var _persistedAdvicesAndRequest: [String: AnyObject]? {
+  fileprivate var persistedAdvicesAndRequestObject: [String: Any]? {
     get {
-      if let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
-        return object as? [String: AnyObject]
-      }
+//      if let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data, let object = try? JSONSerialization.jsonObject(with: data, options: []) {
+//        return object as? [String: Any]
+//      }
       return nil
     }
     set {
-      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        set(json, forKey: Keys.PersistedAdvicesAndRequest)
-        synchronize()
-      }
+//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+//        set(json, forKey: Keys.PersistedAdvicesAndRequest)
+//        synchronize()
+//      }
     }
   }
 
@@ -180,15 +183,15 @@ extension Foundation.UserDefaults {
         let array = value.encodeJson {
           $0.encodeJson()
         }
-        _persistedAdvices = array
+        persistedAdvicesObject = array
       }
     }
     get {
-      if let array = _persistedAdvices {
+      if let array = persistedAdvicesObject {
         do {
           return try Array.decodeJson({
             try Advice.decodeJson($0)
-          }, array)
+          })(array)
         } catch {
           print(error)
         }
@@ -197,18 +200,18 @@ extension Foundation.UserDefaults {
     }
   }
 
-  fileprivate var _persistedAdvices: [AnyObject]? {
+  fileprivate var persistedAdvicesObject: [Any]? {
     get {
-      if let data = object(forKey: Keys.PersistedAdvices) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
-        return object as? [AnyObject]
-      }
+//      if let data = object(forKey: Keys.PersistedAdvices) as? Data, let object = try? JSONSerialization.jsonObject(with: data, options: []) {
+//        return object as? [Any]
+//      }
       return nil
     }
     set {
-      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        set(json, forKey: Keys.PersistedAdvices)
-        synchronize()
-      }
+//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+//        set(json, forKey: Keys.PersistedAdvices)
+//        synchronize()
+//      }
     }
   }
 }

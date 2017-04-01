@@ -27,8 +27,8 @@ extension TravelEvent {
 
 //MARK: - TravelEvent Encode
 extension TravelEvent {
-  var encode: [String: AnyObject] {
-    let array: [String: AnyObject] = { this in
+  var encode: [String: Any] {
+    let array: [String: Any] = { this in
       switch this {
       case let .advicesChange(advices):
         return ["advices": advices.encodeJson {
@@ -56,7 +56,7 @@ extension TravelEvent {
         return nil
       }
       do {
-        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) }, advices))
+        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) })(advices))
       } catch {
         return nil
       }
@@ -76,7 +76,7 @@ extension TravelEvent {
 extension WCSession {
   func sendEvent(_ event: TravelEvent) {
     do {
-      if let data = jsonToNSData(event.encode) where self.isReachable {
+      if let data = jsonToNSData(event.encode), self.isReachable {
         self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
           print(error)
         })
