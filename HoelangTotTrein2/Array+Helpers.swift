@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array {
-  func skip(count:Int) -> [Element] {
+  func skip(_ count:Int) -> [Element] {
     return [Element](self[count..<self.count])
   }
 }

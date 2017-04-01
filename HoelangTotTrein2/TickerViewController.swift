@@ -13,7 +13,7 @@ import RxSwift
 
 class TickerViewController: ViewController {
 
-  let AnimationInterval: NSTimeInterval = 0.5
+  let AnimationInterval: TimeInterval = 0.5
 
   var fromStation: Station?
   var toStation: Station?
@@ -21,12 +21,12 @@ class TickerViewController: ViewController {
   let disposeBag = DisposeBag()
   var onScreenAdviceDisposable: Disposable?
 
-  var timer: NSTimer?
+  var timer: Timer?
   var currentAdvice: Advice?
 
   var nextAdvice: Advice?
 
-  var startTime: NSDate?
+  var startTime: Date?
 
   @IBOutlet weak var backgroundView: UIImageView!
   @IBOutlet weak var stackIndicatorView: UIStackView!
@@ -43,7 +43,7 @@ class TickerViewController: ViewController {
   @IBOutlet weak var nextViewBlur: UIVisualEffectView!
   @IBOutlet weak var nextDelayLabel: UILabel!
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
     startTimer()
@@ -51,11 +51,11 @@ class TickerViewController: ViewController {
     updateTickerView(0, advices: [])
 
     collectionView.backgroundView = UIView()
-    collectionView.backgroundColor = UIColor.clearColor()
+    collectionView.backgroundColor = UIColor.clear
 
     App.travelService.startTimer()
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(startTimer), name: UIApplicationDidBecomeActiveNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(stopTimer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
     fromButton.clipsToBounds = false
     toButton.clipsToBounds = false
@@ -117,18 +117,18 @@ class TickerViewController: ViewController {
     render()
   }
 
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
     stopTimer()
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
 
     App.travelService.stopTimer()
   }
 
   func startTimer() {
     if timer == nil {
-      timer = NSTimer.scheduledTimerWithTimeInterval(AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+      timer = Timer.scheduledTimer(timeInterval: AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
   }
 
@@ -137,7 +137,7 @@ class TickerViewController: ViewController {
     timer = nil
   }
 
-  func showPickerController(state: PickerState) {
+  func showPickerController(_ state: PickerState) {
     segueManager.performSegue(R.segue.tickerViewController.presentPickerSegue) { [weak self] segue in
 
       let controller = segue.destinationViewController
@@ -155,21 +155,21 @@ class TickerViewController: ViewController {
     }
   }
 
-  func tick(timer: NSTimer) {
+  func tick(_ timer: Timer) {
     render()
     dataSource?.tick()
   }
 
   func render() {
     if let currentAdvice = currentAdvice {
-      let offset = currentAdvice.vertrek.actualDate.timeIntervalSinceDate(NSDate())
-      let difference = NSDate(timeIntervalSince1970: offset - 60*60)
+      let offset = currentAdvice.vertrek.actualDate.timeIntervalSince(Date())
+      let difference = Date(timeIntervalSince1970: offset - 60*60)
 
       let leftBackgroundOffset: CGFloat
       if let startTime = startTime {
         let actualOffset = currentAdvice.vertrek.actualDate.timeIntervalSince1970
         let startOffset = startTime.timeIntervalSince1970
-        let currentOffset = NSDate().timeIntervalSince1970
+        let currentOffset = Date().timeIntervalSince1970
 
         let offsetForPercentage = min(1, max(0, 1 - ((currentOffset - actualOffset) / (startOffset - actualOffset))))
 
@@ -178,22 +178,22 @@ class TickerViewController: ViewController {
         leftBackgroundOffset = 0
       }
 
-      UIView.animateWithDuration(AnimationInterval) { [weak self] in
-        self?.backgroundView.transform = CGAffineTransformMakeTranslation(-leftBackgroundOffset/2, 0)
-      }
+      UIView.animate(withDuration: AnimationInterval, animations: { [weak self] in
+        self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
+      }) 
     }
 
     if let nextAdvice = nextAdvice {
 
-      let offset = nextAdvice.vertrek.actualDate.timeIntervalSinceDate(NSDate())
-      let difference = NSDate(timeIntervalSince1970: offset - 60*60)
+      let offset = nextAdvice.vertrek.actualDate.timeIntervalSince(Date())
+      let difference = Date(timeIntervalSince1970: offset - 60*60)
 
       let timeString: String
       if difference.hour() > 0 {
-        timeString = difference.toString(format: .Custom("H:mm"))
+        timeString = difference.toString(format: .custom("H:mm"))
 
       } else {
-        timeString = difference.toString(format: .Custom("mm:ss"))
+        timeString = difference.toString(format: .custom("mm:ss"))
       }
 
       nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") //+ " - \(nextAdvice.smallExtraMessage)"
@@ -209,66 +209,66 @@ class TickerViewController: ViewController {
 
   }
 
-  @IBAction func fromButtonPressed(sender: AnyObject) {
-    showPickerController(.From)
+  @IBAction func fromButtonPressed(_ sender: AnyObject) {
+    showPickerController(.from)
   }
 
-  @IBAction func toButtonPressed(sender: AnyObject) {
-    showPickerController(.To)
+  @IBAction func toButtonPressed(_ sender: AnyObject) {
+    showPickerController(.to)
   }
 
-  @IBAction func currentLocationPressed(sender: AnyObject) {
+  @IBAction func currentLocationPressed(_ sender: AnyObject) {
     App.locationService.requestAuthorization().then { state in
       App.travelService.travelFromCurrentLocation()
     }
   }
 
-  @IBAction func switchPressed(sender: AnyObject) {
+  @IBAction func switchPressed(_ sender: AnyObject) {
     App.travelService.switchFromTo()
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
 
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    return .portrait
   }
 
-  private func scrollToPersistedAdvice(advices: Advices) -> Advice? {
+  fileprivate func scrollToPersistedAdvice(_ advices: Advices) -> Advice? {
 
     let persistedHash = UserDefaults.currentAdviceHash
 
-    let adviceAndIndexOpt = advices.enumerate().lazy.filter { $0.element.hashValue == persistedHash }.first
+    let adviceAndIndexOpt = advices.enumerated().lazy.filter { $0.element.hashValue == persistedHash }.first
     guard let adviceAndIndex = adviceAndIndexOpt else {
       return nil
     }
 
-    collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: adviceAndIndex.index, inSection: 0), atScrollPosition: .Top, animated: false)
+    collectionView.scrollToItem(at: IndexPath(row: adviceAndIndex.index, section: 0), at: .top, animated: false)
     return adviceAndIndex.element
   }
 
-  private var _indicatorStackViewCache = [Int: UIView]()
+  fileprivate var _indicatorStackViewCache = [Int: UIView]()
 }
 
 extension TickerViewController {
 
-  private func createIndicatorView() -> UIView {
+  fileprivate func createIndicatorView() -> UIView {
     let width: CGFloat = 15
     let height: CGFloat = width
     let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
     view.layer.cornerRadius = width/2
     view.layer.borderWidth = 1
-    view.layer.borderColor = UIColor.whiteColor().CGColor
+    view.layer.borderColor = UIColor.white.cgColor
 
-    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: width))
-    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: height))
+    view.addConstraint(NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: width))
+    view.addConstraint(NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: height))
     return view
   }
 
-  private func updateTickerView(i: Int, advices: Advices) {
-    assert(NSThread.isMainThread(), "call from main thread")
-    advices.enumerate().forEach { (idx, element) in
+  fileprivate func updateTickerView(_ i: Int, advices: Advices) {
+    assert(Thread.isMainThread, "call from main thread")
+    advices.enumerated().forEach { (idx, element) in
 
       let view: UIView
       if let cachedView = _indicatorStackViewCache[idx] {
@@ -280,24 +280,24 @@ extension TickerViewController {
         view = newView
       }
 
-      view.hidden = false
+      view.isHidden = false
 
       let bgColor: UIColor
       if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor()
       } else if idx == i {
-        bgColor = UIColor.whiteColor()
+        bgColor = UIColor.white
       } else if (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
-        bgColor = UIColor.redTintColor().colorWithAlphaComponent(0.3)
+        bgColor = UIColor.redTintColor().withAlphaComponent(0.3)
       } else {
-        bgColor = UIColor.clearColor()
+        bgColor = UIColor.clear
       }
 
       view.backgroundColor = bgColor
     }
 
     stackIndicatorView.arrangedSubviews.skip(advices.count).forEach {
-      $0.hidden = true
+      $0.isHidden = true
     }
   }
 }

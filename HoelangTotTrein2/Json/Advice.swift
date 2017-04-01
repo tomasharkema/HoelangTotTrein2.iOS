@@ -91,11 +91,11 @@ struct AdviceRequest: Equatable {
   let from: Station?
   let to: Station?
 
-  func setFrom(from: Station) -> AdviceRequest {
+  func setFrom(_ from: Station) -> AdviceRequest {
     return AdviceRequest(from: from, to: to)
   }
 
-  func setTo(to: Station) -> AdviceRequest {
+  func setTo(_ to: Station) -> AdviceRequest {
     return AdviceRequest(from: from, to: to)
   }
 }

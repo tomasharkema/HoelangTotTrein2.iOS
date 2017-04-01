@@ -13,8 +13,8 @@ import ClockKit
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
 func getCurrentAdvice() -> Advice? {
-  let currentHash = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
-  let advices = (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
+  let currentHash = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
+  let advices = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
 
   let adviceOpt = advices?.filter {
     $0.hashValue == currentHash && $0.isOngoing
@@ -27,25 +27,25 @@ func getCurrentAdvice() -> Advice? {
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
-  let session = WCSession.defaultSession()
+  let session = WCSession.default()
 
   var cachedAdvices: [Advice] = UserDefaults.persistedAdvices ?? []
   var cachedAdviceHash: Int? = UserDefaults.currentAdviceHash
 
   func applicationDidFinishLaunching() {
     session.delegate = self
-    session.activateSession()
+    session.activate()
   }
 
   func applicationDidBecomeActive() {
     requestInitialState()
   }
 
-  func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject]) {
+  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
     requestInitialState()
   }
 
-  func session(session: WCSession, didReceiveMessageData messageData: NSData) {
+  func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
     guard let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
       return
     }
@@ -53,36 +53,36 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     decodeEvent(json)
   }
 
-  private func decodeEvent(message: [String: AnyObject]) {
+  fileprivate func decodeEvent(_ message: [String: AnyObject]) {
     guard let event = TravelEvent.decode(message) else {
       return
     }
 
     switch event {
-    case let .AdvicesChange(advice: advices):
+    case let .advicesChange(advice: advices):
       cachedAdvices = advices
       UserDefaults.persistedAdvices = advices
 
-    case let .CurrentAdviceChange(currentHash):
+    case let .currentAdviceChange(currentHash):
       cachedAdviceHash = currentHash
       UserDefaults.currentAdviceHash = currentHash
 
     }
 
-    NSNotificationCenter.defaultCenter().postNotificationName(AdvicesDidChangeNotification, object: nil)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
     CLKComplicationServer.sharedInstance().activeComplications?.forEach {
-      CLKComplicationServer.sharedInstance().reloadTimelineForComplication($0)
+      CLKComplicationServer.sharedInstance().reloadTimeline(for: $0)
     }
   }
 
-  func requestInitialState(completionHandler: ((NSError?) -> ())? = nil) {
+  func requestInitialState(_ completionHandler: ((NSError?) -> ())? = nil) {
 
-    guard let someData = NSData(base64EncodedString: "initialstate", options: []) else {
+    guard let someData = Data(base64Encoded: "initialstate", options: []) else {
       return
     }
 
-    if session.activationState != .Activated {
-      session.activateSession()
+    if session.activationState != .activated {
+      session.activate()
     }
 
     try? session.updateApplicationContext(["boot!": "Boot!"])
@@ -100,7 +100,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
   }
 
-  func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     requestInitialState()
   }
 }

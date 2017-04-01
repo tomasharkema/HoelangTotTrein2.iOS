@@ -11,36 +11,36 @@ import Alamofire
 import Foundation
 
 struct ApiService {
-  let endpoint = "http://ns.harkema.in"
+  let endpoint = "https://ns.harkema.io"
 //  let endpoint = "http://mac-server.local:9000"
 //  let endpoint = "https://hltt-test.herokuapp.com"
 
-  let queue = dispatch_queue_create("nl.tomasharkema.DECODE", DISPATCH_QUEUE_CONCURRENT)
+  let queue = DispatchQueue(label: "nl.tomasharkema.DECODE", attributes: DispatchQueue.Attributes.concurrent)
   
-  private let manager: Manager
-  private let networkActivityIndicatorManager: NetworkActivityIndicatorManager
+  fileprivate let manager: Manager
+  fileprivate let networkActivityIndicatorManager: NetworkActivityIndicatorManager
 
   init() {
     manager = Manager()
     networkActivityIndicatorManager = NetworkActivityIndicatorManager()
   }
 
-  private func requestGet<T>(
-    url: URLStringConvertible,
+  fileprivate func requestGet<T>(
+    _ url: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding,
-    decoder: AnyObject throws -> T)
+    decoder: (AnyObject) throws -> T)
     -> Promise<T, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
     return requestBody(method: .GET, url: url, requestFactory: { req in encoding.encode(req, parameters: parameters).0 }, decoder: decoder)
   }
 
-  private func request<T>(
-    method method: Alamofire.Method,
+  fileprivate func request<T>(
+    method: Alamofire.Method,
     url: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding,
-    decoder: AnyObject throws -> T)
+    decoder: (AnyObject) throws -> T)
     -> Promise<T, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
     return self.requestBody(
@@ -50,11 +50,11 @@ struct ApiService {
       decoder: decoder)
   }
 
-  private func requestBody<T>(
-    method method: Alamofire.Method,
+  fileprivate func requestBody<T>(
+    method: Alamofire.Method,
     url: URLStringConvertible,
-    requestFactory: NSMutableURLRequest -> NSURLRequest,
-    decoder: AnyObject throws -> T)
+    requestFactory: (NSMutableURLRequest) -> URLRequest,
+    decoder: (AnyObject) throws -> T)
     -> Promise<T, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
     return self.requestResponse(
@@ -65,11 +65,11 @@ struct ApiService {
       .map { $0.result }
   }
 
-  private func makeRequest(method: Alamofire.Method, url: URLStringConvertible, requestFactory: NSMutableURLRequest -> NSURLRequest) -> Alamofire.Request {
+  fileprivate func makeRequest(_ method: Alamofire.Method, url: URLStringConvertible, requestFactory: (NSMutableURLRequest) -> NSURLRequest) -> Alamofire.Request {
 
     // Generate a requestId for async logging
-    let requestId = NSUUID().UUIDString
-    let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: url.URLString)!)
+    let requestId = UUID().uuidString
+    let mutableURLRequest = NSMutableURLRequest(URL: URL(string: url.URLString)!)
 
     mutableURLRequest.HTTPMethod = method.rawValue
 
@@ -95,11 +95,11 @@ struct ApiService {
     return request.validate()
   }
 
-  private func requestResponse<T>(
-    method method: Alamofire.Method,
+  fileprivate func requestResponse<T>(
+    method: Alamofire.Method,
     url: URLStringConvertible,
-    requestFactory: NSMutableURLRequest -> NSURLRequest,
-    decoder: AnyObject throws -> T)
+    requestFactory: (NSMutableURLRequest) -> URLRequest,
+    decoder: (AnyObject) throws -> T)
     -> Promise<SuccessResponse<T>, ErrorResponse<JsonDecodeResponseSerializerError>>
   {
     let request = makeRequest(method, url: url, requestFactory: requestFactory)
@@ -110,7 +110,7 @@ struct ApiService {
       .finally(networkActivityIndicatorManager.decrement)
   }
 
-  private func logServerError<T: ErrorType>(error: ErrorResponse<T>) {
+  fileprivate func logServerError<T: ErrorProtocol>(_ error: ErrorResponse<T>) {
 
     if let serverError = error.decode(statusCode: 500, decoder: ServerErrorJson.decodeJson) {
       log(.ERROR, section: "API", message: "Server error: \(serverError.exceptionMessage ?? serverError.message)")
@@ -123,7 +123,7 @@ struct ApiService {
       .mapErrorType()
   }
 
-  func advices(adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ErrorType> {
+  func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ErrorType> {
     if let from = adviceRequest.from?.code, to = adviceRequest.to?.code {
       let url = "\(endpoint)/api/advices?from=\(from)&to=\(to)"
       return requestGet(url, encoding: .URL, decoder: AdvicesResult.decodeJson)
@@ -133,13 +133,13 @@ struct ApiService {
     return Promise(error: NSError(domain: "Geen volledige request", code: 100, userInfo: nil))
   }
 
-  func registerForNotification(userId: String, from: Station, to: Station) -> Promise<SuccessResult, ErrorType> {
+  func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, ErrorType> {
     let url = "\(endpoint)/api/register/\(userId)?from=\(from.code)&to=\(to.code)"
     return requestGet(url, encoding: .URL, decoder: SuccessResult.decodeJson)
       .mapErrorType()
   }
 
-  func registerForNotification(userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ErrorType> {
+  func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ErrorType> {
     let url = "\(endpoint)/api/register/\(userId)/PUSH/\(pushUUID)?env=\(env)"
     return requestGet(url, encoding: .URL, decoder: SuccessResult.decodeJson)
       .mapErrorType()

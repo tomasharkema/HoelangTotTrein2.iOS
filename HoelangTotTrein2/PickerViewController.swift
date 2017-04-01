@@ -11,16 +11,16 @@ import CoreData
 import CoreDataKit
 
 enum PickerState {
-  case From
-  case To
+  case from
+  case to
 }
 
 extension PickerState: CustomStringConvertible {
   var description: String {
     switch self {
-    case .From:
+    case .from:
       return "From"
-    case .To:
+    case .to:
       return "To"
     }
   }
@@ -64,11 +64,11 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     tableView.dataSource = self
 
     tableView.backgroundView = UIView()
-    tableView.backgroundColor = UIColor.clearColor()
+    tableView.backgroundColor = UIColor.clear
 
     currentStation.text = state.description
 
-    searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.4)])
+    searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
 
     App.travelService.getCloseStations().then { stations in
       do {
@@ -99,7 +99,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     }
   }
 
-  func search(string: String) {
+  func search(_ string: String) {
     let predicate: NSPredicate? = string == "" ? nil : NSPredicate(format: "name CONTAINS[cd] %@", string)
     do {
       let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
@@ -111,11 +111,11 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     }
   }
 
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return fetchedResultControllers.count ?? 0
   }
 
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if fetchedResultControllers.count > section && fetchedResultControllers.count != 0 {
       return fetchedResultControllers[section]?.sections?[0].numberOfObjects ?? 0
     } else {
@@ -123,7 +123,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     }
   }
 
-  func getStation(fromIndexPath indexPath: NSIndexPath) -> StationRecord? {
+  func getStation(fromIndexPath indexPath: IndexPath) -> StationRecord? {
     let obj = fetchedResultControllers[indexPath.section]?.optionalObjectAtIndexPath(indexPath.section(-indexPath.section))
 
     if let station = obj as? StationRecord {
@@ -135,7 +135,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     return nil
   }
 
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.stationCell, forIndexPath: indexPath)! as StationCell
 
     if let station = getStation(fromIndexPath: indexPath) {
@@ -148,14 +148,14 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     return cell
   }
 
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let station = getStation(fromIndexPath: indexPath) {
       searchField.resignFirstResponder()
       successHandler?(station.toStation())
     }
   }
 
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
     if isSearching {
       return "Search results"
@@ -170,19 +170,19 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     }
   }
 
-  @IBAction func closedPressed(sender: AnyObject) {
+  @IBAction func closedPressed(_ sender: AnyObject) {
     cancelHandler?()
   }
 
-  @IBAction func texstfieldTouchDown(sender: AnyObject) {
+  @IBAction func texstfieldTouchDown(_ sender: AnyObject) {
     search(searchField.text ?? "")
   }
 
-  override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-    return .Portrait
+  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    return .portrait
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+  override var preferredStatusBarStyle : UIStatusBarStyle {
+    return .lightContent
   }
 }

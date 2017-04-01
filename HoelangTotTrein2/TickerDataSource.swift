@@ -32,12 +32,12 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
 
 class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-  private let advices: Advices
-  private weak var collectionView: UICollectionView?
-  private var disposable: Disposable?
+  fileprivate let advices: Advices
+  fileprivate weak var collectionView: UICollectionView?
+  fileprivate var disposable: Disposable?
 
-  private let didDecellerateObservable = Variable(0)
-  private(set) var onScreenAdviceObservable: Observable<Advice?>!
+  fileprivate let didDecellerateObservable = Variable(0)
+  fileprivate(set) var onScreenAdviceObservable: Observable<Advice?>!
 
   init(advices: Advices, collectionView: UICollectionView) {
     self.advices = advices
@@ -85,15 +85,15 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     disposable?.dispose()
   }
 
-  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
 
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return advices.count
   }
 
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.adviceCell, forIndexPath: indexPath)!
 
     cell.advice = advices[indexPath.row]
@@ -102,7 +102,7 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
   }
 
   func tick() {
-    collectionView?.visibleCells().forEach {
+    collectionView?.visibleCells.forEach {
       guard let adviceCell = $0 as? AdviceCell else {
         return
       }
@@ -111,11 +111,11 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     }
   }
 
-  func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     didDecellerateObservable.value = 1
   }
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return collectionView.frame.size
   }
 }

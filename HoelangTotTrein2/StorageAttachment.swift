@@ -12,7 +12,7 @@ import CoreDataKit
 import RxSwift
 
 class StorageAttachment {
-  static let queue = dispatch_queue_create("nl.tomasharkema.StorageAttachment", DISPATCH_QUEUE_SERIAL)
+  static let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
   let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   let travelService: TravelService
 
@@ -24,7 +24,7 @@ class StorageAttachment {
     self.travelService = travelService
   }
 
-  func updateStations(stations: [Station]) {
+  func updateStations(_ stations: [Station]) {
     CDK.performBlockOnBackgroundContext { context in
       do {
         for station in stations {
@@ -51,7 +51,7 @@ class StorageAttachment {
     }
   }
 
-  func attach(context: NSManagedObjectContext) {
+  func attach(_ context: NSManagedObjectContext) {
     self.context = context
 
     travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
@@ -74,9 +74,9 @@ class StorageAttachment {
     }.addDisposableTo(disposeBag)
   }
 
-  func insertHistoryFromRequest(advice: AdviceRequest) {
+  func insertHistoryFromRequest(_ advice: AdviceRequest) {
     CDK.performBlockOnBackgroundContext { context in
-      if let historyRecord = try? context.create(History.self), fromStation = advice.from?.getStationRecord(context) {
+      if let historyRecord = try? context.create(History.self), let fromStation = advice.from?.getStationRecord(context) {
         historyRecord.station = fromStation
         historyRecord.date = NSDate()
         historyRecord.historyType = .From
@@ -86,7 +86,7 @@ class StorageAttachment {
       return .Undo
     }
     CDK.performBlockOnBackgroundContext { context in
-      if let historyRecord = try? context.create(History.self), toStation = advice.to?.getStationRecord(context) {
+      if let historyRecord = try? context.create(History.self), let toStation = advice.to?.getStationRecord(context) {
         historyRecord.station = toStation
         historyRecord.date = NSDate()
         historyRecord.historyType = .To
@@ -97,8 +97,8 @@ class StorageAttachment {
     }
   }
 
-  private func persistCurrent(advices advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
-    assert(NSThread.isMainThread(), "Must be main thread")
+  fileprivate func persistCurrent(advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
+    assert(Thread.isMainThread, "Must be main thread")
     UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }

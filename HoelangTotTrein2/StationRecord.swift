@@ -26,6 +26,6 @@ class StationRecord: NSManagedObject, NamedManagedObject {
   }
 
   var firstLetterUpperCase: String {
-    return name.substringWithRange(name.startIndex..<name.startIndex.advancedBy(1)).uppercaseString
+    return name.substringWithRange(name.startIndex..<name.characters.index(name.startIndex, offsetBy: 1)).uppercased()
   }
 }

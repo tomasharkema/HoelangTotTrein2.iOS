@@ -13,56 +13,56 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Configuration
     
-    func getSupportedTimeTravelDirectionsForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTimeTravelDirections) -> Void) {
+    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
         handler([])
     }
     
-    func getTimelineStartDateForComplication(complication: CLKComplication, withHandler handler: (NSDate?) -> Void) {
+    func getTimelineStartDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
         handler(nil)
     }
     
-    func getTimelineEndDateForComplication(complication: CLKComplication, withHandler handler: (NSDate?) -> Void) {
+    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
         handler(nil)
     }
     
-    func getPrivacyBehaviorForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationPrivacyBehavior) -> Void) {
-        handler(.ShowOnLockScreen)
+    func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
+        handler(.showOnLockScreen)
     }
     
     // MARK: - Timeline Population
     
-    func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
-      let myDelegate = WKExtension.sharedExtension().delegate as! ExtensionDelegate
+    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void)) {
+      let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
       myDelegate.requestInitialState { _ in
-        handler(self.getTemplateForFamily(complication).map { CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: $0) })
+        handler(self.getTemplateForFamily(complication).map { CLKComplicationTimelineEntry(date: Date(), complicationTemplate: $0) })
       }
     }
     
-    func getTimelineEntriesForComplication(complication: CLKComplication, beforeDate date: NSDate, limit: Int, withHandler handler: (([CLKComplicationTimelineEntry]?) -> Void)) {
+    func getTimelineEntries(for complication: CLKComplication, before date: Date, limit: Int, withHandler handler: (@escaping ([CLKComplicationTimelineEntry]?) -> Void)) {
         // Call the handler with the timeline entries prior to the given date
         handler(nil)
     }
     
-    func getTimelineEntriesForComplication(complication: CLKComplication, afterDate date: NSDate, limit: Int, withHandler handler: (([CLKComplicationTimelineEntry]?) -> Void)) {
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: (@escaping ([CLKComplicationTimelineEntry]?) -> Void)) {
         // Call the handler with the timeline entries after to the given date
         handler(nil)
     }
     
     // MARK: - Update Scheduling
     
-    func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
+    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void) {
         // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-        handler(NSDate(timeIntervalSinceNow: 60))
+        handler(Date(timeIntervalSinceNow: 60))
     }
     
     // MARK: - Placeholder Templates
     
-    func getPlaceholderTemplateForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTemplate?) -> Void) {
+    func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         // This method will be called once per supported complication, and the results will be cached
         handler(getTemplateForFamily(complication))
     }
 
-  private func getTemplateForFamily(complication: CLKComplication) -> CLKComplicationTemplate? {
+  fileprivate func getTemplateForFamily(_ complication: CLKComplication) -> CLKComplicationTemplate? {
     
     let delayString: String
     if let delay = getCurrentAdvice(), delayMessage = delay.vertrekVertraging {
@@ -74,23 +74,23 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     let template: CLKComplicationTemplate?
     switch complication.family {
 
-    case .ModularSmall:
+    case .modularSmall:
       let modularTemplate = CLKComplicationTemplateModularSmallSimpleText()
       modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
-    case .CircularSmall:
+    case .circularSmall:
 
       let modularTemplate = CLKComplicationTemplateCircularSmallSimpleText()
       modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
-    case .UtilitarianSmall:
+    case .utilitarianSmall:
       let modularTemplate = CLKComplicationTemplateUtilitarianSmallFlat()
       modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate
 
-    case .UtilitarianLarge:
+    case .utilitarianLarge:
       let modularTemplate = CLKComplicationTemplateUtilitarianLargeFlat()
       modularTemplate.textProvider = CLKSimpleTextProvider(text: delayString)
       template = modularTemplate

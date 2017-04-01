@@ -25,6 +25,9 @@
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
 		C3B484DA1CCB8F1400EB25D5 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
+		C3BA351A1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
+		C3BA351B1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
+		C3BA351C1E12A471000BA4A5 /* harkemaio.cer in Resources */ = {isa = PBXBuildFile; fileRef = C3BA35191E12A471000BA4A5 /* harkemaio.cer */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
 		C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */; };
@@ -180,6 +183,7 @@
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
 		C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
+		C3BA35191E12A471000BA4A5 /* harkemaio.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = harkemaio.cer; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceCell.swift; sourceTree = "<group>"; };
 		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdviceCell.xib; sourceTree = "<group>"; };
@@ -352,6 +356,7 @@
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */,
+				C3BA35191E12A471000BA4A5 /* harkemaio.cer */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C376268E1C947309006A42A7 /* AKKURAT.ttf */,
 				C37626901C947356006A42A7 /* AKKURATL.ttf */,
@@ -646,7 +651,7 @@
 					C3E8474E1BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -662,16 +667,18 @@
 					};
 					C3E847651BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0830;
 						TestTargetID = C3E8474E1BB82A01007D17C3;
 					};
 					C3E847701BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0830;
 						TestTargetID = C3E8474E1BB82A01007D17C3;
 					};
 					C3FD07CE1CC767FA002893B3 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -682,7 +689,7 @@
 					C3FD07DA1CC767FA002893B3 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -723,6 +730,7 @@
 				C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */,
 				C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */,
 				C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */,
+				C3BA351A1E12A471000BA4A5 /* harkemaio.cer in Resources */,
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
@@ -755,6 +763,7 @@
 			files = (
 				C3FD07D51CC767FA002893B3 /* Assets.xcassets in Resources */,
 				C3FD07D31CC767FA002893B3 /* Interface.storyboard in Resources */,
+				C3BA351B1E12A471000BA4A5 /* harkemaio.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +771,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3BA351C1E12A471000BA4A5 /* harkemaio.cer in Resources */,
 				C3FD07ED1CC767FA002893B3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1095,7 +1105,7 @@
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1118,7 +1128,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1131,6 +1141,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Debug;
@@ -1143,6 +1154,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Release;
@@ -1154,6 +1166,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = HoelangTotTrein2;
 				USES_XCTRUNNER = YES;
 			};
@@ -1166,6 +1179,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = HoelangTotTrein2;
 				USES_XCTRUNNER = YES;
 			};
@@ -1188,7 +1202,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1212,7 +1226,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1233,7 +1247,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1255,7 +1269,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};

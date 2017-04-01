@@ -10,10 +10,10 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-func formatTime(date: NSDate) -> String {
-  let format = NSDateFormatter()
+func formatTime(_ date: Date) -> String {
+  let format = DateFormatter()
   format.dateFormat = "HH:mm"
-  return format.stringFromDate(date)
+  return format.string(from: date)
 }
 
 class InterfaceController: WKInterfaceController {
@@ -26,18 +26,18 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var loadingLabel: WKInterfaceLabel!
   @IBOutlet var delayLabel: WKInterfaceLabel!
 
-  var refreshTimer: NSTimer?
-  var oneMinuteToGoTimer: NSTimer?
+  var refreshTimer: Timer?
+  var oneMinuteToGoTimer: Timer?
 
-  override func awakeWithContext(context: AnyObject?) {
-    super.awakeWithContext(context)
+  override func awake(withContext context: Any?) {
+    super.awake(withContext: context)
     adviceDidChange()
   }
 
   override func willActivate() {
     // This method is called when watch view controller is about to be visible to user
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(adviceDidChange), name: AdvicesDidChangeNotification, object: nil)
-    (WKExtension.sharedExtension().delegate as? ExtensionDelegate)?.requestInitialState { error in
+    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: AdvicesDidChangeNotification, object: nil)
+    (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
       print("INITIAL STATE WITH: \(error)")
       self.adviceDidChange()
     }
@@ -59,7 +59,7 @@ class InterfaceController: WKInterfaceController {
     }
 
     if let _ = advice.vertrekVertraging where previousAdvice?.vertrekVertraging != advice.vertrekVertraging {
-      WKInterfaceDevice.currentDevice().playHaptic(.Failure)
+      WKInterfaceDevice.current().play(.failure)
     }
 
     previousAdvice = advice
@@ -77,17 +77,17 @@ class InterfaceController: WKInterfaceController {
 
     refreshTimer?.invalidate()
     let finished = advice.vertrek.actualDate.timeIntervalSinceNow
-    refreshTimer = NSTimer.scheduledTimerWithTimeInterval(finished, target: self, selector: #selector(adviceDidChange), userInfo: nil, repeats: false)
+    refreshTimer = Timer.scheduledTimer(timeInterval: finished, target: self, selector: #selector(adviceDidChange), userInfo: nil, repeats: false)
     oneMinuteToGoTimer?.invalidate()
 
     let oneMinuteToGoOffset = finished - 60
     if oneMinuteToGoOffset > 60 {
-      oneMinuteToGoTimer = NSTimer.scheduledTimerWithTimeInterval(oneMinuteToGoOffset, target: self, selector: #selector(oneMinuteToGo), userInfo: nil, repeats: false)
+      oneMinuteToGoTimer = Timer.scheduledTimer(timeInterval: oneMinuteToGoOffset, target: self, selector: #selector(oneMinuteToGo), userInfo: nil, repeats: false)
     }
   }
 
   @objc func oneMinuteToGo() {
-    WKInterfaceDevice.currentDevice().playHaptic(.DirectionUp)
+    WKInterfaceDevice.current().play(.directionUp)
   }
   
 }

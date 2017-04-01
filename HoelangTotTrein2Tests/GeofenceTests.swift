@@ -287,7 +287,7 @@ class GeofenceTests: XCTestCase {
   
   // MARK: - GeofenceFromGeofencesFromTime
   
-  private func prepareGeofenceModels() -> GeofenceService.StationGeofences {
+  fileprivate func prepareGeofenceModels() -> GeofenceService.StationGeofences {
     let advices = [
       Advice(overstappen: 0,
         vertrek:  FareTime(planned: 1456902049, actual: 1456902049),
@@ -347,14 +347,14 @@ class GeofenceTests: XCTestCase {
   func testGeofenceFromGeofencesFromTimeShouldReturnNextStartGeofenceOnTime() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: NSDate(timeIntervalSince1970: 1456902049))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: Date(timeIntervalSince1970: 1456902049))
     XCTAssertEqual(model, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1457002049, spoor: "1", name: "A"), toStop: nil))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnStartGeofenceBefore() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: NSDate(timeIntervalSince1970: 1456901049))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["A"]!, forTime: Date(timeIntervalSince1970: 1456901049))
     XCTAssertEqual(model, GeofenceModel(type: .Start, stationName: "A", fromStop: Stop(time: 1456902049, spoor: "1", name: "A"), toStop: nil))
   }
   
@@ -363,35 +363,35 @@ class GeofenceTests: XCTestCase {
   func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelBefore() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456901049))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: Date(timeIntervalSince1970: 1456901049))
     XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnNextOverstappenModelOnTime() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912049))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: Date(timeIntervalSince1970: 1456912049))
     XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelJustAfter() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912050))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: Date(timeIntervalSince1970: 1456912050))
     XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnOverstappenModelAfter() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456901060))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: Date(timeIntervalSince1970: 1456901060))
     XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1456912049, spoor: "1", name: "B"), toStop: Stop(time: 1456922049, spoor: "1", name: "B")))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnNextOverstappenModelWhenTooLate() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: NSDate(timeIntervalSince1970: 1456912050))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["B"]!, forTime: Date(timeIntervalSince1970: 1456912050))
     XCTAssertEqual(model, GeofenceModel(type: .Overstap, stationName: "B", fromStop: Stop(time: 1457102049, spoor: "1", name: "B"), toStop: Stop(time: 1457202049, spoor: "1", name: "B")))
   }
 
@@ -400,21 +400,21 @@ class GeofenceTests: XCTestCase {
   func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenTooEarly() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932000))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: Date(timeIntervalSince1970: 1456932000))
     XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenOnTime() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932049))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: Date(timeIntervalSince1970: 1456932049))
     XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
   }
   
   func testGeofenceFromGeofencesFromTimeShouldReturnRightStationWhenTooLate() {
     let geofenceModels = prepareGeofenceModels()
     
-    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: NSDate(timeIntervalSince1970: 1456932060))
+    let model = geofenceService.geofenceFromGeofences(geofenceModels["C"]!, forTime: Date(timeIntervalSince1970: 1456932060))
     XCTAssertEqual(model, GeofenceModel(type: .TussenStation, stationName: "C", fromStop: Stop(time: 1456932049, spoor: "1", name: "C"), toStop: nil))
   }
   

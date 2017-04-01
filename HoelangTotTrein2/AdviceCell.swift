@@ -29,17 +29,17 @@ class AdviceCell: UICollectionViewCell {
       return
     }
 
-    let offset = advice.vertrek.actualDate.timeIntervalSinceDate(NSDate())
-    let difference = NSDate(timeIntervalSince1970: offset - 60*60)
+    let offset = advice.vertrek.actualDate.timeIntervalSince(Date())
+    let difference = Date(timeIntervalSince1970: offset - 60*60)
     let timeBeforeColonString: String
     let timeAfterColonString: String
     if difference.hour() > 0 {
-      timeBeforeColonString = difference.toString(format: .Custom("H"))
-      timeAfterColonString = difference.toString(format: .Custom("mm"))
+      timeBeforeColonString = difference.toString(format: .custom("H"))
+      timeAfterColonString = difference.toString(format: .custom("mm"))
 
     } else {
-      timeBeforeColonString = difference.toString(format: .Custom("mm"))
-      timeAfterColonString = difference.toString(format: .Custom("ss"))
+      timeBeforeColonString = difference.toString(format: .custom("mm"))
+      timeAfterColonString = difference.toString(format: .custom("ss"))
     }
 
     minutesLabel.text = timeBeforeColonString
@@ -61,7 +61,7 @@ class AdviceCell: UICollectionViewCell {
     renderSteps(advice.stepModels)
   }
 
-  private func renderSteps(stepModels: [StepViewModel]) {
+  fileprivate func renderSteps(_ stepModels: [StepViewModel]) {
     stepsStackView.arrangedSubviews.forEach { [weak self] view in
       self?.stepsStackView.removeArrangedSubview(view)
       view.removeFromSuperview()

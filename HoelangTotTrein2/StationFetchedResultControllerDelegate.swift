@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 class StationFetchedResultControllerDelegate: NSObject, NSFetchedResultsControllerDelegate {
-  var sectionAnimation: UITableViewRowAnimation = .Fade
-  var rowAnimation: UITableViewRowAnimation = .Fade
+  var sectionAnimation: UITableViewRowAnimation = .fade
+  var rowAnimation: UITableViewRowAnimation = .fade
 
   weak var tableView: UITableView?
   let sectionOffset: Int
@@ -27,18 +27,18 @@ class StationFetchedResultControllerDelegate: NSObject, NSFetchedResultsControll
   }
 
   /// Implementation of NSFetchedResultsControllerDelegate
-  func controllerWillChangeContent(controller: NSFetchedResultsController) {
+  func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
     tableView?.beginUpdates()
   }
 
   /// Implementation of NSFetchedResultsControllerDelegate
-  func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
     switch type {
-    case .Insert:
-      tableView?.insertSections(NSIndexSet(index: sectionIndex + sectionOffset), withRowAnimation: sectionAnimation)
+    case .insert:
+      tableView?.insertSections(IndexSet(integer: sectionIndex + sectionOffset), with: sectionAnimation)
 
-    case .Delete:
-      tableView?.deleteSections(NSIndexSet(index: sectionIndex + sectionOffset), withRowAnimation: sectionAnimation)
+    case .delete:
+      tableView?.deleteSections(IndexSet(integer: sectionIndex + sectionOffset), with: sectionAnimation)
 
     default:
       break // Noop
@@ -46,32 +46,32 @@ class StationFetchedResultControllerDelegate: NSObject, NSFetchedResultsControll
   }
 
   /// Implementation of NSFetchedResultsControllerDelegate
-  func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+  func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
     switch type {
-    case .Insert:
+    case .insert:
       //TODO: If-check moet niet. Bug in NSFetchedResultsControllerDelegate volgens http://stackoverflow.com/a/32336934/2092602
       if indexPath != newIndexPath {
-        tableView?.insertRowsAtIndexPaths([newIndexPath!.section(sectionOffset)], withRowAnimation: rowAnimation)
+        tableView?.insertRows(at: [newIndexPath!.section(sectionOffset)], with: rowAnimation)
       }
-    case .Delete:
-      tableView?.deleteRowsAtIndexPaths([indexPath!.section(sectionOffset)], withRowAnimation: rowAnimation)
+    case .delete:
+      tableView?.deleteRows(at: [indexPath!.section(sectionOffset)], with: rowAnimation)
 
-    case .Move:
-      tableView?.deleteRowsAtIndexPaths([indexPath!.section(sectionOffset)], withRowAnimation: rowAnimation)
-      tableView?.insertRowsAtIndexPaths([newIndexPath!.section(sectionOffset)], withRowAnimation: rowAnimation)
+    case .move:
+      tableView?.deleteRows(at: [indexPath!.section(sectionOffset)], with: rowAnimation)
+      tableView?.insertRows(at: [newIndexPath!.section(sectionOffset)], with: rowAnimation)
 
-    case .Update:
-      tableView?.reloadRowsAtIndexPaths([indexPath!.section(sectionOffset)], withRowAnimation: rowAnimation)
+    case .update:
+      tableView?.reloadRows(at: [indexPath!.section(sectionOffset)], with: rowAnimation)
     }
   }
 
   /// Implementation of NSFetchedResultsControllerDelegate
-  func controllerDidChangeContent(controller: NSFetchedResultsController) {
+  func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
 
     if let tableView = self.tableView {
 
       if tableView.numberOfSections > 0 {
-        tableView.reloadSections(NSIndexSet(index: sectionOffset), withRowAnimation: .Automatic)
+        tableView.reloadSections(IndexSet(integer: sectionOffset), with: .automatic)
       }
 
       if let rowCountChangedHandler = rowCountChangedHandler {

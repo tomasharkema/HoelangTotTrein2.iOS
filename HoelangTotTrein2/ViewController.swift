@@ -18,7 +18,7 @@ class ViewController: UIViewController, SegueManagerController {
     segueManager = SegueManager(viewController: self)
   }
 
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     segueManager.prepareForSegue(segue)
   }
 }

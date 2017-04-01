@@ -9,26 +9,26 @@
 import Foundation
 
 enum LogLevel: Int {
-  case DEBUG = 0
-  case INFO
-  case WARN
-  case ERROR
+  case debug = 0
+  case info
+  case warn
+  case error
 
   func shortCode() -> String {
     switch (self) {
-    case .DEBUG:
+    case .debug:
       return "D"
-    case .INFO:
+    case .info:
       return "I"
-    case .WARN:
+    case .warn:
       return "W"
-    case .ERROR:
+    case .error:
       return "E"
     }
   }
 }
 
-func log(level: LogLevel, section: String, message: String) {
+func log(_ level: LogLevel, section: String, message: String) {
   if level.rawValue >= LogService.logLevel.rawValue {
     let currentThreadId = pthread_mach_thread_np(pthread_self())
     print("[\(level.shortCode())/\(section)/T:\(currentThreadId)] \(message)")
@@ -36,8 +36,8 @@ func log(level: LogLevel, section: String, message: String) {
 }
 
 class LogService {
-  private struct Holder {
-    static var logLevel = LogLevel.ERROR
+  fileprivate struct Holder {
+    static var logLevel = LogLevel.error
   }
 
   class var logLevel: LogLevel {

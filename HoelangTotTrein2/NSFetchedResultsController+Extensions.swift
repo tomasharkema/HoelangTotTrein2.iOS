@@ -12,7 +12,7 @@ import CoreDataKit
 
 extension NSFetchedResultsController {
 
-  func optionalObjectAtIndexPath(indexPath: NSIndexPath) -> AnyObject? {
+  func optionalObjectAtIndexPath(_ indexPath: IndexPath) -> AnyObject? {
     if let objects = sections?[indexPath.section].objects where indexPath.row < objects.count {
       return objects[indexPath.row]
     }
@@ -22,7 +22,7 @@ extension NSFetchedResultsController {
   
 }
 
-func fetchedRequest(objects: [NSManagedObject]) -> NSFetchRequest? {
+func fetchedRequest(_ objects: [NSManagedObject]) -> NSFetchRequest? {
   if let object = objects.first {
 
     let predicate = NSPredicate(format: objects

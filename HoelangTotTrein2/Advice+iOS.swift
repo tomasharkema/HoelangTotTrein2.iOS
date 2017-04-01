@@ -11,7 +11,7 @@ import CoreData
 import CoreDataKit
 
 extension Station {
-  func getStationRecord(context: NSManagedObjectContext) -> StationRecord? {
+  func getStationRecord(_ context: NSManagedObjectContext) -> StationRecord? {
     do {
       return try context.findFirst(StationRecord.self, predicate: NSPredicate(format: "code = %@", code))
     } catch {
@@ -20,7 +20,7 @@ extension Station {
     }
   }
 
-  static func fromCode(code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
+  static func fromCode(_ code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
     let toPredicate = NSPredicate(format: "code = %@", code)
     do {
       return try context.findFirst(StationRecord.self, predicate: toPredicate)?.toStation()
@@ -52,7 +52,7 @@ extension Advice {
 
     let filteredStations = optionalStations
       .filter { $0.type != .StoptreinStation }
-      .sort { $0.type.score > $1.type.score }
+      .sorted { $0.type.score > $1.type.score }
 
     return filteredStations.first
   }
@@ -79,8 +79,8 @@ extension Advice {
   var stepsMessage: String {
     return reisDeel.reduce("") { (prev, item) in
       if let from = item.stops.first, to = item.stops.last {
-        let fromTimeString = from.timeDate.toString(format: .Custom("HH:mm"))
-        let toTimeString = to.timeDate.toString(format: .Custom("HH:mm"))
+        let fromTimeString = from.timeDate.toString(format: .custom("HH:mm"))
+        let toTimeString = to.timeDate.toString(format: .custom("HH:mm"))
         //👉
         return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) → \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
       }
@@ -91,7 +91,7 @@ extension Advice {
   var stepModels: [StepViewModel] {
     return reisDeel.flatMap { item in
       if let from = item.stops.first, to = item.stops.last {
-        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.timeDate.toString(format: .Custom("HH:mm")), toTime: to.timeDate.toString(format: .Custom("HH:mm")))
+        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.timeDate.toString(format: .custom("HH:mm")), toTime: to.timeDate.toString(format: .custom("HH:mm")))
       }
       return nil
     }

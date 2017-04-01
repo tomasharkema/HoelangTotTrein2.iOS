@@ -22,11 +22,6 @@
 	<string>9</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
 	<key>UIBackgroundModes</key>

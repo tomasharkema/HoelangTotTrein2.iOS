@@ -9,8 +9,8 @@
 import UIKit
 
 class NetworkActivityIndicatorManager: NSObject {
-  private var activityCount: Int
-  private var activityIndicatorVisibilityTimer: NSTimer?
+  fileprivate var activityCount: Int
+  fileprivate var activityIndicatorVisibilityTimer: Timer?
 
   var isNetworkActivityIndicatorVisible: Bool {
     return activityCount > 0
@@ -25,7 +25,7 @@ class NetworkActivityIndicatorManager: NSObject {
     activityCount += 1
     objc_sync_exit(self)
 
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.updateNetworkActivityIndicatorVisibilityDelayed()
     }
   }
@@ -35,26 +35,26 @@ class NetworkActivityIndicatorManager: NSObject {
     activityCount = max(activityCount - 1, 0)
     objc_sync_exit(self)
 
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
       self.updateNetworkActivityIndicatorVisibilityDelayed()
     }
   }
 
-  private func updateNetworkActivityIndicatorVisibilityDelayed() {
+  fileprivate func updateNetworkActivityIndicatorVisibilityDelayed() {
     // Delay hiding of activity indicator for a short interval, to avoid flickering
     if (isNetworkActivityIndicatorVisible) {
-      dispatch_async(dispatch_get_main_queue()) {
+      DispatchQueue.main.async {
         self.updateNetworkActivityIndicatorVisibility()
       }
     } else {
       activityIndicatorVisibilityTimer?.invalidate()
-      activityIndicatorVisibilityTimer = NSTimer(timeInterval: 0.2, target: self, selector: #selector(NetworkActivityIndicatorManager.updateNetworkActivityIndicatorVisibility), userInfo: nil, repeats: false)
+      activityIndicatorVisibilityTimer = Timer(timeInterval: 0.2, target: self, selector: #selector(NetworkActivityIndicatorManager.updateNetworkActivityIndicatorVisibility), userInfo: nil, repeats: false)
       activityIndicatorVisibilityTimer!.tolerance = 0.2
-      NSRunLoop.mainRunLoop().addTimer(activityIndicatorVisibilityTimer!, forMode: NSRunLoopCommonModes)
+      RunLoop.main.add(activityIndicatorVisibilityTimer!, forMode: RunLoopMode.commonModes)
     }
   }
 
   func updateNetworkActivityIndicatorVisibility() {
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = isNetworkActivityIndicatorVisible
+    UIApplication.shared.isNetworkActivityIndicatorVisible = isNetworkActivityIndicatorVisible
   }
 }

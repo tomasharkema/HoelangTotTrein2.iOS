@@ -9,20 +9,20 @@
 import Foundation
 
 enum ModalityType {
-  case Sprinter
-  case Intercity
-  case Other(String)
+  case sprinter
+  case intercity
+  case other(String)
 
-  static func fromString(name: String) -> ModalityType {
+  static func fromString(_ name: String) -> ModalityType {
     if name == "Sprinter" {
-      return .Sprinter
+      return .sprinter
     }
 
     if name == "Intercity" {
-      return .Intercity
+      return .intercity
     }
 
-    return .Other(name)
+    return .other(name)
   }
 
 }
@@ -36,7 +36,7 @@ extension Advice {
     return (status == .VolgensPlan ||
       status == .Gewijzigd ||
       status == .Vertraagd ||
-      status == .Nieuw) && vertrek.actualDate.timeIntervalSinceDate(NSDate()) > 0
+      status == .Nieuw) && vertrek.actualDate.timeIntervalSince(Date()) > 0
   }
 
   var startStation: String? {
@@ -62,25 +62,25 @@ extension ReisDeel {
 
 extension Array: Equatable {}
 
-public func ==<T: CollectionType>(lhs: T, rhs: T) -> Bool {
+public func ==<T: Collection>(lhs: T, rhs: T) -> Bool {
   return String(lhs) == String(rhs)
 }
 
 typealias Stations = [Station]
 
 extension FareTime {
-  var plannedDate: NSDate {
-    return NSDate(timeIntervalSince1970: planned/1000)
+  var plannedDate: Date {
+    return Date(timeIntervalSince1970: planned/1000)
   }
 
-  var actualDate: NSDate {
-    return NSDate(timeIntervalSince1970: actual/1000)
+  var actualDate: Date {
+    return Date(timeIntervalSince1970: actual/1000)
   }
 }
 
 extension Stop {
-  var timeDate: NSDate {
-    return NSDate(timeIntervalSince1970: time/1000)
+  var timeDate: Date {
+    return Date(timeIntervalSince1970: time/1000)
   }
 }
 

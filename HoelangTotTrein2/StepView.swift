@@ -26,8 +26,8 @@ struct StepViewModel {
 
 class StepView: UIView {
 
-  @IBOutlet weak private var fromStationLabel: UILabel!
-  @IBOutlet weak private var fromSpoorLabel: UILabel!
+  @IBOutlet weak fileprivate var fromStationLabel: UILabel!
+  @IBOutlet weak fileprivate var fromSpoorLabel: UILabel!
   @IBOutlet weak var fromTime: UILabel!
   @IBOutlet weak var toStationLabel: UILabel!
   @IBOutlet weak var toSpoorLabel: UILabel!

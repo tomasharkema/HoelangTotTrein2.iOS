@@ -11,8 +11,8 @@ import CoreData
 import CoreDataKit
 
 enum HistoryType: Int {
-  case From = 0
-  case To = 1
+  case from = 0
+  case to = 1
 }
 
 class History: NSManagedObject, NamedManagedObject {

@@ -10,16 +10,16 @@ import Foundation
 import WatchConnectivity
 
 enum TravelEvent {
-  case AdvicesChange(advice: Advices)
-  case CurrentAdviceChange(hash: Int)
+  case advicesChange(advice: Advices)
+  case currentAdviceChange(hash: Int)
 }
 
 extension TravelEvent {
   var name: String {
     switch self {
-    case .AdvicesChange:
+    case .advicesChange:
       return "advicesChange"
-    case .CurrentAdviceChange:
+    case .currentAdviceChange:
       return "currentAdviceChange"
     }
   }
@@ -30,12 +30,12 @@ extension TravelEvent {
   var encode: [String: AnyObject] {
     let array: [String: AnyObject] = { this in
       switch this {
-      case let .AdvicesChange(advices):
+      case let .advicesChange(advices):
         return ["advices": advices.encodeJson {
           $0.encodeJson()
         }]
 
-      case let .CurrentAdviceChange(hash):
+      case let .currentAdviceChange(hash):
         return ["hash": hash]
       }
     }(self)
@@ -49,14 +49,14 @@ extension TravelEvent {
 //MARK: - TravelEvent Decode 
 
 extension TravelEvent {
-  static func decode(message: [String: AnyObject]) -> TravelEvent? {
+  static func decode(_ message: [String: AnyObject]) -> TravelEvent? {
     switch message["name"] as? String {
     case "advicesChange"?:
       guard let advices = message["advices"] as? [AnyObject] else {
         return nil
       }
       do {
-        return TravelEvent.AdvicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) }, advices))
+        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) }, advices))
       } catch {
         return nil
       }
@@ -65,7 +65,7 @@ extension TravelEvent {
       guard let hash = message["hash"] as? Int else {
         return nil
       }
-      return TravelEvent.CurrentAdviceChange(hash: hash)
+      return TravelEvent.currentAdviceChange(hash: hash)
 
     default:
       return nil
@@ -74,9 +74,9 @@ extension TravelEvent {
 }
 
 extension WCSession {
-  func sendEvent(event: TravelEvent) {
+  func sendEvent(_ event: TravelEvent) {
     do {
-      if let data = jsonToNSData(event.encode) where self.reachable {
+      if let data = jsonToNSData(event.encode) where self.isReachable {
         self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
           print(error)
         })

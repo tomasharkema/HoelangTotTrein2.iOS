@@ -20,60 +20,60 @@ struct Keys {
   static let PersistedAdvices = "PersistedAdvices"
 }
 
-let UserDefaults = NSUserDefaults(suiteName: "group.tomas.hltt")!
+let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
-extension NSUserDefaults {
+extension Foundation.UserDefaults {
   var fromStationCode: String? {
     get {
-      let fromCode = stringForKey(Keys.FromStationCodeKey)
+      let fromCode = string(forKey: Keys.FromStationCodeKey)
       return fromCode
     }
     set {
-      setObject(newValue, forKey: Keys.FromStationCodeKey)
+      set(newValue, forKey: Keys.FromStationCodeKey)
       synchronize()
     }
   }
 
   var toStationCode: String? {
     get {
-      let toCode = stringForKey(Keys.ToStationCodeKey)
+      let toCode = string(forKey: Keys.ToStationCodeKey)
       return toCode
     }
     set {
-      setObject(newValue, forKey: Keys.ToStationCodeKey)
+      set(newValue, forKey: Keys.ToStationCodeKey)
       synchronize()
     }
   }
 
   var fromStationByPickerCode: String? {
     get {
-      let fromCode = stringForKey(Keys.FromStationByPickerCodeKey)
+      let fromCode = string(forKey: Keys.FromStationByPickerCodeKey)
       return fromCode
     }
     set {
-      setObject(newValue, forKey: Keys.FromStationByPickerCodeKey)
+      set(newValue, forKey: Keys.FromStationByPickerCodeKey)
       synchronize()
     }
   }
 
   var toStationByPickerCode: String? {
     get {
-      let toCode = stringForKey(Keys.ToStationByPickerCodeKey)
+      let toCode = string(forKey: Keys.ToStationByPickerCodeKey)
       return toCode
     }
     set {
-      setObject(newValue, forKey: Keys.ToStationByPickerCodeKey)
+      set(newValue, forKey: Keys.ToStationByPickerCodeKey)
       synchronize()
     }
   }
 
   var userId: String {
     let returnedUserId: String
-    if let userId = stringForKey(Keys.UserIdKey) {
+    if let userId = string(forKey: Keys.UserIdKey) {
       returnedUserId = userId
     } else {
-      returnedUserId = NSUUID().UUIDString
-      setObject(returnedUserId, forKey: Keys.UserIdKey)
+      returnedUserId = UUID().uuidString
+      set(returnedUserId, forKey: Keys.UserIdKey)
       synchronize()
     }
     return returnedUserId
@@ -111,16 +111,16 @@ extension NSUserDefaults {
   }
 
 
-  private var _geofenceInfo: [String: AnyObject]? {
+  fileprivate var _geofenceInfo: [String: AnyObject]? {
     get {
-      if let data = objectForKey(Keys.GeofenceInfoKey) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+      if let data = object(forKey: Keys.GeofenceInfoKey) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
         return object as? [String: AnyObject]
       }
       return nil
     }
     set {
-      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
-        setObject(json, forKey: Keys.GeofenceInfoKey)
+      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+        set(json, forKey: Keys.GeofenceInfoKey)
         synchronize()
       }
     }
@@ -147,16 +147,16 @@ extension NSUserDefaults {
     }
   }
 
-  private var _persistedAdvicesAndRequest: [String: AnyObject]? {
+  fileprivate var _persistedAdvicesAndRequest: [String: AnyObject]? {
     get {
-      if let data = objectForKey(Keys.PersistedAdvicesAndRequest) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+      if let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
         return object as? [String: AnyObject]
       }
       return nil
     }
     set {
-      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
-        setObject(json, forKey: Keys.PersistedAdvicesAndRequest)
+      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+        set(json, forKey: Keys.PersistedAdvicesAndRequest)
         synchronize()
       }
     }
@@ -164,12 +164,12 @@ extension NSUserDefaults {
 
   var currentAdviceHash: Int? {
     get {
-      let value = integerForKey(Keys.CurrentAdviceHash)
+      let value = integer(forKey: Keys.CurrentAdviceHash)
       return value == 0 ? nil : value
     }
 
     set {
-      setInteger(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
+      set(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
       synchronize()
     }
   }
@@ -197,16 +197,16 @@ extension NSUserDefaults {
     }
   }
 
-  private var _persistedAdvices: [AnyObject]? {
+  fileprivate var _persistedAdvices: [AnyObject]? {
     get {
-      if let data = objectForKey(Keys.PersistedAdvices) as? NSData, object = try? NSJSONSerialization.JSONObjectWithData(data, options: []) {
+      if let data = object(forKey: Keys.PersistedAdvices) as? Data, object = try? JSONSerialization.jsonObject(with: data, options: []) {
         return object as? [AnyObject]
       }
       return nil
     }
     set {
-      if let value = newValue, json = try? NSJSONSerialization.dataWithJSONObject(value, options: []) {
-        setObject(json, forKey: Keys.PersistedAdvices)
+      if let value = newValue, json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+        set(json, forKey: Keys.PersistedAdvices)
         synchronize()
       }
     }

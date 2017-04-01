@@ -15,13 +15,13 @@ import RxSwift
 import WatchConnectivity
 
 class TravelService: NSObject, WCSessionDelegate {
-  let queue = dispatch_queue_create("nl.tomasharkema.TravelService", DISPATCH_QUEUE_SERIAL)
-  private let apiService: ApiService
-  private let locationService: LocationService
+  let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
+  fileprivate let apiService: ApiService
+  fileprivate let locationService: LocationService
 
-  private var disposeBag = DisposeBag()
+  fileprivate var disposeBag = DisposeBag()
 
-  let session = WCSession.defaultSession()
+  let session = WCSession.default()
 
   init(apiService: ApiService, locationService: LocationService) {
     self.apiService = apiService
@@ -29,26 +29,26 @@ class TravelService: NSObject, WCSessionDelegate {
 
     super.init()
 
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(startTimer), name: UIApplicationDidBecomeActiveNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(stopTimer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+    NotificationCenter.defaultCenter().addObserver(self, selector: #selector(startTimer), name: UIApplicationDidBecomeActiveNotification, object: nil)
+    NotificationCenter.defaultCenter().addObserver(self, selector: #selector(stopTimer), name: UIApplicationDidEnterBackgroundNotification, object: nil)
   }
   
-  func session(session: WCSession, activationDidCompleteWithState activationState: WCSessionActivationState, error: NSError?) {
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     /* stub */
   }
   
-  func sessionDidBecomeInactive(session: WCSession) {
+  func sessionDidBecomeInactive(_ session: WCSession) {
     /* stub */
   }
   
-  public func sessionDidDeactivate(session: WCSession) {
+  open func sessionDidDeactivate(_ session: WCSession) {
     /* stub */
   }
   
   func attach() {
 
     session.delegate = self
-    session.activateSession()
+    session.activate()
 
     firstAdviceRequest.asObservable().subscribeNext { [weak self] adviceRequest in
       guard let adviceRequest = adviceRequest, service = self else {
@@ -112,11 +112,11 @@ class TravelService: NSObject, WCSessionDelegate {
   let nextAdviceObservable = Variable<Advice?>(nil)
   let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
 
-  var timer: NSTimer?
+  var timer: Timer?
 
   func startTimer() {
     if timer == nil {
-      timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+      timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
     tick()
   }
@@ -144,7 +144,7 @@ class TravelService: NSObject, WCSessionDelegate {
     }
   }
 
-  func getCurrentAdviceRequest(context: NSManagedObjectContext = CDK.mainThreadContext) -> AdviceRequest {
+  func getCurrentAdviceRequest(_ context: NSManagedObjectContext = CDK.mainThreadContext) -> AdviceRequest {
     let from: Station?
     if let fromCode = UserDefaults.fromStationCode {
       from = Station.fromCode(fromCode, context: context)
@@ -161,7 +161,7 @@ class TravelService: NSObject, WCSessionDelegate {
     return AdviceRequest(from: from, to: to)
   }
 
-  func setCurrentAdviceRequest(adviceRequest: AdviceRequest, userInput: Bool) {
+  func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) {
     let correctedAdviceRequest: AdviceRequest
     if let pickerFrom = UserDefaults.fromStationByPickerCode,
       pickerTo = UserDefaults.toStationByPickerCode,
@@ -185,8 +185,8 @@ class TravelService: NSObject, WCSessionDelegate {
     }
   }
   
-  func setStation(state: PickerState, stationName: StationName, byPicker: Bool = false) {
-    assert(NSThread.isMainThread())
+  func setStation(_ state: PickerState, stationName: StationName, byPicker: Bool = false) {
+    assert(Thread.isMainThread)
     let predicate = NSPredicate(format: "name = %@", stationName)
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
@@ -197,21 +197,21 @@ class TravelService: NSObject, WCSessionDelegate {
     }
   }
 
-  func setStation(state: PickerState, station: Station, byPicker: Bool = false) {
+  func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) {
     let advice = getCurrentAdviceRequest()
     let newAdvice: AdviceRequest
     switch state {
-    case .From:
+    case .from:
       newAdvice = advice.setFrom(station)
-    case .To:
+    case .to:
       newAdvice = advice.setTo(station)
     }
 
     if byPicker {
       switch state {
-      case .From:
+      case .from:
         UserDefaults.fromStationByPickerCode = station.code
-      case .To:
+      case .to:
         UserDefaults.toStationByPickerCode = station.code
       }
     }
@@ -219,7 +219,7 @@ class TravelService: NSObject, WCSessionDelegate {
     setCurrentAdviceRequest(newAdvice, userInput: byPicker)
   }
 
-  func fetchCurrentAdvices(adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, ErrorType> {
+  func fetchCurrentAdvices(_ adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, ErrorType> {
     return apiService.advices(adviceRequest ?? getCurrentAdviceRequest()).then { [weak self] advicesResult in
       self?.notifyOfNewAdvices(advicesResult.advices)
     }.trap { error in
@@ -227,7 +227,7 @@ class TravelService: NSObject, WCSessionDelegate {
     }
   }
 
-  private func notifyOfNewAdvices(advices: Advices) {
+  fileprivate func notifyOfNewAdvices(_ advices: Advices) {
     let advices = advices.filter {
       return $0.isOngoing
     }
@@ -243,12 +243,12 @@ class TravelService: NSObject, WCSessionDelegate {
       }
     }
     if currentAdvicesObservable.value != advices {
-      session.sendEvent(TravelEvent.AdvicesChange(advice: advices))
+      session.sendEvent(TravelEvent.advicesChange(advice: advices))
       currentAdvicesObservable.value = advices
     }
   }
 
-  func stationByCode(code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
+  func stationByCode(_ code: String, context: NSManagedObjectContext = CDK.mainThreadContext) -> Station? {
     guard let stationRecord = try? context.findFirst(StationRecord.self, predicate: NSPredicate(format: "code = %@", code)) else {
       return nil
     }
@@ -256,9 +256,9 @@ class TravelService: NSObject, WCSessionDelegate {
     return stationRecord?.toStation()
   }
 
-  func sortCloseLocations(center: CLLocation, stations: [StationRecord]) -> [StationRecord] {
-    return stations.sort { lhs, rhs in
-      lhs.toStation().coords.location.distanceFromLocation(center) < rhs.toStation().coords.location.distanceFromLocation(center)
+  func sortCloseLocations(_ center: CLLocation, stations: [StationRecord]) -> [StationRecord] {
+    return stations.sorted { lhs, rhs in
+      lhs.toStation().coords.location.distance(from: center) < rhs.toStation().coords.location.distance(from: center)
     }
   }
 
@@ -281,7 +281,7 @@ class TravelService: NSObject, WCSessionDelegate {
   }
 
   func travelFromCurrentLocation() {
-    dispatch_async(queue) { [weak self] in
+    queue.async { [weak self] in
       if let service = self {
         service.getCloseStations().map { (stationRecords: [StationRecord]) in
           stationRecords.map { (stationRecord: StationRecord) in
@@ -313,10 +313,10 @@ class TravelService: NSObject, WCSessionDelegate {
   }
 
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
   }
 
-  func session(session: WCSession, didReceiveMessageData messageData: NSData, replyHandler: (NSData) -> Void) {
+  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
     guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), data = jsonToNSData(advice) else {
       return
     }

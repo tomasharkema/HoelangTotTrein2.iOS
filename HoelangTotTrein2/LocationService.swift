@@ -43,47 +43,47 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     currentLocationPromise = nil
   }
 
-  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     requestAuthorizationPromise?.resolve(status)
     switch status {
-    case .AuthorizedAlways:
+    case .authorizedAlways:
       initialize()
     default:
       break
     }
   }
 
-  private var requestAuthorizationPromise: PromiseSource<CLAuthorizationStatus, ErrorType>?
+  fileprivate var requestAuthorizationPromise: PromiseSource<CLAuthorizationStatus, ErrorType>?
 
   func requestAuthorization() -> Promise<CLAuthorizationStatus, ErrorType> {
     let currentState = CLLocationManager.authorizationStatus()
 
     switch currentState {
-    case .AuthorizedAlways:
+    case .authorizedAlways:
       return Promise(value: currentState)
 
     default:
-      requestAuthorizationPromise = PromiseSource<CLAuthorizationStatus, ErrorType>()
+      requestAuthorizationPromise = PromiseSource<CLAuthorizationStatus, ErrorProtocol>()
       manager.requestAlwaysAuthorization()
       return requestAuthorizationPromise?.promise ?? Promise(error: NSError(domain: "HLTT", code: 500, userInfo: nil))
     }
   }
 
-  private var currentLocationPromise: PromiseSource<CLLocation, ErrorType>?
+  fileprivate var currentLocationPromise: PromiseSource<CLLocation, ErrorType>?
 
   func currentLocation() -> Promise<CLLocation, ErrorType> {
 
-    if let location = manager.location where NSDate().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 < 60 {
+    if let location = manager.location where Date().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 < 60 {
       return Promise(value: location)
     }
 
-    currentLocationPromise = PromiseSource<CLLocation, ErrorType>()
+    currentLocationPromise = PromiseSource<CLLocation, ErrorProtocol>()
     manager.requestLocation()
     return currentLocationPromise!.promise
   }
 
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let closestLocation = locations.sort { lhs, rhs in
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    let closestLocation = locations.sorted { lhs, rhs in
       (lhs.horizontalAccuracy + lhs.verticalAccuracy) > (rhs.horizontalAccuracy + rhs.verticalAccuracy)
     }.first
 
@@ -96,7 +96,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
 }
 
 extension LocationService {
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     currentLocationPromise?.reject(error)
   }
 }

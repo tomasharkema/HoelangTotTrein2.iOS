@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension NSIndexPath {
-  func section(inc: Int) -> NSIndexPath {
-    return NSIndexPath(forRow: row, inSection: section + inc)
+extension IndexPath {
+  func section(_ inc: Int) -> IndexPath {
+    return IndexPath(row: row, section: section + inc)
   }
 }

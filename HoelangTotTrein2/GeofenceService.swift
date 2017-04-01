@@ -11,6 +11,19 @@ import CoreDataKit
 import CoreLocation
 import RxSwift
 import RxCocoa
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 typealias StationName = String
 
@@ -19,17 +32,17 @@ class GeofenceService: NSObject {
   typealias GeofenceModels = [GeofenceModel]
   typealias StationGeofences = [StationName: GeofenceModels]
 
-  private static let queue = dispatch_queue_create("nl.tomasharkema.GeofenceService", DISPATCH_QUEUE_SERIAL)
-  private let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.GeofenceService")
-  private let locationManager = CLLocationManager()
+  fileprivate static let queue = DispatchQueue(label: "nl.tomasharkema.GeofenceService", attributes: [])
+  fileprivate let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.GeofenceService")
+  fileprivate let locationManager = CLLocationManager()
 
-  private let travelService: TravelService
+  fileprivate let travelService: TravelService
 
-  private let disposeBag = DisposeBag()
+  fileprivate let disposeBag = DisposeBag()
 
-  private var stationGeofences = StationGeofences()
+  fileprivate var stationGeofences = StationGeofences()
 
-  private(set) var geofenceObservable: Observable<GeofenceModel>!
+  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
 //  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
   init(travelService: TravelService) {
@@ -38,8 +51,8 @@ class GeofenceService: NSObject {
     attach()
   }
 
-  private func updateGeofenceWithStationName(stationName: StationName, geofenceModels: [GeofenceModel]) {
-    assert(NSThread.isMainThread())
+  fileprivate func updateGeofenceWithStationName(_ stationName: StationName, geofenceModels: [GeofenceModel]) {
+    assert(Thread.isMainThread)
     let predicate = NSPredicate(format: "name = %@", stationName)
     do {
       if let station = try CDK.mainThreadContext.findFirst(StationRecord.self, predicate: predicate, sortDescriptors: nil, offset: nil)?.toStation() {
@@ -53,20 +66,20 @@ class GeofenceService: NSObject {
     }
   }
 
-  private func resetGeofences() {
-    assert(NSThread.isMainThread())
+  fileprivate func resetGeofences() {
+    assert(Thread.isMainThread)
     for region in locationManager.monitoredRegions {
-      locationManager.stopMonitoringForRegion(region)
+      locationManager.stopMonitoring(for: region)
     }
   }
 
-  func geofencesFromAdvices(advices: Advices) -> StationGeofences {
+  func geofencesFromAdvices(_ advices: Advices) -> StationGeofences {
     var stationGeofences = StationGeofences()
 
-    for (_, advice) in advices.enumerate() {
+    for (_, advice) in advices.enumerated() {
       var toCreateGeofences = [String: GeofenceModel]()
-      for (deelIndex, deel) in advice.reisDeel.enumerate() {
-        for (stopIndex, stop) in deel.stops.enumerate() {
+      for (deelIndex, deel) in advice.reisDeel.enumerated() {
+        for (stopIndex, stop) in deel.stops.enumerated() {
           let geofenceType: GeofenceType
           if deelIndex == 0 && stopIndex == 0 {
             geofenceType = .Start
@@ -100,8 +113,8 @@ class GeofenceService: NSObject {
     return stationGeofences
   }
 
-  private func attach() {
-    assert(NSThread.isMainThread())
+  fileprivate func attach() {
+    assert(Thread.isMainThread)
     locationManager.delegate = self
     let obs = travelService.currentAdvicesObservable
       .asObservable()
@@ -164,10 +177,10 @@ class GeofenceService: NSObject {
 
 extension GeofenceService: CLLocationManagerDelegate {
   
-  func geofenceFromGeofences(stationGeofences: GeofenceModels, forTime time: NSDate) -> GeofenceModel? {
+  func geofenceFromGeofences(_ stationGeofences: GeofenceModels, forTime time: Date) -> GeofenceModel? {
     let now = time.timeIntervalSince1970
     
-    let stortedGeofences = stationGeofences.enumerate().lazy.sort { (l,r) in
+    let stortedGeofences = stationGeofences.enumerated().lazy.sorted { (l,r) in
       l.element.fromStop?.time < r.element.fromStop?.time && l.element.toStop?.time < r.element.toStop?.time
     }
     
