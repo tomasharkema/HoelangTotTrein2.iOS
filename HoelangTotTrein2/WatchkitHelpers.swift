@@ -81,10 +81,10 @@ extension WCSession {
           print(error)
         })
       } else {
-        //try self.updateApplicationContext(event.encode)
+        try self.updateApplicationContext(event.encode)
       }
     } catch {
-      assertionFailure("Some failiure: \(error)")
+//      assertionFailure("Some failiure: \(error)")
     }
   }
 }

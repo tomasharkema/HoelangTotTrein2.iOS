@@ -43,7 +43,7 @@ class GeofenceService: NSObject {
 
   fileprivate var stationGeofences = StationGeofences()
 
-  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>?
+  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
 //  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
   init(travelService: TravelService, dataStore: DataStore) {
@@ -151,23 +151,23 @@ class GeofenceService: NSObject {
         }
       }).addDisposableTo(disposeBag)
 
-//    locationManager.rx.didEnterRegion
-//      .observeOn(scheduler)
-//      .distinctUntilChanged()
-//      .map { [weak self] region -> GeofenceModel? in
-//        guard let service = self, let geofences = service.stationGeofences[region.identifier] else {
-//          return nil
-//        }
-//
-//        print("DID ENTER REGION, \(region)")
-//
-//        if let geofence = service.geofenceFromGeofences(geofences, forTime: Date()) {
-//          return geofence
-//        }
-//
-//        return nil
-//      }
-//      .filterOptional()
+    locationManager.rx.didEnterRegion
+      .observeOn(scheduler)
+      .distinctUntilChanged()
+      .map { [weak self] region -> GeofenceModel? in
+        guard let service = self, let geofences = service.stationGeofences[region.identifier] else {
+          return nil
+        }
+
+        print("DID ENTER REGION, \(region)")
+
+        if let geofence = service.geofenceFromGeofences(geofences, forTime: Date()) {
+          return geofence
+        }
+
+        return nil
+      }
+      .filterOptional()
   }
 
 }

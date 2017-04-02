@@ -39,23 +39,13 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var cancelHandler: (() -> ())?
   var successHandler: ((Station) -> ())?
 
-//  var historyStationsFetchedResultsController: NSFetchedResultsController?
-//  var closeFetchedResultController: NSFetchedResultsController?
-//  var ordinaryStationsFetchedResultsController: NSFetchedResultsController?
+  private var closeStations: [Station]?
+  private var ordinaryStations: [Station]?
+  private var searchResults: [Station]?
 
   var isSearching: Bool {
     return searchField.text ?? "" != ""
   }
-
-//  var fetchedResultControllers: [NSFetchedResultsController?] {
-//
-//    return
-//      (isSearching ? [] :
-//        [historyStationsFetchedResultsController,
-//        closeFetchedResultController]
-//        ) +
-//      [ordinaryStationsFetchedResultsController]
-//  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -70,16 +60,16 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
 
-    App.travelService.getCloseStations().then { stations in
-//      do {
-//        if let closeStationsFetchRequest = fetchedRequest(stations) {
-//          self.closeFetchedResultController = try CDK.mainThreadContext.fetchedResultsController(closeStationsFetchRequest)
-//          self.tableView.reloadData()
-//        }
-//      } catch {
-//        print(error)
-//      }
+    App.travelService.getCloseStations().then { [weak self] stations in
+      self?.closeStations = stations
+      self?.tableView.reloadData()
     }
+
+    App.dataStore.stations()
+      .then { [weak self] stations in
+        self?.ordinaryStations = stations
+        self?.tableView.reloadData()
+      }
 
 //    do {
 //      let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
@@ -100,39 +90,41 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   }
 
   func search(_ string: String) {
-//    let predicate: NSPredicate? = string == "" ? nil : NSPredicate(format: "name CONTAINS[cd] %@", string)
-//    do {
-//      let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: predicate, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
-//      let ordinaryStationsFetchedResultsControllerDelegate = StationFetchedResultControllerDelegate(tableView: tableView)
-//      ordinaryStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(ordinaryStationsFetchRequest, delegate: ordinaryStationsFetchedResultsControllerDelegate)
-//      tableView.reloadData()
-//    } catch {
-//      print(error)
-//    }
+    App.dataStore.find(stationNameContains: string)
+      .then { [weak self] stations in
+        self?.searchResults = stations
+        self?.tableView.reloadData()
+      }
   }
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 0//fetchedResultControllers.count ?? 0
+    return isSearching ? 1 : 3
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if false {//fetchedResultControllers.count > section { //&& fetchedResultControllers.count != 0 {
-      return 0 //fetchedResultControllers[section]?.sections?[0].numberOfObjects ?? 0
-    } else {
+    switch (isSearching, section) {
+    case (true, _):
+      return searchResults?.count ?? 0
+    case (_, 1):
+      return closeStations?.count ?? 0
+    case (_, 2):
+      return ordinaryStations?.count ?? 0
+    default:
       return 0
     }
   }
 
-  func getStation(fromIndexPath indexPath: IndexPath) -> StationRecord? {
-//    let obj = fetchedResultControllers[indexPath.section]?.optionalObjectAtIndexPath(indexPath.section(-indexPath.section))
-//
-//    if let station = obj as? StationRecord {
-//      return station
-//    } else if let stationHistory = obj as? [String: AnyObject], let stationID = stationHistory["station"] as? NSManagedObjectID, let station = (try? CDK.mainThreadContext.find(StationRecord.self, managedObjectID: stationID)) {
-//      return station
-//    }
-
-    return nil
+  func getStation(fromIndexPath indexPath: IndexPath) -> Station? {
+    switch (isSearching, indexPath.section) {
+    case (true, _):
+      return searchResults?[safe: indexPath.item]
+    case (_, 1):
+      return closeStations?[safe: indexPath.item]
+    case (_, 2):
+      return ordinaryStations?[safe: indexPath.item]
+    default:
+      return nil
+    }
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -151,7 +143,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let station = getStation(fromIndexPath: indexPath) {
       searchField.resignFirstResponder()
-//      successHandler?(station.toStation())
+      successHandler?(station)
     }
   }
 

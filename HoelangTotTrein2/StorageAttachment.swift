@@ -25,8 +25,8 @@ class StorageAttachment {
     self.dataStore = dataStore
   }
 
-  func updateStations(_ stations: [Station]) {
-    _ = dataStore.findOrUpdate(stations: stations)
+  func updateStations(_ stations: [Station]) -> Promise<Void, Error> {
+    return dataStore.findOrUpdate(stations: stations)
   }
 
   func attach() {
@@ -35,10 +35,15 @@ class StorageAttachment {
       switch $0 {
       case let .next(stations?):
         self?.updateStations(stations)
+          .then {
+            print($0)
+          }
+          .trap {
+            print($0)
+          }
       default: break;
       }
     }.addDisposableTo(disposeBag)
-
 
     travelService.firstAdviceRequest
       .asObservable()

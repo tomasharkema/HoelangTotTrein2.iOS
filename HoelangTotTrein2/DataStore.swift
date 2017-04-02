@@ -20,7 +20,7 @@ class DataStore {
 
   init (useInMemoryStore: Bool = false) {
 
-    persistentContainer = NSPersistentContainer(name: "DataModel")
+    persistentContainer = NSPersistentContainer(name: "HoelangTotTrein2")
 
     if useInMemoryStore {
       let description = NSPersistentStoreDescription()
@@ -58,6 +58,23 @@ extension Station {
 }
 
 extension DataStore {
+
+  func stations() -> Promise<[Station], Error> {
+    let promiseSource = PromiseSource<[Station], Error>()
+
+    persistentContainer.performBackgroundTask { context in
+      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
+      fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+      do {
+        promiseSource.resolve(try context.fetch(fetchRequest).flatMap({ Station(record: $0)}))
+      } catch {
+        promiseSource.reject(error)
+      }
+    }
+
+    return promiseSource.promise
+  }
+
   func findOrUpdate(stations: [Station]) -> Promise<Void, Error> {
     let promiseSource = PromiseSource<Void, Error>()
 
@@ -65,7 +82,7 @@ extension DataStore {
       do {
         for station in stations {
           let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-          fetchRequest.predicate = NSPredicate(format: "code = %@", #keyPath(StationRecord.code), station.code)
+          fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code)
 
           if let stationRecord = try context.fetch(fetchRequest).first {
             stationRecord.name = station.name
@@ -92,46 +109,36 @@ extension DataStore {
     return promiseSource.promise
   }
 
-  fileprivate func findRecord(stationCode: String) -> Promise<StationRecord, Error> {
-    let promiseSource = PromiseSource<StationRecord, Error>()
+//  fileprivate func findRecord(stationCode: String) -> Promise<StationRecord, Error> {
+//    let promiseSource = PromiseSource<StationRecord, Error>()
+//
+//    persistentContainer.performBackgroundTask { context in
+//      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
+//      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode)
+//
+//      do {
+//        guard let record = try context.fetch(fetchRequest).first else {
+//          throw DataStoreError.notFound
+//        }
+//        promiseSource.resolve(record)
+//      } catch {
+//        promiseSource.reject(error)
+//      }
+//    }
+//
+//    return promiseSource.promise
+//  }
 
-    persistentContainer.performBackgroundTask { context in
-      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "code = %@", #keyPath(StationRecord.code), stationCode)
-
-      do {
-        guard let record = try context.fetch(fetchRequest).first else {
-          throw DataStoreError.notFound
-        }
-        promiseSource.resolve(record)
-      } catch {
-        promiseSource.reject(error)
-      }
-    }
-
-    return promiseSource.promise
-  }
-
-  func find(stationCode: String) -> Promise<Station, Error> {
-    return findRecord(stationCode: stationCode).flatMap {
-      guard let station = Station(record: $0) else {
-        return Promise(error: DataStoreError.notFound)
-      }
-
-      return Promise(value: station)
-    }
-  }
-
-  fileprivate func findRecord(stationName: String) -> Promise<StationRecord, Error> {
-    let promiseSource = PromiseSource<StationRecord, Error>()
+  func find(stationName: String) -> Promise<Station, Error> {
+    let promiseSource = PromiseSource<Station, Error>()
 
     persistentContainer.performBackgroundTask { context in
 
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "name = %@", #keyPath(StationRecord.name), stationName)
+      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.name), stationName)
 
       do {
-        guard let station = try context.fetch(fetchRequest).first else {
+        guard let station = try context.fetch(fetchRequest).first.flatMap({Station(record: $0)}) else {
           throw DataStoreError.notFound
         }
 
@@ -144,14 +151,24 @@ extension DataStore {
     return promiseSource.promise
   }
 
-  func find(stationName: String) -> Promise<Station, Error> {
-    return findRecord(stationName: stationName).flatMap {
-      guard let station = Station(record: $0) else {
-        return Promise(error: DataStoreError.notFound)
-      }
+  func find(stationCode: String) -> Promise<Station, Error> {
+    let promiseSource = PromiseSource<Station, Error>()
 
-      return Promise(value: station)
+    persistentContainer.performBackgroundTask { context in
+      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode)
+
+      do {
+        guard let record = try context.fetch(fetchRequest).first.flatMap({ Station(record: $0) }) else {
+          throw DataStoreError.notFound
+        }
+        promiseSource.resolve(record)
+      } catch {
+        promiseSource.reject(error)
+      }
     }
+
+    return promiseSource.promise
   }
 
   func find(inBounds bounds: Bounds) -> Promise<[Station], Error> {
@@ -170,6 +187,20 @@ extension DataStore {
 
     return promiseSource.promise
   }
+
+  func find(stationNameContains query: String) -> Promise<[Station], Error> {
+    let promiseSource = PromiseSource<[Station], Error>()
+    persistentContainer.performBackgroundTask { context in
+      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(StationRecord.name), query)
+      do {
+        promiseSource.resolve(try context.fetch(fetchRequest).flatMap { Station(record: $0) })
+      } catch {
+        promiseSource.reject(error)
+      }
+    }
+    return promiseSource.promise
+  }
 }
 
 // History
@@ -177,18 +208,27 @@ extension DataStore {
 extension DataStore {
 
   func insertHistory(station: Station, historyType: HistoryType) -> Promise<Void, Error> {
-    return findRecord(stationCode: station.code).flatMap { record in
-      self.insertHistory(stationRecord: record, historyType: historyType)
-    }
-  }
-
-  func insertHistory(stationRecord: StationRecord, historyType: HistoryType) -> Promise<Void, Error> {
     let promiseSource = PromiseSource<Void, Error>()
     persistentContainer.performBackgroundTask { context in
-      let history = History(context: context)
-      history.station = stationRecord
-      history.date = NSDate()
-      history.historyType = historyType
+
+      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code)
+
+      do {
+        guard let stationRecord = try context.fetch(fetchRequest).first else {
+          throw DataStoreError.notFound
+        }
+
+        let history = History(context: context)
+        history.station = stationRecord
+        history.date = NSDate()
+        history.historyType = historyType
+
+        try context.save()
+        promiseSource.resolve()
+      } catch {
+        promiseSource.reject(error)
+      }
     }
     return promiseSource.promise
   }

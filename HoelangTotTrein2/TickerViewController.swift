@@ -147,6 +147,12 @@ class TickerViewController: ViewController {
       controller.selectedStation = state == .from ? self?.fromStation : self?.toStation
       controller.successHandler = { [weak controller] station in
         App.travelService.setStation(state, station: station, byPicker: true)
+          .then {
+            print($0)
+          }
+          .trap {
+            print($0)
+          }
         controller?.dismiss(animated: true, completion: nil)
       }
 
@@ -219,13 +225,13 @@ class TickerViewController: ViewController {
   }
 
   @IBAction func currentLocationPressed(_ sender: AnyObject) {
-    App.locationService.requestAuthorization().then { state in
+    App.locationService.requestAuthorization().flatMap { state in
       App.travelService.travelFromCurrentLocation()
-    }
+    }.then { print($0) }
   }
 
   @IBAction func switchPressed(_ sender: AnyObject) {
-    App.travelService.switchFromTo()
+    App.travelService.switchFromTo().then { print($0) }
   }
 
   override var preferredStatusBarStyle : UIStatusBarStyle {
