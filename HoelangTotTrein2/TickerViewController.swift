@@ -32,7 +32,9 @@ class TickerViewController: ViewController {
   @IBOutlet weak var stackIndicatorView: UIStackView!
 
   @IBOutlet weak var fromButton: UIButton!
+  @IBOutlet weak var fromLabel: UILabel!
   @IBOutlet weak var toButton: UIButton!
+  @IBOutlet weak var toLabel: UILabel!
 
   @IBOutlet weak var collectionView: UICollectionView!
   var dataSource: TickerDataSource?
@@ -56,11 +58,6 @@ class TickerViewController: ViewController {
     App.travelService.startTimer()
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-
-    fromButton.clipsToBounds = false
-    toButton.clipsToBounds = false
-    fromButton.titleLabel?.bounds = fromButton.bounds
-    toButton.titleLabel?.bounds = toButton.bounds
 
     App.travelService.currentAdvicesObservable.asObservable().subscribe(onNext: { [weak self] advices in
       guard let advices = advices, let service = self else {
@@ -110,8 +107,8 @@ class TickerViewController: ViewController {
       }
       self?.fromStation = adviceRequest.from
       self?.toStation = adviceRequest.to
-      self?.fromButton.setTitle(adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), for: .normal)
-      self?.toButton.setTitle(adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer"), for: .normal)
+      self?.fromLabel.text = adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
+      self?.toLabel.text = adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
     }).addDisposableTo(disposeBag)
 
     render()
