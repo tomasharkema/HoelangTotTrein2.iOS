@@ -36,7 +36,7 @@ class InterfaceController: WKInterfaceController {
 
   override func willActivate() {
     // This method is called when watch view controller is about to be visible to user
-    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: AdvicesDidChangeNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: NSNotification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
     (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
       print("INITIAL STATE WITH: \(error)")
       self.adviceDidChange()
