@@ -54,9 +54,8 @@ class GeofenceService: NSObject {
   }
 
   fileprivate func updateGeofenceWithStationName(_ stationName: StationName, geofenceModels: [GeofenceModel]) {
-    assert(Thread.isMainThread)
-
     dataStore.find(stationName: stationName)
+      .dispatch(on: GeofenceService.queue)
       .then { station in
         let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.name)
         self.locationManager.startMonitoring(for: region)
@@ -65,7 +64,6 @@ class GeofenceService: NSObject {
   }
 
   fileprivate func resetGeofences() {
-    assert(Thread.isMainThread)
     for region in locationManager.monitoredRegions {
       locationManager.stopMonitoring(for: region)
     }
@@ -112,56 +110,40 @@ class GeofenceService: NSObject {
   }
 
   fileprivate func attach() {
-    assert(Thread.isMainThread)
-    locationManager.delegate = self
     let obs = travelService.currentAdvicesObservable
       .asObservable()
       .observeOn(scheduler)
       .filterOptional()
-      .map { [weak self] advices -> StationGeofences? in
-
-        guard let service = self else {
-          return nil
-        }
-
-        let stationGeofences = service.geofencesFromAdvices(advices)
-
-        return stationGeofences
+      .map { advices -> StationGeofences? in
+        self.geofencesFromAdvices(advices)
       }
       .filterOptional()
 
-    obs.subscribe(onNext: { [weak self] stationGeofences in
-      guard let service = self else {
-        return
-      }
-      service.stationGeofences = stationGeofences
+    obs.subscribe(onNext: { stationGeofences in
+      self.stationGeofences = stationGeofences
     }).addDisposableTo(disposeBag)
 
     obs
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] stationGeofences in
-        guard let service = self else {
-          return
-        }
-
-        service.resetGeofences()
+      .observeOn(scheduler)//.asyncInstance)
+      .subscribe(onNext: { stationGeofences in
+        self.resetGeofences()
         UserDefaults.geofenceInfo = stationGeofences
         for (stationName, geo) in stationGeofences {
-          service.updateGeofenceWithStationName(stationName, geofenceModels: geo)
+          self.updateGeofenceWithStationName(stationName, geofenceModels: geo)
         }
       }).addDisposableTo(disposeBag)
 
-    locationManager.rx.didEnterRegion
+    geofenceObservable = locationManager.rx.didEnterRegion
       .observeOn(scheduler)
       .distinctUntilChanged()
-      .map { [weak self] region -> GeofenceModel? in
-        guard let service = self, let geofences = service.stationGeofences[region.identifier] else {
+      .map { region -> GeofenceModel? in
+        guard let geofences = self.stationGeofences[region.identifier] else {
           return nil
         }
 
         print("DID ENTER REGION, \(region)")
 
-        if let geofence = service.geofenceFromGeofences(geofences, forTime: Date()) {
+        if let geofence = self.geofenceFromGeofences(geofences, forTime: Date()) {
           return geofence
         }
 
@@ -172,7 +154,7 @@ class GeofenceService: NSObject {
 
 }
 
-extension GeofenceService: CLLocationManagerDelegate {
+extension GeofenceService {
   
   func geofenceFromGeofences(_ stationGeofences: GeofenceModels, forTime time: Date) -> GeofenceModel? {
     let now = time.timeIntervalSince1970

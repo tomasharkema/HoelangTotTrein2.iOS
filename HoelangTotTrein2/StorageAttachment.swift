@@ -45,8 +45,7 @@ class StorageAttachment {
       }
     }.addDisposableTo(disposeBag)
 
-    travelService.firstAdviceRequest
-      .asObservable()
+    travelService.firstAdviceRequestObservable
       .observeOn(scheduler)
       .filterOptional()
       .subscribe(onNext: { [weak self] in
@@ -60,7 +59,9 @@ class StorageAttachment {
       .subscribe(onNext: { advices in
         self.travelService.getCurrentAdviceRequest()
           .then { advice in
-            self.persistCurrent(advices, forAdviceRequest: advice)
+            StorageAttachment.queue.async {
+              self.persistCurrent(advices, forAdviceRequest: advice)
+            }
           }
           .trap { print($0) }
       }).addDisposableTo(disposeBag)
@@ -79,7 +80,7 @@ class StorageAttachment {
   }
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
-    assert(Thread.isMainThread, "Must be main thread")
+    assert(!Thread.isMainThread, "Must not be main thread")
     UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }

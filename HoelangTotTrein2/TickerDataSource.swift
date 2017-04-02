@@ -32,53 +32,32 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
 
 class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-  fileprivate let advices: Advices
+  var advices: Advices {
+    didSet {
+      assert(Thread.isMainThread)
+      collectionView?.reloadData()
+    }
+  }
+  
   fileprivate weak var collectionView: UICollectionView?
   fileprivate var disposable: Disposable?
 
-  fileprivate let didDecellerateObservable = Variable(0)
-  fileprivate(set) var onScreenAdviceObservable: Observable<Advice?>!
+//  fileprivate let didDecellerateObservable = Variable(0)
+//  fileprivate(set) var onScreenAdviceObservable: Observable<Advice?>!
+//  private var didScrollVariable = Variable<Void>()
+//  private(set) var didScrollObservable: Observable<Void>!
 
   init(advices: Advices, collectionView: UICollectionView) {
     self.advices = advices
     self.collectionView = collectionView
     super.init()
+
     collectionView.register(R.nib.adviceCell)
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.reloadData()
 
-    onScreenAdviceObservable = didDecellerateObservable.asObservable()
-      .filter { $0 == 1 }
-      .debounce(0.5, scheduler: MainScheduler.asyncInstance)
-      .map { [weak self] (el: Int) -> Advice? in
-        guard let cv = self?.collectionView else {
-          return nil
-        }
-
-        let sortedCells = cv.indexPathsForVisibleItems
-          .flatMap {
-            cv.layoutAttributesForItem(at: $0)
-          }
-          .map {
-            (cv.convert($0.center, to: cv.superview), $0)
-          }
-          .sorted {
-            let l = abs($0.0.0.y - (UIScreen.main.bounds.height/2))
-            let r = abs($0.1.0.y - (UIScreen.main.bounds.height/2))
-            return l < r
-          }
-
-        let cells = sortedCells.lazy.map { (center: CGPoint, el: UICollectionViewLayoutAttributes) in
-          cv.cellForItem(at: el.indexPath)
-        }
-
-        guard let advice = (cells.first as? AdviceCell)?.advice else {
-          return nil
-        }
-        return advice
-      }.asObservable()
-
+//    didScrollObservable = didScrollVariable.asObservable()
   }
 
   deinit {
@@ -109,10 +88,6 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
 
       adviceCell.renderTimer()
     }
-  }
-
-  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    didDecellerateObservable.value = 1
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

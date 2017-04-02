@@ -114,18 +114,25 @@ extension Foundation.UserDefaults {
 
   fileprivate var geofenceInfoObject: [String: Any]? {
     get {
-//      guard let data = object(forKey: Keys.GeofenceInfoKey) as? Data,
-//        let object = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-//        return nil
-//      }
-//      return object
-      return nil
+      assert(!Thread.isMainThread)
+      guard let data = object(forKey: Keys.GeofenceInfoKey) as? Data else {
+        return nil
+      }
+
+      do {
+        let object = try JSONSerialization.jsonObject(with: data, options: [])
+        return object as? [String: Any]
+      } catch {
+        assertionFailure("ERROR: \(error)")
+        return nil
+      }
     }
     set {
-//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-//        set(json, forKey: Keys.GeofenceInfoKey)
-//        synchronize()
-//      }
+      assert(!Thread.isMainThread)
+      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+        set(json, forKey: Keys.GeofenceInfoKey)
+        synchronize()
+      }
     }
   }
 
@@ -152,16 +159,32 @@ extension Foundation.UserDefaults {
 
   fileprivate var persistedAdvicesAndRequestObject: [String: Any]? {
     get {
-//      if let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data, let object = try? JSONSerialization.jsonObject(with: data, options: []) {
-//        return object as? [String: Any]
-//      }
-      return nil
+      assert(!Thread.isMainThread)
+      guard let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data else {
+        return nil
+      }
+
+      do {
+        let object = try JSONSerialization.jsonObject(with: data, options: [])
+        return object as? [String: Any]
+      } catch {
+        assertionFailure("ERROR: \(error)")
+        return nil
+      }
     }
     set {
-//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-//        set(json, forKey: Keys.PersistedAdvicesAndRequest)
-//        synchronize()
-//      }
+      assert(!Thread.isMainThread)
+      do {
+        guard let value = newValue else {
+          return
+        }
+
+        let json: Data = try JSONSerialization.data(withJSONObject: value, options: [])
+        set(json, forKey: Keys.PersistedAdvicesAndRequest)
+        synchronize()
+      } catch {
+        assertionFailure("ERROR: \(error)")
+      }
     }
   }
 
@@ -202,16 +225,25 @@ extension Foundation.UserDefaults {
 
   fileprivate var persistedAdvicesObject: [Any]? {
     get {
-//      if let data = object(forKey: Keys.PersistedAdvices) as? Data, let object = try? JSONSerialization.jsonObject(with: data, options: []) {
-//        return object as? [Any]
-//      }
-      return nil
+      assert(!Thread.isMainThread)
+      guard let data = object(forKey: Keys.PersistedAdvices) as? Data else {
+        return nil
+      }
+
+      do {
+        let object = try JSONSerialization.jsonObject(with: data, options: [])
+        return object as? [Any]
+      } catch {
+        assertionFailure("ERROR: \(error)")
+        return nil
+      }
     }
     set {
-//      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-//        set(json, forKey: Keys.PersistedAdvices)
-//        synchronize()
-//      }
+      assert(!Thread.isMainThread)
+      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
+        set(json, forKey: Keys.PersistedAdvices)
+        synchronize()
+      }
     }
   }
 }

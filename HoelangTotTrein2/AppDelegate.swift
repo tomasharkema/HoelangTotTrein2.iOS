@@ -80,9 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     App.travelService.attach()
     App.travelService.tick()
-    App.travelService.currentAdviceOnScreenVariable.asObservable().delaySubscription(5, scheduler: MainScheduler.asyncInstance).single().subscribe(onNext: { _ in
-      completionHandler(.newData)
-    }).addDisposableTo(disposeBag)
+    App.travelService.currentAdviceOnScreenObservable
+      .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
+      .single()
+      .subscribe(onNext: { _ in
+        completionHandler(.newData)
+      }).addDisposableTo(disposeBag)
 
     guard let message = userInfo["message"] as? String else {
       return

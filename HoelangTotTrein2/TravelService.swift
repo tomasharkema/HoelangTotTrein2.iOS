@@ -28,12 +28,34 @@ class TravelService: NSObject, WCSessionDelegate {
 
   let session = WCSession.default()
 
+  private let currentAdviceVariable = Variable<Advice?>(nil)
+  private(set) var currentAdviceObservable: Observable<Advice?>!
+  private let currentAdvicesVariable = Variable<Advices?>(nil)
+  private(set) var currentAdvicesObservable: Observable<Advices?>!
+  private let stationsVariable = Variable<Stations?>(nil)
+  private(set) var stationsObservable: Observable<Stations?>!
+  private let firstAdviceRequestVariable = Variable<AdviceRequest?>(nil)
+  private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
+  private let nextAdviceVariable = Variable<Advice?>(nil)
+  private(set) var nextAdviceObservable: Observable<Advice?>!
+  private let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
+  private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+
+  var timer: Timer?
+
   init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
 
     super.init()
+
+    currentAdviceObservable = currentAdviceVariable.asObservable()
+    currentAdvicesObservable = currentAdvicesVariable.asObservable()
+    stationsObservable = stationsVariable.asObservable()
+    firstAdviceRequestObservable = firstAdviceRequestVariable.asObservable()
+    nextAdviceObservable = nextAdviceVariable.asObservable()
+    currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
 
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
@@ -56,7 +78,7 @@ class TravelService: NSObject, WCSessionDelegate {
     session.delegate = self
     session.activate()
 
-    firstAdviceRequest.asObservable().subscribe(onNext: { adviceRequest in
+    firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -85,17 +107,19 @@ class TravelService: NSObject, WCSessionDelegate {
         self.setStation(.from, stationName: geofence.stationName)
       }).addDisposableTo(disposeBag)
 
-    stationsObservable.asObservable().single()
+    stationsObservable.asObservable()
+      .single()
       .subscribe(onNext: { _ in
         self.getCurrentAdviceRequest()
           .then { adviceRequest in
+            self.queue.async {
+              if self.firstAdviceRequestVariable.value != adviceRequest {
+                self.firstAdviceRequestVariable.value = adviceRequest
+              }
 
-            if self.firstAdviceRequest.value != adviceRequest {
-              self.firstAdviceRequest.value = adviceRequest
-            }
-
-            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
-              self.notifyOfNewAdvices(advicesAndRequest.advices)
+              if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+                self.notifyOfNewAdvices(advicesAndRequest.advices)
+              }
             }
           }
       }).addDisposableTo(disposeBag)
@@ -121,15 +145,6 @@ class TravelService: NSObject, WCSessionDelegate {
     }).addDisposableTo(disposeBag)
   }
 
-  let currentAdviceObservable = Variable<Advice?>(nil)
-  let currentAdvicesObservable = Variable<Advices?>(nil)
-  let stationsObservable = Variable<Stations?>(nil)
-  let firstAdviceRequest = Variable<AdviceRequest?>(nil)
-  let nextAdviceObservable = Variable<Advice?>(nil)
-  let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
-
-  var timer: Timer?
-
   func startTimer() {
     if timer == nil {
       timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
@@ -153,9 +168,9 @@ class TravelService: NSObject, WCSessionDelegate {
       $0.stations.filter {
         $0.land == "NL"
       }
-    }.then { [weak self] stations in
-      if self?.stationsObservable.value != stations {
-        self?.stationsObservable.value = stations
+    }.then { stations in
+      if self.stationsVariable.value != stations {
+        self.stationsVariable.value = stations
       }
     }.trap { error in
       print(error)
@@ -201,8 +216,8 @@ class TravelService: NSObject, WCSessionDelegate {
     }
 
     correctedAdviceRequest.then { request in
-      if self.firstAdviceRequest.value != request {
-        self.firstAdviceRequest.value = request
+      if self.firstAdviceRequestVariable.value != request {
+        self.firstAdviceRequestVariable.value = request
       }
     }
 
@@ -264,18 +279,18 @@ class TravelService: NSObject, WCSessionDelegate {
     }
 
     if let firstAdvice = advices.first {
-      if currentAdviceObservable.value != firstAdvice {
-        currentAdviceObservable.value = firstAdvice
+      if currentAdviceVariable.value != firstAdvice {
+        currentAdviceVariable.value = firstAdvice
       }
     }
     if let secondAdvice = advices[safe: 1] {
-      if nextAdviceObservable.value != secondAdvice {
-        nextAdviceObservable.value = secondAdvice
+      if nextAdviceVariable.value != secondAdvice {
+        nextAdviceVariable.value = secondAdvice
       }
     }
-    if currentAdvicesObservable.value != advices {
+    if currentAdvicesVariable.value != advices {
       session.sendEvent(TravelEvent.advicesChange(advice: advices))
-      currentAdvicesObservable.value = advices
+      currentAdvicesVariable.value = advices
     }
   }
 
@@ -335,5 +350,9 @@ class TravelService: NSObject, WCSessionDelegate {
     }
 
     replyHandler(data)
+  }
+
+  func setCurrentAdviceOnScreen(advice: Advice?) {
+    currentAdviceOnScreenVariable.value = advice
   }
 }

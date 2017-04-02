@@ -45,6 +45,11 @@ class TickerViewController: ViewController {
   @IBOutlet weak var nextViewBlur: UIVisualEffectView!
   @IBOutlet weak var nextDelayLabel: UILabel!
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    dataSource = TickerDataSource(advices: [], collectionView: collectionView)
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -59,57 +64,82 @@ class TickerViewController: ViewController {
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
-    App.travelService.currentAdvicesObservable.asObservable().subscribe(onNext: { [weak self] advices in
-      guard let advices = advices, let service = self else {
-        return
-      }
-      service.dataSource = TickerDataSource(advices: advices, collectionView: service.collectionView)
-      service.onScreenAdviceDisposable?.dispose()
-      service.onScreenAdviceDisposable = service.dataSource?.onScreenAdviceObservable
-        .filter { $0 != nil }
-        .subscribe(onNext: { [weak self] advice in
-          UserDefaults.currentAdviceHash = advice!.hashValue
-
-          let index = advices.enumerated().filter { $0.element == advice }.first
-
-          App.travelService.currentAdviceOnScreenVariable.value = index?.element
-          self?.updateTickerView(index?.offset ?? 0, advices: advices)
-        })
-    }).addDisposableTo(disposeBag)
-
     App.travelService.currentAdvicesObservable.asObservable()
-      .delaySubscription(0.1, scheduler: MainScheduler.asyncInstance)
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] advices in
+        guard let advices = advices, let controller = self else {
+          return
+        }
+        controller.dataSource?.advices = advices
+
+      }).addDisposableTo(disposeBag)
+
+    App.travelService.currentAdvicesObservable
+      .asObservable()
       .filter { $0 != nil }
+      .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] in
         let advice = self?.scrollToPersistedAdvice($0!)
         let index = $0!.enumerated().filter { $0.element == advice }.first
-        App.travelService.currentAdviceOnScreenVariable.value = index?.element
+        App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
         self?.updateTickerView(index?.offset ?? 0, advices: $0!)
       }).addDisposableTo(disposeBag)
 
-    App.travelService.currentAdviceObservable.asObservable().subscribe(onNext:  { [weak self] advice in
-      guard let advice = advice else {
-        return
-      }
-      self?.startTime = Date()
-      self?.currentAdvice = advice
-      self?.render()
-    }).addDisposableTo(disposeBag)
+    App.travelService.currentAdviceObservable.asObservable()
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext:  { [weak self] advice in
+        guard let advice = advice else {
+          return
+        }
+        self?.startTime = Date()
+        self?.currentAdvice = advice
+        self?.render()
+      }).addDisposableTo(disposeBag)
 
-    App.travelService.nextAdviceObservable.asObservable().subscribe(onNext: { [weak self] advice in
-      self?.nextAdvice = advice
-      self?.render()
-    }).addDisposableTo(disposeBag)
+    App.travelService.nextAdviceObservable.asObservable()
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] advice in
+        self?.nextAdvice = advice
+        self?.render()
+      }).addDisposableTo(disposeBag)
 
-    App.travelService.firstAdviceRequest.asObservable().subscribe(onNext: { [weak self] adviceRequest in
-      guard let adviceRequest = adviceRequest else {
-        return
+    App.travelService.firstAdviceRequestObservable
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] adviceRequest in
+        guard let adviceRequest = adviceRequest else {
+          return
+        }
+        self?.fromStation = adviceRequest.from
+        self?.toStation = adviceRequest.to
+        self?.fromLabel.text = adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
+        self?.toLabel.text = adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
+      }).addDisposableTo(disposeBag)
+
+    collectionView.rx.didScroll
+      .map { [weak self] _ -> Advice? in // calculate middle cell
+        guard let cv = self?.collectionView, let view = self?.view else {
+          return nil
+        }
+
+        let center = view.convert(view.center, to: cv)
+        guard let indexPath = cv.indexPathForItem(at: center) else {
+          return nil
+        }
+        let cell = cv.cellForItem(at: indexPath)
+        return (cell as? AdviceCell)?.advice
       }
-      self?.fromStation = adviceRequest.from
-      self?.toStation = adviceRequest.to
-      self?.fromLabel.text = adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
-      self?.toLabel.text = adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
-    }).addDisposableTo(disposeBag)
+      .filterOptional()
+      .subscribe(onNext: { [weak self] advice in
+        UserDefaults.currentAdviceHash = advice.hashValue
+        _ = App.travelService.currentAdvicesObservable
+          .single()
+          .filterOptional()
+          .subscribe(onNext: { [weak self] advices in
+            let index = advices.enumerated().first { $0.element == advice }
+            App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
+            self?.updateTickerView(index?.offset ?? 0, advices: advices)
+          })
+      }).addDisposableTo(disposeBag)
 
     render()
   }
