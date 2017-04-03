@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-//import CoreDataKit
 import CoreLocation
 import Promissum
 import RxSwift
@@ -91,35 +90,28 @@ class TravelService: NSObject, WCSessionDelegate {
         UserDefaults.toStationCode = to.code
       }
 
-      self.fetchCurrentAdvices(adviceRequest)
-        .then {
-          print($0)
-        }
-        .trap {
-          print($0)
-        }
+      _ = self.fetchCurrentAdvices(adviceRequest)
     }).addDisposableTo(disposeBag)
 
     App.geofenceService.geofenceObservable?.asObservable()
       .observeOn(MainScheduler.asyncInstance)
       .filter { $0.type != .TussenStation }
       .subscribe(onNext: { geofence in
-        self.setStation(.from, stationName: geofence.stationName)
+        _ = self.setStation(.from, stationName: geofence.stationName)
       }).addDisposableTo(disposeBag)
 
     stationsObservable.asObservable()
       .single()
       .subscribe(onNext: { _ in
         self.getCurrentAdviceRequest()
+          .dispatch(on: self.queue)
           .then { adviceRequest in
-            self.queue.async {
-              if self.firstAdviceRequestVariable.value != adviceRequest {
-                self.firstAdviceRequestVariable.value = adviceRequest
-              }
+            if self.firstAdviceRequestVariable.value != adviceRequest {
+              self.firstAdviceRequestVariable.value = adviceRequest
+            }
 
-              if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
-                self.notifyOfNewAdvices(advicesAndRequest.advices)
-              }
+            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+              self.notifyOfNewAdvices(advicesAndRequest.advices)
             }
           }
       }).addDisposableTo(disposeBag)
@@ -158,39 +150,51 @@ class TravelService: NSObject, WCSessionDelegate {
   }
 
   func tick() {
-    getCurrentAdviceRequest().then {
-      _ = self.fetchCurrentAdvices($0)
-    }
+    getCurrentAdviceRequest()
+      .dispatch(on: queue)
+      .then {
+        _ = self.fetchCurrentAdvices($0)
+      }
   }
 
   func fetchStations() -> Promise<Stations, Error> {
-    return App.apiService.stations().map {
-      $0.stations.filter {
-        $0.land == "NL"
+    return App.apiService.stations()
+      .dispatch(on: queue)
+      .map {
+        $0.stations.filter {
+          $0.land == "NL"
+        }
       }
-    }.then { stations in
-      if self.stationsVariable.value != stations {
-        self.stationsVariable.value = stations
+      .then { stations in
+        print("TravelService did fetch stations: \(stations.count)")
+        if self.stationsVariable.value != stations {
+          self.stationsVariable.value = stations
+        }
       }
-    }.trap { error in
-      print(error)
-    }
+      .trap { error in
+        print(error)
+      }
   }
 
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
     let from: Promise<Station?, Error> = UserDefaults.fromStationCode.map {
-      self.dataStore.find(stationCode: $0).map {
-        .some($0)
-      }
+      self.dataStore.find(stationCode: $0)
+        .dispatch(on: queue)
+        .map {
+          .some($0)
+        }
     } ?? Promise(value: nil)
 
     let to: Promise<Station?, Error> = UserDefaults.toStationCode.map {
-      self.dataStore.find(stationCode: $0).map {
-        .some($0)
-      }
+      self.dataStore.find(stationCode: $0)
+        .dispatch(on: queue)
+        .map {
+          .some($0)
+        }
     } ?? Promise(value: nil)
 
     return whenBoth(from, to)
+      .dispatch(on: queue)
       .map {
         AdviceRequest(from: $0.0, to: $0.1)
       }
@@ -215,13 +219,16 @@ class TravelService: NSObject, WCSessionDelegate {
       correctedAdviceRequest = Promise(value: adviceRequest)
     }
 
-    correctedAdviceRequest.then { request in
-      if self.firstAdviceRequestVariable.value != request {
-        self.firstAdviceRequestVariable.value = request
+    correctedAdviceRequest
+      .dispatch(on: queue)
+      .then { request in
+        if self.firstAdviceRequestVariable.value != request {
+          self.firstAdviceRequestVariable.value = request
+        }
       }
-    }
 
     let registerPromise: Promise<SuccessResult, Error> = correctedAdviceRequest
+      .dispatch(on: queue)
       .flatMap { advice in
         guard let from = advice.from, let to = advice.to else {
           return Promise(error: TravelServiceError.notChanged)
@@ -234,39 +241,49 @@ class TravelService: NSObject, WCSessionDelegate {
   
   func setStation(_ state: PickerState, stationName: StationName, byPicker: Bool = false) -> Promise<Void, Error> {
     return dataStore.find(stationName: stationName)
+      .dispatch(on: queue)
       .flatMap {
         self.setStation(state, station: $0)
       }
-      .trap { print($0) }
+      .then {
+        print("TravelService did set station \(stationName)")
+      }
+      .trap {
+        print("TravelService setStation did encounter error \($0)")
+      }
   }
 
   func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) -> Promise<Void, Error> {
-    return getCurrentAdviceRequest().flatMap { advice in
-      let newAdvice: AdviceRequest
-      switch state {
-      case .from:
-        newAdvice = advice.setFrom(station)
-      case .to:
-        newAdvice = advice.setTo(station)
-      }
-
-      if byPicker {
+    return getCurrentAdviceRequest()
+      .dispatch(on: queue)
+      .flatMap { advice in
+        let newAdvice: AdviceRequest
         switch state {
         case .from:
-          UserDefaults.fromStationByPickerCode = station.code
+          newAdvice = advice.setFrom(station)
         case .to:
-          UserDefaults.toStationByPickerCode = station.code
+          newAdvice = advice.setTo(station)
         }
-      }
 
-      return self.setCurrentAdviceRequest(newAdvice, userInput: byPicker)
-    }
+        if byPicker {
+          switch state {
+          case .from:
+            UserDefaults.fromStationByPickerCode = station.code
+          case .to:
+            UserDefaults.toStationByPickerCode = station.code
+          }
+        }
+
+        return self.setCurrentAdviceRequest(newAdvice, userInput: byPicker)
+      }
   }
 
   func fetchCurrentAdvices(_ adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, Error> {
     return (adviceRequest.map { Promise(value: $0) } ?? getCurrentAdviceRequest())
+      .dispatch(on: queue)
       .flatMap { self.apiService.advices($0) }
       .then { advicesResult in
+        print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
         self.notifyOfNewAdvices(advicesResult.advices)
       }.trap { error in
         print(error)
@@ -301,37 +318,37 @@ class TravelService: NSObject, WCSessionDelegate {
   }
 
   func getCloseStations() -> Promise<[Station], Error> {
-    return locationService.currentLocation().flatMap { currentLocation in
-      let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
+    return locationService.currentLocation()
+      .dispatch(on: self.queue)
+      .flatMap { currentLocation in
+        let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
 
-      return self.dataStore.find(inBounds: circularRegionBounds)
-        .flatMap { stations in
-          let promiseSource = PromiseSource<[Station], Error>()
-
-          self.queue.async {
-            promiseSource.resolve(self.sortCloseLocations(currentLocation, stations: stations))
+        return self.dataStore.find(inBounds: circularRegionBounds)
+          .dispatch(on: self.queue)
+          .map { stations in
+            self.sortCloseLocations(currentLocation, stations: stations)
           }
-
-          return promiseSource.promise
-        }
-    }
+      }
   }
 
   func travelFromCurrentLocation() -> Promise<Void, Error> {
-    return whenBoth(getCloseStations(), getCurrentAdviceRequest()).flatMap { (stations, currentAdvice) in
-      guard let station = stations.first else {
-        return Promise(error: TravelServiceError.notChanged)
-      }
+    return whenBoth(getCloseStations(), getCurrentAdviceRequest())
+      .dispatch(on: queue)
+      .flatMap { (stations, currentAdvice) in
+        guard let station = stations.first else {
+          return Promise(error: TravelServiceError.notChanged)
+        }
 
-      let newAdvice: AdviceRequest
-      if currentAdvice.to == station {
-        newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
-      } else {
-        newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
-      }
+        let newAdvice: AdviceRequest
+        if currentAdvice.to == station {
+          newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
+        } else {
+          newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
+        }
 
-      return self.setCurrentAdviceRequest(newAdvice, userInput: true)
-    }.then { print($0) }.trap { print($0) }
+        return self.setCurrentAdviceRequest(newAdvice, userInput: true)
+      }
+      .then { print($0) }.trap { print($0) }
   }
 
   func switchFromTo() -> Promise<Void, Error> {

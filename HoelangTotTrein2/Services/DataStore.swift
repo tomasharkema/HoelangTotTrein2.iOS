@@ -173,6 +173,8 @@ extension DataStore {
     persistentContainer.performBackgroundTask { context in
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
       fetchRequest.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", #keyPath(StationRecord.name), query)
+      fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+      
       do {
         promiseSource.resolve(try context.fetch(fetchRequest).flatMap { Station(record: $0) })
       } catch {

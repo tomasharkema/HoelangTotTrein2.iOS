@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-//import CoreDataKit
 
 enum PickerState {
   case from
@@ -61,10 +60,12 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
 
-    App.travelService.getCloseStations().then { [weak self] stations in
-      self?.closeStations = Array(stations.prefix(5))
-      self?.tableView.reloadData()
-    }
+    App.travelService.getCloseStations()
+      .dispatchMain()
+      .then { [weak self] stations in
+        self?.closeStations = Array(stations.prefix(5))
+        self?.tableView.reloadData()
+      }
 
     App.dataStore.stations()
       .then { [weak self] stations in

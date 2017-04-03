@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.storageAttachment.attach()
     App.travelService.attach()
-    App.travelService.fetchStations().then { print("GOT STATIONS \($0)") }
+    _ = App.travelService.fetchStations()
     App.notificationService.attach()
 
     application.registerForRemoteNotifications()
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.apiService.registerForNotification(UserDefaults.userId, env: env, pushUUID: token)
       .then {
-        print($0)
+        print("ApiService did registerForNotification \($0)")
       }
       .trap {
         print($0)
