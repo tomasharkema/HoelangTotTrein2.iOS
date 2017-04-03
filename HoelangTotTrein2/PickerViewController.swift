@@ -32,7 +32,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var state: PickerState!
   var selectedStation: Station?
 
-  @IBOutlet weak var tableView: PickerTableView!
+  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var currentStation: UILabel!
   @IBOutlet weak var searchField: UITextField!
 
@@ -40,6 +40,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var successHandler: ((Station) -> ())?
 
   private var closeStations: [Station]?
+  private var mostUsedStations: [Station]?
   private var ordinaryStations: [Station]?
   private var searchResults: [Station]?
 
@@ -61,7 +62,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
 
     App.travelService.getCloseStations().then { [weak self] stations in
-      self?.closeStations = stations
+      self?.closeStations = Array(stations.prefix(5))
       self?.tableView.reloadData()
     }
 
@@ -71,22 +72,11 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.tableView.reloadData()
       }
 
-//    do {
-//      let ordinaryStationsFetchRequest = try CDK.mainThreadContext.createFetchRequest(StationRecord.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "name", ascending: true)])
-//      let ordinaryStationsFetchedResultsControllerDelegate = StationFetchedResultControllerDelegate(tableView: tableView)
-//      ordinaryStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(ordinaryStationsFetchRequest, delegate: ordinaryStationsFetchedResultsControllerDelegate)
-//
-//      let historyUsedFetchRequest = try CDK.mainThreadContext.createFetchRequest(History.self, predicate: nil, sortDescriptors: [NSSortDescriptor(key: "date", ascending: true)])
-//      historyUsedFetchRequest.propertiesToGroupBy = ["station"]
-//      historyUsedFetchRequest.resultType = .DictionaryResultType
-//      historyUsedFetchRequest.propertiesToFetch = ["station"]
-//
-//      historyStationsFetchedResultsController = try CDK.mainThreadContext.fetchedResultsController(historyUsedFetchRequest)
-//
-//      tableView.reloadData()
-//    } catch {
-//      print(error)
-//    }
+    App.dataStore.mostUsedStations()
+      .then { [weak self] stations in
+        self?.mostUsedStations = Array(stations.prefix(5))
+        self?.tableView.reloadData()
+      }
   }
 
   func search(_ string: String) {
@@ -105,6 +95,8 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     switch (isSearching, section) {
     case (true, _):
       return searchResults?.count ?? 0
+    case (_, 0):
+      return mostUsedStations?.count ?? 0
     case (_, 1):
       return closeStations?.count ?? 0
     case (_, 2):
@@ -118,6 +110,8 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     switch (isSearching, indexPath.section) {
     case (true, _):
       return searchResults?[safe: indexPath.item]
+    case (_, 0):
+      return mostUsedStations?[safe: indexPath.item]
     case (_, 1):
       return closeStations?[safe: indexPath.item]
     case (_, 2):

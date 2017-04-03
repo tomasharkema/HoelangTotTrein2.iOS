@@ -18,13 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var disposeBag = DisposeBag()
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
 
     NewRelic.start(withApplicationToken: "AA37eca143a6cbc43c025498e41838d785d5666a06")
 
     App.storageAttachment.attach()
     App.travelService.attach()
-    App.travelService.fetchStations()//.then { print("GOT STATIONS \($0)") }
+    App.travelService.fetchStations().then { print("GOT STATIONS \($0)") }
     App.notificationService.attach()
 
     application.registerForRemoteNotifications()

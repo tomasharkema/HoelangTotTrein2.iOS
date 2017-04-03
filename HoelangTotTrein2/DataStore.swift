@@ -15,7 +15,7 @@ enum DataStoreError: Error {
 }
 
 class DataStore {
-
+  fileprivate let queue = DispatchQueue(label: "Datastore")
   fileprivate let persistentContainer: NSPersistentContainer
 
   init (useInMemoryStore: Bool = false) {
@@ -109,26 +109,6 @@ extension DataStore {
     return promiseSource.promise
   }
 
-//  fileprivate func findRecord(stationCode: String) -> Promise<StationRecord, Error> {
-//    let promiseSource = PromiseSource<StationRecord, Error>()
-//
-//    persistentContainer.performBackgroundTask { context in
-//      let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-//      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode)
-//
-//      do {
-//        guard let record = try context.fetch(fetchRequest).first else {
-//          throw DataStoreError.notFound
-//        }
-//        promiseSource.resolve(record)
-//      } catch {
-//        promiseSource.reject(error)
-//      }
-//    }
-//
-//    return promiseSource.promise
-//  }
-
   func find(stationName: String) -> Promise<Station, Error> {
     let promiseSource = PromiseSource<Station, Error>()
 
@@ -220,6 +200,7 @@ extension DataStore {
         }
 
         let history = History(context: context)
+        history.stationCode = station.code
         history.station = stationRecord
         history.date = NSDate()
         history.historyType = historyType
@@ -232,4 +213,66 @@ extension DataStore {
     }
     return promiseSource.promise
   }
+
+  private func fetchMostUsedDict() -> Promise<[(String, Int)], Error> {
+    let promiseSource = PromiseSource<[(String, Int)], Error>()
+
+    persistentContainer.performBackgroundTask { context in
+      let stationCodeKeyPath = #keyPath(History.stationCode)
+      guard let entity = NSEntityDescription.entity(forEntityName: "History", in: context),
+        let stationCode = entity.attributesByName[stationCodeKeyPath] else {
+        promiseSource.reject(DataStoreError.notFound)
+        return
+      }
+
+      let fetchRequest: NSFetchRequest<NSDictionary> = NSFetchRequest<NSDictionary>(entityName: "History")
+      fetchRequest.resultType = .dictionaryResultType
+      fetchRequest.propertiesToGroupBy = [#keyPath(History.stationCode)]
+
+      let countExpression = NSExpressionDescription()
+      countExpression.name = "count"
+      countExpression.expressionResultType = .integer64AttributeType
+      let stationCodeExpression = NSExpression(forKeyPath: #keyPath(History.stationCode))
+      countExpression.expression = NSExpression(forFunction: "count:", arguments: [stationCodeExpression])
+
+      fetchRequest.propertiesToFetch = [stationCode, countExpression]
+
+      do {
+        let result = try context.fetch(fetchRequest)
+        guard let results = result as? [[String: Any]] else {
+          throw DataStoreError.notFound
+        }
+
+        let arr = results
+          .flatMap { dict -> (String, Int)? in
+            guard let code = dict["stationCode"] as? String,
+              let count = dict["count"] as? Int
+              else { return nil }
+
+            return (code, count)
+          }
+          .sorted { (lhs, rhs) in
+            lhs.1 > rhs.1
+          }
+
+        promiseSource.resolve(arr)
+      } catch {
+        promiseSource.reject(error)
+      }
+    }
+
+    return promiseSource.promise
+  }
+
+  func mostUsedStations() -> Promise<[Station], Error>  {
+    return fetchMostUsedDict()
+      .dispatch(on: queue)
+      .flatMap { stationCodes in
+        whenAll(stationCodes.map({ (code, _) in
+          self.find(stationCode: code)
+        }))
+      }
+      .dispatchMain()
+  }
+
 }
