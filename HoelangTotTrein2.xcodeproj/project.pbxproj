@@ -173,9 +173,9 @@
 		C3188D241E903B34006775D8 /* SessionManager+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionManager+Request.swift"; sourceTree = "<group>"; };
 		C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
-		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SuccessResponse.swift; path = Json/SuccessResponse.swift; sourceTree = "<group>"; };
-		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SuccessResponse+JsonGen.swift"; path = "Json/SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
-		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		C32D78B91BDEC4D300603805 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
+		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
 		C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonHelpers.swift; sourceTree = "<group>"; };
 		C352D2D21C53DCE50066D01C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
@@ -196,13 +196,13 @@
 		C3C26C091C552B3A00197471 /* Den Haag HS.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Den Haag HS.gpx"; sourceTree = "<group>"; };
 		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
 		C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sloterdijk.gpx; sourceTree = "<group>"; };
-		C3C26C111C5531E000197471 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeofenceModel.swift; path = Json/GeofenceModel.swift; sourceTree = "<group>"; };
-		C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GeofenceModel+JsonGen.swift"; path = "Json/GeofenceModel+JsonGen.swift"; sourceTree = "<group>"; };
+		C3C26C111C5531E000197471 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
+		C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GeofenceModel+JsonGen.swift"; sourceTree = "<group>"; };
 		C3C26C151C5556C100197471 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorJson.swift; path = Json/ErrorJson.swift; sourceTree = "<group>"; };
-		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ErrorJson+JsonGen.swift"; path = "Json/ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
+		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJson.swift; sourceTree = "<group>"; };
+		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
 		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
-		C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "HoelangToTrein-Bridging-Header.h"; path = "../HoelangToTrein-Bridging-Header.h"; sourceTree = "<group>"; };
+		C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoelangToTrein-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3D155D21CBA6469003D67A8 /* Observable+FilterOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+FilterOptional.swift"; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,10 +222,10 @@
 		C3E847911BB836A5007D17C3 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		C3E847931BB83A94007D17C3 /* LogService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogService.swift; sourceTree = "<group>"; };
 		C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityManagerService.swift; sourceTree = "<group>"; };
-		C3E847991BB83BC6007D17C3 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Advice.swift; path = Json/Advice.swift; sourceTree = "<group>"; };
-		C3E8479B1BB83BCE007D17C3 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Station.swift; path = Json/Station.swift; sourceTree = "<group>"; };
-		C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Advice+JsonGen.swift"; path = "Json/Advice+JsonGen.swift"; sourceTree = "<group>"; };
-		C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Station+JsonGen.swift"; path = "Json/Station+JsonGen.swift"; sourceTree = "<group>"; };
+		C3E847991BB83BC6007D17C3 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advice.swift; sourceTree = "<group>"; };
+		C3E8479B1BB83BCE007D17C3 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+JsonGen.swift"; sourceTree = "<group>"; };
+		C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+JsonGen.swift"; sourceTree = "<group>"; };
 		C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
 		C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+HLTT.swift"; sourceTree = "<group>"; };
 		C3E847B21BB855AA007D17C3 /* SegueManagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueManagerController.swift; sourceTree = "<group>"; };
@@ -332,7 +332,7 @@
 				C3E19C391E92CA14003A1529 /* Picker */,
 				C3E19C381E92C9F2003A1529 /* Ticker */,
 			);
-			name = Features;
+			path = Features;
 			sourceTree = "<group>";
 		};
 		C3E19C381E92C9F2003A1529 /* Ticker */ = {
@@ -340,7 +340,7 @@
 			children = (
 				C3E847541BB82A01007D17C3 /* TickerViewController.swift */,
 			);
-			name = Ticker;
+			path = Ticker;
 			sourceTree = "<group>";
 		};
 		C3E19C391E92CA14003A1529 /* Picker */ = {
@@ -349,20 +349,20 @@
 				C3E847B61BB8575E007D17C3 /* PickerViewController.swift */,
 				C3E847BC1BB86058007D17C3 /* StationCell.swift */,
 			);
-			name = Picker;
+			path = Picker;
 			sourceTree = "<group>";
 		};
 		C3E19C3A1E92CAAF003A1529 /* Locations */ = {
 			isa = PBXGroup;
 			children = (
-				C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */,
-				C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */,
-				C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */,
 				C3C26C091C552B3A00197471 /* Den Haag HS.gpx */,
+				C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */,
 				C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */,
+				C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */,
+				C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */,
 				C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */,
 			);
-			name = Locations;
+			path = Locations;
 			sourceTree = "<group>";
 		};
 		C3E19C3B1E92CAC8003A1529 /* Fonts */ = {
@@ -371,7 +371,7 @@
 				C376268E1C947309006A42A7 /* AKKURAT.ttf */,
 				C37626901C947356006A42A7 /* AKKURATL.ttf */,
 			);
-			name = Fonts;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C3E19C3C1E92CB01003A1529 /* Watchkit */ = {
@@ -379,7 +379,7 @@
 			children = (
 				C3FD08081CC76D83002893B3 /* WatchkitHelpers.swift */,
 			);
-			name = Watchkit;
+			path = Watchkit;
 			sourceTree = "<group>";
 		};
 		C3E19C3D1E92CB1D003A1529 /* Datastore */ = {
@@ -387,20 +387,32 @@
 			children = (
 				C3E847591BB82A01007D17C3 /* HoelangTotTrein2.xcdatamodeld */,
 			);
-			name = Datastore;
+			path = Datastore;
+			sourceTree = "<group>";
+		};
+		C3E19C3E1E92D713003A1529 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C3E847991BB83BC6007D17C3 /* Advice.swift */,
+				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
+				C3C26C111C5531E000197471 /* GeofenceModel.swift */,
+				C3E8479B1BB83BCE007D17C3 /* Station.swift */,
+				C32D78B91BDEC4D300603805 /* SuccessResponse.swift */,
+			);
+			path = Json;
 			sourceTree = "<group>";
 		};
 		C3E847461BB82A01007D17C3 = {
 			isa = PBXGroup;
 			children = (
 				C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */,
-				C3E847691BB82A01007D17C3 /* HoelangTotTrein2Tests */,
-				C3E847741BB82A01007D17C3 /* HoelangTotTrein2UITests */,
+				09A521EB6C856AE8207FF398 /* Frameworks */,
 				C3FD07D01CC767FA002893B3 /* HLTT */,
 				C3FD07DF1CC767FA002893B3 /* HLTT Extension */,
-				C3E847501BB82A01007D17C3 /* Products */,
-				09A521EB6C856AE8207FF398 /* Frameworks */,
+				C3E847691BB82A01007D17C3 /* HoelangTotTrein2Tests */,
+				C3E847741BB82A01007D17C3 /* HoelangTotTrein2UITests */,
 				876C5AAC680F3F681C665ABC /* Pods */,
+				C3E847501BB82A01007D17C3 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -420,20 +432,20 @@
 			isa = PBXGroup;
 			children = (
 				C3E19C3D1E92CB1D003A1529 /* Datastore */,
-				C3E19C3B1E92CAC8003A1529 /* Fonts */,
-				C3E847891BB82C0E007D17C3 /* Services */,
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E19C371E92C9C0003A1529 /* Features */,
-				C3F72ABD1C95D3C20024CF2C /* Views */,
+				C3E19C3B1E92CAC8003A1529 /* Fonts */,
 				C3E847851BB82B87007D17C3 /* Helpers */,
-				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
+				C3E847891BB82C0E007D17C3 /* Services */,
+				C3F72ABD1C95D3C20024CF2C /* Views */,
 				C3E847911BB836A5007D17C3 /* App.swift */,
-				C3E847561BB82A01007D17C3 /* Main.storyboard */,
+				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
-				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
-				C3E847611BB82A01007D17C3 /* Info.plist */,
-				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */,
+				C3E847611BB82A01007D17C3 /* Info.plist */,
+				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
+				C3E847561BB82A01007D17C3 /* Main.storyboard */,
+				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 			);
 			path = HoelangTotTrein2;
 			sourceTree = "<group>";
@@ -441,8 +453,8 @@
 		C3E847691BB82A01007D17C3 /* HoelangTotTrein2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C3E8476C1BB82A01007D17C3 /* Info.plist */,
 				C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */,
+				C3E8476C1BB82A01007D17C3 /* Info.plist */,
 			);
 			path = HoelangTotTrein2Tests;
 			sourceTree = "<group>";
@@ -459,11 +471,11 @@
 		C3E847851BB82B87007D17C3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C3E19C3C1E92CB01003A1529 /* Watchkit */,
-				C3E19C3A1E92CAAF003A1529 /* Locations */,
 				C3E847B11BB85591007D17C3 /* Controllers */,
+				C3E19C3A1E92CAAF003A1529 /* Locations */,
+				C3E19C3C1E92CB01003A1529 /* Watchkit */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		C3E847891BB82C0E007D17C3 /* Services */ = {
@@ -471,95 +483,91 @@
 			children = (
 				C3E8478A1BB82C15007D17C3 /* Model */,
 				C3E8478D1BB8312A007D17C3 /* ApiService.swift */,
-				C3E8478F1BB832E6007D17C3 /* TravelService.swift */,
+				C3188D201E8FDA63006775D8 /* DataStore.swift */,
+				C3C26C071C5527D600197471 /* GeofenceService.swift */,
+				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
 				C3E847931BB83A94007D17C3 /* LogService.swift */,
 				C3E847951BB83AF7007D17C3 /* NetworkActivityManagerService.swift */,
-				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
-				C3A47C3A1BBFFA1500A3CDA8 /* LocationService.swift */,
-				C3C26C071C5527D600197471 /* GeofenceService.swift */,
 				C3C26C151C5556C100197471 /* NotificationService.swift */,
+				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
 				C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */,
-				C3188D201E8FDA63006775D8 /* DataStore.swift */,
+				C3E8478F1BB832E6007D17C3 /* TravelService.swift */,
 			);
-			name = Services;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C3E8478A1BB82C15007D17C3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C3E19C3E1E92D713003A1529 /* Json */,
 				C3E8479D1BB83C45007D17C3 /* JsonGen */,
-				C3E847991BB83BC6007D17C3 /* Advice.swift */,
-				C3E8479B1BB83BCE007D17C3 /* Station.swift */,
-				C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */,
-				C32D78B91BDEC4D300603805 /* SuccessResponse.swift */,
-				C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */,
 				C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */,
-				C3C26C111C5531E000197471 /* GeofenceModel.swift */,
-				C3188D221E8FE1D1006775D8 /* HistoryType.swift */,
 				C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */,
+				C3188D221E8FE1D1006775D8 /* HistoryType.swift */,
+				C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */,
 			);
-			name = Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C3E8479D1BB83C45007D17C3 /* JsonGen */ = {
 			isa = PBXGroup;
 			children = (
-				C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */,
-				C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */,
 				C3E8479E1BB83C4F007D17C3 /* Advice+JsonGen.swift */,
-				C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */,
+				C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */,
+				C3C26C131C55321600197471 /* GeofenceModel+JsonGen.swift */,
 				C3E8479F1BB83C4F007D17C3 /* Station+JsonGen.swift */,
+				C32D78BB1BDEC5DA00603805 /* SuccessResponse+JsonGen.swift */,
 			);
-			name = JsonGen;
+			path = JsonGen;
 			sourceTree = "<group>";
 		};
 		C3E847A41BB840E9007D17C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				C352D2D21C53DCE50066D01C /* Array+Extensions.swift */,
-				C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */,
+				C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */,
+				C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */,
+				C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */,
+				C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */,
 				C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */,
 				C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */,
-				C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */,
+				C3E847AC1BB84E55007D17C3 /* NSUserDefaults+HLTT.swift */,
 				C3D155D21CBA6469003D67A8 /* Observable+FilterOptional.swift */,
-				C338D6BE1CC9063A00613A60 /* JsonHelpers.swift */,
-				C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */,
-				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
 				C3188D241E903B34006775D8 /* SessionManager+Request.swift */,
-				C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */,
+				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
 			);
-			name = Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C3E847B11BB85591007D17C3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				C3E847B21BB855AA007D17C3 /* SegueManagerController.swift */,
-				C3E847B41BB85608007D17C3 /* ViewController.swift */,
-				C3E847B81BB8577F007D17C3 /* TableViewController.swift */,
 				C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */,
+				C3E847B81BB8577F007D17C3 /* TableViewController.swift */,
+				C3E847B41BB85608007D17C3 /* ViewController.swift */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C3F72ABD1C95D3C20024CF2C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
-				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
 				C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */,
 				C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */,
+				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
+				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C3FD07D01CC767FA002893B3 /* HLTT */ = {
 			isa = PBXGroup;
 			children = (
 				C3FD07FA1CC76B1C002893B3 /* HLTT.entitlements */,
-				C3FD07D11CC767FA002893B3 /* Interface.storyboard */,
 				C3FD07D41CC767FA002893B3 /* HLTTAssets.xcassets */,
 				C3FD07D61CC767FA002893B3 /* Info.plist */,
+				C3FD07D11CC767FA002893B3 /* Interface.storyboard */,
 			);
 			path = HLTT;
 			sourceTree = "<group>";
@@ -567,14 +575,14 @@
 		C3FD07DF1CC767FA002893B3 /* HLTT Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */,
-				C3FD07E21CC767FA002893B3 /* InterfaceController.swift */,
-				C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */,
-				C3FD07E61CC767FA002893B3 /* NotificationController.swift */,
+				C3FD07E01CC767FA002893B3 /* Supporting Files */,
 				C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */,
 				C3FD07EC1CC767FA002893B3 /* ExtensionAssets.xcassets */,
+				C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */,
+				C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */,
 				C3FD07EE1CC767FA002893B3 /* Info.plist */,
-				C3FD07E01CC767FA002893B3 /* Supporting Files */,
+				C3FD07E21CC767FA002893B3 /* InterfaceController.swift */,
+				C3FD07E61CC767FA002893B3 /* NotificationController.swift */,
 			);
 			path = "HLTT Extension";
 			sourceTree = "<group>";
@@ -584,7 +592,7 @@
 			children = (
 				C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1095,6 +1103,7 @@
 				C3E847571BB82A01007D17C3 /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */ = {
@@ -1103,6 +1112,7 @@
 				C3E8475F1BB82A01007D17C3 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		C3FD07D11CC767FA002893B3 /* Interface.storyboard */ = {
@@ -1111,6 +1121,7 @@
 				C3FD07D21CC767FA002893B3 /* Base */,
 			);
 			name = Interface.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1316,7 +1327,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HoelangTotTrein2/HoelangToTrein-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1339,7 +1350,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HoelangToTrein-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HoelangTotTrein2/HoelangToTrein-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
