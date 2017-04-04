@@ -3,7 +3,7 @@ use_frameworks!
 target 'HoelangTotTrein2' do
 	platform :ios, '10.0'
 
-  pod 'HockeySDK'
+  	pod 'HockeySDK'
 
 	pod 'R.swift', '~> 3.2'
 	pod 'Alamofire', '~> 4.4'
@@ -19,11 +19,11 @@ target 'HoelangTotTrein2' do
 	pod 'RxBlocking', '~> 3.0'
 	pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git'
 	pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git'
-end
 
-target 'HLTT' do
-	platform :watchos, '3.2'
-	pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git'
+	
+	target 'HoelangTotTrein2Tests' do
+
+	end
 end
 
 target 'HLTT Extension' do

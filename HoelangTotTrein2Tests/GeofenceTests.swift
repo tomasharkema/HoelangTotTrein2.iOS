@@ -12,7 +12,14 @@ import XCTest
 
 class GeofenceTests: XCTestCase {
 
-  let geofenceService = GeofenceService(travelService: TravelService(apiService: ApiService(), locationService: LocationService()))
+  var dataStore: DataStore!
+  var geofenceService: GeofenceService!
+
+  override func setUp() {
+    super.setUp()
+    dataStore = DataStore(useInMemoryStore: true)
+    geofenceService = GeofenceService(travelService: TravelService(apiService: ApiService(), locationService: LocationService(), dataStore: dataStore), dataStore: dataStore)
+  }
   
   // MARK: - GeofencesFromAdvices
   
