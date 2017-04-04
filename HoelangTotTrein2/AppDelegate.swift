@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-    NewRelic.start(withApplicationToken: "AA37eca143a6cbc43c025498e41838d785d5666a06")
+    HockeyApp.register()
 
     App.storageAttachment.attach()
     App.travelService.attach()

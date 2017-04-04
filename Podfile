@@ -2,8 +2,10 @@ use_frameworks!
 
 target 'HoelangTotTrein2' do
 	platform :ios, '10.0'
+
+  pod 'HockeySDK'
+
 	pod 'R.swift', '~> 3.2'
-	pod 'NewRelicAgent', '~> 5.4.0'
 	pod 'Alamofire', '~> 4.4'
 
 	pod 'Promissum', '~> 1.0'

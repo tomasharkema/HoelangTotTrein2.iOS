@@ -1,3 +1,0 @@
-dSYM archive upload attempt #1 (of 3)
-curl --write-out %{http_code} --silent --output /dev/null -F dsym=@"/tmp/HLTT.app.dSYM-1461332573.zip" -F buildId="400a553c428139c084f25fed5f321a81,ae71e28200fa3619b1e3f3b386bdbcf8" -F appName="HLTT" -H "X-APP-LICENSE-KEY: AA37eca143a6cbc43c025498e41838d785d5666a06" "https://mobile-symbol-upload.newrelic.com/symbol"
-New Relic: Successfully uploaded debug symbols

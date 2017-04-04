@@ -65,6 +65,7 @@
 		C3E19C341E913E09003A1529 /* HLTT.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07FA1CC76B1C002893B3 /* HLTT.entitlements */; };
 		C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */; };
 		C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */; };
+		C3E19C421E941DA7003A1529 /* HockeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E19C411E941DA7003A1529 /* HockeyApp.swift */; };
 		C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847521BB82A01007D17C3 /* AppDelegate.swift */; };
 		C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847541BB82A01007D17C3 /* TickerViewController.swift */; };
 		C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E847561BB82A01007D17C3 /* Main.storyboard */; };
@@ -202,8 +203,8 @@
 		C3CEB91A1C53A87700C6FBFF /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJson.swift; sourceTree = "<group>"; };
 		C3CEB91C1C53AB0600C6FBFF /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
 		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
-		C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoelangToTrein-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3D155D21CBA6469003D67A8 /* Observable+FilterOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+FilterOptional.swift"; sourceTree = "<group>"; };
+		C3E19C411E941DA7003A1529 /* HockeyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HockeyApp.swift; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
@@ -440,8 +441,8 @@
 				C3F72ABD1C95D3C20024CF2C /* Views */,
 				C3E847911BB836A5007D17C3 /* App.swift */,
 				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
+				C3E19C411E941DA7003A1529 /* HockeyApp.swift */,
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
-				C3CEB9261C556EBC00C6FBFF /* HoelangToTrein-Bridging-Header.h */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
@@ -647,7 +648,6 @@
 				C3E8474B1BB82A01007D17C3 /* Sources */,
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
-				C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */,
 				8D7B83227E05370D3444ACAF /* [CP] Embed Pods Frameworks */,
 				262550C09297736B5220082B /* [CP] Copy Pods Resources */,
 				C3894E2B1E912FAB00C6FCE2 /* Embed Watch Content */,
@@ -915,20 +915,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
-		};
-		C3F2BCB51C7CFCFE00DB3DA0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [[ \"$CONFIGURATION\" == *Release ]]; then\nSCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n/bin/sh \"${SCRIPT}\" \"AA37eca143a6cbc43c025498e41838d785d5666a06\"\nfi";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT/HoelangTotTrein2\"";
 		};
 		E0735868ED85F0F2395F7011 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1006,6 +993,7 @@
 				C3E847A61BB8447B007D17C3 /* StorageAttachment.swift in Sources */,
 				C3E847941BB83A94007D17C3 /* LogService.swift in Sources */,
 				C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */,
+				C3E19C421E941DA7003A1529 /* HockeyApp.swift in Sources */,
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
 				C352D2D31C53DCE50066D01C /* Array+Extensions.swift in Sources */,
 				C3188D211E8FDA63006775D8 /* DataStore.swift in Sources */,
@@ -1327,7 +1315,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HoelangTotTrein2/HoelangToTrein-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1350,7 +1338,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "HoelangTotTrein2/HoelangToTrein-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

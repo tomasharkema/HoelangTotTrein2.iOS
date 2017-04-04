@@ -22,7 +22,6 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
   }
 
   func initialize() {
-//    itemSize = UIScreen.mainScreen().bounds.size
     minimumLineSpacing = 0
     minimumInteritemSpacing = 0
   }
@@ -42,11 +41,6 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
   fileprivate weak var collectionView: UICollectionView?
   fileprivate var disposable: Disposable?
 
-//  fileprivate let didDecellerateObservable = Variable(0)
-//  fileprivate(set) var onScreenAdviceObservable: Observable<Advice?>!
-//  private var didScrollVariable = Variable<Void>()
-//  private(set) var didScrollObservable: Observable<Void>!
-
   init(advices: Advices, collectionView: UICollectionView) {
     self.advices = advices
     self.collectionView = collectionView
@@ -56,8 +50,6 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.reloadData()
-
-//    didScrollObservable = didScrollVariable.asObservable()
   }
 
   deinit {
