@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 enum PickerState {
   case from
@@ -43,6 +44,8 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   private var ordinaryStations: [Station]?
   private var searchResults: [Station]?
 
+  private let disposeBag = DisposeBag()
+
   var isSearching: Bool {
     return searchField.text ?? "" != ""
   }
@@ -67,21 +70,25 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.tableView.reloadData()
       }
 
-    App.dataStore.stations()
-      .then { [weak self] stations in
+    App.travelService.stationsObservable
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] stations in
         self?.ordinaryStations = stations
         self?.tableView.reloadData()
-      }
+      })
+      .addDisposableTo(disposeBag)
 
-    App.dataStore.mostUsedStations()
-      .then { [weak self] stations in
+    App.travelService.mostUsedStationsObservable
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] stations in
         self?.mostUsedStations = Array(stations.prefix(5))
         self?.tableView.reloadData()
-      }
+      })
+      .addDisposableTo(disposeBag)
   }
 
   func search(_ string: String) {
-    App.dataStore.find(stationNameContains: string)
+    App.travelService.find(stationNameContains: string)
       .then { [weak self] stations in
         self?.searchResults = stations
         self?.tableView.reloadData()

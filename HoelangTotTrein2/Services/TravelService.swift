@@ -39,6 +39,8 @@ class TravelService: NSObject, WCSessionDelegate {
   private(set) var nextAdviceObservable: Observable<Advice?>!
   private let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
   private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+  private let mostUsedStationsVariable = Variable<[Station]>([])
+  private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
   var timer: Timer?
 
@@ -55,7 +57,8 @@ class TravelService: NSObject, WCSessionDelegate {
     firstAdviceRequestObservable = firstAdviceRequestVariable.asObservable()
     nextAdviceObservable = nextAdviceVariable.asObservable()
     currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
-
+    mostUsedStationsObservable = mostUsedStationsVariable.asObservable()
+    
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
   }
@@ -205,7 +208,7 @@ class TravelService: NSObject, WCSessionDelegate {
     let correctedAdviceRequest: Promise<AdviceRequest, Error>
     if let pickerFrom = UserDefaults.fromStationByPickerCode,
       let pickerTo = UserDefaults.toStationByPickerCode,
-      !userInput && pickerTo == adviceRequest.from?.code {
+      /*!userInput &&*/ pickerTo == adviceRequest.from?.code {
 
       correctedAdviceRequest = whenBoth(dataStore.find(stationCode: pickerFrom), dataStore.find(stationCode: pickerTo))
         .then {
@@ -258,13 +261,17 @@ class TravelService: NSObject, WCSessionDelegate {
       .dispatch(on: queue)
       .flatMap { advice in
         let newAdvice: AdviceRequest
-        switch state {
-        case .from:
-          newAdvice = advice.setFrom(station)
-        case .to:
-          newAdvice = advice.setTo(station)
+        if advice.to == station {
+          newAdvice = AdviceRequest(from: advice.to, to: advice.from)
+        } else {
+          switch state {
+          case .from:
+            newAdvice = advice.setFrom(station)
+          case .to:
+            newAdvice = advice.setTo(station)
+          }
         }
-
+        
         if byPicker {
           switch state {
           case .from:
@@ -371,5 +378,13 @@ class TravelService: NSObject, WCSessionDelegate {
 
   func setCurrentAdviceOnScreen(advice: Advice?) {
     currentAdviceOnScreenVariable.value = advice
+  }
+
+  func setMostUsedStations(stations: [Station]) {
+    mostUsedStationsVariable.value = stations
+  }
+
+  func find(stationNameContains: String) -> Promise<[Station], Error> {
+    return dataStore.find(stationNameContains: stationNameContains)
   }
 }

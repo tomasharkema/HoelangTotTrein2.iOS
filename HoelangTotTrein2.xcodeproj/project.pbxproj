@@ -65,6 +65,7 @@
 		C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */; };
 		C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */; };
 		C3E19C421E941DA7003A1529 /* HockeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E19C411E941DA7003A1529 /* HockeyApp.swift */; };
+		C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E19C501E9529C7003A1529 /* AppShortcutService.swift */; };
 		C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847521BB82A01007D17C3 /* AppDelegate.swift */; };
 		C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847541BB82A01007D17C3 /* TickerViewController.swift */; };
 		C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E847561BB82A01007D17C3 /* Main.storyboard */; };
@@ -192,8 +193,8 @@
 		C3B484D91CCB8F1400EB25D5 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
-		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceCell.swift; sourceTree = "<group>"; };
-		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdviceCell.xib; sourceTree = "<group>"; };
+		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdviceCell.swift; path = ../../Views/AdviceCell.swift; sourceTree = "<group>"; };
+		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AdviceCell.xib; path = ../../Views/AdviceCell.xib; sourceTree = "<group>"; };
 		C3C26C071C5527D600197471 /* GeofenceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceService.swift; sourceTree = "<group>"; };
 		C3C26C091C552B3A00197471 /* Den Haag HS.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Den Haag HS.gpx"; sourceTree = "<group>"; };
 		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
@@ -206,6 +207,7 @@
 		C3CEB91E1C53B60000C6FBFF /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
 		C3D155D21CBA6469003D67A8 /* Observable+FilterOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+FilterOptional.swift"; sourceTree = "<group>"; };
 		C3E19C411E941DA7003A1529 /* HockeyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HockeyApp.swift; sourceTree = "<group>"; };
+		C3E19C501E9529C7003A1529 /* AppShortcutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppShortcutService.swift; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
@@ -238,8 +240,8 @@
 		C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationFetchedResultControllerDelegate.swift; sourceTree = "<group>"; };
 		C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Extensions.swift"; sourceTree = "<group>"; };
 		C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NOI.gpx; sourceTree = "<group>"; };
-		C3F72ABE1C95D3E30024CF2C /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
-		C3F72AC01C95D3F60024CF2C /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StepView.xib; sourceTree = "<group>"; };
+		C3F72ABE1C95D3E30024CF2C /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepView.swift; path = ../../Views/StepView.swift; sourceTree = "<group>"; };
+		C3F72AC01C95D3F60024CF2C /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StepView.xib; path = ../../Views/StepView.xib; sourceTree = "<group>"; };
 		C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Zaandam.gpx; sourceTree = "<group>"; };
 		C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Hoofddorp.gpx; sourceTree = "<group>"; };
 		C3FD07D21CC767FA002893B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -342,6 +344,10 @@
 			isa = PBXGroup;
 			children = (
 				C3E847541BB82A01007D17C3 /* TickerViewController.swift */,
+				C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */,
+				C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */,
+				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
+				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
 			);
 			path = Ticker;
 			sourceTree = "<group>";
@@ -440,7 +446,6 @@
 				C3E19C3B1E92CAC8003A1529 /* Fonts */,
 				C3E847851BB82B87007D17C3 /* Helpers */,
 				C3E847891BB82C0E007D17C3 /* Services */,
-				C3F72ABD1C95D3C20024CF2C /* Views */,
 				C3E847911BB836A5007D17C3 /* App.swift */,
 				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
 				C3E19C411E941DA7003A1529 /* HockeyApp.swift */,
@@ -495,6 +500,7 @@
 				C3E847A51BB8447B007D17C3 /* StorageAttachment.swift */,
 				C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */,
 				C3E8478F1BB832E6007D17C3 /* TravelService.swift */,
+				C3E19C501E9529C7003A1529 /* AppShortcutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -551,17 +557,6 @@
 				C3E847B41BB85608007D17C3 /* ViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		C3F72ABD1C95D3C20024CF2C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */,
-				C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */,
-				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
-				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		C3FD07D01CC767FA002893B3 /* HLTT */ = {
@@ -1048,6 +1043,7 @@
 				C3FD08091CC76D83002893B3 /* WatchkitHelpers.swift in Sources */,
 				C3E847961BB83AF7007D17C3 /* NetworkActivityManagerService.swift in Sources */,
 				C3CEB91B1C53A87700C6FBFF /* ErrorJson.swift in Sources */,
+				C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */,
 				C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */,
 				C32D78BA1BDEC4D300603805 /* SuccessResponse.swift in Sources */,
 				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,

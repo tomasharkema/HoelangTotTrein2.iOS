@@ -72,8 +72,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
   fileprivate var currentLocationPromise: PromiseSource<CLLocation, Error>?
 
   func currentLocation() -> Promise<CLLocation, Error> {
-
-    if let location = manager.location, Date().timeIntervalSince1970 - location.timestamp.timeIntervalSince1970 < 60 {
+    if let location = manager.location, DateInterval(start: location.timestamp, end: Date()).duration < 560 {
       return Promise(value: location)
     }
 

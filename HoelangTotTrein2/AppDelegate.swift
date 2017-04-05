@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import RxSwift
+import Promissum
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.travelService.attach()
     _ = App.travelService.fetchStations()
     App.notificationService.attach()
+
+    App.appShortcutService.attach()
 
     application.registerForRemoteNotifications()
     application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
@@ -94,6 +97,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     not.alertBody = message
     not.applicationIconBadgeNumber = 0
     application.presentLocalNotificationNow(not)
+  }
+
+  func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+    guard let stationJson = shortcutItem.userInfo?["station"] , let station = try? Station.decodeJson(stationJson) else {
+      completionHandler(false)
+      return
+    }
+    
+    App.travelService.setStation(.to, station: station, byPicker: false)
+      .flatMap { _ in App.travelService.travelFromCurrentLocation() }
+      .then { _ in
+        completionHandler(true)
+      }
   }
 }
 

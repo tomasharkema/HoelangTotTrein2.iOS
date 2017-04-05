@@ -50,7 +50,8 @@ class StorageAttachment {
       .filterOptional()
       .subscribe(onNext: { [weak self] in
         self?.insertHistoryFromRequest($0)
-      }).addDisposableTo(disposeBag)
+      })
+      .addDisposableTo(disposeBag)
 
     travelService.currentAdvicesObservable
       .asObservable()
@@ -64,7 +65,15 @@ class StorageAttachment {
             }
           }
           .trap { print($0) }
-      }).addDisposableTo(disposeBag)
+      })
+      .addDisposableTo(disposeBag)
+
+    // prepopulate stations history
+
+    dataStore.mostUsedStations()
+      .then { stations in
+        self.travelService.setMostUsedStations(stations: stations)
+      }
   }
 
   func insertHistoryFromRequest(_ advice: AdviceRequest) -> Promise<Void, Error> {
@@ -73,10 +82,18 @@ class StorageAttachment {
       return Promise(error: NSError(domain: "", code: 0, userInfo: nil))
     }
 
-    return whenBoth(
+    let historyInsert = whenBoth(
       dataStore.insertHistory(station: from, historyType: .from),
       dataStore.insertHistory(station: to, historyType: .to)
-    ).mapVoid()
+    )
+
+    historyInsert
+      .flatMap { _ in self.dataStore.mostUsedStations() }
+      .then { stations in
+        self.travelService.setMostUsedStations(stations: stations)
+      }
+
+    return historyInsert.mapVoid()
   }
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {

@@ -1,4 +1,4 @@
-//
+ //
 //  DataStore.swift
 //  HoelangTotTrein2
 //
@@ -139,7 +139,10 @@ extension DataStore {
       fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode)
 
       do {
-        guard let record = try context.fetch(fetchRequest).first.flatMap({ Station(record: $0) }) else {
+        guard let record = try context.fetch(fetchRequest)
+          .first
+          .flatMap({ Station(record: $0) })
+        else {
           throw DataStoreError.notFound
         }
         promiseSource.resolve(record)

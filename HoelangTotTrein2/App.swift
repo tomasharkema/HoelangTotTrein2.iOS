@@ -9,12 +9,13 @@
 import Foundation
 
 struct App {
-  static let dataStore = DataStore()
+  static private let dataStore = DataStore()
   static let apiService = ApiService()
   static let locationService = LocationService()
   static let travelService = TravelService(apiService: apiService, locationService: locationService, dataStore: dataStore)
   static let storageAttachment = StorageAttachment(travelService: travelService, dataStore: dataStore)
   static let geofenceService = GeofenceService(travelService: travelService, dataStore: dataStore)
   static let notificationService = NotificationService(geofenceService: geofenceService)
+  static let appShortcutService = AppShortcutService(travelService: travelService)
 }
 

@@ -30,7 +30,7 @@ class AdviceCell: UICollectionViewCell {
     }
 
     let offset = advice.vertrek.actualDate.timeIntervalSince(Date())
-    let difference = Date(timeIntervalSince1970: offset - 60*60)
+    let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
     let timeBeforeColonString: String
     let timeAfterColonString: String
 
@@ -45,20 +45,16 @@ class AdviceCell: UICollectionViewCell {
 
     minutesLabel.text = timeBeforeColonString
     secondsLabel.text = timeAfterColonString
-//    timeContainerView.hidden = false
-//    nextView.hidden = false
-//    nextViewBlur.hidden = false
   }
 
   func renderInfo() {
     guard let advice = advice else {
       return
     }
-//    extraLabel.text = advice.extraMessage
+
     statusMessageLabel.text = advice.status.alertDescription
     platformLabel.text = advice.vertrekSpoor.map { "platform \($0)" }
     aankomstVertragingLabel.text = advice.vertrekVertraging.map { "arrival: \($0)" }
-//    stepsLabel.text = advice.stepsMessage
     renderSteps(advice.stepModels)
   }
 

@@ -13,37 +13,37 @@ import RxSwift
 
 class TickerViewController: ViewController {
 
-  let AnimationInterval: TimeInterval = 0.5
+  private let AnimationInterval: TimeInterval = 0.5
 
-  var fromStation: Station?
-  var toStation: Station?
+  private var fromStation: Station?
+  private var toStation: Station?
 
-  let disposeBag = DisposeBag()
-  var onScreenAdviceDisposable: Disposable?
+  private let disposeBag = DisposeBag()
+  private var onScreenAdviceDisposable: Disposable?
 
-  var timer: Timer?
-  var currentAdvice: Advice?
+  private var timer: Timer?
+  private var currentAdvice: Advice?
 
-  var nextAdvice: Advice?
+  private var nextAdvice: Advice?
 
-  var startTime: Date?
+  private var startTime: Date?
 
-  @IBOutlet weak var backgroundView: UIImageView!
-  @IBOutlet weak var stackIndicatorView: UIStackView!
+  @IBOutlet private weak var backgroundView: UIImageView!
+  @IBOutlet fileprivate weak var stackIndicatorView: UIStackView!
 
-  @IBOutlet weak var fromButton: UIButton!
-  @IBOutlet weak var fromLabel: UILabel!
-  @IBOutlet weak var toButton: UIButton!
-  @IBOutlet weak var toLabel: UILabel!
+  @IBOutlet private weak var fromButton: UIButton!
+  @IBOutlet private weak var fromLabel: UILabel!
+  @IBOutlet private weak var toButton: UIButton!
+  @IBOutlet private weak var toLabel: UILabel!
 
-  @IBOutlet weak var collectionView: UICollectionView!
-  var dataSource: TickerDataSource?
+  @IBOutlet private weak var collectionView: UICollectionView!
+  private var dataSource: TickerDataSource?
 
   //next
-  @IBOutlet weak var nextLabel: UILabel!
-  @IBOutlet weak var nextView: UIView!
-  @IBOutlet weak var nextViewBlur: UIVisualEffectView!
-  @IBOutlet weak var nextDelayLabel: UILabel!
+  @IBOutlet private weak var nextLabel: UILabel!
+  @IBOutlet private weak var nextView: UIView!
+  @IBOutlet private weak var nextViewBlur: UIVisualEffectView!
+  @IBOutlet private weak var nextDelayLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()

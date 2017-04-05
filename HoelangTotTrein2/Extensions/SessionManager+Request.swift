@@ -23,7 +23,8 @@ extension SessionManager {
       .request(url, method: method, parameters: parameters, encoding: encoding, headers: headers)
       .validate()
 
-    //    print(request.debugDescription)
+    print(request.debugDescription)
+
     return request
       .responseJsonDecodePromise(decoder: decoder)
       .trap { error in
@@ -34,7 +35,6 @@ extension SessionManager {
         debugPrint("^^^")
       }
       .mapError()
-//      .mapError(ApiError.init)
       .map { $0.result }
   }
 }
