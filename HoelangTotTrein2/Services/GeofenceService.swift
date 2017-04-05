@@ -78,17 +78,17 @@ class GeofenceService: NSObject {
         for (stopIndex, stop) in deel.stops.enumerated() {
           let geofenceType: GeofenceType
           if deelIndex == 0 && stopIndex == 0 {
-            geofenceType = .Start
+            geofenceType = .start
           } else if deelIndex != 0 && stopIndex == 0 {
-            geofenceType = .Overstap
+            geofenceType = .overstap
           } else if deelIndex == advice.reisDeel.count-1 && stopIndex == deel.stops.count-1 {
-            geofenceType = .End
+            geofenceType = .end
           } else {
-            geofenceType = .TussenStation
+            geofenceType = .tussenStation
           }
 
           if let fromDict = toCreateGeofences[stop.name] {
-            if fromDict.type == .TussenStation && geofenceType == .Overstap {
+            if fromDict.type == .tussenStation && geofenceType == .overstap {
               toCreateGeofences[stop.name] = GeofenceModel(type: geofenceType, stationName: fromDict.stationName, fromStop: fromDict.fromStop, toStop: stop)
             }
           } else {
@@ -124,7 +124,7 @@ class GeofenceService: NSObject {
     }).addDisposableTo(disposeBag)
 
     obs
-      .observeOn(scheduler)//.asyncInstance)
+      .observeOn(scheduler)
       .subscribe(onNext: { stationGeofences in
         self.resetGeofences()
         UserDefaults.geofenceInfo = stationGeofences
@@ -172,11 +172,11 @@ extension GeofenceService {
         return fromStop.time - offset >= now && toStop.time - 60 > now
         
       case (let fromStop?, _):
-        if geofence.element.type == .TussenStation {
+        if geofence.element.type == .tussenStation {
           return fromStop.time + offset >= now
         }
 
-        if geofence.element.type == .Overstap {
+        if geofence.element.type == .overstap {
           return fromStop.time + 5 * 60 > now
         }
         

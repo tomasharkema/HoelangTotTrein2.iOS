@@ -44,23 +44,23 @@ class NotificationService {
     let correctModel = updatedModel ?? oldModel
 
     switch oldModel.type {
-    case .Start:
+    case .start:
       let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
       var fixedUserInfo = oldModel.encodeJson()
       fixedUserInfo.removeValue(forKey: "toStop")
       fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", category: "startStationNotification", userInfo: fixedUserInfo)
 
-    case .TussenStation:
+    case .tussenStation:
       let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSince(Date()) ?? 0
       let timeString = Date(timeIntervalSince1970: timeDiff).toString(format: .custom("mm:ss"))
       let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
 //      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)", userInfo: oldModel.encodeJson())
 
-    case .Overstap:
+    case .overstap:
       let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
       fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
 
-    case .End:
+    case .end:
       fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", category: nil, userInfo: nil)
     }
   }

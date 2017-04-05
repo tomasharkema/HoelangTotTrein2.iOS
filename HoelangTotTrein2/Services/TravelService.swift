@@ -17,7 +17,7 @@ enum TravelServiceError: Error {
   case notChanged
 }
 
-class TravelService: NSObject, WCSessionDelegate {
+class TravelService: NSObject {
   let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
   fileprivate let apiService: ApiService
   fileprivate let locationService: LocationService
@@ -37,7 +37,7 @@ class TravelService: NSObject, WCSessionDelegate {
   private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
   private let nextAdviceVariable = Variable<Advice?>(nil)
   private(set) var nextAdviceObservable: Observable<Advice?>!
-  private let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
+  fileprivate let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
   private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
   private let mostUsedStationsVariable = Variable<[Station]>([])
   private(set) var mostUsedStationsObservable: Observable<[Station]>!
@@ -63,18 +63,6 @@ class TravelService: NSObject, WCSessionDelegate {
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
   }
   
-  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    /* stub */
-  }
-  
-  func sessionDidBecomeInactive(_ session: WCSession) {
-    /* stub */
-  }
-  
-  open func sessionDidDeactivate(_ session: WCSession) {
-    /* stub */
-  }
-  
   func attach() {
 
     session.delegate = self
@@ -98,7 +86,7 @@ class TravelService: NSObject, WCSessionDelegate {
 
     App.geofenceService.geofenceObservable?.asObservable()
       .observeOn(MainScheduler.asyncInstance)
-      .filter { $0.type != .TussenStation }
+      .filter { $0.type != .tussenStation }
       .subscribe(onNext: { geofence in
         _ = self.setStation(.from, stationName: geofence.stationName)
       }).addDisposableTo(disposeBag)
@@ -368,14 +356,6 @@ class TravelService: NSObject, WCSessionDelegate {
     NotificationCenter.default.removeObserver(self)
   }
 
-  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
-      return
-    }
-
-    replyHandler(data)
-  }
-
   func setCurrentAdviceOnScreen(advice: Advice?) {
     currentAdviceOnScreenVariable.value = advice
   }
@@ -386,5 +366,31 @@ class TravelService: NSObject, WCSessionDelegate {
 
   func find(stationNameContains: String) -> Promise<[Station], Error> {
     return dataStore.find(stationNameContains: stationNameContains)
+  }
+}
+
+extension TravelService: WCSessionDelegate {
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    /* stub */
+  }
+
+  func sessionDidBecomeInactive(_ session: WCSession) {
+    /* stub */
+  }
+
+  open func sessionDidDeactivate(_ session: WCSession) {
+    /* stub */
+  }
+
+  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
+      return
+    }
+
+    replyHandler(data)
+  }
+
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    print("didReceiveApplicationContext: \(applicationContext)")
   }
 }

@@ -25,12 +25,10 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
     minimumLineSpacing = 0
     minimumInteritemSpacing = 0
   }
-
-
 }
 
 class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+  
   var advices: Advices {
     didSet {
       assert(Thread.isMainThread)
@@ -68,6 +66,8 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.adviceCell, for: indexPath)!
 
     cell.advice = advices[indexPath.row]
+
+    cell.renderTimer()
 
     return cell
   }

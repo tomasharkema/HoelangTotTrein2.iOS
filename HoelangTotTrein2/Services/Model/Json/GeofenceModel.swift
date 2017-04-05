@@ -9,11 +9,11 @@
 import Foundation
 
 enum GeofenceType: String {
-  case Start = "start"
-  case Overstap = "overstap"
-  case End = "end"
+  case start = "start"
+  case overstap = "overstap"
+  case end = "end"
 
-  case TussenStation = "tussenstation"
+  case tussenStation = "tussenstation"
 }
 
 struct GeofenceModel: Equatable {
