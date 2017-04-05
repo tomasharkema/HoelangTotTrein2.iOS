@@ -72,6 +72,9 @@ class TickerViewController: ViewController {
         }
         controller.dataSource?.advices = advices
 
+        DispatchQueue.main.async { [weak self] in
+          self?.notifyCurrentAdvice()
+        }
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdvicesObservable
@@ -116,29 +119,8 @@ class TickerViewController: ViewController {
       }).addDisposableTo(disposeBag)
 
     collectionView.rx.didScroll
-      .map { [weak self] _ -> Advice? in // calculate middle cell
-        guard let cv = self?.collectionView, let view = self?.view else {
-          return nil
-        }
-
-        let center = view.convert(view.center, to: cv)
-        guard let indexPath = cv.indexPathForItem(at: center) else {
-          return nil
-        }
-        let cell = cv.cellForItem(at: indexPath)
-        return (cell as? AdviceCell)?.advice
-      }
-      .filterOptional()
-      .subscribe(onNext: { [weak self] advice in
-        UserDefaults.currentAdviceHash = advice.hashValue
-        _ = App.travelService.currentAdvicesObservable
-          .single()
-          .filterOptional()
-          .subscribe(onNext: { [weak self] advices in
-            let index = advices.enumerated().first { $0.element == advice }
-            App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
-            self?.updateTickerView(index?.offset ?? 0, advices: advices)
-          })
+      .subscribe(onNext: { [weak self] _ in
+        self?.notifyCurrentAdvice()
       }).addDisposableTo(disposeBag)
 
     render()
@@ -284,6 +266,31 @@ class TickerViewController: ViewController {
   }
 
   fileprivate var _indicatorStackViewCache = [Int: UIView]()
+
+  private var _currentAdvice: Advice? = nil
+  private func notifyCurrentAdvice() -> Advice? {
+
+    let center = view.convert(view.center, to: collectionView)
+    guard let indexPath = collectionView.indexPathForItem(at: center), let advice = (collectionView.cellForItem(at: indexPath) as? AdviceCell)?.advice else {
+      return nil
+    }
+
+    if _currentAdvice == advice {
+      return advice
+    }
+
+    UserDefaults.currentAdviceHash = advice.hashValue
+    _ = App.travelService.currentAdvicesObservable
+      .single()
+      .filterOptional()
+      .subscribe(onNext: { [weak self] advices in
+        let index = advices.enumerated().first { $0.element == advice }
+        App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
+        self?.updateTickerView(index?.offset ?? 0, advices: advices)
+      })
+
+    return advice
+  }
 }
 
 extension TickerViewController {
@@ -318,7 +325,9 @@ extension TickerViewController {
       view.isHidden = false
 
       let bgColor: UIColor
-      if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
+      if idx == i && !element.isOngoing && element.hashValue == UserDefaults.currentAdviceHash {
+        bgColor = UIColor.white.withAlphaComponent(0.2)
+      } else if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor()
       } else if idx == i {
         bgColor = UIColor.white

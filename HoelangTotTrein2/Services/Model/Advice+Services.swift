@@ -36,7 +36,7 @@ extension Advice {
     return (status == .VolgensPlan ||
       status == .Gewijzigd ||
       status == .Vertraagd ||
-      status == .Nieuw) && vertrek.actualDate.timeIntervalSince(Date()) > 0
+      status == .Nieuw) && vertrek.actualDate > Date()
   }
 
   var startStation: String? {

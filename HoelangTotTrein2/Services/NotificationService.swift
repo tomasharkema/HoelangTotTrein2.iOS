@@ -17,7 +17,7 @@ class NotificationService {
     self.geofenceService = geofenceService
   }
 
-  fileprivate func fireNotification(_ title: String, body: String, userInfo: [String: Any]?) {
+  fileprivate func fireNotification(_ title: String, body: String, category: String?, userInfo: [String: Any]?) {
     let notification = UILocalNotification()
     notification.alertTitle = title
     notification.alertBody = body
@@ -26,7 +26,7 @@ class NotificationService {
     notification.alertAction = "Show"
 
     notification.userInfo = userInfo
-    notification.category = userInfo == nil ? nil : "nextStationNotification"
+    notification.category = category
 
     UIApplication.shared.presentLocalNotificationNow(notification)
   }
@@ -36,6 +36,7 @@ class NotificationService {
     let difference = Date(timeIntervalSince1970: offset - 60*60)
     return difference.toString(format: .custom("mm:ss"))
   }
+
   //TODO: FIX OLD AND NEW GEOFENCE MODEL!!
   fileprivate func notifyForGeofenceModel(_ oldModel: GeofenceModel, _ updatedModel: GeofenceModel? = nil) {
     assert(Thread.isMainThread)
@@ -45,7 +46,9 @@ class NotificationService {
     switch oldModel.type {
     case .Start:
       let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
-      fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", userInfo: oldModel.encodeJson())
+      var fixedUserInfo = oldModel.encodeJson()
+      fixedUserInfo.removeValue(forKey: "toStop")
+      fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", category: "startStationNotification", userInfo: fixedUserInfo)
 
     case .TussenStation:
       let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSince(Date()) ?? 0
@@ -55,10 +58,10 @@ class NotificationService {
 
     case .Overstap:
       let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
-      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", userInfo: ["geofenceModel": oldModel.encodeJson()])
+      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
 
     case .End:
-      fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", userInfo: nil)
+      fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", category: nil, userInfo: nil)
     }
   }
 

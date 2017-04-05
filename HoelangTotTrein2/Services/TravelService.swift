@@ -208,7 +208,7 @@ class TravelService: NSObject, WCSessionDelegate {
     let correctedAdviceRequest: Promise<AdviceRequest, Error>
     if let pickerFrom = UserDefaults.fromStationByPickerCode,
       let pickerTo = UserDefaults.toStationByPickerCode,
-      /*!userInput &&*/ pickerTo == adviceRequest.from?.code {
+      pickerTo == adviceRequest.from?.code {
 
       correctedAdviceRequest = whenBoth(dataStore.find(stationCode: pickerFrom), dataStore.find(stationCode: pickerTo))
         .then {
@@ -299,7 +299,7 @@ class TravelService: NSObject, WCSessionDelegate {
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
     let advices = advices.filter {
-      return $0.isOngoing
+      return $0.isOngoing || $0.hashValue == UserDefaults.currentAdviceHash
     }
 
     if let firstAdvice = advices.first {
