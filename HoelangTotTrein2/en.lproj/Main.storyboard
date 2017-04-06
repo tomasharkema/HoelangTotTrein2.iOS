@@ -308,6 +308,7 @@
                         <outlet property="backgroundView" destination="c9S-xq-hoZ" id="Jxm-Mq-T54"/>
                         <outlet property="collectionView" destination="Tk6-sK-doG" id="tvy-Oi-17o"/>
                         <outlet property="fromButton" destination="7QI-MK-n5W" id="bAS-hb-MuT"/>
+                        <outlet property="fromIndicatorLabel" destination="GHA-oj-5sp" id="OpY-pF-9D6"/>
                         <outlet property="fromLabel" destination="vSd-hH-zCl" id="aei-fc-RmM"/>
                         <outlet property="nextDelayLabel" destination="3g7-hR-0wc" id="7qC-Zf-y3z"/>
                         <outlet property="nextLabel" destination="g4Z-bj-1HT" id="wsP-B5-LL3"/>
@@ -315,6 +316,7 @@
                         <outlet property="nextViewBlur" destination="0u5-p5-7cS" id="ae3-Ne-Orf"/>
                         <outlet property="stackIndicatorView" destination="FQh-mb-YOP" id="gO1-xd-u28"/>
                         <outlet property="toButton" destination="h62-qK-cbE" id="nyz-tb-YoI"/>
+                        <outlet property="toIndicatorLabel" destination="CPg-ni-FAK" id="Fyf-F3-jPu"/>
                         <outlet property="toLabel" destination="GQs-MF-FBL" id="p4o-hK-qgI"/>
                         <segue destination="Qt9-SQ-BCh" kind="show" identifier="presentPickerSegue" id="yQh-vI-bUP"/>
                     </connections>

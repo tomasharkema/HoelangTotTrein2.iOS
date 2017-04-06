@@ -100,18 +100,3 @@ extension StationType {
     }
   }
 }
-
-extension FareStatus {
-  var alertDescription: String {
-    switch self {
-    case .Vertraagd:
-      return "delayed"
-    case .NietOptimaal:
-      return "not optimal"
-    case .VolgensPlan:
-      return "on time"
-    default:
-      return "somethings wrong"
-    }
-  }
-}

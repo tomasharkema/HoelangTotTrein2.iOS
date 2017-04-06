@@ -10,12 +10,13 @@ import UIKit
 
 class AdviceCell: UICollectionViewCell {
 
-  @IBOutlet weak var platformLabel: UILabel!
-  @IBOutlet weak var aankomstVertragingLabel: UILabel!
-  @IBOutlet weak var statusMessageLabel: UILabel!
-  @IBOutlet weak var minutesLabel: UILabel!
-  @IBOutlet weak var secondsLabel: UILabel!
-  @IBOutlet weak var stepsStackView: UIStackView!
+  @IBOutlet private weak var platformLabel: UILabel!
+  @IBOutlet private weak var aankomstVertragingLabel: UILabel!
+  @IBOutlet private weak var statusMessageLabel: UILabel!
+  @IBOutlet private weak var minutesLabel: UILabel!
+  @IBOutlet private weak var secondsLabel: UILabel!
+  @IBOutlet private weak var stepsStackView: UIStackView!
+  @IBOutlet private weak var tickerContainer: UIView!
 
   var advice: Advice? {
     didSet {
@@ -52,9 +53,18 @@ class AdviceCell: UICollectionViewCell {
       return
     }
 
-    statusMessageLabel.text = advice.status.alertDescription
-    platformLabel.text = advice.vertrekSpoor.map { "platform \($0)" }
-    aankomstVertragingLabel.text = advice.vertrekVertraging.map { "arrival: \($0)" }
+    let interval = advice.vertrek.actualDate.timeIntervalSince(Date())
+
+    if interval > 0 {
+      tickerContainer.alpha = 1
+      statusMessageLabel.text = advice.status.alertDescription
+    } else {
+      tickerContainer.alpha = 0.2
+      statusMessageLabel.text = R.string.localization.departed()
+    }
+
+    platformLabel.text = advice.vertrekSpoor.map { R.string.localization.platform($0) }
+    aankomstVertragingLabel.text = advice.vertrekVertraging.map { R.string.localization.arrival($0) }
     renderSteps(advice.stepModels)
   }
 
@@ -70,5 +80,20 @@ class AdviceCell: UICollectionViewCell {
       return view
     }
     views.forEach { [weak self] view in self?.stepsStackView.addArrangedSubview(view) }
+  }
+}
+
+extension FareStatus {
+  var alertDescription: String {
+    switch self {
+    case .Vertraagd:
+      return R.string.localization.delayed()
+    case .NietOptimaal:
+      return R.string.localization.notOptimal()
+    case .VolgensPlan:
+      return R.string.localization.onTime()
+    default:
+      return R.string.localization.somethingsWrong()
+    }
   }
 }

@@ -48,7 +48,10 @@ class NotificationService {
       let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
       var fixedUserInfo = oldModel.encodeJson()
       fixedUserInfo.removeValue(forKey: "toStop")
-      fireNotification("Arrived at Start Station", body: "You've arrived. Your train leaves in \(timeString) min on platform \(oldModel.fromStop?.spoor ?? "")", category: "startStationNotification", userInfo: fixedUserInfo)
+
+      fireNotification(
+        R.string.localization.startNotificationTitle(),
+        body: R.string.localization.startNotificationBody(timeString, oldModel.fromStop?.spoor ?? ""), category: "startStationNotification", userInfo: fixedUserInfo)
 
     case .tussenStation:
       let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSince(Date()) ?? 0
@@ -58,10 +61,10 @@ class NotificationService {
 
     case .overstap:
       let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
-      fireNotification("Change Platform", body: "Change to platform \(correctModel.fromStop?.spoor ?? ""). \(timeString) min to go", category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
+      fireNotification(R.string.localization.transferNotificationTitle(), body: R.string.localization.transferNotificationBody(correctModel.fromStop?.spoor ?? "", timeString), category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
 
     case .end:
-      fireNotification("Final stop", body: "Get off the train here. Please remember to check out.", category: nil, userInfo: nil)
+      fireNotification(R.string.localization.endNotificationTitle(), body: R.string.localization.endNotificationBody(), category: nil, userInfo: nil)
     }
   }
 

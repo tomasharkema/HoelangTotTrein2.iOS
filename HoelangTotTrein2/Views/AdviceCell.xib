@@ -207,6 +207,7 @@
                 <outlet property="secondsLabel" destination="8UC-DY-99O" id="UHf-bV-VNe"/>
                 <outlet property="statusMessageLabel" destination="uf3-dB-jZF" id="WlP-OG-Uip"/>
                 <outlet property="stepsStackView" destination="gIq-XJ-OkO" id="lOR-Kc-Hx2"/>
+                <outlet property="tickerContainer" destination="nuo-js-mkb" id="91o-oc-Ziq"/>
             </connections>
             <point key="canvasLocation" x="580" y="394.5"/>
         </collectionViewCell>

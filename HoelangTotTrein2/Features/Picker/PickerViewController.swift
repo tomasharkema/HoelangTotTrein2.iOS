@@ -19,9 +19,9 @@ extension PickerState: CustomStringConvertible {
   var description: String {
     switch self {
     case .from:
-      return "From"
+      return R.string.localization.from()
     case .to:
-      return "To"
+      return R.string.localization.to()
     }
   }
 }
@@ -61,7 +61,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     currentStation.text = state.description
 
-    searchField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
+    searchField.attributedPlaceholder = NSAttributedString(string: R.string.localization.search(), attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
 
     App.travelService.getCloseStations()
       .dispatchMain()
@@ -152,15 +152,15 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
     if isSearching {
-      return "Search results"
+      return R.string.localization.searchResults()
     }
 
     if section == 0 {
-      return "Recently Used"
+      return R.string.localization.recentlyUsed()
     } else if section == 1 {
-      return "Nearby"
+      return R.string.localization.nearby()
     } else {
-      return "Stations"
+      return R.string.localization.stations()
     }
   }
 

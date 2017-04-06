@@ -55,6 +55,7 @@ class TravelService: NSObject {
   private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
   var timer: Timer?
+  var departureTimer: Timer?
 
   init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
     self.apiService = apiService
@@ -119,15 +120,17 @@ class TravelService: NSObject {
           }
       })
 
-    _ = currentAdviceOnScreenVariable.asObservable().filterOptional().debounce(3, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] advice in
-      guard let service = self else {
-        return
-      }
+    _ = currentAdviceOnScreenVariable.asObservable()
+      .filterOptional()
+      .throttle(3, scheduler: MainScheduler.asyncInstance)
+      .subscribe(onNext: { advice in
 
-      service.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
-      let complicationUpdate = service.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-      print(complicationUpdate)
-    })
+        self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
+
+        self.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
+        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+        print(complicationUpdate)
+      })
 
     _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
 
@@ -156,10 +159,21 @@ class TravelService: NSObject {
   }
 
   func startTimer() {
-    if timer == nil {
-      timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+    guard timer == nil else {
+      return
     }
+
+    timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+
     tick()
+  }
+
+  func startDepartureTimer(for time: TimeInterval) {
+    guard departureTimer == nil, time > 1 else {
+      return
+    }
+
+    departureTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
   }
 
   func stopTimer() {

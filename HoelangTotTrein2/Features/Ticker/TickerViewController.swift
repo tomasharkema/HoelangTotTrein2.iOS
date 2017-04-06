@@ -37,6 +37,8 @@ class TickerViewController: ViewController {
   @IBOutlet private weak var fromLabel: UILabel!
   @IBOutlet private weak var toButton: UIButton!
   @IBOutlet private weak var toLabel: UILabel!
+  @IBOutlet private weak var fromIndicatorLabel: UILabel!
+  @IBOutlet private weak var toIndicatorLabel: UILabel!
 
   @IBOutlet private weak var collectionView: UICollectionView!
   private var dataSource: TickerDataSource?
@@ -50,6 +52,9 @@ class TickerViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     dataSource = TickerDataSource(advices: [], collectionView: collectionView)
+
+    fromIndicatorLabel.text = R.string.localization.fromStation()
+    toIndicatorLabel.text = R.string.localization.toStation()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -119,13 +124,13 @@ class TickerViewController: ViewController {
         }
         self?.fromStation = adviceRequest.from
         self?.toStation = adviceRequest.to
-        self?.fromLabel.text = adviceRequest.from?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
+        self?.fromLabel.text = adviceRequest.from?.name ?? R.string.localization.select()
         self?.toLabel.text = adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
       }).addDisposableTo(disposeBag)
 
     collectionView.rx.didScroll
       .subscribe(onNext: { [weak self] _ in
-        self?.notifyCurrentAdvice()
+        _ = self?.notifyCurrentAdvice()
       }).addDisposableTo(disposeBag)
 
     render()
