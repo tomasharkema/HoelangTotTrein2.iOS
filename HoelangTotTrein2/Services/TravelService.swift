@@ -17,20 +17,32 @@ enum TravelServiceError: Error {
   case notChanged
 }
 
+enum LoadingState<ValueType> {
+  case loaded(value: ValueType)
+  case loading
+
+  var value: ValueType? {
+    switch self {
+    case .loading:
+      return nil
+    case .loaded(let value):
+      return value
+    }
+  }
+}
+
 class TravelService: NSObject {
   let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
   fileprivate let apiService: ApiService
   fileprivate let locationService: LocationService
   private let dataStore: DataStore
 
-  fileprivate var disposeBag = DisposeBag()
-
   let session = WCSession.default()
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
   private(set) var currentAdviceObservable: Observable<Advice?>!
-  private let currentAdvicesVariable = Variable<Advices?>(nil)
-  private(set) var currentAdvicesObservable: Observable<Advices?>!
+  private let currentAdvicesVariable = Variable<LoadingState<Advices>>(.loading)
+  private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
   private let stationsVariable = Variable<Stations?>(nil)
   private(set) var stationsObservable: Observable<Stations?>!
   private let firstAdviceRequestVariable = Variable<AdviceRequest?>(nil)
@@ -68,7 +80,7 @@ class TravelService: NSObject {
     session.delegate = self
     session.activate()
 
-    firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
+    _ = firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -81,17 +93,17 @@ class TravelService: NSObject {
         UserDefaults.toStationCode = to.code
       }
 
-      _ = self.fetchCurrentAdvices(adviceRequest)
-    }).addDisposableTo(disposeBag)
+      _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
+    })
 
-    App.geofenceService.geofenceObservable?.asObservable()
+    _ = App.geofenceService.geofenceObservable?.asObservable()
       .observeOn(MainScheduler.asyncInstance)
       .filter { $0.type != .tussenStation }
       .subscribe(onNext: { geofence in
         _ = self.setStation(.from, stationName: geofence.stationName)
-      }).addDisposableTo(disposeBag)
+      })
 
-    stationsObservable.asObservable()
+    _ = stationsObservable.asObservable()
       .single()
       .subscribe(onNext: { _ in
         self.getCurrentAdviceRequest()
@@ -105,9 +117,9 @@ class TravelService: NSObject {
               self.notifyOfNewAdvices(advicesAndRequest.advices)
             }
           }
-      }).addDisposableTo(disposeBag)
+      })
 
-    currentAdviceOnScreenVariable.asObservable().filterOptional().debounce(3, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] advice in
+    _ = currentAdviceOnScreenVariable.asObservable().filterOptional().debounce(3, scheduler: MainScheduler.asyncInstance).subscribe(onNext: { [weak self] advice in
       guard let service = self else {
         return
       }
@@ -115,17 +127,32 @@ class TravelService: NSObject {
       service.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
       let complicationUpdate = service.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
       print(complicationUpdate)
-    }).addDisposableTo(disposeBag)
+    })
 
-    currentAdvicesObservable.asObservable().filterOptional().subscribe(onNext: { [weak self] advices in
-      guard let service = self else {
+    _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
+
+      guard case .loaded(let advices) = advices else {
         return
       }
 
-      let element = advices.enumerated().filter { $0.element.hashValue == UserDefaults.currentAdviceHash }.first?.element ?? advices.first
+      let element = advices.enumerated()
+        .first { $0.element.hashValue == UserDefaults.currentAdviceHash }?
+        .element ?? advices.first
 
-      service.currentAdviceOnScreenVariable.value = element
-    }).addDisposableTo(disposeBag)
+      self.currentAdviceOnScreenVariable.value = element
+    })
+
+    self.getCurrentAdviceRequest()
+      .dispatch(on: self.queue)
+      .then { adviceRequest in
+        if self.firstAdviceRequestVariable.value != adviceRequest {
+          self.firstAdviceRequestVariable.value = adviceRequest
+        }
+
+        if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+          self.notifyOfNewAdvices(advicesAndRequest.advices)
+        }
+      }
   }
 
   func startTimer() {
@@ -144,7 +171,7 @@ class TravelService: NSObject {
     getCurrentAdviceRequest()
       .dispatch(on: queue)
       .then {
-        _ = self.fetchCurrentAdvices($0)
+        _ = self.fetchCurrentAdvices(for: $0, shouldEmitLoading: false)
       }
   }
 
@@ -183,7 +210,7 @@ class TravelService: NSObject {
           .some($0)
         }
     } ?? Promise(value: nil)
-
+    
     return whenBoth(from, to)
       .dispatch(on: queue)
       .map {
@@ -273,7 +300,11 @@ class TravelService: NSObject {
       }
   }
 
-  func fetchCurrentAdvices(_ adviceRequest: AdviceRequest? = nil) -> Promise<AdvicesResult, Error> {
+  func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
+    if shouldEmitLoading {
+      currentAdvicesVariable.value = .loading
+    }
+
     return (adviceRequest.map { Promise(value: $0) } ?? getCurrentAdviceRequest())
       .dispatch(on: queue)
       .flatMap { self.apiService.advices($0) }
@@ -300,9 +331,9 @@ class TravelService: NSObject {
         nextAdviceVariable.value = secondAdvice
       }
     }
-    if currentAdvicesVariable.value != advices {
+    if currentAdvicesVariable.value.value != advices {
       session.sendEvent(TravelEvent.advicesChange(advice: advices))
-      currentAdvicesVariable.value = advices
+      currentAdvicesVariable.value = .loaded(value: advices)
     }
   }
 

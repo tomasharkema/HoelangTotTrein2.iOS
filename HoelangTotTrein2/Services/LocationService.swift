@@ -76,7 +76,9 @@ class LocationService: NSObject, CLLocationManagerDelegate {
       return Promise(value: location)
     }
 
-    currentLocationPromise = PromiseSource<CLLocation, Error>()
+    if currentLocationPromise?.promise.result != nil || currentLocationPromise == nil {
+      currentLocationPromise = PromiseSource<CLLocation, Error>()
+    }
     manager.requestLocation()
     return currentLocationPromise!.promise
   }

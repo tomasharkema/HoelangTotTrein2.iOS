@@ -113,9 +113,11 @@ class GeofenceService: NSObject {
     let obs = travelService.currentAdvicesObservable
       .asObservable()
       .observeOn(scheduler)
-      .filterOptional()
-      .map { advices -> StationGeofences? in
-        self.geofencesFromAdvices(advices)
+      .map { advicesLoading -> StationGeofences? in
+        guard let advices = advicesLoading.value else {
+          return nil
+        }
+        return self.geofencesFromAdvices(advices)
       }
       .filterOptional()
 

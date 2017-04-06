@@ -31,6 +31,8 @@ class TickerViewController: ViewController {
   @IBOutlet private weak var backgroundView: UIImageView!
   @IBOutlet fileprivate weak var stackIndicatorView: UIStackView!
 
+  @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+
   @IBOutlet private weak var fromButton: UIButton!
   @IBOutlet private weak var fromLabel: UILabel!
   @IBOutlet private weak var toButton: UIButton!
@@ -66,26 +68,29 @@ class TickerViewController: ViewController {
 
     App.travelService.currentAdvicesObservable.asObservable()
       .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] advices in
-        guard let advices = advices, let controller = self else {
+      .subscribe(onNext: { [weak self] advicesLoading in
+        guard let controller = self else {
           return
         }
+
+        let advices: Advices
+        switch (advicesLoading) {
+        case .loaded(let ad):
+          self?.activityIndicator.stopAnimating()
+          advices = ad
+        case .loading:
+          self?.activityIndicator.startAnimating()
+          advices = []
+        }
+
         controller.dataSource?.advices = advices
 
         DispatchQueue.main.async { [weak self] in
           self?.notifyCurrentAdvice()
         }
-      }).addDisposableTo(disposeBag)
 
-    App.travelService.currentAdvicesObservable
-      .asObservable()
-      .filter { $0 != nil }
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] in
-        let advice = self?.scrollToPersistedAdvice($0!)
-        let index = $0!.enumerated().filter { $0.element == advice }.first
-        App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
-        self?.updateTickerView(index?.offset ?? 0, advices: $0!)
+        let advice = self?.scrollToPersistedAdvice(advices)
+        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable.asObservable()
@@ -279,17 +284,24 @@ class TickerViewController: ViewController {
       return advice
     }
 
+    _currentAdvice = advice
+
     UserDefaults.currentAdviceHash = advice.hashValue
     _ = App.travelService.currentAdvicesObservable
       .single()
+      .map { $0.value }
       .filterOptional()
       .subscribe(onNext: { [weak self] advices in
-        let index = advices.enumerated().first { $0.element == advice }
-        App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
-        self?.updateTickerView(index?.offset ?? 0, advices: advices)
+        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
       })
 
     return advice
+  }
+
+  private func updateCurrentAdviceOnScreen(forAdvice advice: Advice?, in advices: Advices) {
+    let index = advices.enumerated().filter { $0.element == advice }.first
+    App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
+    updateTickerView(index?.offset ?? 0, advices: advices)
   }
 }
 

@@ -94,7 +94,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="to:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPg-ni-FAK">
-                                            <rect key="frame" x="62" y="67.5" width="42.5" height="20.5"/>
+                                            <rect key="frame" x="62" y="67" width="42.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -252,6 +252,9 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-uK-OdY">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -262,6 +265,7 @@
                             <constraint firstItem="NFI-zy-KqB" firstAttribute="leading" secondItem="c9S-xq-hoZ" secondAttribute="leading" id="8YW-J6-0iK"/>
                             <constraint firstItem="L3a-l2-yVn" firstAttribute="leading" secondItem="4gG-lj-dDF" secondAttribute="leading" id="Bmv-3a-naf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FQh-mb-YOP" secondAttribute="trailing" id="Dtz-T5-klz"/>
+                            <constraint firstItem="A7g-uK-OdY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="E9H-IU-OaK"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="73i-WU-wxg" secondAttribute="bottom" id="HBc-6b-Fjz"/>
                             <constraint firstItem="73i-WU-wxg" firstAttribute="top" secondItem="D1i-M9-RNT" secondAttribute="bottom" id="IIe-I6-eKB"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="D1i-M9-RNT" secondAttribute="bottom" id="KzC-UY-hDi"/>
@@ -286,6 +290,7 @@
                             <constraint firstItem="D1i-M9-RNT" firstAttribute="leading" secondItem="0u5-p5-7cS" secondAttribute="leading" id="rI2-WW-AdF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="c9S-xq-hoZ" secondAttribute="bottom" id="rfi-Se-E2u"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Tk6-sK-doG" secondAttribute="bottom" id="sQC-Dl-6y0"/>
+                            <constraint firstItem="A7g-uK-OdY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vUo-45-al1"/>
                             <constraint firstAttribute="trailing" secondItem="4gG-lj-dDF" secondAttribute="trailing" id="wY8-uy-bWH"/>
                         </constraints>
                         <variation key="default">
@@ -299,6 +304,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="A7g-uK-OdY" id="4eP-3a-dDw"/>
                         <outlet property="backgroundView" destination="c9S-xq-hoZ" id="Jxm-Mq-T54"/>
                         <outlet property="collectionView" destination="Tk6-sK-doG" id="tvy-Oi-17o"/>
                         <outlet property="fromButton" destination="7QI-MK-n5W" id="bAS-hb-MuT"/>

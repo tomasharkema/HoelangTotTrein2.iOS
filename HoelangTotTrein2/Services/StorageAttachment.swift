@@ -56,6 +56,7 @@ class StorageAttachment {
     travelService.currentAdvicesObservable
       .asObservable()
       .observeOn(MainScheduler.asyncInstance)
+      .map { $0.value }
       .filterOptional()
       .subscribe(onNext: { advices in
         self.travelService.getCurrentAdviceRequest()
