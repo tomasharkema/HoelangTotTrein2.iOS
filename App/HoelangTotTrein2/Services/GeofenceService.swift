@@ -11,6 +11,7 @@ import CoreLocation
 import RxSwift
 import RxCocoa
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -130,7 +131,7 @@ class GeofenceService: NSObject {
       .observeOn(scheduler)
       .subscribe(onNext: { stationGeofences in
         self.resetGeofences()
-        UserDefaults.geofenceInfo = stationGeofences
+        self.dataStore.geofenceInfo = stationGeofences
         for (stationName, geo) in stationGeofences {
           self.updateGeofenceWithStationName(stationName, geofenceModels: geo)
         }

@@ -93,6 +93,8 @@ extension FareStatus {
       return R.string.localization.notOptimal()
     case .VolgensPlan:
       return R.string.localization.onTime()
+    case .Gewijzigd:
+      return R.string.localization.changed()
     default:
       return R.string.localization.somethingsWrong()
     }

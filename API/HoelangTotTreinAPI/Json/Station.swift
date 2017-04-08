@@ -50,3 +50,5 @@ extension Station {
     return name.hashValue
   }
 }
+
+public typealias Stations = [Station]

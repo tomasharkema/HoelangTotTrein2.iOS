@@ -22,7 +22,8 @@
 "delayed" = "vertraagd";
 "notOptimal" = "niet optimaal";
 "onTime" = "op tijd";
-"somethings wrong" = "er is iets mis 🤷";
+"changed" = "alternatief";
+"somethingsWrong" = "er is iets mis 🤷";
 
 "startNotificationTitle" = "Gearriveerd op Start Station";
 "startNotificationBody" = "Je trein vertrekt over  %@ min op spoor %@";

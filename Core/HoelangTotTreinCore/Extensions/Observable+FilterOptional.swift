@@ -10,20 +10,20 @@
 import Foundation
 import RxSwift
 
-protocol OptionalType {
+public protocol OptionalType {
   associatedtype T
   func intoOptional() -> T?
 }
 
 extension Optional : OptionalType {
-  func intoOptional() -> Wrapped? {
+  public func intoOptional() -> Wrapped? {
     return self.flatMap {$0}
   }
 }
 
 
 extension Observable where Element: OptionalType {
-  func filterOptional() -> Observable<Element.T> {
+  public func filterOptional() -> Observable<Element.T> {
     return self.map { $0.intoOptional() }
       .filter { $0 != nil }
       .map { $0! }

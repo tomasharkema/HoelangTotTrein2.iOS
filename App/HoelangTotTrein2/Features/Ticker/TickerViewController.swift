@@ -11,6 +11,7 @@ import SegueManager
 import AFDateHelper
 import RxSwift
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 class TickerViewController: ViewController {
 
@@ -63,7 +64,7 @@ class TickerViewController: ViewController {
 
     startTimer()
 
-    updateTickerView(0, advices: [])
+    updateTickerView(0, current: nil, advices: [])
 
     collectionView.backgroundView = UIView()
     collectionView.backgroundColor = UIColor.clear
@@ -92,11 +93,16 @@ class TickerViewController: ViewController {
         controller.dataSource?.advices = advices
 
         DispatchQueue.main.async { [weak self] in
-          self?.notifyCurrentAdvice()
+          _ = self?.notifyCurrentAdvice()
         }
 
-        let advice = self?.scrollToPersistedAdvice(advices)
-        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
+        _ = App.travelService.currentAdviceObservable
+          .single()
+          .subscribe(onNext: { [weak self] advice in
+            guard let advice = advice else { return }
+            self?.scrollToPersistedAdvice(advices, currentAdviceHash: advice.hashValue)
+            self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
+          })
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable.asObservable()
@@ -262,18 +268,14 @@ class TickerViewController: ViewController {
     return .portrait
   }
 
-  fileprivate func scrollToPersistedAdvice(_ advices: Advices) -> Advice? {
-
-    let persistedHash = UserDefaults.currentAdviceHash
-
+  fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceHash: Int) {
     let adviceAndIndexOpt = advices.enumerated().lazy
-      .first{ $0.element.hashValue == persistedHash }
+      .first{ $0.element.hashValue == currentAdviceHash }
     guard let adviceAndIndex = adviceAndIndexOpt else {
-      return nil
+      return
     }
 
     collectionView.scrollToItem(at: IndexPath(row: adviceAndIndex.offset, section: 0), at: .top, animated: false)
-    return adviceAndIndex.element
   }
 
   fileprivate var _indicatorStackViewCache = [Int: UIView]()
@@ -282,7 +284,9 @@ class TickerViewController: ViewController {
   private func notifyCurrentAdvice() -> Advice? {
 
     let center = view.convert(view.center, to: collectionView)
-    guard let indexPath = collectionView.indexPathForItem(at: center), let advice = (collectionView.cellForItem(at: indexPath) as? AdviceCell)?.advice else {
+    guard let indexPath = collectionView.indexPathForItem(at: center),
+      let advice = (collectionView.cellForItem(at: indexPath) as? AdviceCell)?.advice
+      else {
       return nil
     }
 
@@ -292,7 +296,6 @@ class TickerViewController: ViewController {
 
     _currentAdvice = advice
 
-    UserDefaults.currentAdviceHash = advice.hashValue
     _ = App.travelService.currentAdvicesObservable
       .single()
       .map { $0.value }
@@ -305,9 +308,9 @@ class TickerViewController: ViewController {
   }
 
   private func updateCurrentAdviceOnScreen(forAdvice advice: Advice?, in advices: Advices) {
-    let index = advices.enumerated().filter { $0.element == advice }.first
-    App.travelService.setCurrentAdviceOnScreen(advice: index?.element)
-    updateTickerView(index?.offset ?? 0, advices: advices)
+    let index = advices.enumerated().first { $0.element == advice }
+    App.travelService.setCurrentAdviceOnScreen(advice: advice)
+    updateTickerView(index?.offset ?? 0, current: advice, advices: advices)
   }
 }
 
@@ -326,7 +329,7 @@ extension TickerViewController {
     return view
   }
 
-  fileprivate func updateTickerView(_ i: Int, advices: Advices) {
+  fileprivate func updateTickerView(_ i: Int, current: Advice?, advices: Advices) {
     assert(Thread.isMainThread, "call from main thread")
     advices.enumerated().forEach { (idx, element) in
 
@@ -343,7 +346,7 @@ extension TickerViewController {
       view.isHidden = false
 
       let bgColor: UIColor
-      if idx == i && !element.isOngoing && element.hashValue == UserDefaults.currentAdviceHash {
+      if idx == i && !element.isOngoing && element == current {
         bgColor = UIColor.white.withAlphaComponent(0.2)
       } else if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor()

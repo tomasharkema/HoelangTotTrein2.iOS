@@ -10,14 +10,10 @@ import UIKit
 import CoreData
 import RxSwift
 import HoelangTotTreinAPI
-
-enum PickerState {
-  case from
-  case to
-}
+import HoelangTotTreinCore
 
 extension PickerState: CustomStringConvertible {
-  var description: String {
+  public var description: String {
     switch self {
     case .from:
       return R.string.localization.from()
@@ -26,7 +22,6 @@ extension PickerState: CustomStringConvertible {
     }
   }
 }
-
 
 class PickerViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 

@@ -33,22 +33,22 @@ enum ModalityType {
 }
 
 extension Advice {
-  var vertrekSpoor: String? {
+  public var vertrekSpoor: String? {
     return reisDeel.first?.stops.first?.spoor
   }
 
-  var isOngoing: Bool {
+  public var isOngoing: Bool {
     return (status == .VolgensPlan ||
       status == .Gewijzigd ||
       status == .Vertraagd ||
       status == .Nieuw) && vertrek.actualDate > Date()
   }
 
-  var startStation: String? {
+  public var startStation: String? {
     return self.reisDeel.first?.stops.first?.name
   }
 
-  var endStation: String? {
+  public var endStation: String? {
     return self.reisDeel.last?.stops.last?.name
   }
 }
@@ -71,20 +71,18 @@ public func ==<T: Collection>(lhs: T, rhs: T) -> Bool {
   return String(describing: lhs) == String(describing: rhs)
 }
 
-typealias Stations = [Station]
-
 extension FareTime {
-  var plannedDate: Date {
+  public var plannedDate: Date {
     return Date(timeIntervalSince1970: planned/1000)
   }
 
-  var actualDate: Date {
+  public var actualDate: Date {
     return Date(timeIntervalSince1970: actual/1000)
   }
 }
 
 extension Stop {
-  var timeDate: Date {
+  public var timeDate: Date {
     return Date(timeIntervalSince1970: time/1000)
   }
 }

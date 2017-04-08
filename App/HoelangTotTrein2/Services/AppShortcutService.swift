@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 class AppShortcutService {
   private let travelService: TravelService

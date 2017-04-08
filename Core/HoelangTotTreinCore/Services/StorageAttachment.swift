@@ -10,9 +10,13 @@ import Foundation
 import CoreData
 import RxSwift
 import Promissum
-import HoelangTotTreinAPI
+#if os(watchOS)
+  import HoelangTotTreinAPIWatch
+#elseif os(iOS)
+  import HoelangTotTreinAPI
+#endif
 
-class StorageAttachment {
+public class StorageAttachment {
   static let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
   let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   let travelService: TravelService
@@ -21,7 +25,7 @@ class StorageAttachment {
   private let dataStore: DataStore
 
 
-  init (travelService: TravelService, dataStore: DataStore) {
+  public init(travelService: TravelService, dataStore: DataStore) {
     self.travelService = travelService
     self.dataStore = dataStore
   }
@@ -30,7 +34,7 @@ class StorageAttachment {
     return dataStore.findOrUpdate(stations: stations)
   }
 
-  func attach() {
+  public func attach() {
 
     travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
       switch $0 {
@@ -100,6 +104,6 @@ class StorageAttachment {
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
     assert(!Thread.isMainThread, "Must not be main thread")
-    UserDefaults.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
+    dataStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }

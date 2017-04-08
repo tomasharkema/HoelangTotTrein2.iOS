@@ -11,6 +11,7 @@ import CoreLocation
 import Promissum
 import RxSwift
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 struct SignificantLocation: Equatable {
   let location: CLLocation
@@ -21,7 +22,7 @@ func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
   return lhs.location == rhs.location
 }
 
-class LocationService: NSObject, CLLocationManagerDelegate {
+class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 
   let manager: CLLocationManager
 
@@ -97,7 +98,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
   }
 }
 
-extension LocationService {
+extension AppLocationService {
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     currentLocationPromise?.reject(error)
   }

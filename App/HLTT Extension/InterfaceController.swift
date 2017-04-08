@@ -32,6 +32,8 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var loadingLabel: WKInterfaceLabel!
   @IBOutlet var delayLabel: WKInterfaceLabel!
 
+  private let dataStore = AppDataStore()
+
   var refreshTimer: Timer?
   var oneMinuteToGoTimer: Timer?
 
@@ -58,7 +60,7 @@ class InterfaceController: WKInterfaceController {
   var previousAdvice: Advice?
 
   func adviceDidChange() {
-    guard let advice = getCurrentAdvice() else {
+    guard let advice = dataStore.getCurrentAdvice() else {
       loadingLabel.setHidden(false)
       tickerContainer.setHidden(true)
       return

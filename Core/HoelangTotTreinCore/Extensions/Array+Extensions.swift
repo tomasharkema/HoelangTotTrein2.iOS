@@ -9,14 +9,14 @@
 import Foundation
 
 extension Array {
-  subscript (safe index: Int) -> Element? {
+  public subscript (safe index: Int) -> Element? {
     return indices ~= index ? self[index] : nil
   }
 }
 
 
-prefix operator <!> {}
+prefix operator <!>
 
-prefix func <!> <T>(array: [T?]) -> [T] {
+public prefix func <!> <T>(array: [T?]) -> [T] {
   return array.filter{ $0 != nil }.map{ $0! }
 }

@@ -9,13 +9,18 @@
 import UIKit
 import RxSwift
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 class NotificationService {
-  let geofenceService: GeofenceService
+  private let geofenceService: GeofenceService
+  private let dataStore: DataStore
+  private let apiService: ApiService
   fileprivate let disposeBag = DisposeBag()
 
-  init(geofenceService: GeofenceService) {
+  init(geofenceService: GeofenceService, dataStore: DataStore, apiService: ApiService) {
     self.geofenceService = geofenceService
+    self.dataStore = dataStore
+    self.apiService = apiService
   }
 
   fileprivate func fireNotification(_ title: String, body: String, category: String?, userInfo: [String: Any]?) {
@@ -75,5 +80,25 @@ class NotificationService {
       .subscribe(onNext: { [weak self] geofenceModel in
         self?.notifyForGeofenceModel(geofenceModel)
       }).addDisposableTo(disposeBag)
+  }
+
+  func register(token deviceToken: Data) {
+    #if RELEASE
+      let env = "production"
+    #else
+      let env = "sandbox"
+    #endif
+    var token = ""
+    for i in 0..<deviceToken.count {
+      token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
+    }
+
+    apiService.registerForNotification(dataStore.userId, env: env, pushUUID: token)
+      .then {
+        print("ApiService did registerForNotification \($0)")
+      }
+      .trap {
+        print($0)
+    }
   }
 }

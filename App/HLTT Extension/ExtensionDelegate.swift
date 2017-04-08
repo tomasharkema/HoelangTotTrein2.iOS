@@ -9,34 +9,19 @@
 import WatchKit
 import WatchConnectivity
 import ClockKit
-
-#if os(watchOS)
-  import HoelangTotTreinAPIWatch
-#elseif os(iOS)
-  import HoelangTotTreinAPI
-#endif
+import HoelangTotTreinAPIWatch
+import HoelangTotTreinCoreWatch
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
-func getCurrentAdvice() -> Advice? {
-  let currentHash = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? UserDefaults.currentAdviceHash
-  let advices = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdvices ?? UserDefaults.persistedAdvices
-
-  let adviceOpt = advices?.filter {
-    $0.hashValue == currentHash && $0.isOngoing
-  }.first ?? advices?.filter {
-    $0.isOngoing
-  }.first
-
-  return adviceOpt
-}
+private let dataStore = AppDataStore()
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
-  let session = WCSession.default()
+  private let session = WCSession.default()
 
-  var cachedAdvices: [Advice] = UserDefaults.persistedAdvices ?? []
-  var cachedAdviceHash: Int? = UserDefaults.currentAdviceHash
+  var cachedAdvices: [Advice] = dataStore.persistedAdvices ?? []
+  var cachedAdviceHash: Int? = dataStore.currentAdviceHash
 
   func applicationDidFinishLaunching() {
     session.delegate = self
@@ -67,11 +52,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     switch event {
     case let .advicesChange(advice: advices):
       cachedAdvices = advices
-      UserDefaults.persistedAdvices = advices
+      dataStore.persistedAdvices = advices
 
     case let .currentAdviceChange(currentHash):
       cachedAdviceHash = currentHash
-      UserDefaults.currentAdviceHash = currentHash
+      dataStore.currentAdviceHash = currentHash
 
     }
 

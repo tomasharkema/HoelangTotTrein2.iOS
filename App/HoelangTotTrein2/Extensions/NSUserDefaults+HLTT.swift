@@ -15,7 +15,7 @@ import Statham
   import HoelangTotTreinAPI
 #endif
 
-struct Keys {
+private struct Keys {
   static let FromStationCodeKey = "FromStationCodeKey"
   static let ToStationCodeKey = "ToStationCodeKey"
   static let FromStationByPickerCodeKey = "FromStationByPickerCodeKey"
@@ -27,61 +27,62 @@ struct Keys {
   static let PersistedAdvices = "PersistedAdvices"
 }
 
-let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
+private let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
-extension Foundation.UserDefaults {
+extension AppDataStore {
+
   var fromStationCode: String? {
     get {
-      let fromCode = string(forKey: Keys.FromStationCodeKey)
+      let fromCode = UserDefaults.string(forKey: Keys.FromStationCodeKey)
       return fromCode
     }
     set {
-      set(newValue, forKey: Keys.FromStationCodeKey)
-      synchronize()
+      UserDefaults.set(newValue, forKey: Keys.FromStationCodeKey)
+      UserDefaults.synchronize()
     }
   }
 
   var toStationCode: String? {
     get {
-      let toCode = string(forKey: Keys.ToStationCodeKey)
+      let toCode = UserDefaults.string(forKey: Keys.ToStationCodeKey)
       return toCode
     }
     set {
-      set(newValue, forKey: Keys.ToStationCodeKey)
-      synchronize()
+      UserDefaults.set(newValue, forKey: Keys.ToStationCodeKey)
+      UserDefaults.synchronize()
     }
   }
 
   var fromStationByPickerCode: String? {
     get {
-      let fromCode = string(forKey: Keys.FromStationByPickerCodeKey)
+      let fromCode = UserDefaults.string(forKey: Keys.FromStationByPickerCodeKey)
       return fromCode
     }
     set {
-      set(newValue, forKey: Keys.FromStationByPickerCodeKey)
-      synchronize()
+      UserDefaults.set(newValue, forKey: Keys.FromStationByPickerCodeKey)
+      UserDefaults.synchronize()
     }
   }
 
   var toStationByPickerCode: String? {
     get {
-      let toCode = string(forKey: Keys.ToStationByPickerCodeKey)
+      let toCode = UserDefaults.string(forKey: Keys.ToStationByPickerCodeKey)
       return toCode
     }
     set {
-      set(newValue, forKey: Keys.ToStationByPickerCodeKey)
-      synchronize()
+      UserDefaults.set(newValue, forKey: Keys.ToStationByPickerCodeKey)
+      UserDefaults.synchronize()
     }
   }
 
   var userId: String {
     let returnedUserId: String
-    if let userId = string(forKey: Keys.UserIdKey) {
+    if let userId = UserDefaults.string(forKey: Keys.UserIdKey) {
       returnedUserId = userId
     } else {
       returnedUserId = UUID().uuidString
-      set(returnedUserId, forKey: Keys.UserIdKey)
-      synchronize()
+      UserDefaults.set(returnedUserId, forKey: Keys.UserIdKey)
+      UserDefaults.synchronize()
     }
     return returnedUserId
   }
@@ -121,7 +122,7 @@ extension Foundation.UserDefaults {
   fileprivate var geofenceInfoObject: [String: Any]? {
     get {
       assert(!Thread.isMainThread)
-      guard let data = object(forKey: Keys.GeofenceInfoKey) as? Data else {
+      guard let data = UserDefaults.object(forKey: Keys.GeofenceInfoKey) as? Data else {
         return nil
       }
 
@@ -136,8 +137,8 @@ extension Foundation.UserDefaults {
     set {
       assert(!Thread.isMainThread)
       if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        set(json, forKey: Keys.GeofenceInfoKey)
-        synchronize()
+        UserDefaults.set(json, forKey: Keys.GeofenceInfoKey)
+        UserDefaults.synchronize()
       }
     }
   }
@@ -166,7 +167,7 @@ extension Foundation.UserDefaults {
   fileprivate var persistedAdvicesAndRequestObject: [String: Any]? {
     get {
       assert(!Thread.isMainThread)
-      guard let data = object(forKey: Keys.PersistedAdvicesAndRequest) as? Data else {
+      guard let data = UserDefaults.object(forKey: Keys.PersistedAdvicesAndRequest) as? Data else {
         return nil
       }
 
@@ -186,8 +187,8 @@ extension Foundation.UserDefaults {
         }
 
         let json: Data = try JSONSerialization.data(withJSONObject: value, options: [])
-        set(json, forKey: Keys.PersistedAdvicesAndRequest)
-        synchronize()
+        UserDefaults.set(json, forKey: Keys.PersistedAdvicesAndRequest)
+        UserDefaults.synchronize()
       } catch {
         assertionFailure("ERROR: \(error)")
       }
@@ -196,13 +197,13 @@ extension Foundation.UserDefaults {
 
   var currentAdviceHash: Int? {
     get {
-      let value = integer(forKey: Keys.CurrentAdviceHash)
+      let value = UserDefaults.integer(forKey: Keys.CurrentAdviceHash)
       return value == 0 ? nil : value
     }
 
     set {
-      set(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
-      synchronize()
+      UserDefaults.set(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
+      UserDefaults.synchronize()
     }
   }
 
@@ -232,7 +233,7 @@ extension Foundation.UserDefaults {
   fileprivate var persistedAdvicesObject: [Any]? {
     get {
       assert(!Thread.isMainThread)
-      guard let data = object(forKey: Keys.PersistedAdvices) as? Data else {
+      guard let data = UserDefaults.object(forKey: Keys.PersistedAdvices) as? Data else {
         return nil
       }
 
@@ -247,8 +248,8 @@ extension Foundation.UserDefaults {
     set {
       assert(!Thread.isMainThread)
       if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        set(json, forKey: Keys.PersistedAdvices)
-        synchronize()
+        UserDefaults.set(json, forKey: Keys.PersistedAdvices)
+        UserDefaults.synchronize()
       }
     }
   }

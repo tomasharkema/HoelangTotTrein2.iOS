@@ -22,7 +22,9 @@
 "delayed" = "delayed";
 "notOptimal" = "not optimal";
 "onTime" = "on time";
-"somethings wrong" = "somethings wrong 🤷";
+"changed" = "changed";
+
+"somethingsWrong" = "somethings wrong 🤷";
 
 "startNotificationTitle" = "Arrived at Start Station";
 "startNotificationBody" = "Your train leaves in %@ min on platform %@";
@@ -32,3 +34,5 @@
 
 "endNotificationTitle" = "Final stop";
 "endNotificationBody" = "Get off the train here. Please remember to check out.";
+
+

@@ -8,7 +8,11 @@
 
 import UIKit
 import CoreLocation
-import HoelangTotTreinAPI
+#if os(watchOS)
+  import HoelangTotTreinAPIWatch
+#elseif os(iOS)
+  import HoelangTotTreinAPI
+#endif
 
 extension CLCircularRegion {
   var bounds: Bounds {
@@ -17,5 +21,11 @@ extension CLCircularRegion {
     let lonmin = center.longitude - radius
     let lonmax = center.longitude + radius
     return Bounds(latmin: latmin, latmax: latmax, lonmin: lonmin, lonmax: lonmax)
+  }
+}
+
+extension Coords {
+  public var location: CLLocation {
+    return CLLocation(latitude: lat, longitude: lon)
   }
 }

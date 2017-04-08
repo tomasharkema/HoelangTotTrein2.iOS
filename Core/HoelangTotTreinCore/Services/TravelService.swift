@@ -7,22 +7,26 @@
 //
 
 import Foundation
-import CoreData
+//import CoreData
 import CoreLocation
 import Promissum
 import RxSwift
-import WatchConnectivity
-import HoelangTotTreinAPI
+//import WatchConnectivity
+#if os(watchOS)
+  import HoelangTotTreinAPIWatch
+#elseif os(iOS)
+  import HoelangTotTreinAPI
+#endif
 
 enum TravelServiceError: Error {
   case notChanged
 }
 
-enum LoadingState<ValueType> {
+public enum LoadingState<ValueType> {
   case loaded(value: ValueType)
   case loading
 
-  var value: ValueType? {
+  public var value: ValueType? {
     switch self {
     case .loading:
       return nil
@@ -32,33 +36,39 @@ enum LoadingState<ValueType> {
   }
 }
 
-class TravelService: NSObject {
+public class TravelService: NSObject {
   let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
   fileprivate let apiService: ApiService
   fileprivate let locationService: LocationService
   private let dataStore: DataStore
 
-  let session = WCSession.default()
+//  let session = WCSession.default()
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
-  private(set) var currentAdviceObservable: Observable<Advice?>!
+  public private(set) var currentAdviceObservable: Observable<Advice?>!
+
   private let currentAdvicesVariable = Variable<LoadingState<Advices>>(.loading)
-  private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
+  public private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
+
   private let stationsVariable = Variable<Stations?>(nil)
-  private(set) var stationsObservable: Observable<Stations?>!
+  public private(set) var stationsObservable: Observable<Stations?>!
+
   private let firstAdviceRequestVariable = Variable<AdviceRequest?>(nil)
-  private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
+  public private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
+
   private let nextAdviceVariable = Variable<Advice?>(nil)
-  private(set) var nextAdviceObservable: Observable<Advice?>!
+  public private(set) var nextAdviceObservable: Observable<Advice?>!
+
   fileprivate let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
-  private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+  public private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+
   private let mostUsedStationsVariable = Variable<[Station]>([])
-  private(set) var mostUsedStationsObservable: Observable<[Station]>!
+  public private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
   var timer: Timer?
   var departureTimer: Timer?
 
-  init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
+  public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
@@ -77,10 +87,10 @@ class TravelService: NSObject {
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
   }
   
-  func attach() {
+  public func attach() {
 
-    session.delegate = self
-    session.activate()
+//    session.delegate = self
+//    session.activate()
 
     _ = firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
@@ -88,38 +98,38 @@ class TravelService: NSObject {
       }
 
       if let from = adviceRequest.from {
-        UserDefaults.fromStationCode = from.code
+        self.dataStore.fromStationCode = from.code
       }
 
       if let to = adviceRequest.to {
-        UserDefaults.toStationCode = to.code
+        self.dataStore.toStationCode = to.code
       }
 
       _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
     })
 
-    _ = App.geofenceService.geofenceObservable?.asObservable()
-      .observeOn(MainScheduler.asyncInstance)
-      .filter { $0.type != .tussenStation }
-      .subscribe(onNext: { geofence in
-        _ = self.setStation(.from, stationName: geofence.stationName)
-      })
-
-    _ = stationsObservable.asObservable()
-      .single()
-      .subscribe(onNext: { _ in
-        self.getCurrentAdviceRequest()
-          .dispatch(on: self.queue)
-          .then { adviceRequest in
-            if self.firstAdviceRequestVariable.value != adviceRequest {
-              self.firstAdviceRequestVariable.value = adviceRequest
-            }
-
-            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
-              self.notifyOfNewAdvices(advicesAndRequest.advices)
-            }
-          }
-      })
+//    _ = App.geofenceService.geofenceObservable?.asObservable()
+//      .observeOn(MainScheduler.asyncInstance)
+//      .filter { $0.type != .tussenStation }
+//      .subscribe(onNext: { geofence in
+//        _ = self.setStation(.from, stationName: geofence.stationName)
+//      })
+//
+//    _ = stationsObservable.asObservable()
+//      .single()
+//      .subscribe(onNext: { _ in
+//        self.getCurrentAdviceRequest()
+//          .dispatch(on: self.queue)
+//          .then { adviceRequest in
+//            if self.firstAdviceRequestVariable.value != adviceRequest {
+//              self.firstAdviceRequestVariable.value = adviceRequest
+//            }
+//
+//            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+//              self.notifyOfNewAdvices(advicesAndRequest.advices)
+//            }
+//          }
+//      })
 
     _ = currentAdviceOnScreenVariable.asObservable()
       .filterOptional()
@@ -128,9 +138,9 @@ class TravelService: NSObject {
 
         self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
 
-        self.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
-        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-        print(complicationUpdate)
+//        self.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
+//        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+//        print(complicationUpdate)
       })
 
     _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
@@ -140,7 +150,7 @@ class TravelService: NSObject {
       }
 
       let element = advices.enumerated()
-        .first { $0.element.hashValue == UserDefaults.currentAdviceHash }?
+        .first { $0.element.hashValue == self.dataStore.currentAdviceHash }?
         .element ?? advices.first
 
       self.currentAdviceOnScreenVariable.value = element
@@ -153,13 +163,13 @@ class TravelService: NSObject {
           self.firstAdviceRequestVariable.value = adviceRequest
         }
 
-        if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+        if let advicesAndRequest = self.dataStore.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
           self.notifyOfNewAdvices(advicesAndRequest.advices)
         }
       }
   }
 
-  func startTimer() {
+  public func startTimer() {
     guard timer == nil else {
       return
     }
@@ -169,7 +179,7 @@ class TravelService: NSObject {
     tick()
   }
 
-  func startDepartureTimer(for time: TimeInterval) {
+  public func startDepartureTimer(for time: TimeInterval) {
     guard departureTimer == nil, time > 1 else {
       return
     }
@@ -177,12 +187,12 @@ class TravelService: NSObject {
     departureTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
   }
 
-  func stopTimer() {
+  public func stopTimer() {
     timer?.invalidate()
     timer = nil
   }
 
-  func tick() {
+  public func tick() {
     getCurrentAdviceRequest()
       .dispatch(on: queue)
       .then {
@@ -190,8 +200,8 @@ class TravelService: NSObject {
       }
   }
 
-  func fetchStations() -> Promise<Stations, Error> {
-    return App.apiService.stations()
+  public func fetchStations() -> Promise<Stations, Error> {
+    return apiService.stations()
       .dispatch(on: queue)
       .map {
         $0.stations.filter {
@@ -210,7 +220,7 @@ class TravelService: NSObject {
   }
 
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
-    let from: Promise<Station?, Error> = UserDefaults.fromStationCode.map {
+    let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
       self.dataStore.find(stationCode: $0)
         .dispatch(on: queue)
         .map {
@@ -218,7 +228,7 @@ class TravelService: NSObject {
         }
     } ?? Promise(value: nil)
 
-    let to: Promise<Station?, Error> = UserDefaults.toStationCode.map {
+    let to: Promise<Station?, Error> = dataStore.toStationCode.map {
       self.dataStore.find(stationCode: $0)
         .dispatch(on: queue)
         .map {
@@ -236,14 +246,14 @@ class TravelService: NSObject {
   func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) -> Promise<Void, Error> {
 
     let correctedAdviceRequest: Promise<AdviceRequest, Error>
-    if let pickerFrom = UserDefaults.fromStationByPickerCode,
-      let pickerTo = UserDefaults.toStationByPickerCode,
+    if let pickerFrom = dataStore.fromStationByPickerCode,
+      let pickerTo = dataStore.toStationByPickerCode,
       pickerTo == adviceRequest.from?.code {
 
       correctedAdviceRequest = whenBoth(dataStore.find(stationCode: pickerFrom), dataStore.find(stationCode: pickerTo))
         .then {
-          UserDefaults.fromStationByPickerCode = $0.1.code
-          UserDefaults.toStationByPickerCode = $0.0.code
+          self.dataStore.fromStationByPickerCode = $0.1.code
+          self.dataStore.toStationByPickerCode = $0.0.code
         }
         .map {
           AdviceRequest(from: $0.1, to: $0.0)
@@ -266,13 +276,13 @@ class TravelService: NSObject {
         guard let from = advice.from, let to = advice.to else {
           return Promise(error: TravelServiceError.notChanged)
         }
-        return self.apiService.registerForNotification(UserDefaults.userId, from: from, to: to)
+        return self.apiService.registerForNotification(self.dataStore.userId, from: from, to: to)
       }
 
     return registerPromise.mapVoid()
   }
   
-  func setStation(_ state: PickerState, stationName: StationName, byPicker: Bool = false) -> Promise<Void, Error> {
+  public func setStation(_ state: PickerState, stationName: String, byPicker: Bool = false) -> Promise<Void, Error> {
     return dataStore.find(stationName: stationName)
       .dispatch(on: queue)
       .flatMap {
@@ -286,7 +296,7 @@ class TravelService: NSObject {
       }
   }
 
-  func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) -> Promise<Void, Error> {
+  public func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) -> Promise<Void, Error> {
     return getCurrentAdviceRequest()
       .dispatch(on: queue)
       .flatMap { advice in
@@ -305,9 +315,9 @@ class TravelService: NSObject {
         if byPicker {
           switch state {
           case .from:
-            UserDefaults.fromStationByPickerCode = station.code
+            self.dataStore.fromStationByPickerCode = station.code
           case .to:
-            UserDefaults.toStationByPickerCode = station.code
+            self.dataStore.toStationByPickerCode = station.code
           }
         }
 
@@ -333,7 +343,7 @@ class TravelService: NSObject {
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
     let advices = advices.filter {
-      return $0.isOngoing || $0.hashValue == UserDefaults.currentAdviceHash
+      return $0.isOngoing || $0.hashValue == self.dataStore.currentAdviceHash
     }
 
     if let firstAdvice = advices.first {
@@ -347,7 +357,7 @@ class TravelService: NSObject {
       }
     }
     if currentAdvicesVariable.value.value != advices {
-      session.sendEvent(TravelEvent.advicesChange(advice: advices))
+//      session.sendEvent(TravelEvent.advicesChange(advice: advices))
       currentAdvicesVariable.value = .loaded(value: advices)
     }
   }
@@ -358,7 +368,7 @@ class TravelService: NSObject {
     }
   }
 
-  func getCloseStations() -> Promise<[Station], Error> {
+  public func getCloseStations() -> Promise<[Station], Error> {
     return locationService.currentLocation()
       .dispatch(on: self.queue)
       .flatMap { currentLocation in
@@ -372,7 +382,7 @@ class TravelService: NSObject {
       }
   }
 
-  func travelFromCurrentLocation() -> Promise<Void, Error> {
+  public func travelFromCurrentLocation() -> Promise<Void, Error> {
     return whenBoth(getCloseStations(), getCurrentAdviceRequest())
       .dispatch(on: queue)
       .flatMap { (stations, currentAdvice) in
@@ -392,7 +402,7 @@ class TravelService: NSObject {
       .then { print($0) }.trap { print($0) }
   }
 
-  func switchFromTo() -> Promise<Void, Error> {
+  public func switchFromTo() -> Promise<Void, Error> {
     return getCurrentAdviceRequest().flatMap { currentAdvice in
       self.setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), userInput: true)
     }
@@ -402,7 +412,8 @@ class TravelService: NSObject {
     NotificationCenter.default.removeObserver(self)
   }
 
-  func setCurrentAdviceOnScreen(advice: Advice?) {
+  public func setCurrentAdviceOnScreen(advice: Advice?) {
+    dataStore.currentAdviceHash = advice?.hashValue
     currentAdviceOnScreenVariable.value = advice
   }
 
@@ -410,33 +421,33 @@ class TravelService: NSObject {
     mostUsedStationsVariable.value = stations
   }
 
-  func find(stationNameContains: String) -> Promise<[Station], Error> {
+  public func find(stationNameContains: String) -> Promise<[Station], Error> {
     return dataStore.find(stationNameContains: stationNameContains)
   }
 }
 
-extension TravelService: WCSessionDelegate {
-  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    /* stub */
-  }
-
-  func sessionDidBecomeInactive(_ session: WCSession) {
-    /* stub */
-  }
-
-  open func sessionDidDeactivate(_ session: WCSession) {
-    /* stub */
-  }
-
-  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
-      return
-    }
-
-    replyHandler(data)
-  }
-
-  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    print("didReceiveApplicationContext: \(applicationContext)")
-  }
-}
+//extension TravelService: WCSessionDelegate {
+//  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+//    /* stub */
+//  }
+//
+//  func sessionDidBecomeInactive(_ session: WCSession) {
+//    /* stub */
+//  }
+//
+//  open func sessionDidDeactivate(_ session: WCSession) {
+//    /* stub */
+//  }
+//
+//  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+//    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
+//      return
+//    }
+//
+//    replyHandler(data)
+//  }
+//
+//  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+//    print("didReceiveApplicationContext: \(applicationContext)")
+//  }
+//}

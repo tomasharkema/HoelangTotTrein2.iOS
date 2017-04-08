@@ -10,12 +10,14 @@ import Foundation
 import CoreData
 import Promissum
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 enum DataStoreError: Error {
   case notFound
 }
 
-class DataStore {
+ class AppDataStore: DataStore {
+  
   fileprivate let queue = DispatchQueue(label: "Datastore")
   fileprivate let persistentContainer: NSPersistentContainer
 
@@ -58,7 +60,7 @@ extension Station {
   }
 }
 
-extension DataStore {
+extension AppDataStore {
 
   func stations() -> Promise<[Station], Error> {
     let promiseSource = PromiseSource<[Station], Error>()
@@ -191,7 +193,7 @@ extension DataStore {
 
 // History
 
-extension DataStore {
+extension AppDataStore {
 
   func insertHistory(station: Station, historyType: HistoryType) -> Promise<Void, Error> {
     let promiseSource = PromiseSource<Void, Error>()
@@ -270,7 +272,7 @@ extension DataStore {
     return promiseSource.promise
   }
 
-  func mostUsedStations() -> Promise<[Station], Error>  {
+  func mostUsedStations() -> Promise<[Station], Error> {
     return fetchMostUsedDict()
       .dispatch(on: queue)
       .flatMap { stationCodes in
@@ -280,5 +282,14 @@ extension DataStore {
       }
       .dispatchMain()
   }
-
 }
+ extension History {
+  var historyType: HistoryType! {
+    get {
+      return HistoryType(rawValue: type!.intValue)
+    }
+    set {
+      type = newValue!.rawValue as NSNumber
+    }
+  }
+ }

@@ -9,15 +9,3 @@
 import UIKit
 import CoreData
 import CoreLocation
-
-#if os(watchOS)
-  import HoelangTotTreinAPIWatch
-#elseif os(iOS)
-  import HoelangTotTreinAPI
-#endif
-
-extension Coords {
-  var location: CLLocation {
-    return CLLocation(latitude: lat, longitude: lon)
-  }
-}
