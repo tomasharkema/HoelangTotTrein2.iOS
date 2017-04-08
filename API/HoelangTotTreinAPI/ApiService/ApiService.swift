@@ -12,16 +12,13 @@ import Alamofire
 import Statham
 
 public class ApiService {
-  private let endpoint = "https://ns.harkema.io"
-
-  private let queue = DispatchQueue(label: "nl.tomasharkema.DECODE", attributes: DispatchQueue.Attributes.concurrent)
+  private let endpoint: String
 
   fileprivate let manager: SessionManager
-//  fileprivate let networkActivityIndicatorManager: NetworkActivityIndicatorManager
 
-  public init() {
+  public init(endpoint: String) {
+    self.endpoint = endpoint
     manager = SessionManager.default
-//    networkActivityIndicatorManager = NetworkActivityIndicatorManager()
   }
 
   public func stations() -> Promise<StationsResponse, Error> {
