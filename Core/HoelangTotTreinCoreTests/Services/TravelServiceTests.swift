@@ -125,6 +125,31 @@ class TravelServiceTests: XCTestCase {
     waitForExpectations(timeout: 15, handler: nil)
   }
 
+  func testSetStationToPickerDuplicate() {
+    let expect = expectation(description: "promise")
+
+    dataStore.fromStationCode = "ZD"
+    dataStore.toStationCode = "AMS"
+    dataStore.fromStationByPickerCode = "ZD"
+    dataStore.toStationByPickerCode = "AMS"
+
+    travelService.setStation(.from, stationCode: "AMS", byPicker: true)
+      .then { _ in
+        XCTAssertEqual(self.dataStore.fromStationCode, "AMS")
+        XCTAssertEqual(self.dataStore.toStationCode, "ZD")
+        XCTAssertEqual(self.dataStore.fromStationByPickerCode, "AMS")
+        XCTAssertEqual(self.dataStore.toStationByPickerCode, "ZD")
+
+        expect.fulfill()
+      }
+      .trap {
+        XCTAssert(false, "Got error: \($0)")
+        expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 15, handler: nil)
+  }
+
   func testSwitchFromTo() {
     let expect = expectation(description: "promise")
 

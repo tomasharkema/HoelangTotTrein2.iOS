@@ -234,27 +234,26 @@ public class TravelService: NSObject {
       }
   }
 
-  func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) -> Promise<Void, Error> {
-
-    let correctedAdviceRequest: Promise<AdviceRequest, Error>
-    if let pickerFrom = dataStore.fromStationByPickerCode,
-      let pickerTo = dataStore.toStationByPickerCode,
-      pickerTo == adviceRequest.from?.code {
-
-      correctedAdviceRequest = whenBoth(dataStore.find(stationCode: pickerFrom), dataStore.find(stationCode: pickerTo))
-        .then {
-          self.dataStore.fromStationByPickerCode = $0.1.code
-          self.dataStore.toStationByPickerCode = $0.0.code
+  private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) -> Promise<Void, Error> {
+    let correctedAdviceRequest: Promise<AdviceRequest, Error> = getCurrentAdviceRequest()
+      .map { previousAdviceRequest in
+        if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
+          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from)
+        } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
+          return AdviceRequest(from: previousAdviceRequest.to, to: adviceRequest.to)
+        } else {
+          return adviceRequest
         }
-        .map {
-          AdviceRequest(from: $0.1, to: $0.0)
-        }
-    } else {
-      correctedAdviceRequest = Promise(value: adviceRequest)
-    }
+      }
 
     correctedAdviceRequest
       .then { request in
+
+        if userInput {
+          self.dataStore.fromStationByPickerCode = request.from?.code
+          self.dataStore.toStationByPickerCode = request.to?.code
+        }
+
         if self.firstAdviceRequestVariable.value != request {
           self.firstAdviceRequestVariable.value = request
         }
@@ -309,15 +308,6 @@ public class TravelService: NSObject {
             newAdvice = advice.setFrom(station)
           case .to:
             newAdvice = advice.setTo(station)
-          }
-        }
-        
-        if byPicker {
-          switch state {
-          case .from:
-            self.dataStore.fromStationByPickerCode = station.code
-          case .to:
-            self.dataStore.toStationByPickerCode = station.code
           }
         }
 
@@ -387,14 +377,14 @@ public class TravelService: NSObject {
           return Promise(error: TravelServiceError.notChanged)
         }
 
-        let newAdvice: AdviceRequest
-        if currentAdvice.to == station {
-          newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
-        } else {
-          newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
-        }
+//        let newAdvice: AdviceRequest
+//        if currentAdvice.to == station {
+//          newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
+//        } else {
+//          newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
+//        }
 
-        return self.setCurrentAdviceRequest(newAdvice, userInput: true)
+        return self.setCurrentAdviceRequest(currentAdvice, userInput: true)
       }
   }
 
