@@ -105,16 +105,22 @@ class TickerViewController: ViewController {
           })
       }).addDisposableTo(disposeBag)
 
-    App.travelService.currentAdviceObservable.asObservable()
-      .observeOn(MainScheduler.asyncInstance)
+    App.travelService.currentAdviceObservable
       .subscribe(onNext:  { [weak self] advice in
         guard let advice = advice else {
           return
         }
-        self?.startTime = Date()
         self?.currentAdvice = advice
         self?.render()
       }).addDisposableTo(disposeBag)
+
+    App.travelService.currentAdviceObservable
+      .distinctUntilChanged { $0.0 == $0.1 }
+      .subscribe(onNext:  { [weak self] _ in
+        self?.startTime = Date()
+        self?.renderBackground()
+      })
+      .addDisposableTo(disposeBag)
 
     App.travelService.nextAdviceObservable.asObservable()
       .observeOn(MainScheduler.asyncInstance)
@@ -193,7 +199,7 @@ class TickerViewController: ViewController {
     dataSource?.tick()
   }
 
-  func render() {
+  private  func renderBackground() {
     if let currentAdvice = currentAdvice {
       let offset = currentAdvice.vertrek.actualDate.timeIntervalSince(Date())
       let difference = Date(timeIntervalSince1970: offset - 60*60)
@@ -215,6 +221,9 @@ class TickerViewController: ViewController {
         self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
       }) 
     }
+  }
+
+  private func render() {
 
     if let nextAdvice = nextAdvice {
 
@@ -238,7 +247,7 @@ class TickerViewController: ViewController {
     }
   }
 
-  func applyErrorState() {
+  private func applyErrorState() {
 
   }
 

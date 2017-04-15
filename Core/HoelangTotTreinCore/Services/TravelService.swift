@@ -167,17 +167,18 @@ public class TravelService: NSObject {
       return
     }
 
-    timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+    timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: "normal", repeats: true)
 
-    tick()
+    tick(timer: timer!)
   }
 
   public func startDepartureTimer(for time: TimeInterval) {
-    guard departureTimer == nil, time > 1 else {
+    guard time > 1 else {
       return
     }
 
-    departureTimer = Timer.scheduledTimer(timeInterval: time, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+    departureTimer?.invalidate()
+    departureTimer = Timer.scheduledTimer(timeInterval: time + 1, target: self, selector: #selector(tick), userInfo: "departure", repeats: false)
   }
 
   public func stopTimer() {
@@ -185,11 +186,13 @@ public class TravelService: NSObject {
     timer = nil
   }
 
-  public func tick() {
-    _ = getCurrentAdviceRequest()
-      .flatMap {
-        self.fetchCurrentAdvices(for: $0, shouldEmitLoading: false)
-      }
+  public func tick(timer: Timer) {
+
+    if timer.userInfo as? String == "departure" {
+      print("TRIGGERED BY DEPARTURE")
+    }
+
+    fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
         print("DID FINISH TICK \($0)")
       }
@@ -326,20 +329,13 @@ public class TravelService: NSObject {
     let advices = advices.filter {
       return $0.isOngoing || $0.hashValue == self.dataStore.currentAdviceHash
     }
-
     if let firstAdvice = advices.first {
-      if currentAdviceVariable.value != firstAdvice {
-        currentAdviceVariable.value = firstAdvice
-      }
+      currentAdviceVariable.value = firstAdvice
     }
-    if let secondAdvice = advices[safe: 1] {
-      if nextAdviceVariable.value != secondAdvice {
-        nextAdviceVariable.value = secondAdvice
-      }
+    if let secondAdvice = advices.dropFirst().first {
+      nextAdviceVariable.value = secondAdvice
     }
-    if currentAdvicesVariable.value.value != advices {
-      currentAdvicesVariable.value = .loaded(value: advices)
-    }
+    currentAdvicesVariable.value = .loaded(value: advices)
   }
 
   private func sortCloseLocations(_ center: CLLocation, stations: [Station]) -> [Station] {
