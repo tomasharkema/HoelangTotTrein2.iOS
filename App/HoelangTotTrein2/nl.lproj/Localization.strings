@@ -1,0 +1,35 @@
+/* 
+  Localization.strings
+  HoelangTotTrein2
+
+  Created by Tomas Harkema on 06-04-17.
+  Copyright © 2017 Tomas Harkema. All rights reserved.
+*/
+
+"departed" = "vertrokken";
+"platform" = "spoor %@";
+"fromStation" = "van:";
+"toStation" = "naar:";
+"from" = "Van";
+"to" = "Naar";
+"recentlyUsed" = "Recent Gebruikt";
+"nearby" = "Dichtbij";
+"stations" = "Stations";
+"search" = "Zoek";
+"select" = "[Selecteer]";
+"searchResults" = "Zoekresultaten";
+"arrival" = "aankomst: %@";
+"delayed" = "vertraagd";
+"notOptimal" = "niet optimaal";
+"onTime" = "op tijd";
+"changed" = "alternatief";
+"somethingsWrong" = "er is iets mis 🤷";
+
+"startNotificationTitle" = "Gearriveerd op Start Station";
+"startNotificationBody" = "Je trein vertrekt over  %@ min op spoor %@";
+
+"transferNotificationTitle" = "Stap Over";
+"transferNotificationBody" = "Stap over naar spoor %@. %@ min te gaan.";
+
+"endNotificationTitle" = "Eindstation";
+"endNotificationBody" = "Stap hier uit. Vergeet niet uit te checken!";

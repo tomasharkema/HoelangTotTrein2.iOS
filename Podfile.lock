@@ -4,6 +4,8 @@ PODS:
   - HockeySDK (4.1.4):
     - HockeySDK/DefaultLib (= 4.1.4)
   - HockeySDK/DefaultLib (4.1.4)
+  - Promissum (1.0.0):
+    - Promissum/Core (= 1.0.0)
   - Promissum/Alamofire (1.0.0):
     - Alamofire (~> 4.0)
     - Promissum/Core
@@ -31,10 +33,10 @@ PODS:
 
 DEPENDENCIES:
   - AFDateHelper (~> 4.0)
-  - Alamofire (~> 4.4)
   - HockeySDK
-  - Promissum/Alamofire (from `https://github.com/tomlokhorst/Promissum.git`, branch `feature/deinit-warning-swift3`)
-  - Promissum/UIKit (from `https://github.com/tomlokhorst/Promissum.git`, branch `feature/deinit-warning-swift3`)
+  - Promissum
+  - Promissum/Alamofire
+  - Promissum/UIKit
   - R.swift (~> 3.2)
   - RxBlocking (~> 3.0)
   - RxCocoa (~> 3.0)
@@ -44,16 +46,10 @@ DEPENDENCIES:
   - Statham/Alamofire+Promissum (from `https://github.com/tomasharkema/Statham.git`)
 
 EXTERNAL SOURCES:
-  Promissum:
-    :branch: feature/deinit-warning-swift3
-    :git: https://github.com/tomlokhorst/Promissum.git
   Statham:
     :git: https://github.com/tomasharkema/Statham.git
 
 CHECKOUT OPTIONS:
-  Promissum:
-    :commit: 17bc0d825fdbb79fea5e4cf17313579c2c1c12dd
-    :git: https://github.com/tomlokhorst/Promissum.git
   Statham:
     :commit: d74510d6201fad7652c8cf2d35e34f093ec53251
     :git: https://github.com/tomasharkema/Statham.git
@@ -62,7 +58,7 @@ SPEC CHECKSUMS:
   AFDateHelper: b19c83daa132e398b34fbea085a1554ce07adfe9
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   HockeySDK: 78a3f8bb9100277b531defc56c970369a3ca267a
-  Promissum: 6b26d23a6922718b6b1826423511929156171307
+  Promissum: d1ef42a34fa40f119f011ed89e26234a2f6164c1
   R.swift: 207a372a2b5977caef440c696a368009460641d1
   R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
   RxBlocking: c5918ecb86b8c205a8ccc6d1ff2abb338ddc50a0
@@ -71,6 +67,6 @@ SPEC CHECKSUMS:
   SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
   Statham: c30278d494d0aeefb9b7229fae919d7905099166
 
-PODFILE CHECKSUM: a8c7364acac304d8ba4608b8194106583d9bb004
+PODFILE CHECKSUM: 5dea11b21a89eba7acfa4f0df57c00234cbb50e2
 
 COCOAPODS: 1.2.0

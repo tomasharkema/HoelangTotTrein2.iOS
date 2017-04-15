@@ -1,0 +1,38 @@
+/* 
+  Localization.strings
+  HoelangTotTrein2
+
+  Created by Tomas Harkema on 06-04-17.
+  Copyright © 2017 Tomas Harkema. All rights reserved.
+*/
+
+"departed" = "departed";
+"platform" = "platform %@";
+"fromStation" = "from:";
+"toStation" = "to:";
+"from" = "From";
+"to" = "To";
+"recentlyUsed" = "Recently Used";
+"nearby" = "Nearby";
+"stations" = "Stations";
+"search" = "Search";
+"select" = "[Select]";
+"searchResults" = "Search results";
+"arrival" = "arrival: %@";
+"delayed" = "delayed";
+"notOptimal" = "not optimal";
+"onTime" = "on time";
+"changed" = "changed";
+
+"somethingsWrong" = "somethings wrong 🤷";
+
+"startNotificationTitle" = "Arrived at Start Station";
+"startNotificationBody" = "Your train leaves in %@ min on platform %@";
+
+"transferNotificationTitle" = "Change Platform";
+"transferNotificationBody" = "Change to platform %@. %@ min to go";
+
+"endNotificationTitle" = "Final stop";
+"endNotificationBody" = "Get off the train here. Please remember to check out.";
+
+

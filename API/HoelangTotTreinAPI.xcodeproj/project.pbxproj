@@ -1,0 +1,829 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D346C53C3C9BF087A27E429 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */; };
+		890A64C90065EAB07E7D3E17 /* Pods_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4322D3BF0D9BD5657A9652 /* Pods_HoelangTotTreinAPITests.framework */; };
+		C30B403A1E98EE7400D99541 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */; };
+		C30B403F1E98EE7400D99541 /* HoelangTotTreinAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B403E1E98EE7400D99541 /* HoelangTotTreinAPITests.swift */; };
+		C30B40411E98EE7400D99541 /* HoelangTotTreinAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30B40581E98F0B100D99541 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404B1E98F0B100D99541 /* ApiService.swift */; };
+		C30B40591E98F0B100D99541 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404D1E98F0B100D99541 /* Advice.swift */; };
+		C30B405A1E98F0B100D99541 /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404E1E98F0B100D99541 /* ErrorJson.swift */; };
+		C30B405B1E98F0B100D99541 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404F1E98F0B100D99541 /* GeofenceModel.swift */; };
+		C30B405C1E98F0B100D99541 /* Advice+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40511E98F0B100D99541 /* Advice+JsonGen.swift */; };
+		C30B405D1E98F0B100D99541 /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40521E98F0B100D99541 /* ErrorJson+JsonGen.swift */; };
+		C30B405E1E98F0B100D99541 /* GeofenceModel+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40531E98F0B100D99541 /* GeofenceModel+JsonGen.swift */; };
+		C30B405F1E98F0B100D99541 /* Station+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40541E98F0B100D99541 /* Station+JsonGen.swift */; };
+		C30B40601E98F0B100D99541 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40551E98F0B100D99541 /* SuccessResponse+JsonGen.swift */; };
+		C30B40611E98F0B100D99541 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40561E98F0B100D99541 /* Station.swift */; };
+		C30B40621E98F0B100D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
+		C30B40651E98F15800D99541 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40641E98F15800D99541 /* SessionManager+Request.swift */; };
+		C30B40811E98F68F00D99541 /* HoelangTotTreinAPIWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30B40851E98F6A700D99541 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404D1E98F0B100D99541 /* Advice.swift */; };
+		C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404E1E98F0B100D99541 /* ErrorJson.swift */; };
+		C30B40871E98F6AE00D99541 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404F1E98F0B100D99541 /* GeofenceModel.swift */; };
+		C30B40881E98F6B000D99541 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40561E98F0B100D99541 /* Station.swift */; };
+		C30B40891E98F6B200D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
+		C30B408E1E98F79200D99541 /* Advice+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40511E98F0B100D99541 /* Advice+JsonGen.swift */; };
+		C30B408F1E98F79200D99541 /* ErrorJson+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40521E98F0B100D99541 /* ErrorJson+JsonGen.swift */; };
+		C30B40901E98F79200D99541 /* GeofenceModel+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40531E98F0B100D99541 /* GeofenceModel+JsonGen.swift */; };
+		C30B40911E98F79200D99541 /* Station+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40541E98F0B100D99541 /* Station+JsonGen.swift */; };
+		C30B40921E98F79200D99541 /* SuccessResponse+JsonGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40551E98F0B100D99541 /* SuccessResponse+JsonGen.swift */; };
+		C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C975B1EA23AC9007BD463 /* MockApiService.swift */; };
+		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
+		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
+		C375384C1E9921C20047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
+		E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */; };
+		EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C30B403B1E98EE7400D99541 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C30B40271E98EE7400D99541 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C30B402F1E98EE7400D99541;
+			remoteInfo = HoelangTotTreinAPI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		25A763A3C93548814D932400 /* Pods_HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2975909400BA0293B62DEF98 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.debug.xcconfig"; sourceTree = "<group>"; };
+		3930971E67520CC1FB8A7DDF /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		4D32418E7B0930C91976221A /* Pods-HoelangTotTreinAPITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinAPITests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests.release.xcconfig"; sourceTree = "<group>"; };
+		608E86CCE8F3E65C16CD888C /* Pods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60DEFDC4D226EBFF54C13D10 /* Pods-HoelangTotTreinAPITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinAPITests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests.debug.xcconfig"; sourceTree = "<group>"; };
+		703180784529F26E58672B85 /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig"; sourceTree = "<group>"; };
+		AC4322D3BF0D9BD5657A9652 /* Pods_HoelangTotTreinAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPI.h; sourceTree = "<group>"; };
+		C30B40341E98EE7400D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C30B40391E98EE7400D99541 /* HoelangTotTreinAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTreinAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30B403E1E98EE7400D99541 /* HoelangTotTreinAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoelangTotTreinAPITests.swift; sourceTree = "<group>"; };
+		C30B40401E98EE7400D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C30B404B1E98F0B100D99541 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		C30B404D1E98F0B100D99541 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advice.swift; sourceTree = "<group>"; };
+		C30B404E1E98F0B100D99541 /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJson.swift; sourceTree = "<group>"; };
+		C30B404F1E98F0B100D99541 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
+		C30B40511E98F0B100D99541 /* Advice+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+JsonGen.swift"; sourceTree = "<group>"; };
+		C30B40521E98F0B100D99541 /* ErrorJson+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ErrorJson+JsonGen.swift"; sourceTree = "<group>"; };
+		C30B40531E98F0B100D99541 /* GeofenceModel+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GeofenceModel+JsonGen.swift"; sourceTree = "<group>"; };
+		C30B40541E98F0B100D99541 /* Station+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+JsonGen.swift"; sourceTree = "<group>"; };
+		C30B40551E98F0B100D99541 /* SuccessResponse+JsonGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SuccessResponse+JsonGen.swift"; sourceTree = "<group>"; };
+		C30B40561E98F0B100D99541 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		C30B40571E98F0B100D99541 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		C30B40641E98F15800D99541 /* SessionManager+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionManager+Request.swift"; sourceTree = "<group>"; };
+		C30B407D1E98F68F00D99541 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPIWatch.h; sourceTree = "<group>"; };
+		C30B40801E98F68F00D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C31C975B1EA23AC9007BD463 /* MockApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
+		C375381C1E9919DA0047108C /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
+		C375381E1E991A290047108C /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
+		EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; sourceTree = "<group>"; };
+		F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C30B402C1E98EE7400D99541 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B40361E98EE7400D99541 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B403A1E98EE7400D99541 /* HoelangTotTreinAPI.framework in Frameworks */,
+				E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */,
+				890A64C90065EAB07E7D3E17 /* Pods_HoelangTotTreinAPITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B40791E98F68F00D99541 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D346C53C3C9BF087A27E429 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91B43492D37F3314D6583274 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2975909400BA0293B62DEF98 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.debug.xcconfig */,
+				EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */,
+				3930971E67520CC1FB8A7DDF /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.debug.xcconfig */,
+				703180784529F26E58672B85 /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig */,
+				60DEFDC4D226EBFF54C13D10 /* Pods-HoelangTotTreinAPITests.debug.xcconfig */,
+				4D32418E7B0930C91976221A /* Pods-HoelangTotTreinAPITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9E4B553F3625CD2507FDEA97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25A763A3C93548814D932400 /* Pods_HoelangTotTreinAPI.framework */,
+				FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */,
+				AC4322D3BF0D9BD5657A9652 /* Pods_HoelangTotTreinAPITests.framework */,
+				F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */,
+				608E86CCE8F3E65C16CD888C /* Pods_HoelangTotTreinAPIWatch.framework */,
+				EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C30B40261E98EE7400D99541 = {
+			isa = PBXGroup;
+			children = (
+				C30B40321E98EE7400D99541 /* HoelangTotTreinAPI */,
+				C30B403D1E98EE7400D99541 /* HoelangTotTreinAPITests */,
+				C30B407E1E98F68F00D99541 /* HoelangTotTreinAPIWatch */,
+				C30B40311E98EE7400D99541 /* Products */,
+				91B43492D37F3314D6583274 /* Pods */,
+				9E4B553F3625CD2507FDEA97 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C30B40311E98EE7400D99541 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */,
+				C30B40391E98EE7400D99541 /* HoelangTotTreinAPITests.xctest */,
+				C30B407D1E98F68F00D99541 /* HoelangTotTreinAPIWatch.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C30B40321E98EE7400D99541 /* HoelangTotTreinAPI */ = {
+			isa = PBXGroup;
+			children = (
+				C30B40631E98F15800D99541 /* Extensions */,
+				C30B404A1E98F0B100D99541 /* ApiService */,
+				C30B404C1E98F0B100D99541 /* Json */,
+				C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */,
+				C31C975B1EA23AC9007BD463 /* MockApiService.swift */,
+				C30B40341E98EE7400D99541 /* Info.plist */,
+			);
+			path = HoelangTotTreinAPI;
+			sourceTree = "<group>";
+		};
+		C30B403D1E98EE7400D99541 /* HoelangTotTreinAPITests */ = {
+			isa = PBXGroup;
+			children = (
+				C30B403E1E98EE7400D99541 /* HoelangTotTreinAPITests.swift */,
+				C30B40401E98EE7400D99541 /* Info.plist */,
+			);
+			path = HoelangTotTreinAPITests;
+			sourceTree = "<group>";
+		};
+		C30B404A1E98F0B100D99541 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				C30B404B1E98F0B100D99541 /* ApiService.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
+		C30B404C1E98F0B100D99541 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C30B404D1E98F0B100D99541 /* Advice.swift */,
+				C30B404E1E98F0B100D99541 /* ErrorJson.swift */,
+				C30B404F1E98F0B100D99541 /* GeofenceModel.swift */,
+				C30B40501E98F0B100D99541 /* JsonGen */,
+				C30B40561E98F0B100D99541 /* Station.swift */,
+				C30B40571E98F0B100D99541 /* SuccessResponse.swift */,
+				C375381C1E9919DA0047108C /* Bounds.swift */,
+				C375381E1E991A290047108C /* HistoryType.swift */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		C30B40501E98F0B100D99541 /* JsonGen */ = {
+			isa = PBXGroup;
+			children = (
+				C30B40511E98F0B100D99541 /* Advice+JsonGen.swift */,
+				C30B40521E98F0B100D99541 /* ErrorJson+JsonGen.swift */,
+				C30B40531E98F0B100D99541 /* GeofenceModel+JsonGen.swift */,
+				C30B40541E98F0B100D99541 /* Station+JsonGen.swift */,
+				C30B40551E98F0B100D99541 /* SuccessResponse+JsonGen.swift */,
+			);
+			path = JsonGen;
+			sourceTree = "<group>";
+		};
+		C30B40631E98F15800D99541 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C30B40641E98F15800D99541 /* SessionManager+Request.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C30B407E1E98F68F00D99541 /* HoelangTotTreinAPIWatch */ = {
+			isa = PBXGroup;
+			children = (
+				C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */,
+				C30B40801E98F68F00D99541 /* Info.plist */,
+			);
+			path = HoelangTotTreinAPIWatch;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C30B402D1E98EE7400D99541 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B40411E98EE7400D99541 /* HoelangTotTreinAPI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B407A1E98F68F00D99541 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B40811E98F68F00D99541 /* HoelangTotTreinAPIWatch.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C30B402F1E98EE7400D99541 /* HoelangTotTreinAPI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C30B40441E98EE7400D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPI" */;
+			buildPhases = (
+				B2B223445CC449F833198FE3 /* [CP] Check Pods Manifest.lock */,
+				C30B402B1E98EE7400D99541 /* Sources */,
+				C30B402C1E98EE7400D99541 /* Frameworks */,
+				C30B402D1E98EE7400D99541 /* Headers */,
+				C30B402E1E98EE7400D99541 /* Resources */,
+				472359A52C99E2814FED2085 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HoelangTotTreinAPI;
+			productName = HoelangTotTreinAPI;
+			productReference = C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C30B40381E98EE7400D99541 /* HoelangTotTreinAPITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C30B40471E98EE7400D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPITests" */;
+			buildPhases = (
+				93DBA93C0E8276CD671C19E5 /* [CP] Check Pods Manifest.lock */,
+				C30B40351E98EE7400D99541 /* Sources */,
+				C30B40361E98EE7400D99541 /* Frameworks */,
+				C30B40371E98EE7400D99541 /* Resources */,
+				2F0641884F7648C130855D44 /* [CP] Embed Pods Frameworks */,
+				8778281AF944F983635155A0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C30B403C1E98EE7400D99541 /* PBXTargetDependency */,
+			);
+			name = HoelangTotTreinAPITests;
+			productName = HoelangTotTreinAPITests;
+			productReference = C30B40391E98EE7400D99541 /* HoelangTotTreinAPITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C30B407C1E98F68F00D99541 /* HoelangTotTreinAPIWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C30B40841E98F68F00D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPIWatch" */;
+			buildPhases = (
+				FD22646F7ECFE8EFC149E654 /* [CP] Check Pods Manifest.lock */,
+				C30B40781E98F68F00D99541 /* Sources */,
+				C30B40791E98F68F00D99541 /* Frameworks */,
+				C30B407A1E98F68F00D99541 /* Headers */,
+				C30B407B1E98F68F00D99541 /* Resources */,
+				D0DB044604DA81AFD720605C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HoelangTotTreinAPIWatch;
+			productName = HoelangTotTreinAPIWatch;
+			productReference = C30B407D1E98F68F00D99541 /* HoelangTotTreinAPIWatch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C30B40271E98EE7400D99541 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Tomas Harkema";
+				TargetAttributes = {
+					C30B402F1E98EE7400D99541 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = RSRVS8D9PW;
+						ProvisioningStyle = Automatic;
+					};
+					C30B40381E98EE7400D99541 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = RSRVS8D9PW;
+						ProvisioningStyle = Automatic;
+					};
+					C30B407C1E98F68F00D99541 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = RSRVS8D9PW;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C30B402A1E98EE7400D99541 /* Build configuration list for PBXProject "HoelangTotTreinAPI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C30B40261E98EE7400D99541;
+			productRefGroup = C30B40311E98EE7400D99541 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C30B402F1E98EE7400D99541 /* HoelangTotTreinAPI */,
+				C30B40381E98EE7400D99541 /* HoelangTotTreinAPITests */,
+				C30B407C1E98F68F00D99541 /* HoelangTotTreinAPIWatch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C30B402E1E98EE7400D99541 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B40371E98EE7400D99541 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B407B1E98F68F00D99541 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2F0641884F7648C130855D44 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		472359A52C99E2814FED2085 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8778281AF944F983635155A0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93DBA93C0E8276CD671C19E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B2B223445CC449F833198FE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D0DB044604DA81AFD720605C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD22646F7ECFE8EFC149E654 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C30B402B1E98EE7400D99541 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B40581E98F0B100D99541 /* ApiService.swift in Sources */,
+				C375381D1E9919DA0047108C /* Bounds.swift in Sources */,
+				C375381F1E991A290047108C /* HistoryType.swift in Sources */,
+				C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */,
+				C30B405F1E98F0B100D99541 /* Station+JsonGen.swift in Sources */,
+				C30B405E1E98F0B100D99541 /* GeofenceModel+JsonGen.swift in Sources */,
+				C30B405D1E98F0B100D99541 /* ErrorJson+JsonGen.swift in Sources */,
+				C30B40591E98F0B100D99541 /* Advice.swift in Sources */,
+				C30B405A1E98F0B100D99541 /* ErrorJson.swift in Sources */,
+				C30B40611E98F0B100D99541 /* Station.swift in Sources */,
+				C30B40601E98F0B100D99541 /* SuccessResponse+JsonGen.swift in Sources */,
+				C30B405B1E98F0B100D99541 /* GeofenceModel.swift in Sources */,
+				C30B40621E98F0B100D99541 /* SuccessResponse.swift in Sources */,
+				C30B40651E98F15800D99541 /* SessionManager+Request.swift in Sources */,
+				C30B405C1E98F0B100D99541 /* Advice+JsonGen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B40351E98EE7400D99541 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B403F1E98EE7400D99541 /* HoelangTotTreinAPITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C30B40781E98F68F00D99541 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C30B40891E98F6B200D99541 /* SuccessResponse.swift in Sources */,
+				C30B408F1E98F79200D99541 /* ErrorJson+JsonGen.swift in Sources */,
+				C30B40911E98F79200D99541 /* Station+JsonGen.swift in Sources */,
+				C30B40901E98F79200D99541 /* GeofenceModel+JsonGen.swift in Sources */,
+				C30B40871E98F6AE00D99541 /* GeofenceModel.swift in Sources */,
+				C30B408E1E98F79200D99541 /* Advice+JsonGen.swift in Sources */,
+				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
+				C30B40921E98F79200D99541 /* SuccessResponse+JsonGen.swift in Sources */,
+				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
+				C375384C1E9921C20047108C /* Bounds.swift in Sources */,
+				C30B40851E98F6A700D99541 /* Advice.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C30B403C1E98EE7400D99541 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C30B402F1E98EE7400D99541 /* HoelangTotTreinAPI */;
+			targetProxy = C30B403B1E98EE7400D99541 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		C30B40421E98EE7400D99541 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C30B40431E98EE7400D99541 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C30B40451E98EE7400D99541 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2975909400BA0293B62DEF98 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HoelangTotTreinAPI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C30B40461E98EE7400D99541 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HoelangTotTreinAPI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		C30B40481E98EE7400D99541 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60DEFDC4D226EBFF54C13D10 /* Pods-HoelangTotTreinAPITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				INFOPLIST_FILE = HoelangTotTreinAPITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C30B40491E98EE7400D99541 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D32418E7B0930C91976221A /* Pods-HoelangTotTreinAPITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				INFOPLIST_FILE = HoelangTotTreinAPITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		C30B40821E98F68F00D99541 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3930971E67520CC1FB8A7DDF /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HoelangTotTreinAPIWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPIWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		C30B40831E98F68F00D99541 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 703180784529F26E58672B85 /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = HoelangTotTreinAPIWatch/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPIWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C30B402A1E98EE7400D99541 /* Build configuration list for PBXProject "HoelangTotTreinAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C30B40421E98EE7400D99541 /* Debug */,
+				C30B40431E98EE7400D99541 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C30B40441E98EE7400D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C30B40451E98EE7400D99541 /* Debug */,
+				C30B40461E98EE7400D99541 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C30B40471E98EE7400D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C30B40481E98EE7400D99541 /* Debug */,
+				C30B40491E98EE7400D99541 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C30B40841E98F68F00D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPIWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C30B40821E98F68F00D99541 /* Debug */,
+				C30B40831E98F68F00D99541 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C30B40271E98EE7400D99541 /* Project object */;
+}
