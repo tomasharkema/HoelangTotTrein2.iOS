@@ -208,9 +208,6 @@ public class TravelService: NSObject {
           self.stationsVariable.value = stations
         }
       }
-      .trap { error in
-        print(error)
-      }
   }
 
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
@@ -240,7 +237,7 @@ public class TravelService: NSObject {
         if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
           return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from)
         } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
-          return AdviceRequest(from: previousAdviceRequest.to, to: adviceRequest.to)
+          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from)
         } else {
           return adviceRequest
         }
@@ -300,22 +297,17 @@ public class TravelService: NSObject {
     return getCurrentAdviceRequest()
       .flatMap { advice in
         let newAdvice: AdviceRequest
-        if advice.to == station {
-          newAdvice = AdviceRequest(from: advice.to, to: advice.from)
-        } else {
-          switch state {
-          case .from:
-            newAdvice = advice.setFrom(station)
-          case .to:
-            newAdvice = advice.setTo(station)
-          }
+        switch state {
+        case .from:
+          newAdvice = advice.setFrom(station)
+        case .to:
+          newAdvice = advice.setTo(station)
         }
-
         return self.setCurrentAdviceRequest(newAdvice, userInput: byPicker)
       }
   }
 
-  func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
+  private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
     if shouldEmitLoading {
       currentAdvicesVariable.value = .loading
     }
@@ -350,7 +342,7 @@ public class TravelService: NSObject {
     }
   }
 
-  func sortCloseLocations(_ center: CLLocation, stations: [Station]) -> [Station] {
+  private func sortCloseLocations(_ center: CLLocation, stations: [Station]) -> [Station] {
     assert(!Thread.isMainThread, "prolly no good idea to call this from main thread")
     return stations.sorted { lhs, rhs in
       lhs.coords.location.distance(from: center) < rhs.coords.location.distance(from: center)
@@ -377,14 +369,7 @@ public class TravelService: NSObject {
           return Promise(error: TravelServiceError.notChanged)
         }
 
-//        let newAdvice: AdviceRequest
-//        if currentAdvice.to == station {
-//          newAdvice = AdviceRequest(from: currentAdvice.to, to: currentAdvice.from)
-//        } else {
-//          newAdvice = AdviceRequest(from: station, to: currentAdvice.to)
-//        }
-
-        return self.setCurrentAdviceRequest(currentAdvice, userInput: true)
+        return self.setCurrentAdviceRequest(currentAdvice.setFrom(station), userInput: true)
       }
   }
 

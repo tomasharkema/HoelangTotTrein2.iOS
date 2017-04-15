@@ -18,9 +18,9 @@ enum MockError: Error {
 class MockDataStore: DataStore {
 
   private var _stations = [
-    Station(name: "Zaandam", code: "ZD", land: "NL", coords: Coords(lat: 0, lon: 0), type: nil),
-    Station(name: "Amsterdam Centraal", code: "AMS", land: "NL", coords: Coords(lat: 0, lon: 0), type: nil),
-    Station(name: "Den Haag HS", code: "HS", land: "NL", coords: Coords(lat: 0, lon: 0), type: nil)
+    Station(name: "Zaandam", code: "ZD", land: "NL", coords: Coords(lat: 50, lon: 50), type: nil),
+    Station(name: "Amsterdam Centraal", code: "AMS", land: "NL", coords: Coords(lat: 60, lon: 60), type: nil),
+    Station(name: "Den Haag HS", code: "HS", land: "NL", coords: Coords(lat: 70, lon: 70), type: nil)
   ]
 
   private var _history = [(Station, HistoryType)]()
@@ -59,7 +59,13 @@ class MockDataStore: DataStore {
   }
 
   func find(inBounds bounds: Bounds) -> Promise<[Station], Error> {
-    return Promise(error: MockError.notImplemented)
+    return Promise(value: _stations.filter {
+      let coords = $0.coords
+      return bounds.latmin <= coords.lat &&
+        bounds.latmax >= coords.lat &&
+        bounds.lonmin <= coords.lon &&
+        bounds.lonmax >= coords.lon
+    })
   }
 
   func find(stationNameContains query: String) -> Promise<[Station], Error> {

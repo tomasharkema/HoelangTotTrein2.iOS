@@ -13,6 +13,6 @@ import CoreLocation
 
 class MockLocationService: LocationService {
   func currentLocation() -> Promise<CLLocation, Error> {
-    return Promise(value: CLLocation(latitude: 0, longitude: 0))
+    return Promise(value: CLLocation(latitude: 50, longitude: 50))
   }
 }

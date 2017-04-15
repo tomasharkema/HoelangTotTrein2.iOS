@@ -83,7 +83,7 @@ class TravelServiceTests: XCTestCase {
     dataStore.fromStationByPickerCode = "ZD"
     dataStore.toStationByPickerCode = "AMS"
 
-    travelService.setStation(.to, stationCode: "AMS", byPicker: true)
+    travelService.setStation(.to, stationCode: "ZD", byPicker: true)
       .then { _ in
         XCTAssertEqual(self.dataStore.fromStationCode, "AMS")
         XCTAssertEqual(self.dataStore.toStationCode, "ZD")
@@ -145,7 +145,7 @@ class TravelServiceTests: XCTestCase {
       .trap {
         XCTAssert(false, "Got error: \($0)")
         expect.fulfill()
-    }
+      }
 
     waitForExpectations(timeout: 15, handler: nil)
   }
@@ -171,6 +171,32 @@ class TravelServiceTests: XCTestCase {
         XCTAssert(false, "Got error: \($0)")
         expect.fulfill()
     }
+
+    waitForExpectations(timeout: 15, handler: nil)
+  }
+
+  func testTravelFromCurrentLocation() {
+    let expect = expectation(description: "promise")
+
+    dataStore.fromStationCode = "AMS"
+    dataStore.toStationCode = "ZD"
+    dataStore.fromStationByPickerCode = "AMS"
+    dataStore.toStationByPickerCode = "ZD"
+
+    travelService.travelFromCurrentLocation()
+      .then {
+
+        XCTAssertEqual(self.dataStore.fromStationCode, "ZD")
+        XCTAssertEqual(self.dataStore.toStationCode, "AMS")
+        XCTAssertEqual(self.dataStore.fromStationByPickerCode, "ZD")
+        XCTAssertEqual(self.dataStore.toStationByPickerCode, "AMS")
+
+        expect.fulfill()
+      }
+      .trap {
+        XCTAssert(false, "Got error: \($0)")
+        expect.fulfill()
+      }
 
     waitForExpectations(timeout: 15, handler: nil)
   }
