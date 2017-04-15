@@ -12,11 +12,7 @@ import Promissum
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
-enum DataStoreError: Error {
-  case notFound
-}
-
- class AppDataStore: DataStore {
+class AppDataStore: DataStore {
   
 //  fileprivate let queue = DispatchQueue(label: "Datastore")
   fileprivate let persistentContainer: NSPersistentContainer

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31D50C77F21EC02392B24CAF /* Pods_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB2EA3348B901CB466144D6 /* Pods_HoelangTotTrein2Tests.framework */; };
 		645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEF34E9AF5CDB5E25433961 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework */; };
-		7E52222ACAD71AD7B257D1F7 /* Pods_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB2EA3348B901CB466144D6 /* Pods_HoelangTotTrein2Tests.framework */; };
 		C30B408B1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; };
 		C30B408C1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3188D211E8FDA63006775D8 /* AppDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D201E8FDA63006775D8 /* AppDataStore.swift */; };
@@ -81,17 +81,9 @@
 		C3FD08091CC76D83002893B3 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08081CC76D83002893B3 /* WatchkitHelpers.swift */; };
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
-		F6783FE89FD3A98395F320D0 /* Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E136B4502227C368F17F254 /* Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C30B40141E98ED5F00D99541 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C3E8474E1BB82A01007D17C3;
-			remoteInfo = HoelangTotTrein2;
-		};
 		C339A7C41C943EC30058E97C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
@@ -185,7 +177,6 @@
 		878652F538CA47DBC5B7E2F6 /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTrein2.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2.debug.xcconfig"; sourceTree = "<group>"; };
 		9E136B4502227C368F17F254 /* Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24FCB8729C6D9964200300A /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
-		C30B40101E98ED5F00D99541 /* HoelangTotTreinAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTreinAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -265,13 +256,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C30B400D1E98ED5F00D99541 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3894E0C1E912FAB00C6FCE2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,8 +280,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F6783FE89FD3A98395F320D0 /* Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework in Frameworks */,
-				7E52222ACAD71AD7B257D1F7 /* Pods_HoelangTotTrein2Tests.framework in Frameworks */,
+				31D50C77F21EC02392B24CAF /* Pods_HoelangTotTrein2Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +427,6 @@
 				C3E847711BB82A01007D17C3 /* HoelangTotTrein2UITests.xctest */,
 				C3894E031E912FAB00C6FCE2 /* HLTT.app */,
 				C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */,
-				C30B40101E98ED5F00D99541 /* HoelangTotTreinAPITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -584,24 +566,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C30B400F1E98ED5F00D99541 /* HoelangTotTreinAPITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C30B40251E98ED5F00D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPITests" */;
-			buildPhases = (
-				C30B400C1E98ED5F00D99541 /* Sources */,
-				C30B400D1E98ED5F00D99541 /* Frameworks */,
-				C30B400E1E98ED5F00D99541 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C30B40151E98ED5F00D99541 /* PBXTargetDependency */,
-			);
-			name = HoelangTotTreinAPITests;
-			productName = HoelangTotTreinAPITests;
-			productReference = C30B40101E98ED5F00D99541 /* HoelangTotTreinAPITests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		C3894E021E912FAB00C6FCE2 /* HLTT */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3894E2A1E912FAB00C6FCE2 /* Build configuration list for PBXNativeTarget "HLTT" */;
@@ -714,12 +678,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Tomas Harkema";
 				TargetAttributes = {
-					C30B400F1E98ED5F00D99541 = {
-						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = RSRVS8D9PW;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C3E8474E1BB82A01007D17C3;
-					};
 					C3894E021E912FAB00C6FCE2 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = RSRVS8D9PW;
@@ -777,19 +735,11 @@
 				C3E847701BB82A01007D17C3 /* HoelangTotTrein2UITests */,
 				C3894E021E912FAB00C6FCE2 /* HLTT */,
 				C3894E0E1E912FAB00C6FCE2 /* HLTT Extension */,
-				C30B400F1E98ED5F00D99541 /* HoelangTotTreinAPITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C30B400E1E98ED5F00D99541 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3894E011E912FAB00C6FCE2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1000,13 +950,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C30B400C1E98ED5F00D99541 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C3894E0B1E912FAB00C6FCE2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1078,11 +1021,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C30B40151E98ED5F00D99541 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
-			targetProxy = C30B40141E98ED5F00D99541 /* PBXContainerItemProxy */;
-		};
 		C339A7C51C943EC30058E97C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
@@ -1136,41 +1074,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C30B40211E98ED5F00D99541 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				DEVELOPMENT_TEAM = RSRVS8D9PW;
-				INFOPLIST_FILE = HoelangTotTreinAPITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
-			};
-			name = Debug;
-		};
-		C30B40221E98ED5F00D99541 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				DEVELOPMENT_TEAM = RSRVS8D9PW;
-				INFOPLIST_FILE = HoelangTotTreinAPITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
-			};
-			name = Release;
-		};
 		C3894E241E912FAB00C6FCE2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1454,15 +1357,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C30B40251E98ED5F00D99541 /* Build configuration list for PBXNativeTarget "HoelangTotTreinAPITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C30B40211E98ED5F00D99541 /* Debug */,
-				C30B40221E98ED5F00D99541 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C3894E281E912FAB00C6FCE2 /* Build configuration list for PBXNativeTarget "HLTT Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

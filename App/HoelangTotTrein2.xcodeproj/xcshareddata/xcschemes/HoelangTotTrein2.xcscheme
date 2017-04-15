@@ -26,7 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -42,20 +43,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3E847701BB82A01007D17C3"
-               BuildableName = "HoelangTotTrein2UITests.xctest"
-               BlueprintName = "HoelangTotTrein2UITests"
-               ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C30B400F1E98ED5F00D99541"
-               BuildableName = "HoelangTotTreinAPITests.xctest"
-               BlueprintName = "HoelangTotTreinAPITests"
-               ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
+               BlueprintIdentifier = "C37538001E9916190047108C"
+               BuildableName = "HoelangTotTreinCoreTests.xctest"
+               BlueprintName = "HoelangTotTreinCoreTests"
+               ReferencedContainer = "container:../Core/HoelangTotTreinCore.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

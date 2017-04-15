@@ -14,6 +14,10 @@ import Promissum
   import HoelangTotTreinAPI
 #endif
 
+public enum DataStoreError: Error {
+  case notFound
+}
+
 public protocol DataStore: class {
   func stations() -> Promise<[Station], Error>
   func findOrUpdate(stations: [Station]) -> Promise<Void, Error>

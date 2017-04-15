@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		362AF12538E0CF72D41A10AF /* Pods_HoelangTotTreinCoreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D115D95C547E554F036E4207 /* Pods_HoelangTotTreinCoreTests.framework */; };
 		ADADB5153DBD35651CEEA454 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinCoreWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21503FE6A4480E8B8B910EBE /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinCoreWatch.framework */; };
+		C31C97541EA22CE2007BD463 /* TravelServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */; };
+		C31C97561EA22FBB007BD463 /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97551EA22FBB007BD463 /* MockDataStore.swift */; };
+		C31C97581EA234EA007BD463 /* MockLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97571EA234EA007BD463 /* MockLocationService.swift */; };
 		C37538021E9916190047108C /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37537F81E9916190047108C /* HoelangTotTreinCore.framework */; };
-		C37538071E9916190047108C /* HoelangTotTreinCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538061E9916190047108C /* HoelangTotTreinCoreTests.swift */; };
 		C37538091E9916190047108C /* HoelangTotTreinCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C37537FB1E9916190047108C /* HoelangTotTreinCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C37538151E99181C0047108C /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
 		C37538161E99181C0047108C /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538141E99181C0047108C /* TravelService.swift */; };
@@ -55,11 +57,13 @@
 		906BDC53F282929770904D36 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinCore.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinCore/Pods-HoelangTotTrein2Pods-HoelangTotTreinCore.debug.xcconfig"; sourceTree = "<group>"; };
 		9EE852C17893B19B92BAF84D /* Pods-HoelangTotTreinCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinCoreTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTreinCoreTests/Pods-HoelangTotTreinCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BAE1E6F8D21E649BC7373173 /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch.release.xcconfig"; sourceTree = "<group>"; };
+		C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TravelServiceTests.swift; path = Services/TravelServiceTests.swift; sourceTree = "<group>"; };
+		C31C97551EA22FBB007BD463 /* MockDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
+		C31C97571EA234EA007BD463 /* MockLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationService.swift; sourceTree = "<group>"; };
 		C37537F81E9916190047108C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37537FB1E9916190047108C /* HoelangTotTreinCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinCore.h; sourceTree = "<group>"; };
 		C37537FC1E9916190047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37538011E9916190047108C /* HoelangTotTreinCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HoelangTotTreinCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C37538061E9916190047108C /* HoelangTotTreinCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoelangTotTreinCoreTests.swift; sourceTree = "<group>"; };
 		C37538081E9916190047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37538131E99181C0047108C /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
 		C37538141E99181C0047108C /* TravelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelService.swift; sourceTree = "<group>"; };
@@ -126,6 +130,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C31C97521EA22CCC007BD463 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		C37537EE1E9916190047108C = {
 			isa = PBXGroup;
 			children = (
@@ -164,8 +176,10 @@
 		C37538051E9916190047108C /* HoelangTotTreinCoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				C37538061E9916190047108C /* HoelangTotTreinCoreTests.swift */,
+				C31C97521EA22CCC007BD463 /* Services */,
 				C37538081E9916190047108C /* Info.plist */,
+				C31C97551EA22FBB007BD463 /* MockDataStore.swift */,
+				C31C97571EA234EA007BD463 /* MockLocationService.swift */,
 			);
 			path = HoelangTotTreinCoreTests;
 			sourceTree = "<group>";
@@ -517,7 +531,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C37538071E9916190047108C /* HoelangTotTreinCoreTests.swift in Sources */,
+				C31C97581EA234EA007BD463 /* MockLocationService.swift in Sources */,
+				C31C97561EA22FBB007BD463 /* MockDataStore.swift in Sources */,
+				C31C97541EA22CE2007BD463 /* TravelServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

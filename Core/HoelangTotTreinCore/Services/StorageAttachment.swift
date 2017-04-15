@@ -20,23 +20,16 @@ public class StorageAttachment {
   private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
 //  let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   private let travelService: TravelService
-  private var disposeBag = DisposeBag()
-
   private let dataStore: DataStore
-
 
   public init(travelService: TravelService, dataStore: DataStore) {
     self.travelService = travelService
     self.dataStore = dataStore
   }
 
-  func updateStations(_ stations: [Station]) -> Promise<Void, Error> {
-    return dataStore.findOrUpdate(stations: stations)
-  }
-
   public func attach() {
 
-    travelService.stationsObservable.asObservable()
+    _ = travelService.stationsObservable.asObservable()
 //      .observeOn(scheduler)
       .subscribe { [weak self] in
         switch $0 {
@@ -50,17 +43,16 @@ public class StorageAttachment {
             }
         default: break;
         }
-      }.addDisposableTo(disposeBag)
+      }
 
-    travelService.firstAdviceRequestObservable
+    _ = travelService.firstAdviceRequestObservable
 //      .observeOn(scheduler)
       .filterOptional()
       .subscribe(onNext: { [weak self] in
         self?.insertHistoryFromRequest($0)
       })
-      .addDisposableTo(disposeBag)
 
-    travelService.currentAdvicesObservable
+    _ = travelService.currentAdvicesObservable
       .asObservable()
 //      .observeOn(MainScheduler.asyncInstance)
       .map { $0.value }
@@ -73,7 +65,6 @@ public class StorageAttachment {
           }
           .trap { print($0) }
       })
-      .addDisposableTo(disposeBag)
 
     // prepopulate stations history
 
@@ -101,6 +92,10 @@ public class StorageAttachment {
       }
 
     return historyInsert.mapVoid()
+  }
+
+  func updateStations(_ stations: [Station]) -> Promise<Void, Error> {
+    return dataStore.findOrUpdate(stations: stations)
   }
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {

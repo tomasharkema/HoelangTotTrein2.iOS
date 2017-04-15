@@ -59,7 +59,6 @@ class GeofenceService: NSObject {
 
   fileprivate func updateGeofenceWithStationName(_ stationName: StationName, geofenceModels: [GeofenceModel]) {
     dataStore.find(stationName: stationName)
-//      .dispatch(on: GeofenceService.queue)
       .then { station in
         let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.name)
         self.locationManager.startMonitoring(for: region)
@@ -157,6 +156,13 @@ class GeofenceService: NSObject {
         return nil
       }
       .filterOptional()
+
+    _ = geofenceObservable
+      .filter { $0.type != .tussenStation }
+      .subscribe(onNext: { geofence in
+        _ = self.travelService.setStation(.from, stationName: geofence.stationName)
+      })
+
   }
 
 }

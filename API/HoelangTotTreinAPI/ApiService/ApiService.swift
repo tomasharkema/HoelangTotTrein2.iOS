@@ -11,7 +11,15 @@ import Promissum
 import Alamofire
 import Statham
 
-public class ApiService {
+public protocol ApiService {
+  func stations() -> Promise<StationsResponse, Error>
+  func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error>
+  func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error>
+  func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error>
+}
+
+
+public class HttpApiService: ApiService {
   private let endpoint: String
 
   fileprivate let manager: SessionManager
