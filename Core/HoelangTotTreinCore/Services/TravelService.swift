@@ -187,11 +187,6 @@ public class TravelService: NSObject {
   }
 
   public func tick(timer: Timer) {
-
-    if timer.userInfo as? String == "departure" {
-      print("TRIGGERED BY DEPARTURE")
-    }
-
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
         print("DID FINISH TICK has value \($0.value != nil)")

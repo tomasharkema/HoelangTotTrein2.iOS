@@ -27,13 +27,35 @@ class TravelServiceTests: XCTestCase {
     travelService.attach()
   }
 
-  func testSetStation() {
+  func testSetStationByCode() {
     let expect = expectation(description: "promise")
 
     dataStore.fromStationCode = "ZD"
     dataStore.toStationCode = "AMS"
 
     travelService.setStation(.to, stationCode: "HS")
+      .then { _ in
+
+        XCTAssertEqual(self.dataStore.fromStationCode, "ZD")
+        XCTAssertEqual(self.dataStore.toStationCode, "HS")
+
+        expect.fulfill()
+      }
+      .trap {
+        XCTAssert(false, "Got error: \($0)")
+        expect.fulfill()
+      }
+
+    waitForExpectations(timeout: 15, handler: nil)
+  }
+
+  func testSetStationByName() {
+    let expect = expectation(description: "promise")
+
+    dataStore.fromStationCode = "ZD"
+    dataStore.toStationCode = "AMS"
+
+    travelService.setStation(.to, stationName: "Den Haag HS")
       .then { _ in
 
         XCTAssertEqual(self.dataStore.fromStationCode, "ZD")
