@@ -15,7 +15,7 @@ import HoelangTotTreinCore
 
 class TickerViewController: ViewController {
 
-  private let AnimationInterval: TimeInterval = 0.5
+  private let AnimationInterval: TimeInterval = 0.7
 
   private var fromStation: Station?
   private var toStation: Station?
@@ -196,10 +196,11 @@ class TickerViewController: ViewController {
 
   func tick(_ timer: Timer) {
     render()
+    renderBackground()
     dataSource?.tick()
   }
 
-  private  func renderBackground() {
+  private func renderBackground() {
     if let currentAdvice = currentAdvice {
       let offset = currentAdvice.vertrek.actualDate.timeIntervalSince(Date())
       let difference = Date(timeIntervalSince1970: offset - 60*60)

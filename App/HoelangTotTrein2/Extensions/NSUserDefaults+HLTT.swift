@@ -180,7 +180,7 @@ extension AppDataStore {
       }
     }
     set {
-      assert(!Thread.isMainThread)
+      assert(!Thread.isMainThread, "PLEASE DONT CALL FROM MAIN THREAD")
       do {
         guard let value = newValue else {
           return

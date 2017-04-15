@@ -194,7 +194,7 @@ public class TravelService: NSObject {
 
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
-        print("DID FINISH TICK \($0)")
+        print("DID FINISH TICK has value \($0.value != nil)")
       }
   }
 
