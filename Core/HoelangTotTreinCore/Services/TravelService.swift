@@ -37,7 +37,7 @@ public enum LoadingState<ValueType> {
 }
 
 public class TravelService: NSObject {
-  let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
+  private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
   fileprivate let apiService: ApiService
   fileprivate let locationService: LocationService
   private let dataStore: DataStore
@@ -65,8 +65,8 @@ public class TravelService: NSObject {
   private let mostUsedStationsVariable = Variable<[Station]>([])
   public private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
-  var timer: Timer?
-  var departureTimer: Timer?
+  private var timer: Timer?
+  private var departureTimer: Timer?
 
   public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
     self.apiService = apiService
@@ -193,16 +193,19 @@ public class TravelService: NSObject {
   }
 
   public func tick() {
-    getCurrentAdviceRequest()
-      .dispatch(on: queue)
-      .then {
-        _ = self.fetchCurrentAdvices(for: $0, shouldEmitLoading: false)
+    _ = getCurrentAdviceRequest()
+//      .dispatch(on: queue)
+      .flatMap {
+        self.fetchCurrentAdvices(for: $0, shouldEmitLoading: false)
+      }
+      .finallyResult {
+        print("DID FINISH TICK \($0)")
       }
   }
 
   public func fetchStations() -> Promise<Stations, Error> {
     return apiService.stations()
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .map {
         $0.stations.filter {
           $0.land == "NL"
@@ -222,7 +225,7 @@ public class TravelService: NSObject {
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
     let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .dispatch(on: queue)
+//        .dispatch(on: queue)
         .map {
           .some($0)
         }
@@ -230,14 +233,14 @@ public class TravelService: NSObject {
 
     let to: Promise<Station?, Error> = dataStore.toStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .dispatch(on: queue)
+//        .dispatch(on: queue)
         .map {
           .some($0)
         }
     } ?? Promise(value: nil)
     
     return whenBoth(from, to)
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .map {
         AdviceRequest(from: $0.0, to: $0.1)
       }
@@ -263,7 +266,7 @@ public class TravelService: NSObject {
     }
 
     correctedAdviceRequest
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .then { request in
         if self.firstAdviceRequestVariable.value != request {
           self.firstAdviceRequestVariable.value = request
@@ -271,7 +274,7 @@ public class TravelService: NSObject {
       }
 
     let registerPromise: Promise<SuccessResult, Error> = correctedAdviceRequest
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap { advice in
         guard let from = advice.from, let to = advice.to else {
           return Promise(error: TravelServiceError.notChanged)
@@ -284,7 +287,7 @@ public class TravelService: NSObject {
   
   public func setStation(_ state: PickerState, stationName: String, byPicker: Bool = false) -> Promise<Void, Error> {
     return dataStore.find(stationName: stationName)
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap {
         self.setStation(state, station: $0)
       }
@@ -296,9 +299,23 @@ public class TravelService: NSObject {
       }
   }
 
+  public func setStation(_ state: PickerState, stationCode: String, byPicker: Bool = false) -> Promise<Void, Error> {
+    return dataStore.find(stationCode: stationCode)
+      //      .dispatch(on: queue)
+      .flatMap {
+        self.setStation(state, station: $0)
+      }
+      .then {
+        print("TravelService did set station \(stationCode)")
+      }
+      .trap {
+        print("TravelService setStation did encounter error \($0)")
+    }
+  }
+
   public func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) -> Promise<Void, Error> {
     return getCurrentAdviceRequest()
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap { advice in
         let newAdvice: AdviceRequest
         if advice.to == station {
@@ -331,7 +348,7 @@ public class TravelService: NSObject {
     }
 
     return (adviceRequest.map { Promise(value: $0) } ?? getCurrentAdviceRequest())
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap { self.apiService.advices($0) }
       .then { advicesResult in
         print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
@@ -370,12 +387,12 @@ public class TravelService: NSObject {
 
   public func getCloseStations() -> Promise<[Station], Error> {
     return locationService.currentLocation()
-      .dispatch(on: self.queue)
+//      .dispatch(on: self.queue)
       .flatMap { currentLocation in
         let circularRegionBounds = CLCircularRegion(center: currentLocation.coordinate, radius: 0.1, identifier:"").bounds
 
         return self.dataStore.find(inBounds: circularRegionBounds)
-          .dispatch(on: self.queue)
+//          .dispatch(on: self.queue)
           .map { stations in
             self.sortCloseLocations(currentLocation, stations: stations)
           }
@@ -384,7 +401,7 @@ public class TravelService: NSObject {
 
   public func travelFromCurrentLocation() -> Promise<Void, Error> {
     return whenBoth(getCloseStations(), getCurrentAdviceRequest())
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap { (stations, currentAdvice) in
         guard let station = stations.first else {
           return Promise(error: TravelServiceError.notChanged)

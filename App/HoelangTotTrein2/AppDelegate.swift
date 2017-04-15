@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     application.registerForRemoteNotifications()
     application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
 
+//    let shorcutItem = UIApplicationShortcutItem(type: "BLA", localizedTitle: "BLA", localizedSubtitle: "BLA", icon: nil, userInfo: ["stationCode": "HT"])
+//    self.application(application, performActionFor: shorcutItem) { _ in }
+
     return true
   }
 
@@ -64,8 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-    App.travelService.attach()
-    App.travelService.tick()
+
     App.travelService.currentAdviceOnScreenObservable
       .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
       .single()
@@ -82,23 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     not.alertBody = message
     not.applicationIconBadgeNumber = 0
     application.presentLocalNotificationNow(not)
-  }
-
-  func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-
-    App.travelService.attach()
-    App.travelService.tick()
-
-    guard let stationJson = shortcutItem.userInfo?["station"] , let station = try? Station.decodeJson(stationJson) else {
-      completionHandler(false)
-      return
-    }
-    
-    App.travelService.setStation(.to, station: station, byPicker: false)
-      .flatMap { _ in App.travelService.travelFromCurrentLocation() }
-      .then { _ in
-        completionHandler(true)
-      }
   }
 }
 

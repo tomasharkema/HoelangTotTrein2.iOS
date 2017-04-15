@@ -17,10 +17,10 @@ import Promissum
 #endif
 
 public class StorageAttachment {
-  static let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
-  let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
-  let travelService: TravelService
-  var disposeBag = DisposeBag()
+  private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
+//  let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
+  private let travelService: TravelService
+  private var disposeBag = DisposeBag()
 
   private let dataStore: DataStore
 
@@ -36,22 +36,24 @@ public class StorageAttachment {
 
   public func attach() {
 
-    travelService.stationsObservable.asObservable().observeOn(scheduler).subscribe { [weak self] in
-      switch $0 {
-      case let .next(stations?):
-        self?.updateStations(stations)
-          .then {
-            print($0)
-          }
-          .trap {
-            print($0)
-          }
-      default: break;
-      }
-    }.addDisposableTo(disposeBag)
+    travelService.stationsObservable.asObservable()
+//      .observeOn(scheduler)
+      .subscribe { [weak self] in
+        switch $0 {
+        case let .next(stations?):
+          self?.updateStations(stations)
+            .then {
+              print($0)
+            }
+            .trap {
+              print($0)
+            }
+        default: break;
+        }
+      }.addDisposableTo(disposeBag)
 
     travelService.firstAdviceRequestObservable
-      .observeOn(scheduler)
+//      .observeOn(scheduler)
       .filterOptional()
       .subscribe(onNext: { [weak self] in
         self?.insertHistoryFromRequest($0)
@@ -60,15 +62,14 @@ public class StorageAttachment {
 
     travelService.currentAdvicesObservable
       .asObservable()
-      .observeOn(MainScheduler.asyncInstance)
+//      .observeOn(MainScheduler.asyncInstance)
       .map { $0.value }
       .filterOptional()
       .subscribe(onNext: { advices in
         self.travelService.getCurrentAdviceRequest()
+          .dispatch(on: self.queue)
           .then { advice in
-            StorageAttachment.queue.async {
-              self.persistCurrent(advices, forAdviceRequest: advice)
-            }
+            self.persistCurrent(advices, forAdviceRequest: advice)
           }
           .trap { print($0) }
       })
@@ -103,7 +104,6 @@ public class StorageAttachment {
   }
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
-    assert(!Thread.isMainThread, "Must not be main thread")
     dataStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }

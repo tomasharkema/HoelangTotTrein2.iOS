@@ -18,7 +18,7 @@ enum DataStoreError: Error {
 
  class AppDataStore: DataStore {
   
-  fileprivate let queue = DispatchQueue(label: "Datastore")
+//  fileprivate let queue = DispatchQueue(label: "Datastore")
   fileprivate let persistentContainer: NSPersistentContainer
 
   init (useInMemoryStore: Bool = false) {
@@ -274,7 +274,7 @@ extension AppDataStore {
 
   func mostUsedStations() -> Promise<[Station], Error> {
     return fetchMostUsedDict()
-      .dispatch(on: queue)
+//      .dispatch(on: queue)
       .flatMap { stationCodes in
         whenAll(stationCodes.map({ (code, _) in
           self.find(stationCode: code)

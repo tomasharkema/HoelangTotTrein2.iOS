@@ -34,8 +34,10 @@ class GeofenceService: NSObject {
   typealias GeofenceModels = [GeofenceModel]
   typealias StationGeofences = [StationName: GeofenceModels]
 
-  fileprivate static let queue = DispatchQueue(label: "nl.tomasharkema.GeofenceService", attributes: [])
-  fileprivate let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.GeofenceService")
+  fileprivate let queue = DispatchQueue(label: "nl.tomasharkema.GeofenceService", attributes: [])
+  fileprivate lazy var scheduler: SerialDispatchQueueScheduler = {
+    return SerialDispatchQueueScheduler(queue: self.queue, internalSerialQueueName: "nl.tomasharkema.GeofenceService")
+  }()
   fileprivate let locationManager = CLLocationManager()
 
   fileprivate let travelService: TravelService
@@ -57,7 +59,7 @@ class GeofenceService: NSObject {
 
   fileprivate func updateGeofenceWithStationName(_ stationName: StationName, geofenceModels: [GeofenceModel]) {
     dataStore.find(stationName: stationName)
-      .dispatch(on: GeofenceService.queue)
+//      .dispatch(on: GeofenceService.queue)
       .then { station in
         let region = CLCircularRegion(center: station.coords.location.coordinate, radius: 150, identifier: station.name)
         self.locationManager.startMonitoring(for: region)
@@ -114,7 +116,7 @@ class GeofenceService: NSObject {
   fileprivate func attach() {
     let obs = travelService.currentAdvicesObservable
       .asObservable()
-      .observeOn(scheduler)
+//      .observeOn(scheduler)
       .map { advicesLoading -> StationGeofences? in
         guard let advices = advicesLoading.value else {
           return nil
@@ -135,10 +137,11 @@ class GeofenceService: NSObject {
         for (stationName, geo) in stationGeofences {
           self.updateGeofenceWithStationName(stationName, geofenceModels: geo)
         }
-      }).addDisposableTo(disposeBag)
+      })
+      .addDisposableTo(disposeBag)
 
     geofenceObservable = locationManager.rx.didEnterRegion
-      .observeOn(scheduler)
+//      .observeOn(scheduler)
       .distinctUntilChanged()
       .map { region -> GeofenceModel? in
         guard let geofences = self.stationGeofences[region.identifier] else {
