@@ -21,7 +21,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   private let session = WCSession.default()
 
   var cachedAdvices: [Advice] = dataStore.persistedAdvices ?? []
-  var cachedAdviceHash: Int? = dataStore.currentAdviceHash
+  var cachedAdviceIdentifier: String? = dataStore.currentAdviceIdentifier
 
   func applicationDidFinishLaunching() {
     session.delegate = self
@@ -55,9 +55,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
       dataStore.persistedAdvices = advices
 
     case let .currentAdviceChange(currentHash):
-      cachedAdviceHash = currentHash
-      dataStore.currentAdviceHash = currentHash
-
+      cachedAdviceIdentifier = currentHash
+      dataStore.currentAdviceIdentifier = currentHash
     }
 
     NotificationCenter.default.post(name: Notification.Name(rawValue: AdvicesDidChangeNotification), object: nil)

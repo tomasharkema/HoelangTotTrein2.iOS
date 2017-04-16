@@ -73,8 +73,18 @@ class TickerViewController: ViewController {
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
-    App.travelService.currentAdvicesObservable.asObservable()
+    App.travelService.currentAdvicesObservable
       .observeOn(MainScheduler.asyncInstance)
+      .distinctUntilChanged { (lhs, rhs) in
+        switch (lhs, rhs) {
+        case (.loading, .loading):
+          return true
+        case (.loaded(let lhsValue), .loaded(let rhsValue)):
+          return lhsValue == rhsValue
+        default:
+          return false
+        }
+      }
       .subscribe(onNext: { [weak self] advicesLoading in
         guard let controller = self else {
           return
@@ -100,23 +110,27 @@ class TickerViewController: ViewController {
           .single()
           .subscribe(onNext: { [weak self] advice in
             guard let advice = advice else { return }
-            self?.scrollToPersistedAdvice(advices, currentAdviceHash: advice.hashValue)
+            self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
             self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
           })
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable
+      .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext:  { [weak self] advice in
         guard let advice = advice else {
           return
         }
+        assert(Thread.isMainThread)
         self?.currentAdvice = advice
         self?.render()
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable
       .distinctUntilChanged { $0.0 == $0.1 }
+      .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext:  { [weak self] _ in
+        assert(Thread.isMainThread)
         self?.startTime = Date()
         self?.renderBackground()
       })
@@ -159,9 +173,8 @@ class TickerViewController: ViewController {
   }
 
   func startTimer() {
-    if timer == nil {
-      timer = Timer.scheduledTimer(timeInterval: AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
-    }
+    timer?.invalidate()
+    timer = Timer.scheduledTimer(timeInterval: AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
   }
 
   func stopTimer() {
@@ -278,9 +291,9 @@ class TickerViewController: ViewController {
     return .portrait
   }
 
-  fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceHash: Int) {
+  fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceIdentifier: String) {
     let adviceAndIndexOpt = advices.enumerated().lazy
-      .first{ $0.element.hashValue == currentAdviceHash }
+      .first{ $0.element.identifier() == currentAdviceIdentifier }
     guard let adviceAndIndex = adviceAndIndexOpt else {
       return
     }
@@ -341,7 +354,9 @@ extension TickerViewController {
 
   fileprivate func updateTickerView(_ i: Int, current: Advice?, advices: Advices) {
     assert(Thread.isMainThread, "call from main thread")
-    advices.enumerated().forEach { (idx, element) in
+    let showAdvices = advices.prefix(6)
+
+    showAdvices.enumerated().forEach { (idx, element) in
 
       let view: UIView
       if let cachedView = _indicatorStackViewCache[idx] {
@@ -371,7 +386,7 @@ extension TickerViewController {
       view.backgroundColor = bgColor
     }
 
-    stackIndicatorView.arrangedSubviews.skip(advices.count).forEach {
+    stackIndicatorView.arrangedSubviews.skip(showAdvices.count).forEach {
       $0.isHidden = true
     }
   }

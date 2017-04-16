@@ -62,6 +62,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     App.travelService.getCloseStations()
       .dispatchMain()
       .then { [weak self] stations in
+        assert(Thread.isMainThread)
         self?.closeStations = Array(stations.prefix(5))
         self?.tableView.reloadData()
       }
@@ -69,6 +70,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     App.travelService.stationsObservable
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] stations in
+        assert(Thread.isMainThread)
         self?.ordinaryStations = stations
         self?.tableView.reloadData()
       })
@@ -77,6 +79,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     App.travelService.mostUsedStationsObservable
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] stations in
+        assert(Thread.isMainThread)
         self?.mostUsedStations = Array(stations.prefix(5))
         self?.tableView.reloadData()
       })

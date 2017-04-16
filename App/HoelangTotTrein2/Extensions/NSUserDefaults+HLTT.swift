@@ -23,7 +23,7 @@ private struct Keys {
   static let UserIdKey = "UserIdKey"
   static let GeofenceInfoKey = "GeofenceInfoKey"
   static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
-  static let CurrentAdviceHash = "CurrentAdviceHash"
+  static let CurrentAdviceIdentifier = "CurrentAdviceIdentifier"
   static let PersistedAdvices = "PersistedAdvices"
 }
 
@@ -195,14 +195,13 @@ extension AppDataStore {
     }
   }
 
-  var currentAdviceHash: Int? {
+  var currentAdviceIdentifier: String? {
     get {
-      let value = UserDefaults.integer(forKey: Keys.CurrentAdviceHash)
-      return value == 0 ? nil : value
+      return UserDefaults.string(forKey: Keys.CurrentAdviceIdentifier)
     }
 
     set {
-      UserDefaults.set(newValue ?? 0, forKey: Keys.CurrentAdviceHash)
+      UserDefaults.set(newValue ?? 0, forKey: Keys.CurrentAdviceIdentifier)
       UserDefaults.synchronize()
     }
   }

@@ -71,6 +71,10 @@ public struct Advice: Equatable {
   public let vertrekVertraging: String?
   public let status: FareStatus
   public let request: AdviceRequestCodes
+
+  public func identifier() -> String {
+    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)"
+  }
 }
 
 public typealias Advices = [Advice]

@@ -270,13 +270,11 @@ extension AppDataStore {
 
   func mostUsedStations() -> Promise<[Station], Error> {
     return fetchMostUsedDict()
-//      .dispatch(on: queue)
       .flatMap { stationCodes in
         whenAll(stationCodes.map({ (code, _) in
           self.find(stationCode: code)
         }))
       }
-      .dispatchMain()
   }
 }
  extension History {

@@ -35,6 +35,6 @@ public protocol DataStore: class {
   var userId: String { get }
   var geofenceInfo: [String: [GeofenceModel]]? { get set }
   var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }
-  var currentAdviceHash: Int? { get set }
+  var currentAdviceIdentifier: String? { get set }
   var persistedAdvices: Advices? { get set }
 }

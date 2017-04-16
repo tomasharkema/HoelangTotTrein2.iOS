@@ -15,7 +15,7 @@ import Foundation
 
 public enum TravelEvent {
   case advicesChange(advice: Advices)
-  case currentAdviceChange(hash: Int)
+  case currentAdviceChange(identifier: String)
 }
 
 extension TravelEvent {
@@ -66,10 +66,10 @@ extension TravelEvent {
       }
 
     case "currentAdviceChange"?:
-      guard let hash = message["hash"] as? Int else {
+      guard let hash = message["hash"] as? String else {
         return nil
       }
-      return TravelEvent.currentAdviceChange(hash: hash)
+      return TravelEvent.currentAdviceChange(identifier: hash)
 
     default:
       return nil

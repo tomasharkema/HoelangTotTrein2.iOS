@@ -143,7 +143,7 @@ public class TravelService: NSObject {
       }
 
       let element = advices.enumerated()
-        .first { $0.element.hashValue == self.dataStore.currentAdviceHash }?
+        .first { $0.element.identifier() == self.dataStore.currentAdviceIdentifier }?
         .element ?? advices.first
 
       self.currentAdviceOnScreenVariable.value = element
@@ -169,7 +169,7 @@ public class TravelService: NSObject {
 
     timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: "normal", repeats: true)
 
-    tick(timer: timer!)
+    tick()
   }
 
   public func startDepartureTimer(for time: TimeInterval) {
@@ -186,7 +186,7 @@ public class TravelService: NSObject {
     timer = nil
   }
 
-  public func tick(timer: Timer) {
+  public func tick() {
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
         print("DID FINISH TICK has value \($0.value != nil)")
@@ -322,15 +322,18 @@ public class TravelService: NSObject {
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
     let advices = advices.filter {
-      return $0.isOngoing || $0.hashValue == self.dataStore.currentAdviceHash
+      return $0.isOngoing || $0.identifier() == self.dataStore.currentAdviceIdentifier
     }
-    if let firstAdvice = advices.first {
+
+    currentAdvicesVariable.value = .loaded(value: advices)
+
+    let firstAdvice = advices.first { $0.identifier() == self.dataStore.currentAdviceIdentifier } 
+    if let firstAdvice = firstAdvice ?? advices.first {
       currentAdviceVariable.value = firstAdvice
     }
     if let secondAdvice = advices.dropFirst().first {
       nextAdviceVariable.value = secondAdvice
     }
-    currentAdvicesVariable.value = .loaded(value: advices)
   }
 
   private func sortCloseLocations(_ center: CLLocation, stations: [Station]) -> [Station] {
@@ -375,7 +378,7 @@ public class TravelService: NSObject {
   }
 
   public func setCurrentAdviceOnScreen(advice: Advice?) {
-    dataStore.currentAdviceHash = advice?.hashValue
+    dataStore.currentAdviceIdentifier = advice?.identifier()
     currentAdviceOnScreenVariable.value = advice
   }
 

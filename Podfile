@@ -13,7 +13,6 @@ abstract_target 'HoelangTotTrein2Pods' do
 
 	pod 'RxSwift',    '~> 3.0'
 	pod 'RxCocoa',    '~> 3.0'
-	pod 'RxBlocking', '~> 3.0'
 
 	target 'HoelangTotTrein2' do
 		project 'App/HoelangTotTrein2.xcodeproj'
@@ -45,6 +44,7 @@ abstract_target 'HoelangTotTrein2Pods' do
 
     target 'HoelangTotTreinCoreTests' do
       inherit! :search_paths
+      pod 'RxTest', '~> 3.0'
     end
   end
 
@@ -65,7 +65,7 @@ abstract_target 'HoelangTotTrein2WatchPods' do
     project 'API/HoelangTotTreinAPI.xcodeproj'
 
     # pod 'Promissum/Alamofire', :git => "https://github.com/tomlokhorst/Promissum.git", :branch => "feature/deinit-warning-swift3"
-    
+
     # pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git'
 
     # target 'HoelangTotTreinAPITests' do

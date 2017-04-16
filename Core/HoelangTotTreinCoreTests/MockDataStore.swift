@@ -92,7 +92,11 @@ class MockDataStore: DataStore {
   var userId: String = "AABBCC"
   var geofenceInfo: [String: [GeofenceModel]]? = nil
   var persistedAdvicesAndRequest: AdvicesAndRequest? = nil
-  var currentAdviceHash: Int? = nil
+  var currentAdviceIdentifier: String? = nil {
+    didSet {
+      print("SET currentAdviceIdentifier")
+    }
+  }
   var persistedAdvices: Advices? = nil
 
 }

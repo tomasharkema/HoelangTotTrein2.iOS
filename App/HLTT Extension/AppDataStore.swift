@@ -13,14 +13,14 @@ import WatchKit
 class AppDataStore {
 
   func getCurrentAdvice() -> Advice? {
-    let currentHash = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdviceHash ?? currentAdviceHash
+    let currentHash = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdviceIdentifier //?? currentAdviceHash//currentAdviceHash
     let advices = (WKExtension.shared().delegate as? ExtensionDelegate)?.cachedAdvices ?? persistedAdvices
 
     let adviceOpt = advices?.filter {
-      $0.hashValue == currentHash && $0.isOngoing
-      }.first ?? advices?.filter {
-        $0.isOngoing
-        }.first
+      $0.identifier() == currentHash && $0.isOngoing
+    }.first ?? advices?.filter {
+      $0.isOngoing
+    }.first
 
     return adviceOpt
   }

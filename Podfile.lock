@@ -15,11 +15,11 @@ PODS:
   - R.swift (3.2.0):
     - R.swift.Library (~> 3.0.2)
   - R.swift.Library (3.0.2)
-  - RxBlocking (3.3.1):
-    - RxSwift (~> 3.3)
   - RxCocoa (3.3.1):
     - RxSwift (~> 3.3)
   - RxSwift (3.3.1)
+  - RxTest (3.3.1):
+    - RxSwift (~> 3.3)
   - SegueManager/iOS (3.1.0)
   - SegueManager/R.swift (3.1.0):
     - R.swift.Library
@@ -38,9 +38,9 @@ DEPENDENCIES:
   - Promissum/Alamofire
   - Promissum/UIKit
   - R.swift (~> 3.2)
-  - RxBlocking (~> 3.0)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
+  - RxTest (~> 3.0)
   - SegueManager/R.swift (~> 3.1.0)
   - Statham (from `https://github.com/tomasharkema/Statham.git`)
   - Statham/Alamofire+Promissum (from `https://github.com/tomasharkema/Statham.git`)
@@ -61,12 +61,12 @@ SPEC CHECKSUMS:
   Promissum: d1ef42a34fa40f119f011ed89e26234a2f6164c1
   R.swift: 207a372a2b5977caef440c696a368009460641d1
   R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
-  RxBlocking: c5918ecb86b8c205a8ccc6d1ff2abb338ddc50a0
   RxCocoa: 7dcb7a1860fc9cd0e23dae67ab105fc2916670b6
   RxSwift: 8fc9f2de6275a9101d518444e00bf32f1a42caac
+  RxTest: f4e7360033fafa743f2f85097efa958402ed442a
   SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
   Statham: c30278d494d0aeefb9b7229fae919d7905099166
 
-PODFILE CHECKSUM: 5dea11b21a89eba7acfa4f0df57c00234cbb50e2
+PODFILE CHECKSUM: 46ce79651605159a87cb3ba8acf91e2ca61eeee7
 
 COCOAPODS: 1.2.0

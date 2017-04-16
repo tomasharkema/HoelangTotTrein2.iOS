@@ -223,4 +223,53 @@ class TravelServiceTests: XCTestCase {
     waitForExpectations(timeout: 15, handler: nil)
   }
 
+  func testCurrentAdvice() {
+    var called = 0
+    var firstAdvice: Advice? = nil
+    var lastAdvice: Advice? = nil
+    let expect = expectation(description: "promise")
+
+    dataStore.fromStationCode = "ZD"
+    dataStore.toStationCode = "AMS"
+    dataStore.fromStationByPickerCode = "ZD"
+    dataStore.toStationByPickerCode = "AMS"
+
+    _ = travelService.currentAdvicesObservable
+      .subscribe(onNext: { advices in
+        print(advices)
+        if case .loaded(let advices) = advices,
+          let lastAdv = advices.last, let firstAdv = advices.first,
+          firstAdvice != firstAdv, lastAdvice != lastAdv {
+          
+          firstAdvice = firstAdv
+          lastAdvice = lastAdv
+          self.travelService.setCurrentAdviceOnScreen(advice: lastAdv)
+          self.travelService.tick()
+        }
+      })
+
+    _ = travelService.currentAdviceObservable
+      .subscribe(onNext: { advice in
+
+        if called == 0 {
+          XCTAssertNil(advice)
+        } else if called == 1 || called == 2 {
+          XCTAssertNotEqual(advice, firstAdvice)
+          XCTAssertEqual(advice, lastAdvice)
+        } else {
+          XCTAssert(false)
+        }
+
+        if called == 2 {
+          expect.fulfill()
+        }
+
+        called += 1
+      })
+
+    _ = travelService.setStation(.to, stationCode: "HS")
+
+    waitForExpectations(timeout: 15, handler: nil)
+  }
+
 }

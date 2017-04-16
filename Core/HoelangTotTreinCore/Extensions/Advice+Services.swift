@@ -53,11 +53,11 @@ extension Advice {
   }
 }
 
-extension Advice: Hashable {
-  public var hashValue: Int {
-    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)".hashValue
-  }
-}
+//extension Advice: Hashable {
+//  public var hashValue: Int {
+//    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)".hashValue
+//  }
+//}
 
 extension ReisDeel {
   var modalityType: ModalityType {
