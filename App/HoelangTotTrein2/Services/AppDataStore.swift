@@ -25,6 +25,10 @@ class AppDataStore: DataStore {
       let description = NSPersistentStoreDescription()
       description.type = NSInMemoryStoreType
       persistentContainer.persistentStoreDescriptions = [description]
+    } else {
+      let description = NSPersistentStoreDescription()
+      description.url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.tomas.hltt")?.appendingPathComponent("HoelangTotTrein2.db")
+      persistentContainer.persistentStoreDescriptions = [description]
     }
 
     persistentContainer.loadPersistentStores { _, error in

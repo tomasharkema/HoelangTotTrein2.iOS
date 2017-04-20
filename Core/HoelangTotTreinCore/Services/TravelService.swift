@@ -389,6 +389,10 @@ public class TravelService: NSObject {
   public func find(stationNameContains: String) -> Promise<[Station], Error> {
     return dataStore.find(stationNameContains: stationNameContains)
   }
+
+  public func find(stationCode: String) -> Promise<Station, Error> {
+    return dataStore.find(stationCode: stationCode)
+  }
 }
 
 //extension TravelService: WCSessionDelegate {

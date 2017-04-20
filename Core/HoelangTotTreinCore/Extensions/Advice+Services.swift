@@ -37,6 +37,10 @@ extension Advice {
     return reisDeel.first?.stops.first?.spoor
   }
 
+  public var aankomstSpoor: String? {
+    return reisDeel.last?.stops.first?.spoor
+  }
+
   public var isOngoing: Bool {
     return (status == .VolgensPlan ||
       status == .Gewijzigd ||

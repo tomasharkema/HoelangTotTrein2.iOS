@@ -22,9 +22,12 @@ abstract_target 'HoelangTotTrein2Pods' do
 		pod 'SegueManager/R.swift', '~> 3.1.0'
 		pod 'AFDateHelper', '~> 4.0'
 
-	target 'HoelangTotTrein2Tests' do
-		inherit! :search_paths
-	end
+		target 'HoelangTotTrein2Tests' do
+			inherit! :search_paths
+		end
+		target 'Widget' do
+			inherit! :search_paths
+		end
   end
 
   target 'HoelangTotTreinAPI' do
