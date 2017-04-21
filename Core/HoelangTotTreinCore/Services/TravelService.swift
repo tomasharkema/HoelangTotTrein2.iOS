@@ -389,6 +389,15 @@ public class TravelService: NSObject {
     currentAdviceOnScreenVariable.value = advice
   }
 
+  public func setCurrentAdviceOnScreen(adviceIdentifier: String?) {
+    dataStore.currentAdviceIdentifier = adviceIdentifier
+
+    queue.async {
+      let advice = self.dataStore.persistedAdvices?.first { $0.identifier() == adviceIdentifier }
+      self.currentAdviceOnScreenVariable.value = advice
+    }
+  }
+
   func setMostUsedStations(stations: [Station]) {
     mostUsedStationsVariable.value = stations
   }

@@ -55,10 +55,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     case let .currentAdviceChange(currentHash, fromCode, toCode):
       let from = WatchApp.travelService.setStation(.from, stationCode: fromCode, byPicker: true)
       let to = WatchApp.travelService.setStation(.to, stationCode: toCode, byPicker: true)
-
-      whenBoth(from, to).then {
-        print($0)
-      }.trap {
+      WatchApp.travelService.setCurrentAdviceOnScreen(adviceIdentifier: currentHash)
+      whenBoth(from, to).finallyResult {
         print($0)
       }
     }

@@ -48,7 +48,7 @@ class InterfaceController: WKInterfaceController {
     WatchApp.travelService.attach()
     _ = WatchApp.travelService.fetchStations()
 
-    _ = WatchApp.travelService.currentAdviceObservable
+    _ = Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         guard let advice = advice else { return }

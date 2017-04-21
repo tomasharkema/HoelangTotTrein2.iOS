@@ -18,7 +18,9 @@ import Promissum
 
 public class StorageAttachment {
   private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
-//  let scheduler = SerialDispatchQueueScheduler(queue: queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
+  private lazy var scheduler: SerialDispatchQueueScheduler = {
+    return SerialDispatchQueueScheduler(queue: self.queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
+  }()
   private let travelService: TravelService
   private let dataStore: DataStore
 
@@ -54,10 +56,11 @@ public class StorageAttachment {
 
     _ = travelService.currentAdvicesObservable
       .asObservable()
-//      .observeOn(MainScheduler.asyncInstance)
+      .observeOn(scheduler)
       .map { $0.value }
       .filterOptional()
       .subscribe(onNext: { advices in
+        self.dataStore.persistedAdvices = advices
         self.travelService.getCurrentAdviceRequest()
           .dispatch(on: self.queue)
           .then { advice in
