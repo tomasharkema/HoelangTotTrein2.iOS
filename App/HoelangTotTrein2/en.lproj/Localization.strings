@@ -35,4 +35,4 @@
 "endNotificationTitle" = "Final stop";
 "endNotificationBody" = "Get off the train here. Please remember to check out.";
 
-
+"fetchingCloseStations" = "Determine location...";

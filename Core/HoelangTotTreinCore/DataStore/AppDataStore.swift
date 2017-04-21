@@ -16,11 +16,11 @@ import HoelangTotTreinAPI
 #endif
 
 public class AppDataStore: DataStore {
-  
+  let defaultKeepDepartedAdvice: Bool
   fileprivate let persistentContainer: NSPersistentContainer
 
-  public init(useInMemoryStore: Bool = false) {
-
+  public init(useInMemoryStore: Bool = false, defaultKeepDepartedAdvice: Bool) {
+    self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
     #if os(watchOS)
     let bundleIdentifier = "io.harkema.HoelangTotTreinCoreWatch"
     #else

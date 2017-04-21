@@ -175,7 +175,6 @@ public class TravelService: NSObject {
     }
 
     timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: "normal", repeats: true)
-
     tick()
   }
 
@@ -202,14 +201,10 @@ public class TravelService: NSObject {
 
   public func fetchStations() -> Promise<Stations, Error> {
     return apiService.stations()
-      .map {
-        $0.stations.filter {
-          $0.land == "NL"
-        }
-      }
+      .map { $0.stations.filter { $0.land == "NL" } }
       .then { stations in
         print("TravelService did fetch stations: \(stations.count)")
-        if self.stationsVariable.value != stations {
+        if self.stationsVariable.value ?? [] != stations {
           self.stationsVariable.value = stations
         }
       }
@@ -328,8 +323,10 @@ public class TravelService: NSObject {
   }
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
+    let keepDepartedAdvice = dataStore.keepDepartedAdvice
+    let currentAdviceIdentifier = dataStore.currentAdviceIdentifier
     let advices = advices.filter {
-      return $0.isOngoing || $0.identifier() == self.dataStore.currentAdviceIdentifier
+      $0.isOngoing || (keepDepartedAdvice && $0.identifier() == currentAdviceIdentifier)
     }
 
     currentAdvicesVariable.value = .loaded(value: advices)

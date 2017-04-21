@@ -18,6 +18,7 @@ class AdviceCell: UICollectionViewCell {
   @IBOutlet private weak var secondsLabel: UILabel!
   @IBOutlet private weak var stepsStackView: UIStackView!
   @IBOutlet private weak var tickerContainer: UIView!
+  @IBOutlet private weak var modalityLabel: UILabel!
 
   var advice: Advice? {
     didSet {
@@ -66,6 +67,11 @@ class AdviceCell: UICollectionViewCell {
 
     platformLabel.text = advice.vertrekSpoor.map { R.string.localization.platform($0) }
     aankomstVertragingLabel.text = advice.vertrekVertraging.map { R.string.localization.arrival($0) }
+
+    modalityLabel.text = advice.reisDeel.map {
+      $0.modalityType.abbriviation
+    }.joined(separator: " > ")
+
     renderSteps(advice.stepModels)
   }
 

@@ -13,9 +13,10 @@ import Foundation
   import HoelangTotTreinAPI
 #endif
 
-enum ModalityType {
+public enum ModalityType {
   case sprinter
   case intercity
+  case intercityDirect
   case other(String)
 
   static func fromString(_ name: String) -> ModalityType {
@@ -27,7 +28,24 @@ enum ModalityType {
       return .intercity
     }
 
+    if name == "Intercity direct" {
+      return .intercityDirect
+    }
+
     return .other(name)
+  }
+
+  public var abbriviation: String {
+    switch self {
+    case .sprinter:
+      return "SPR"
+    case .intercity:
+      return "IC"
+    case .intercityDirect:
+      return "ICD"
+    case .other(let string):
+      return string
+    }
   }
 
 }
@@ -42,10 +60,12 @@ extension Advice {
   }
 
   public var isOngoing: Bool {
-    return (status == .VolgensPlan ||
-      status == .Gewijzigd ||
-      status == .Vertraagd ||
-      status == .Nieuw) && vertrek.actualDate > Date()
+    return (status == .VolgensPlan
+      || status == .Gewijzigd
+      || status == .Vertraagd
+      || status == .Nieuw)
+      && vertrek.actualDate > Date()
+      && aankomst.actualDate > Date()
   }
 
   public var startStation: String? {
@@ -57,22 +77,10 @@ extension Advice {
   }
 }
 
-//extension Advice: Hashable {
-//  public var hashValue: Int {
-//    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)".hashValue
-//  }
-//}
-
 extension ReisDeel {
-  var modalityType: ModalityType {
+  public var modalityType: ModalityType {
     return ModalityType.fromString(vervoerType)
   }
-}
-
-extension Array: Equatable {}
-
-public func ==<T: Collection>(lhs: T, rhs: T) -> Bool {
-  return String(describing: lhs) == String(describing: rhs)
 }
 
 extension FareTime {
@@ -88,22 +96,5 @@ extension FareTime {
 extension Stop {
   public var timeDate: Date {
     return Date(timeIntervalSince1970: time/1000)
-  }
-}
-
-extension StationType {
-  var score: Int8 {
-    switch self {
-    case .MegaStation:
-      return 4
-    case .KnooppuntIntercityStation, .KnooppuntSneltreinStation:
-      return 3
-    case .IntercityStation, .SneltreinStation:
-      return 2
-    case .KnooppuntStoptreinStation:
-      return 1
-    case .StoptreinStation, .FacultatiefStation:
-      return 0
-    }
   }
 }

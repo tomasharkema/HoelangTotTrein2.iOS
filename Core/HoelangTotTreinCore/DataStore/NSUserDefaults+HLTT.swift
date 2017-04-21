@@ -25,6 +25,7 @@ private struct Keys {
   static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
   static let CurrentAdviceIdentifier = "CurrentAdviceIdentifier"
   static let PersistedAdvices = "PersistedAdvices"
+  static let KeepDepartedAdvice = "KeepDepartedAdvice"
 }
 
 private let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
@@ -249,6 +250,16 @@ extension AppDataStore {
         UserDefaults.set(json, forKey: Keys.PersistedAdvices)
         UserDefaults.synchronize()
       }
+    }
+  }
+
+  public var keepDepartedAdvice: Bool {
+    get {
+      return UserDefaults.object(forKey: Keys.KeepDepartedAdvice) as? Bool ?? defaultKeepDepartedAdvice
+    }
+    set {
+      UserDefaults.set(newValue, forKey: Keys.KeepDepartedAdvice)
+      UserDefaults.synchronize()
     }
   }
 }

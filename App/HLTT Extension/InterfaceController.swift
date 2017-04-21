@@ -52,13 +52,7 @@ class InterfaceController: WKInterfaceController {
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         guard let advice = advice else { return }
-        print(advice)
-        let fromStation = WatchApp.travelService.find(stationCode: advice.request.from)
-        let toStation = WatchApp.travelService.find(stationCode: advice.request.to)
-//        whenBoth(fromStation, toStation)
-//          .then { [weak self] (from, to) in
-          self?.adviceDidChange(advice: advice)//, from: from, to: to)
-//        }
+          self?.adviceDidChange(advice: advice)
       })
 
     super.willActivate()
@@ -86,8 +80,14 @@ class InterfaceController: WKInterfaceController {
 
     fromButton.setTitle("\(formatTime(advice.vertrek.actualDate))\n\(advice.startStation ?? "")")
     toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actualDate))")
-    timerLabel.setDate(advice.vertrek.actualDate)
-    timerLabel.start()
+
+    if advice.vertrek.actualDate > Date() {
+      timerLabel.setDate(advice.vertrek.actualDate)
+      timerLabel.start()
+    } else {
+      timerLabel.setDate(Date())
+      timerLabel.stop()
+    }
 
     platformLabel.setText(advice.vertrekSpoor)
     delayLabel.setText(advice.vertrekVertraging)

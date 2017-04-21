@@ -48,15 +48,8 @@
                                 <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SPR &gt; IC &gt; SPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1b-fX-4Sh">
-                                <rect key="frame" x="0.0" y="-130" width="118" height="20.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.92549019610000005" green="0.86274509799999999" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="op tijd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-dB-jZF">
-                                <rect key="frame" x="318" y="177" width="50" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="op tijd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uf3-dB-jZF">
+                                <rect key="frame" x="319.5" y="177" width="50" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="UcL-WZ-n6P"/>
                                 </constraints>
@@ -64,8 +57,8 @@
                                 <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqN-qO-TEO">
-                                <rect key="frame" x="110" y="177" width="144" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="aankomst: + 1 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OqN-qO-TEO">
+                                <rect key="frame" x="109" y="177" width="144" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="bFb-wa-DKM"/>
                                 </constraints>
@@ -73,11 +66,11 @@
                                 <color key="textColor" red="0.92549019610000005" green="0.57647058819999997" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-js-mkb">
-                                <rect key="frame" x="110" y="39" width="257.5" height="138"/>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-js-mkb">
+                                <rect key="frame" x="109" y="39" width="260" height="138"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw5-Po-FWp">
-                                        <rect key="frame" x="0.0" y="0.0" width="170.5" height="138"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" text="00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mw5-Po-FWp">
+                                        <rect key="frame" x="0.0" y="0.0" width="174.5" height="138"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="117" id="9jM-wd-6A6"/>
                                         </constraints>
@@ -90,14 +83,14 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIJ-Xb-9Uk">
-                                        <rect key="frame" x="170" y="8" width="18" height="55.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="750" text=":" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qIJ-Xb-9Uk">
+                                        <rect key="frame" x="174" y="8" width="17.5" height="55.5"/>
                                         <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="60"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-DY-99O">
-                                        <rect key="frame" x="188" y="8" width="69" height="55.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="750" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-DY-99O">
+                                        <rect key="frame" x="191.5" y="8" width="68.5" height="55.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="n6I-u5-FcK"/>
                                         </constraints>
@@ -143,10 +136,19 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-CH-dE5">
-                                <rect key="frame" x="110" y="8" width="60" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spoor 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-CH-dE5">
+                                <rect key="frame" x="109" y="8" width="60" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="WmK-A0-MIo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
+                                <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IC &gt; SPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2u-Z6-rPw">
+                                <rect key="frame" x="304.5" y="8" width="64.5" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="I5f-yr-3N7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Akkurat" family="Akkurat" pointSize="17"/>
                                 <color key="textColor" red="0.12549019610000001" green="0.77647058820000003" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -162,6 +164,8 @@
                             <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="gIq-XJ-OkO" secondAttribute="bottom" id="IzK-Hh-sgm"/>
                             <constraint firstAttribute="trailing" secondItem="gIq-XJ-OkO" secondAttribute="trailing" constant="8" id="KMW-rB-4o6"/>
                             <constraint firstItem="uf3-dB-jZF" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="bottom" id="LCn-SW-w3P"/>
+                            <constraint firstItem="nuo-js-mkb" firstAttribute="top" secondItem="c2u-Z6-rPw" secondAttribute="bottom" constant="8" id="MCj-zr-ewM"/>
+                            <constraint firstItem="c2u-Z6-rPw" firstAttribute="trailing" secondItem="nuo-js-mkb" secondAttribute="trailing" id="N50-Yh-qDF"/>
                             <constraint firstItem="nuo-js-mkb" firstAttribute="leading" secondItem="uf3-dB-jZF" secondAttribute="leading" id="Vpm-OR-plB"/>
                             <constraint firstItem="OqN-qO-TEO" firstAttribute="top" secondItem="nuo-js-mkb" secondAttribute="bottom" id="Z2e-k1-jjR"/>
                             <constraint firstItem="gIq-XJ-OkO" firstAttribute="top" secondItem="uf3-dB-jZF" secondAttribute="bottom" constant="8" id="adg-vO-d7K"/>
@@ -203,6 +207,7 @@
             <connections>
                 <outlet property="aankomstVertragingLabel" destination="OqN-qO-TEO" id="xHB-7s-DXk"/>
                 <outlet property="minutesLabel" destination="Mw5-Po-FWp" id="IFE-2N-Rmn"/>
+                <outlet property="modalityLabel" destination="c2u-Z6-rPw" id="SOn-YG-aFu"/>
                 <outlet property="platformLabel" destination="hHG-CH-dE5" id="O1r-O0-JQ3"/>
                 <outlet property="secondsLabel" destination="8UC-DY-99O" id="UHf-bV-VNe"/>
                 <outlet property="statusMessageLabel" destination="uf3-dB-jZF" id="WlP-OG-Uip"/>

@@ -57,7 +57,6 @@ extension Advice {
 //    return filteredStations.first
 //  }
 
-
   var smallExtraMessage: String {
 
     if let _ = reisDeel.first, reisDeel.count == 1 {

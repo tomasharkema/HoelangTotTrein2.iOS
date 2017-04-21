@@ -11,7 +11,7 @@ import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
 struct App {
-  static private let dataStore = AppDataStore()
+  static private let dataStore = AppDataStore(defaultKeepDepartedAdvice: true)
   static private let apiService = HttpApiService(endpoint: "https://ns.harkema.io")
   static let locationService = AppLocationService()
   static let travelService = TravelService(apiService: apiService, locationService: locationService, dataStore: dataStore)

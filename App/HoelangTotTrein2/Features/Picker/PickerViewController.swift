@@ -105,7 +105,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     case (_, 0):
       return mostUsedStations?.count ?? 0
     case (_, 1):
-      return closeStations?.count ?? 0
+      return closeStations?.count ?? 1
     case (_, 2):
       return ordinaryStations?.count ?? 0
     default:
@@ -133,6 +133,10 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     if let station = getStation(fromIndexPath: indexPath) {
       cell.stationLabel.text = station.name
+    } else if indexPath.section == 1 {
+      cell.stationLabel.text = R.string.localization.fetchingCloseStations()
+    } else {
+      cell.stationLabel.text = ""
     }
 
     cell.backgroundColor = .clear

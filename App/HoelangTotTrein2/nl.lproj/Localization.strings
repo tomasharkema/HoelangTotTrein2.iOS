@@ -33,3 +33,5 @@
 
 "endNotificationTitle" = "Eindstation";
 "endNotificationBody" = "Stap hier uit. Vergeet niet uit te checken!";
+
+"fetchingCloseStations" = "Locatie bepalen...";
