@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import Statham
 import Promissum
 
 extension SessionManager {

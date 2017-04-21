@@ -11,11 +11,11 @@ import Foundation
 import CoreLocation
 import Promissum
 import RxSwift
-//import WatchConnectivity
 #if os(watchOS)
-  import HoelangTotTreinAPIWatch
+import HoelangTotTreinAPIWatch
 #elseif os(iOS)
-  import HoelangTotTreinAPI
+import HoelangTotTreinAPI
+import WatchConnectivity
 #endif
 
 enum TravelServiceError: Error {
@@ -42,7 +42,9 @@ public class TravelService: NSObject {
   fileprivate let locationService: LocationService
   private let dataStore: DataStore
 
-//  let session = WCSession.default()
+  #if os(iOS)
+  let session = WCSession.default()
+  #endif
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
   public private(set) var currentAdviceObservable: Observable<Advice?>!
@@ -83,14 +85,17 @@ public class TravelService: NSObject {
     currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
     mostUsedStationsObservable = mostUsedStationsVariable.asObservable()
     
+    #if os(iOS)
     NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+    #endif
   }
   
   public func attach() {
-
-//    session.delegate = self
-//    session.activate()
+    #if os(iOS)
+    session.delegate = self
+    session.activate()
+    #endif
 
     _ = firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
@@ -131,9 +136,11 @@ public class TravelService: NSObject {
 
         self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
 
-//        self.session.sendEvent(TravelEvent.currentAdviceChange(hash: advice.hashValue))
-//        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-//        print(complicationUpdate)
+        #if os(iOS)
+        self.session.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
+        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+        print(complicationUpdate)
+        #endif
       })
 
     _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
@@ -395,28 +402,31 @@ public class TravelService: NSObject {
   }
 }
 
-//extension TravelService: WCSessionDelegate {
-//  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-//    /* stub */
-//  }
-//
-//  func sessionDidBecomeInactive(_ session: WCSession) {
-//    /* stub */
-//  }
-//
-//  open func sessionDidDeactivate(_ session: WCSession) {
-//    /* stub */
-//  }
-//
-//  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-//    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
-//      return
-//    }
-//
-//    replyHandler(data)
-//  }
-//
-//  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-//    print("didReceiveApplicationContext: \(applicationContext)")
-//  }
-//}
+#if os(iOS)
+
+extension TravelService: WCSessionDelegate {
+  public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    /* stub */
+  }
+
+  public func sessionDidBecomeInactive(_ session: WCSession) {
+    /* stub */
+  }
+
+  public func sessionDidDeactivate(_ session: WCSession) {
+    /* stub */
+  }
+
+  public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
+      return
+    }
+
+    replyHandler(data)
+  }
+
+  public func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    print("didReceiveApplicationContext: \(applicationContext)")
+  }
+}
+#endif

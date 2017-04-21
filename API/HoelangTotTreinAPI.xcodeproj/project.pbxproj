@@ -39,6 +39,9 @@
 		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C375384C1E9921C20047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
+		C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
+		C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404B1E98F0B100D99541 /* ApiService.swift */; };
+		C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40641E98F15800D99541 /* SessionManager+Request.swift */; };
 		E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */; };
 		EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */; };
 /* End PBXBuildFile section */
@@ -544,8 +547,11 @@
 				C30B408F1E98F79200D99541 /* ErrorJson+JsonGen.swift in Sources */,
 				C30B40911E98F79200D99541 /* Station+JsonGen.swift in Sources */,
 				C30B40901E98F79200D99541 /* GeofenceModel+JsonGen.swift in Sources */,
+				C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */,
 				C30B40871E98F6AE00D99541 /* GeofenceModel.swift in Sources */,
 				C30B408E1E98F79200D99541 /* Advice+JsonGen.swift in Sources */,
+				C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */,
+				C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */,
 				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
 				C30B40921E98F79200D99541 /* SuccessResponse+JsonGen.swift in Sources */,
 				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
@@ -680,6 +686,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -701,6 +708,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

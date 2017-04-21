@@ -12,10 +12,8 @@ import Promissum
 import RxSwift
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
-  import HoelangTotTreinCoreWatch
 #elseif os(iOS)
   import HoelangTotTreinAPI
-  import HoelangTotTreinCore
 #endif
 
 struct SignificantLocation: Equatable {
@@ -27,22 +25,16 @@ func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
   return lhs.location == rhs.location
 }
 
-class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
+public class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 
   let manager: CLLocationManager
 
   let significantLocationChangeObservable = Variable<SignificantLocation?>(nil).asObservable()
 
-  override init() {
+  public override init() {
     manager = CLLocationManager()
     super.init()
     manager.delegate = self
-
-    initialize()
-  }
-
-  func initialize() {
-
   }
 
   deinit {
@@ -50,19 +42,13 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
     currentLocationPromise = nil
   }
 
-  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+  public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     requestAuthorizationPromise?.resolve(status)
-    switch status {
-    case .authorizedAlways:
-      initialize()
-    default:
-      break
-    }
   }
 
   fileprivate var requestAuthorizationPromise: PromiseSource<CLAuthorizationStatus, Error>?
 
-  func requestAuthorization() -> Promise<CLAuthorizationStatus, Error> {
+  public func requestAuthorization() -> Promise<CLAuthorizationStatus, Error> {
     let currentState = CLLocationManager.authorizationStatus()
 
     switch currentState {
@@ -78,7 +64,7 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 
   fileprivate var currentLocationPromise: PromiseSource<CLLocation, Error>?
 
-  func currentLocation() -> Promise<CLLocation, Error> {
+  public func currentLocation() -> Promise<CLLocation, Error> {
     if let location = manager.location, DateInterval(start: location.timestamp, end: Date()).duration < 560 {
       return Promise(value: location)
     }
@@ -90,7 +76,7 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
     return currentLocationPromise!.promise
   }
 
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let closestLocation = locations.sorted { lhs, rhs in
       (lhs.horizontalAccuracy + lhs.verticalAccuracy) > (rhs.horizontalAccuracy + rhs.verticalAccuracy)
     }.first
@@ -104,7 +90,7 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 }
 
 extension AppLocationService {
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+  public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     currentLocationPromise?.reject(error)
   }
 }

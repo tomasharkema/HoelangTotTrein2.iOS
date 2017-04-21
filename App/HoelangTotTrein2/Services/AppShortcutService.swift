@@ -45,7 +45,7 @@ class AppShortcutService {
 
 extension AppDelegate {
   func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-    //    App.travelService.tick()
+    App.travelService.tick()
 
     guard let stationCode = shortcutItem.userInfo?["stationCode"] as? String else {
       completionHandler(false)

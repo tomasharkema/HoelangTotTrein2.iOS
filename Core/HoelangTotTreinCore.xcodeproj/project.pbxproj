@@ -12,11 +12,19 @@
 		C31C97541EA22CE2007BD463 /* TravelServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */; };
 		C31C97561EA22FBB007BD463 /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97551EA22FBB007BD463 /* MockDataStore.swift */; };
 		C31C97581EA234EA007BD463 /* MockLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97571EA234EA007BD463 /* MockLocationService.swift */; };
+		C333481D1EAA3D5700EE2340 /* AppLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333481C1EAA3D5700EE2340 /* AppLocationService.swift */; };
+		C333481E1EAA3D5700EE2340 /* AppLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333481C1EAA3D5700EE2340 /* AppLocationService.swift */; };
+		C333481F1EAA3D7B00EE2340 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375382F1E991E030047108C /* LocationService.swift */; };
+		C33348201EAA3DD700EE2340 /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538141E99181C0047108C /* TravelService.swift */; };
+		C33348241EAA498900EE2340 /* JsonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348231EAA498900EE2340 /* JsonHelpers.swift */; };
+		C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348231EAA498900EE2340 /* JsonHelpers.swift */; };
+		C33348271EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */; };
+		C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */; };
+		C33348291EAA529200EE2340 /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
 		C37538021E9916190047108C /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37537F81E9916190047108C /* HoelangTotTreinCore.framework */; };
 		C37538091E9916190047108C /* HoelangTotTreinCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C37537FB1E9916190047108C /* HoelangTotTreinCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C37538151E99181C0047108C /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
 		C37538161E99181C0047108C /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538141E99181C0047108C /* TravelService.swift */; };
-		C375381B1E9918B60047108C /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381A1E9918B60047108C /* DataStore.swift */; };
 		C37538211E991AF30047108C /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538201E991AF30047108C /* HoelangTotTreinAPI.framework */; };
 		C37538251E991C750047108C /* Observable+FilterOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538241E991C750047108C /* Observable+FilterOptional.swift */; };
 		C37538271E991CC70047108C /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538261E991CC70047108C /* Advice+Services.swift */; };
@@ -35,6 +43,14 @@
 		C375385F1E99233D0047108C /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538261E991CC70047108C /* Advice+Services.swift */; };
 		C37538601E99233D0047108C /* Observable+FilterOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538241E991C750047108C /* Observable+FilterOptional.swift */; };
 		C37538651E9923D50047108C /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538641E9923D50047108C /* HoelangTotTreinAPIWatch.framework */; };
+		C38335D11EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */; };
+		C38335D21EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */; };
+		C38335E11EAA37A000A9E077 /* NSUserDefaults+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E01EAA37A000A9E077 /* NSUserDefaults+HLTT.swift */; };
+		C38335E21EAA37A000A9E077 /* NSUserDefaults+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E01EAA37A000A9E077 /* NSUserDefaults+HLTT.swift */; };
+		C38335E51EAA37D400A9E077 /* AppDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E31EAA37D400A9E077 /* AppDataStore.swift */; };
+		C38335E61EAA37D400A9E077 /* AppDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E31EAA37D400A9E077 /* AppDataStore.swift */; };
+		C38335E71EAA37D400A9E077 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E41EAA37D400A9E077 /* DataStore.swift */; };
+		C38335E81EAA37D400A9E077 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E41EAA37D400A9E077 /* DataStore.swift */; };
 		F5BBE6F99260597FC4E38F6E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2152BD725B1728E9F39F90FA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinCore.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +76,9 @@
 		C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TravelServiceTests.swift; path = Services/TravelServiceTests.swift; sourceTree = "<group>"; };
 		C31C97551EA22FBB007BD463 /* MockDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
 		C31C97571EA234EA007BD463 /* MockLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationService.swift; sourceTree = "<group>"; };
+		C333481C1EAA3D5700EE2340 /* AppLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocationService.swift; sourceTree = "<group>"; };
+		C33348231EAA498900EE2340 /* JsonHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonHelpers.swift; sourceTree = "<group>"; };
+		C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchkitHelpers.swift; sourceTree = "<group>"; };
 		C37537F81E9916190047108C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37537FB1E9916190047108C /* HoelangTotTreinCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinCore.h; sourceTree = "<group>"; };
 		C37537FC1E9916190047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,7 +86,6 @@
 		C37538081E9916190047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37538131E99181C0047108C /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
 		C37538141E99181C0047108C /* TravelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelService.swift; sourceTree = "<group>"; };
-		C375381A1E9918B60047108C /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C37538201E991AF30047108C /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C37538241E991C750047108C /* Observable+FilterOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+FilterOptional.swift"; sourceTree = "<group>"; };
 		C37538261E991CC70047108C /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
@@ -83,6 +101,10 @@
 		C37538541E9923340047108C /* HoelangTotTreinCoreWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinCoreWatch.h; sourceTree = "<group>"; };
 		C37538551E9923340047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37538641E9923D50047108C /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPIWatch.framework; path = "../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-watchsimulator/HoelangTotTreinAPIWatch.framework"; sourceTree = "<group>"; };
+		C38335D01EAA368900A9E077 /* HoelangTotTrein2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HoelangTotTrein2.xcdatamodel; sourceTree = "<group>"; };
+		C38335E01EAA37A000A9E077 /* NSUserDefaults+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+HLTT.swift"; sourceTree = "<group>"; };
+		C38335E31EAA37D400A9E077 /* AppDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataStore.swift; sourceTree = "<group>"; };
+		C38335E41EAA37D400A9E077 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		D115D95C547E554F036E4207 /* Pods_HoelangTotTreinCoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinCoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -164,6 +186,7 @@
 		C37537FA1E9916190047108C /* HoelangTotTreinCore */ = {
 			isa = PBXGroup;
 			children = (
+				C38335CE1EAA365B00A9E077 /* DataStore */,
 				C37538281E991D640047108C /* Model */,
 				C37538231E991C630047108C /* Extensions */,
 				C37538121E9917330047108C /* Services */,
@@ -187,9 +210,9 @@
 		C37538121E9917330047108C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C333481C1EAA3D5700EE2340 /* AppLocationService.swift */,
 				C37538131E99181C0047108C /* StorageAttachment.swift */,
 				C37538141E99181C0047108C /* TravelService.swift */,
-				C375381A1E9918B60047108C /* DataStore.swift */,
 				C375382F1E991E030047108C /* LocationService.swift */,
 			);
 			path = Services;
@@ -198,6 +221,8 @@
 		C37538231E991C630047108C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */,
+				C33348231EAA498900EE2340 /* JsonHelpers.swift */,
 				C37538331E991F030047108C /* CLCircularRegion+Bounds.swift */,
 				C375382B1E991DB40047108C /* Array+Extensions.swift */,
 				C375382C1E991DB40047108C /* Array+Helpers.swift */,
@@ -232,6 +257,17 @@
 				C37538551E9923340047108C /* Info.plist */,
 			);
 			path = HoelangTotTreinCoreWatch;
+			sourceTree = "<group>";
+		};
+		C38335CE1EAA365B00A9E077 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				C38335E31EAA37D400A9E077 /* AppDataStore.swift */,
+				C38335E41EAA37D400A9E077 /* DataStore.swift */,
+				C38335E01EAA37A000A9E077 /* NSUserDefaults+HLTT.swift */,
+				C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */,
+			);
+			path = DataStore;
 			sourceTree = "<group>";
 		};
 		DFD0240DDC8ECAA641CAD295 /* Frameworks */ = {
@@ -515,15 +551,21 @@
 			files = (
 				C37538151E99181C0047108C /* StorageAttachment.swift in Sources */,
 				C37538341E991F030047108C /* CLCircularRegion+Bounds.swift in Sources */,
+				C38335E51EAA37D400A9E077 /* AppDataStore.swift in Sources */,
 				C37538271E991CC70047108C /* Advice+Services.swift in Sources */,
+				C38335E11EAA37A000A9E077 /* NSUserDefaults+HLTT.swift in Sources */,
 				C375382A1E991D720047108C /* TravelEvent.swift in Sources */,
+				C38335E71EAA37D400A9E077 /* DataStore.swift in Sources */,
 				C37538321E991EBC0047108C /* PickerState.swift in Sources */,
 				C375382E1E991DB40047108C /* Array+Helpers.swift in Sources */,
+				C33348241EAA498900EE2340 /* JsonHelpers.swift in Sources */,
+				C33348271EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
 				C375382D1E991DB40047108C /* Array+Extensions.swift in Sources */,
-				C375381B1E9918B60047108C /* DataStore.swift in Sources */,
 				C37538251E991C750047108C /* Observable+FilterOptional.swift in Sources */,
 				C37538301E991E030047108C /* LocationService.swift in Sources */,
 				C37538161E99181C0047108C /* TravelService.swift in Sources */,
+				C333481D1EAA3D5700EE2340 /* AppLocationService.swift in Sources */,
+				C38335D11EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,13 +583,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C33348291EAA529200EE2340 /* StorageAttachment.swift in Sources */,
 				C375385E1E99233D0047108C /* Array+Helpers.swift in Sources */,
 				C375385F1E99233D0047108C /* Advice+Services.swift in Sources */,
+				C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
+				C38335E61EAA37D400A9E077 /* AppDataStore.swift in Sources */,
+				C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */,
 				C375385A1E99233A0047108C /* TravelEvent.swift in Sources */,
 				C37538601E99233D0047108C /* Observable+FilterOptional.swift in Sources */,
+				C38335D21EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */,
 				C375385C1E99233D0047108C /* CLCircularRegion+Bounds.swift in Sources */,
+				C38335E21EAA37A000A9E077 /* NSUserDefaults+HLTT.swift in Sources */,
 				C375385B1E99233A0047108C /* PickerState.swift in Sources */,
+				C333481F1EAA3D7B00EE2340 /* LocationService.swift in Sources */,
 				C375385D1E99233D0047108C /* Array+Extensions.swift in Sources */,
+				C33348201EAA3DD700EE2340 /* TravelService.swift in Sources */,
+				C333481E1EAA3D5700EE2340 /* AppLocationService.swift in Sources */,
+				C38335E81EAA37D400A9E077 /* DataStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -824,6 +876,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C38335D01EAA368900A9E077 /* HoelangTotTrein2.xcdatamodel */,
+			);
+			currentVersion = C38335D01EAA368900A9E077 /* HoelangTotTrein2.xcdatamodel */;
+			path = HoelangTotTrein2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C37537EF1E9916190047108C /* Project object */;
 }

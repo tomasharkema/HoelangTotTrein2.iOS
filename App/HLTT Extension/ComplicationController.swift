@@ -11,8 +11,6 @@ import WatchKit
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
 
-  private let dataStore = AppDataStore()
-
     // MARK: - Timeline Configuration
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void) {
@@ -67,7 +65,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
   fileprivate func getTemplateForFamily(_ complication: CLKComplication) -> CLKComplicationTemplate? {
     
     let delayString: String
-    if let delay = dataStore.getCurrentAdvice(), let delayMessage = delay.vertrekVertraging {
+    if let delay = WatchApp.dataStore.persistedAdvices?.first, let delayMessage = delay.vertrekVertraging {
       delayString = delayMessage
     } else {
       delayString = "✅"

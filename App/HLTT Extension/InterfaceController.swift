@@ -9,12 +9,9 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
-
-#if os(watchOS)
-  import HoelangTotTreinAPIWatch
-#elseif os(iOS)
-  import HoelangTotTreinAPI
-#endif
+import HoelangTotTreinAPIWatch
+import HoelangTotTreinCoreWatch
+import RxSwift
 
 func formatTime(_ date: Date) -> String {
   let format = DateFormatter()
@@ -32,23 +29,38 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet var loadingLabel: WKInterfaceLabel!
   @IBOutlet var delayLabel: WKInterfaceLabel!
 
-  private let dataStore = AppDataStore()
-
-  var refreshTimer: Timer?
   var oneMinuteToGoTimer: Timer?
 
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
-    adviceDidChange()
+    adviceDidChange(advice: nil)
   }
 
   override func willActivate() {
     // This method is called when watch view controller is about to be visible to user
-    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: NSNotification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
+//    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: NSNotification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
     (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
       print("INITIAL STATE WITH: \(error)")
-      self.adviceDidChange()
+      self.adviceDidChange(advice: nil)
     }
+
+    WatchApp.storageAttachment.attach()
+    WatchApp.travelService.attach()
+    _ = WatchApp.travelService.fetchStations()
+
+    _ = WatchApp.travelService.currentAdviceObservable
+      .observeOn(MainScheduler.asyncInstance)
+      .subscribe(onNext: { [weak self] advice in
+        guard let advice = advice else { return }
+        print(advice)
+        let fromStation = WatchApp.travelService.find(stationCode: advice.request.from)
+        let toStation = WatchApp.travelService.find(stationCode: advice.request.to)
+//        whenBoth(fromStation, toStation)
+//          .then { [weak self] (from, to) in
+          self?.adviceDidChange(advice: advice)//, from: from, to: to)
+//        }
+      })
+
     super.willActivate()
   }
 
@@ -59,8 +71,8 @@ class InterfaceController: WKInterfaceController {
 
   var previousAdvice: Advice?
 
-  func adviceDidChange() {
-    guard let advice = dataStore.getCurrentAdvice() else {
+  func adviceDidChange(advice: Advice?) {
+    guard let advice = advice else {
       loadingLabel.setHidden(false)
       tickerContainer.setHidden(true)
       return
@@ -83,9 +95,7 @@ class InterfaceController: WKInterfaceController {
     loadingLabel.setHidden(true)
     tickerContainer.setHidden(false)
 
-    refreshTimer?.invalidate()
     let finished = advice.vertrek.actualDate.timeIntervalSinceNow
-    refreshTimer = Timer.scheduledTimer(timeInterval: finished, target: self, selector: #selector(adviceDidChange), userInfo: nil, repeats: false)
     oneMinuteToGoTimer?.invalidate()
 
     let oneMinuteToGoOffset = finished - 60

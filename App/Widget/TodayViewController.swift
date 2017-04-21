@@ -24,17 +24,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    App.storageAttachment.attach()
-    App.travelService.attach()
-    _ = App.travelService.fetchStations()
+    WidgetApp.storageAttachment.attach()
+    WidgetApp.travelService.attach()
+    _ = WidgetApp.travelService.fetchStations()
 
-    _ = App.travelService.currentAdviceObservable
+    _ = WidgetApp.travelService.currentAdviceObservable
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         guard let advice = advice else { return }
 
-        let fromStation = App.travelService.find(stationCode: advice.request.from)
-        let toStation = App.travelService.find(stationCode: advice.request.to)
+        let fromStation = WidgetApp.travelService.find(stationCode: advice.request.from)
+        let toStation = WidgetApp.travelService.find(stationCode: advice.request.to)
         whenBoth(fromStation, toStation)
           .then { [weak self] (from, to) in
             self?.render(advice: advice, from: from, to: to)

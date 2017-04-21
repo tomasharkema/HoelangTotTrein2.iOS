@@ -9,17 +9,34 @@
 import Foundation
 import CoreData
 import Promissum
+#if os(watchOS)
+import HoelangTotTreinAPIWatch
+#elseif os(iOS)
 import HoelangTotTreinAPI
-import HoelangTotTreinCore
+#endif
 
-class AppDataStore: DataStore {
+public class AppDataStore: DataStore {
   
-//  fileprivate let queue = DispatchQueue(label: "Datastore")
   fileprivate let persistentContainer: NSPersistentContainer
 
-  init (useInMemoryStore: Bool = false) {
+  public init(useInMemoryStore: Bool = false) {
 
-    persistentContainer = NSPersistentContainer(name: "HoelangTotTrein2")
+    #if os(watchOS)
+    let bundleIdentifier = "io.harkema.HoelangTotTreinCoreWatch"
+    #else
+    let bundleIdentifier = "io.harkema.HoelangTotTreinCore"
+    #endif
+
+    guard let bundle = Bundle(identifier: bundleIdentifier),
+      let url = bundle.url(forResource: "HoelangTotTrein2", withExtension: "momd"),
+      let model = NSManagedObjectModel(contentsOf: url)
+      else {
+        fatalError("NO MODEL")
+        persistentContainer = NSPersistentContainer()
+        return
+      }
+
+    persistentContainer = NSPersistentContainer(name: "HoelangTotTrein2", managedObjectModel: model)
 
     if useInMemoryStore {
       let description = NSPersistentStoreDescription()
@@ -62,7 +79,7 @@ extension Station {
 
 extension AppDataStore {
 
-  func stations() -> Promise<[Station], Error> {
+  public func stations() -> Promise<[Station], Error> {
     let promiseSource = PromiseSource<[Station], Error>()
 
     persistentContainer.performBackgroundTask { context in
@@ -78,7 +95,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func findOrUpdate(stations: [Station]) -> Promise<Void, Error> {
+  public func findOrUpdate(stations: [Station]) -> Promise<Void, Error> {
     let promiseSource = PromiseSource<Void, Error>()
 
     persistentContainer.performBackgroundTask { context in
@@ -112,7 +129,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func find(stationName: String) -> Promise<Station, Error> {
+  public func find(stationName: String) -> Promise<Station, Error> {
     let promiseSource = PromiseSource<Station, Error>()
 
     persistentContainer.performBackgroundTask { context in
@@ -134,7 +151,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func find(stationCode: String) -> Promise<Station, Error> {
+  public func find(stationCode: String) -> Promise<Station, Error> {
     let promiseSource = PromiseSource<Station, Error>()
 
     persistentContainer.performBackgroundTask { context in
@@ -157,7 +174,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func find(inBounds bounds: Bounds) -> Promise<[Station], Error> {
+  public func find(inBounds bounds: Bounds) -> Promise<[Station], Error> {
     let promiseSource = PromiseSource<[Station], Error>()
 
     persistentContainer.performBackgroundTask { context in
@@ -174,7 +191,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func find(stationNameContains query: String) -> Promise<[Station], Error> {
+  public func find(stationNameContains query: String) -> Promise<[Station], Error> {
     let promiseSource = PromiseSource<[Station], Error>()
     persistentContainer.performBackgroundTask { context in
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
@@ -195,7 +212,7 @@ extension AppDataStore {
 
 extension AppDataStore {
 
-  func insertHistory(station: Station, historyType: HistoryType) -> Promise<Void, Error> {
+  public func insertHistory(station: Station, historyType: HistoryType) -> Promise<Void, Error> {
     let promiseSource = PromiseSource<Void, Error>()
     persistentContainer.performBackgroundTask { context in
 
@@ -272,7 +289,7 @@ extension AppDataStore {
     return promiseSource.promise
   }
 
-  func mostUsedStations() -> Promise<[Station], Error> {
+  public func mostUsedStations() -> Promise<[Station], Error> {
     return fetchMostUsedDict()
       .flatMap { stationCodes in
         whenAll(stationCodes.map({ (code, _) in

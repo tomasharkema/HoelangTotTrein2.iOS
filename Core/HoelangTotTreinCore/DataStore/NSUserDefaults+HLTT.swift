@@ -31,7 +31,7 @@ private let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt"
 
 extension AppDataStore {
 
-  var fromStationCode: String? {
+  public var fromStationCode: String? {
     get {
       let fromCode = UserDefaults.string(forKey: Keys.FromStationCodeKey)
       return fromCode
@@ -42,7 +42,7 @@ extension AppDataStore {
     }
   }
 
-  var toStationCode: String? {
+  public var toStationCode: String? {
     get {
       let toCode = UserDefaults.string(forKey: Keys.ToStationCodeKey)
       return toCode
@@ -53,7 +53,7 @@ extension AppDataStore {
     }
   }
 
-  var fromStationByPickerCode: String? {
+  public var fromStationByPickerCode: String? {
     get {
       let fromCode = UserDefaults.string(forKey: Keys.FromStationByPickerCodeKey)
       return fromCode
@@ -64,7 +64,7 @@ extension AppDataStore {
     }
   }
 
-  var toStationByPickerCode: String? {
+  public var toStationByPickerCode: String? {
     get {
       let toCode = UserDefaults.string(forKey: Keys.ToStationByPickerCodeKey)
       return toCode
@@ -75,7 +75,7 @@ extension AppDataStore {
     }
   }
 
-  var userId: String {
+  public var userId: String {
     let returnedUserId: String
     if let userId = UserDefaults.string(forKey: Keys.UserIdKey) {
       returnedUserId = userId
@@ -88,7 +88,7 @@ extension AppDataStore {
   }
 
 
-  var geofenceInfo: [String: [GeofenceModel]]? {
+  public var geofenceInfo: [String: [GeofenceModel]]? {
     set {
       if let value = newValue {
         let dict = value.encodeJson({$0}) {
@@ -143,7 +143,7 @@ extension AppDataStore {
     }
   }
 
-  var persistedAdvicesAndRequest: AdvicesAndRequest? {
+  public var persistedAdvicesAndRequest: AdvicesAndRequest? {
     set {
       if let value = newValue {
 
@@ -195,7 +195,7 @@ extension AppDataStore {
     }
   }
 
-  var currentAdviceIdentifier: String? {
+  public var currentAdviceIdentifier: String? {
     get {
       return UserDefaults.string(forKey: Keys.CurrentAdviceIdentifier)
     }
@@ -206,7 +206,7 @@ extension AppDataStore {
     }
   }
 
-  var persistedAdvices: Advices? {
+  public var persistedAdvices: Advices? {
     set {
       if let value = newValue {
         let array = value.encodeJson {
@@ -231,7 +231,6 @@ extension AppDataStore {
 
   fileprivate var persistedAdvicesObject: [Any]? {
     get {
-      assert(!Thread.isMainThread)
       guard let data = UserDefaults.object(forKey: Keys.PersistedAdvices) as? Data else {
         return nil
       }

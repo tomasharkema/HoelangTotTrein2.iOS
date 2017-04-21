@@ -11,17 +11,15 @@ import WatchConnectivity
 import ClockKit
 import HoelangTotTreinAPIWatch
 import HoelangTotTreinCoreWatch
+import Promissum
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
-
-private let dataStore = AppDataStore()
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   private let session = WCSession.default()
 
-  var cachedAdvices: [Advice] = dataStore.persistedAdvices ?? []
-  var cachedAdviceIdentifier: String? = dataStore.currentAdviceIdentifier
+  var cachedAdvices: [Advice] = WatchApp.dataStore.persistedAdvices ?? []
 
   func applicationDidFinishLaunching() {
     session.delegate = self
@@ -44,19 +42,25 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     decodeEvent(json)
   }
 
-  fileprivate func decodeEvent(_ message: [String: AnyObject]) {
+  fileprivate func decodeEvent(_ message: [String: Any]) {
     guard let event = TravelEvent.decode(message) else {
       return
     }
 
     switch event {
-    case let .advicesChange(advice: advices):
-      cachedAdvices = advices
-      dataStore.persistedAdvices = advices
+//    case let .advicesChange(advice: advices):
+//      cachedAdvices = advices
+//      WatchApp.dataStore.persistedAdvices = advices
 
-    case let .currentAdviceChange(currentHash):
-      cachedAdviceIdentifier = currentHash
-      dataStore.currentAdviceIdentifier = currentHash
+    case let .currentAdviceChange(currentHash, fromCode, toCode):
+      let from = WatchApp.travelService.setStation(.from, stationCode: fromCode, byPicker: true)
+      let to = WatchApp.travelService.setStation(.to, stationCode: toCode, byPicker: true)
+
+      whenBoth(from, to).then {
+        print($0)
+      }.trap {
+        print($0)
+      }
     }
 
     NotificationCenter.default.post(name: Notification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
@@ -92,5 +96,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     requestInitialState()
+  }
+
+  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    print(applicationContext)
+    decodeEvent(applicationContext)
   }
 }

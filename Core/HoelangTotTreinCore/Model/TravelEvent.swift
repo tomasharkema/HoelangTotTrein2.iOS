@@ -14,15 +14,15 @@ import Foundation
 #endif
 
 public enum TravelEvent {
-  case advicesChange(advice: Advices)
-  case currentAdviceChange(identifier: String)
+//  case advicesChange(advice: Advices)
+  case currentAdviceChange(identifier: String, fromCode: String, toCode: String)
 }
 
 extension TravelEvent {
   var name: String {
     switch self {
-    case .advicesChange:
-      return "advicesChange"
+//    case .advicesChange:
+//      return "advicesChange"
     case .currentAdviceChange:
       return "currentAdviceChange"
     }
@@ -34,13 +34,13 @@ extension TravelEvent {
   public var encode: [String: Any] {
     let array: [String: Any] = { this in
       switch this {
-      case let .advicesChange(advices):
-        return ["advices": advices.encodeJson {
-          $0.encodeJson()
-          }]
+//      case let .advicesChange(advices):
+//        return ["advices": advices.encodeJson {
+//          $0.encodeJson()
+//          }]
 
-      case let .currentAdviceChange(hash):
-        return ["hash": hash]
+      case let .currentAdviceChange(hash, from, to):
+        return ["hash": hash, "from": from, "to": to]
       }
     }(self)
 
@@ -53,23 +53,23 @@ extension TravelEvent {
 //MARK: - TravelEvent Decode
 
 extension TravelEvent {
-  public static func decode(_ message: [String: AnyObject]) -> TravelEvent? {
+  public static func decode(_ message: [String: Any]) -> TravelEvent? {
     switch message["name"] as? String {
-    case "advicesChange"?:
-      guard let advices = message["advices"] as? [AnyObject] else {
-        return nil
-      }
-      do {
-        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) })(advices))
-      } catch {
-        return nil
-      }
+//    case "advicesChange"?:
+//      guard let advices = message["advices"] as? [AnyObject] else {
+//        return nil
+//      }
+//      do {
+//        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) })(advices))
+//      } catch {
+//        return nil
+//      }
 
     case "currentAdviceChange"?:
-      guard let hash = message["hash"] as? String else {
+      guard let hash = message["hash"] as? String, let from = message["from"] as? String, let to = message["to"] as? String else {
         return nil
       }
-      return TravelEvent.currentAdviceChange(identifier: hash)
+      return TravelEvent.currentAdviceChange(identifier: hash, fromCode: from, toCode: to)
 
     default:
       return nil

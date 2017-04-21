@@ -18,7 +18,6 @@ public protocol ApiService {
   func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error>
 }
 
-
 public class HttpApiService: ApiService {
   private let endpoint: String
 
