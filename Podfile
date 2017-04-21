@@ -4,9 +4,9 @@ abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
   platform :ios, '10.0'
 
-	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git'
-	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git'
-	pod 'Promissum/UIKit', :git => 'https://github.com/tomasharkema/Promissum.git'
+pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
+	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
+	pod 'Promissum/UIKit', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
 
   pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
   pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
@@ -55,8 +55,8 @@ abstract_target 'HoelangTotTrein2WatchPods' do
   use_frameworks!
   platform :watchos, '3.0'
 
-	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git'
-	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git'
+	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
+	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
 
   pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
   pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
