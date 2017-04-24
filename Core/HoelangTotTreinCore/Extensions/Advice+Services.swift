@@ -56,7 +56,7 @@ extension Advice {
   }
 
   public var aankomstSpoor: String? {
-    return reisDeel.last?.stops.first?.spoor
+    return reisDeel.last?.stops.last?.spoor
   }
 
   public var isOngoing: Bool {
