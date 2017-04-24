@@ -32,10 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     application.registerForRemoteNotifications()
     application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
-
-//    let shorcutItem = UIApplicationShortcutItem(type: "BLA", localizedTitle: "BLA", localizedSubtitle: "BLA", icon: nil, userInfo: ["stationCode": "HT"])
-//    self.application(application, performActionFor: shorcutItem) { _ in }
-
     return true
   }
 
@@ -70,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.travelService.currentAdviceOnScreenObservable
       .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
-      .single()
+      .take(1)
       .subscribe(onNext: { _ in
         completionHandler(.newData)
       }).addDisposableTo(disposeBag)

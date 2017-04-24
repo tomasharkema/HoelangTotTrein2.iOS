@@ -42,7 +42,6 @@
 		C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
 		C3894E2F1E91307E00C6FCE2 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* InterfaceController.swift */; };
 		C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
-		C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */; };
 		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
@@ -74,8 +73,6 @@
 		C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847B61BB8575E007D17C3 /* PickerViewController.swift */; };
 		C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847B81BB8577F007D17C3 /* TableViewController.swift */; };
 		C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BC1BB86058007D17C3 /* StationCell.swift */; };
-		C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */; };
-		C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */; };
 		C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
 		C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F72ABE1C95D3E30024CF2C /* StepView.swift */; };
 		C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F72AC01C95D3F60024CF2C /* StepView.xib */; };
@@ -227,7 +224,6 @@
 		C3894E031E912FAB00C6FCE2 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HLTT Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+Services.swift"; sourceTree = "<group>"; };
-		C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Offset.swift"; sourceTree = "<group>"; };
 		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
@@ -260,8 +256,6 @@
 		C3E847B61BB8575E007D17C3 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		C3E847B81BB8577F007D17C3 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C3E847BC1BB86058007D17C3 /* StationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
-		C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationFetchedResultControllerDelegate.swift; sourceTree = "<group>"; };
-		C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFetchedResultsController+Extensions.swift"; sourceTree = "<group>"; };
 		C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NOI.gpx; sourceTree = "<group>"; };
 		C3F72ABE1C95D3E30024CF2C /* StepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepView.swift; path = ../../Views/StepView.swift; sourceTree = "<group>"; };
 		C3F72AC01C95D3F60024CF2C /* StepView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StepView.xib; path = ../../Views/StepView.xib; sourceTree = "<group>"; };
@@ -555,8 +549,6 @@
 			children = (
 				C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */,
 				C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */,
-				C3E847C01BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift */,
-				C3A47C381BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift */,
 				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
 			);
 			path = Extensions;
@@ -566,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				C3E847B21BB855AA007D17C3 /* SegueManagerController.swift */,
-				C3E847BE1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift */,
 				C3E847B81BB8577F007D17C3 /* TableViewController.swift */,
 				C3E847B41BB85608007D17C3 /* ViewController.swift */,
 			);
@@ -1117,9 +1108,7 @@
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
-				C3A47C391BBFEA0B00A3CDA8 /* NSIndexPath+Offset.swift in Sources */,
 				C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */,
-				C3E847BF1BB86460007D17C3 /* StationFetchedResultControllerDelegate.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
 				C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */,
 				C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */,
@@ -1129,7 +1118,6 @@
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
 				C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */,
 				C3C26C081C5527D600197471 /* GeofenceService.swift in Sources */,
-				C3E847C11BB86632007D17C3 /* NSFetchedResultsController+Extensions.swift in Sources */,
 				C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1232,11 +1220,13 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = Widget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 			};
 			name = Debug;
 		};
@@ -1257,6 +1247,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 			};
 			name = Release;
 		};
@@ -1325,12 +1316,14 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1353,6 +1346,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1458,12 +1452,13 @@
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1488,6 +1483,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

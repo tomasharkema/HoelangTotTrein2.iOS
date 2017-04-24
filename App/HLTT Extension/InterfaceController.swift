@@ -21,15 +21,16 @@ func formatTime(_ date: Date) -> String {
 
 class InterfaceController: WKInterfaceController {
 
-  @IBOutlet var platformLabel: WKInterfaceLabel!
-  @IBOutlet var fromButton: WKInterfaceButton!
-  @IBOutlet var toButton: WKInterfaceButton!
-  @IBOutlet var timerLabel: WKInterfaceTimer!
-  @IBOutlet var tickerContainer: WKInterfaceGroup!
-  @IBOutlet var loadingLabel: WKInterfaceLabel!
-  @IBOutlet var delayLabel: WKInterfaceLabel!
+  @IBOutlet private var platformLabel: WKInterfaceLabel!
+  @IBOutlet private var fromButton: WKInterfaceButton!
+  @IBOutlet private var toButton: WKInterfaceButton!
+  @IBOutlet private var timerLabel: WKInterfaceTimer!
+  @IBOutlet private var tickerContainer: WKInterfaceGroup!
+  @IBOutlet private var loadingLabel: WKInterfaceLabel!
+  @IBOutlet private var delayLabel: WKInterfaceLabel!
 
-  var oneMinuteToGoTimer: Timer?
+  private var disposeBag: DisposeBag!
+  private var oneMinuteToGoTimer: Timer?
 
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
@@ -38,34 +39,37 @@ class InterfaceController: WKInterfaceController {
 
   override func willActivate() {
     // This method is called when watch view controller is about to be visible to user
-//    NotificationCenter.default.addObserver(self, selector: #selector(adviceDidChange), name: NSNotification.Name(rawValue: AdvicesDidChangeNotification), object: nil)
+
     (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
       print("INITIAL STATE WITH: \(error)")
-      self.adviceDidChange(advice: nil)
     }
 
     WatchApp.storageAttachment.attach()
     WatchApp.travelService.attach()
     _ = WatchApp.travelService.fetchStations()
 
-    _ = Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
+    disposeBag = DisposeBag()
+
+    Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         guard let advice = advice else { return }
-          self?.adviceDidChange(advice: advice)
+        self?.adviceDidChange(advice: advice)
       })
+      .addDisposableTo(disposeBag)
 
     super.willActivate()
   }
 
   override func didDeactivate() {
     // This method is called when watch view controller is no longer visible
+    disposeBag = nil
     super.didDeactivate()
   }
 
   var previousAdvice: Advice?
 
-  func adviceDidChange(advice: Advice?) {
+  private func adviceDidChange(advice: Advice?) {
     guard let advice = advice else {
       loadingLabel.setHidden(false)
       tickerContainer.setHidden(true)
@@ -104,7 +108,7 @@ class InterfaceController: WKInterfaceController {
     }
   }
 
-  @objc func oneMinuteToGo() {
+  func oneMinuteToGo() {
     WKInterfaceDevice.current().play(.directionUp)
   }
   

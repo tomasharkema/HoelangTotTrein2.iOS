@@ -107,7 +107,7 @@ class TickerViewController: ViewController {
         }
 
         _ = App.travelService.currentAdviceObservable
-          .single()
+          .take(1)
           .subscribe(onNext: { [weak self] advice in
             guard let advice = advice else { return }
             self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
@@ -152,7 +152,7 @@ class TickerViewController: ViewController {
         self?.fromStation = adviceRequest.from
         self?.toStation = adviceRequest.to
         self?.fromLabel.text = adviceRequest.from?.name ?? R.string.localization.select()
-        self?.toLabel.text = adviceRequest.to?.name ?? NSLocalizedString("[Select]", comment: "selecteer")
+        self?.toLabel.text = adviceRequest.to?.name ?? R.string.localization.select()
       }).addDisposableTo(disposeBag)
 
     collectionView.rx.didScroll
@@ -320,7 +320,7 @@ class TickerViewController: ViewController {
     _currentAdvice = advice
 
     _ = App.travelService.currentAdvicesObservable
-      .single()
+      .take(1)
       .map { $0.value }
       .filterOptional()
       .subscribe(onNext: { [weak self] advices in

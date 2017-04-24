@@ -57,36 +57,36 @@ extension Advice {
 //    return filteredStations.first
 //  }
 
-  var smallExtraMessage: String {
+//  var smallExtraMessage: String {
+//
+//    if let _ = reisDeel.first, reisDeel.count == 1 {
+//      return ""
+//    }
+//
+//    return "" //mostSignificantStop?.code ?? ""
+//  }
 
-    if let _ = reisDeel.first, reisDeel.count == 1 {
-      return ""
-    }
+//  var extraMessage: String {
+//
+//    if let firstReisDeel = reisDeel.first, reisDeel.count == 1 {
+//      return firstReisDeel.vervoerType
+//    }
+//
+//    return "" //mostSignificantStop.map { "Via: \($0.name)" } ?? ""
+//  }
 
-    return "" //mostSignificantStop?.code ?? ""
-  }
-
-  var extraMessage: String {
-
-    if let firstReisDeel = reisDeel.first, reisDeel.count == 1 {
-      return firstReisDeel.vervoerType
-    }
-
-    return "" //mostSignificantStop.map { "Via: \($0.name)" } ?? ""
-  }
-
-  var stepsMessage: String {
-    return reisDeel.reduce("")
-    { (prev, item) in
-      if let from = item.stops.first, let to = item.stops.last {
-        let fromTimeString = from.timeDate.toString(format: .custom("HH:mm"))
-        let toTimeString = to.timeDate.toString(format: .custom("HH:mm"))
-        //👉
-        return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) → \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
-      }
-      return prev
-    }
-  }
+//  var stepsMessage: String {
+//    return reisDeel.reduce("")
+//    { (prev, item) in
+//      if let from = item.stops.first, let to = item.stops.last {
+//        let fromTimeString = from.timeDate.toString(format: .custom("HH:mm"))
+//        let toTimeString = to.timeDate.toString(format: .custom("HH:mm"))
+//        //👉
+//        return prev + "\(from.name) \(fromTimeString) (\(from.spoor ?? "")) → \(to.name) \(toTimeString) (\(to.spoor ?? ""))\n\n"
+//      }
+//      return prev
+//    }
+//  }
 
   var stepModels: [StepViewModel] {
     return reisDeel.flatMap { item in
