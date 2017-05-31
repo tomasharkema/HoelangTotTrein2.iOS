@@ -5,6 +5,19 @@ This also is scholarship entry for WWDC 2016.
 
 ### _HoelangTotTrein: How long 'till train_
 
+# About
+
+Hoelang Tot Trein is a public transport app for the dutch railways. It helps the daily commuter to quickly provide it with the right info on the right time. Most importantly; how much time do I have untill the next train leaves.
+
+Currently, version 1.0 is live in the App Store, but I'm working very hard to release this version 2 to the App Store. If you want to participate in the beta test, please send me a message.
+
+# Features
+
+- Geofence for start, change and arrival.
+- Reverse-advice on arrival
+- (background) Push notifications for delays
+- watchOS 2 app for easy access from the wrist
+- Memorizes your current advice; 
 
 # Installation
 
@@ -17,15 +30,6 @@ This also is scholarship entry for WWDC 2016.
 `open HoelangTotTrein2.xcworkspace`
 
 - Enjoy!
-
-# Features
-
-- Geofence for start, change and arrival.
-- Reverse-advice on arrival
-- (background) Push notifications for delays
-- watchOS 2 app for easy access from the wrist
-- Memorizes your current advice; 
-
 
 # API
 
