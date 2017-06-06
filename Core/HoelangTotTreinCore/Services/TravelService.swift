@@ -43,7 +43,7 @@ public class TravelService: NSObject {
   private let dataStore: DataStore
 
   #if os(iOS)
-  let session = WCSession.default()
+  let session = WCSession.default
   #endif
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
@@ -169,7 +169,7 @@ public class TravelService: NSObject {
       }
   }
 
-  public func startTimer() {
+  @objc public func startTimer() {
     guard timer == nil else {
       return
     }
@@ -187,12 +187,12 @@ public class TravelService: NSObject {
     departureTimer = Timer.scheduledTimer(timeInterval: time + 1, target: self, selector: #selector(tick), userInfo: "departure", repeats: false)
   }
 
-  public func stopTimer() {
+  @objc public func stopTimer() {
     timer?.invalidate()
     timer = nil
   }
 
-  public func tick() {
+  @objc public func tick() {
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
         print("DID FINISH TICK has value \($0.value != nil)")
@@ -272,7 +272,7 @@ public class TravelService: NSObject {
       .flatMap {
         self.setStation(state, station: $0, byPicker: byPicker)
       }
-      .then {
+      .then { _ in
         print("TravelService did set station \(stationName)")
       }
       .trap {
@@ -285,7 +285,7 @@ public class TravelService: NSObject {
       .flatMap {
         self.setStation(state, station: $0, byPicker: byPicker)
       }
-      .then {
+      .then { _ in
         print("TravelService did set station \(stationCode)")
       }
       .trap {
@@ -362,7 +362,7 @@ public class TravelService: NSObject {
 
   public func travelFromCurrentLocation() -> Promise<Void, Error> {
     return whenBoth(getCloseStations(), getCurrentAdviceRequest())
-      .flatMap { (stations, currentAdvice) in
+      .flatMap { let (stations, currentAdvice) = $0;
         guard let station = stations.first else {
           return Promise(error: TravelServiceError.notChanged)
         }
@@ -424,7 +424,9 @@ extension TravelService: WCSessionDelegate {
   }
 
   public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
+
+    let encoder = JSONEncoder()
+    guard let data = try? encoder.encode(currentAdviceOnScreenVariable.value) else {
       return
     }
 

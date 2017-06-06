@@ -16,6 +16,8 @@ enum MockError: Error {
 }
 
 class MockDataStore: DataStore {
+  var keepDepartedAdvice: Bool
+  
 
   private var _stations = [
     Station(name: "Zaandam", code: "ZD", land: "NL", coords: Coords(lat: 50, lon: 50), type: nil),

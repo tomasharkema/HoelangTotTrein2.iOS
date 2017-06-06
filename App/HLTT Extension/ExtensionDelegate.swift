@@ -17,7 +17,7 @@ let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
-  private let session = WCSession.default()
+  private let session = WCSession.default
 
   var cachedAdvices: [Advice] = WatchApp.dataStore.persistedAdvices ?? []
 

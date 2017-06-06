@@ -13,23 +13,9 @@ import RxCocoa
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-
 typealias StationName = String
 
-class GeofenceService: NSObject {
+class GeofenceService {
 
   typealias GeofenceModels = [GeofenceModel]
   typealias StationGeofences = [StationName: GeofenceModels]
@@ -48,12 +34,10 @@ class GeofenceService: NSObject {
   fileprivate var stationGeofences = StationGeofences()
 
   fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
-//  private(set) var geofenceObservableAfterAdvicesUpdate: Observable<(oldModel: GeofenceModel, updatedModel: GeofenceModel)>!
 
   init(travelService: TravelService, dataStore: DataStore) {
     self.travelService = travelService
     self.dataStore = dataStore
-    super.init()
     attach()
   }
 
@@ -67,7 +51,7 @@ class GeofenceService: NSObject {
   }
 
   fileprivate func resetGeofences() {
-    for region in locationManager.monitoredRegions {
+    locationManager.monitoredRegions.forEach { region in
       locationManager.stopMonitoring(for: region)
     }
   }
@@ -115,7 +99,7 @@ class GeofenceService: NSObject {
   fileprivate func attach() {
     let obs = travelService.currentAdvicesObservable
       .asObservable()
-//      .observeOn(scheduler)
+      .observeOn(scheduler)
       .map { advicesLoading -> StationGeofences? in
         guard let advices = advicesLoading.value else {
           return nil
@@ -140,7 +124,7 @@ class GeofenceService: NSObject {
       .addDisposableTo(disposeBag)
 
     geofenceObservable = locationManager.rx.didEnterRegion
-//      .observeOn(scheduler)
+      .observeOn(scheduler)
       .distinctUntilChanged()
       .map { region -> GeofenceModel? in
         guard let geofences = self.stationGeofences[region.identifier] else {
@@ -156,8 +140,10 @@ class GeofenceService: NSObject {
         return nil
       }
       .filterOptional()
+      .observeOn(MainScheduler.asyncInstance)
 
     _ = geofenceObservable
+      .observeOn(scheduler)
       .filter { $0.type != .tussenStation }
       .subscribe(onNext: { geofence in
         _ = self.travelService.setStation(.from, stationName: geofence.stationName)
@@ -172,24 +158,25 @@ extension GeofenceService {
   func geofenceFromGeofences(_ stationGeofences: GeofenceModels, forTime time: Date) -> GeofenceModel? {
     let now = time.timeIntervalSince1970
     
-    let stortedGeofences = stationGeofences.enumerated().lazy.sorted { (l,r) in
+    let stortedGeofences = stationGeofences.enumerated()/*.lazy.sorted { (l,r) in
       l.element.fromStop?.time < r.element.fromStop?.time && l.element.toStop?.time < r.element.toStop?.time
-    }
+    }*/
     
-    let toFireGeofence = stortedGeofences.filter { geofence in
+    let toFireGeofence = stortedGeofences.filter {
+      let (_, geofence) = $0
       let offset: Double = 13 * 60
-      
-      switch (geofence.element.fromStop, geofence.element.toStop) {
+
+      switch (geofence.fromStop, geofence.toStop) {
       
       case (let fromStop?, let toStop?):
         return fromStop.time - offset >= now && toStop.time - 60 > now
         
       case (let fromStop?, _):
-        if geofence.element.type == .tussenStation {
+        if geofence.type == .tussenStation {
           return fromStop.time + offset >= now
         }
 
-        if geofence.element.type == .overstap {
+        if geofence.type == .overstap {
           return fromStop.time + 5 * 60 > now
         }
         

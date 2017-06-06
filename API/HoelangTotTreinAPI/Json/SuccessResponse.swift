@@ -8,6 +8,6 @@
 
 import Foundation
 
-public struct SuccessResult {
+public struct SuccessResult: Codable {
   public let success: Bool
 }

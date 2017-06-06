@@ -127,7 +127,7 @@ class TickerViewController: ViewController {
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable
-      .distinctUntilChanged { $0.0 == $0.1 }
+      .distinctUntilChanged { $0 == $1 }
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext:  { [weak self] _ in
         assert(Thread.isMainThread)
@@ -207,7 +207,7 @@ class TickerViewController: ViewController {
     }
   }
 
-  func tick(_ timer: Timer) {
+  @objc func tick(_ timer: Timer) {
     render()
     renderBackground()
     dataSource?.tick()
@@ -356,8 +356,8 @@ extension TickerViewController {
     assert(Thread.isMainThread, "call from main thread")
     let showAdvices = advices.prefix(6)
 
-    showAdvices.enumerated().forEach { (idx, element) in
-
+    showAdvices.enumerated().forEach { el in
+      let (idx, element) = el
       let view: UIView
       if let cachedView = _indicatorStackViewCache[idx] {
         view = cachedView

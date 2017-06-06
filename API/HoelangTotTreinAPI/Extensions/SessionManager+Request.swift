@@ -10,14 +10,32 @@ import Alamofire
 import Statham
 import Promissum
 
+extension DataRequest {
+  static func jsonDecodableResponseSerializer<T: Decodable>(decoderType: T.Type) -> DataResponseSerializer<T>
+  {
+    return DataResponseSerializer { (request, response, data, error) in
+      guard let data = data else {
+        fatalError("NO DATA")
+      }
+
+      let decoder = JSONDecoder()
+      do {
+        return .success(try decoder.decode(decoderType, from: data))
+      } catch {
+        return .failure(error)
+      }
+    }
+  }
+}
+
 extension SessionManager {
-  func request<DecodedResponse>(
+  func requestWithDecoder<DecodedResponse: Decodable>(
     url: URLConvertible,
-    method: HTTPMethod,
-    parameters: Parameters?,
+    method: HTTPMethod = .get,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: HTTPHeaders? = nil,
-    decoder: @escaping (Any) throws -> DecodedResponse)
+    decoderType: DecodedResponse.Type)
     -> Promise<DecodedResponse, Error>
   {
     let request = self
@@ -27,7 +45,7 @@ extension SessionManager {
     print(request.debugDescription)
 
     return request
-      .responseJsonDecodePromise(decoder: decoder)
+      .responsePromise(responseSerializer: DataRequest.jsonDecodableResponseSerializer(decoderType: decoderType))
       .trap { error in
         debugPrint("vvv")
         debugPrint(request)

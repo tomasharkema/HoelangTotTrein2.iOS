@@ -36,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let fromStation = WidgetApp.travelService.find(stationCode: advice.request.from)
         let toStation = WidgetApp.travelService.find(stationCode: advice.request.to)
         whenBoth(fromStation, toStation)
-          .then { [weak self] (from, to) in
+          .then { /*[weak self]*/ let (from, to) = $0;
             self?.render(advice: advice, from: from, to: to)
           }
       })

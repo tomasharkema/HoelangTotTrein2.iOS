@@ -49,29 +49,29 @@ class NotificationService {
 
     let correctModel = updatedModel ?? oldModel
 
-    switch oldModel.type {
-    case .start:
-      let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
-      var fixedUserInfo = oldModel.encodeJson()
-      fixedUserInfo.removeValue(forKey: "toStop")
-
-      fireNotification(
-        R.string.localization.startNotificationTitle(),
-        body: R.string.localization.startNotificationBody(timeString, oldModel.fromStop?.spoor ?? ""), category: "startStationNotification", userInfo: fixedUserInfo)
-
-    case .tussenStation:
-      let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSince(Date()) ?? 0
-      let timeString = Date(timeIntervalSince1970: timeDiff).toString(format: .custom("mm:ss"))
-      let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
-//      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)", userInfo: oldModel.encodeJson())
-
-    case .overstap:
-      let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
-      fireNotification(R.string.localization.transferNotificationTitle(), body: R.string.localization.transferNotificationBody(correctModel.fromStop?.spoor ?? "", timeString), category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
-
-    case .end:
-      fireNotification(R.string.localization.endNotificationTitle(), body: R.string.localization.endNotificationBody(), category: nil, userInfo: nil)
-    }
+//    switch oldModel.type {
+//    case .start:
+//      let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
+//      var fixedUserInfo = oldModel.encodeJson()
+//      fixedUserInfo.removeValue(forKey: "toStop")
+//
+//      fireNotification(
+//        R.string.localization.startNotificationTitle(),
+//        body: R.string.localization.startNotificationBody(timeString, oldModel.fromStop?.spoor ?? ""), category: "startStationNotification", userInfo: fixedUserInfo)
+//
+//    case .tussenStation:
+////      let timeDiff = oldModel.fromStop?.timeDate.timeIntervalSince(Date()) ?? 0
+////      let timeString = Date(timeIntervalSince1970: timeDiff).toString(format: .custom("mm:ss"))
+////      let timeMessage = timeDiff > 0 ? "laat" : "vroeg"
+////      fireNotification("Tussen Station", body: "Je bent nu op \(oldModel.fromStop?.name ?? ""), \(timeString) te \(timeMessage)", userInfo: oldModel.encodeJson())
+//
+//    case .overstap:
+//      let timeString = secondsToStringOffset(correctModel.fromStop?.time ?? 0)
+//      fireNotification(R.string.localization.transferNotificationTitle(), body: R.string.localization.transferNotificationBody(correctModel.fromStop?.spoor ?? "", timeString), category: "nextStationNotification", userInfo: ["geofenceModel": oldModel.encodeJson()])
+//
+//    case .end:
+//      fireNotification(R.string.localization.endNotificationTitle(), body: R.string.localization.endNotificationBody(), category: nil, userInfo: nil)
+//    }
   }
 
   func attach() {
