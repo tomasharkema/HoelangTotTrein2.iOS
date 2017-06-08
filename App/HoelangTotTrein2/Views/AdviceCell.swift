@@ -14,40 +14,34 @@ class AdviceCell: UICollectionViewCell {
   @IBOutlet private weak var platformLabel: UILabel!
   @IBOutlet private weak var aankomstVertragingLabel: UILabel!
   @IBOutlet private weak var statusMessageLabel: UILabel!
-  @IBOutlet private weak var minutesLabel: UILabel!
-  @IBOutlet private weak var secondsLabel: UILabel!
+  @IBOutlet private weak var minutesLabel: TimeLabel!
+  @IBOutlet private weak var secondsLabel: TimeLabel!
   @IBOutlet private weak var stepsStackView: UIStackView!
   @IBOutlet private weak var tickerContainer: UIView!
   @IBOutlet private weak var modalityLabel: UILabel!
 
-  var advice: Advice? {
-    didSet {
-      renderTimer()
-      renderInfo()
-    }
+  override func prepareForReuse() {
+    super.prepareForReuse()
+
+    minutesLabel.stopTimer()
+    secondsLabel.stopTimer()
   }
 
-  func renderTimer() {
-    guard let advice = advice else {
-      return
+  var advice: Advice? {
+    didSet {
+      renderInfo()
+
+      if let date = advice?.vertrek.actualDate, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
+        minutesLabel.format = [.m]
+        secondsLabel.format = [.s]
+      } else {
+        minutesLabel.format = [.h]
+        secondsLabel.format = [.m]
+      }
+
+      minutesLabel.date = advice?.vertrek.actualDate
+      secondsLabel.date = advice?.vertrek.actualDate
     }
-
-    let offset = advice.vertrek.actualDate.timeIntervalSince(Date())
-    let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
-    let timeBeforeColonString: String
-    let timeAfterColonString: String
-
-    if Calendar.current.component(.hour, from: difference) > 0 {
-      timeBeforeColonString = difference.toString(format: .custom("H"))
-      timeAfterColonString = difference.toString(format: .custom("mm"))
-
-    } else {
-      timeBeforeColonString = difference.toString(format: .custom("mm"))
-      timeAfterColonString = difference.toString(format: .custom("ss"))
-    }
-
-    minutesLabel.text = timeBeforeColonString
-    secondsLabel.text = timeAfterColonString
   }
 
   func renderInfo() {
@@ -55,7 +49,7 @@ class AdviceCell: UICollectionViewCell {
       return
     }
 
-    let interval = advice.vertrek.actualDate.timeIntervalSince(Date())
+    let interval = Calendar.current.dateComponents([.second], from: Date(), to: advice.vertrek.actualDate).second ?? -1
 
     if interval > 0 {
       tickerContainer.alpha = 1
@@ -93,13 +87,13 @@ class AdviceCell: UICollectionViewCell {
 extension FareStatus {
   var alertDescription: String {
     switch self {
-    case .Vertraagd:
+    case .vertraagd:
       return R.string.localization.delayed()
-    case .NietOptimaal:
+    case .nietOptimaal:
       return R.string.localization.notOptimal()
-    case .VolgensPlan:
+    case .volgensPlan:
       return R.string.localization.onTime()
-    case .Gewijzigd:
+    case .gewijzigd:
       return R.string.localization.changed()
     default:
       return R.string.localization.somethingsWrong()

@@ -37,10 +37,11 @@ public enum LoadingState<ValueType> {
 }
 
 public class TravelService: NSObject {
-  private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
-  fileprivate let apiService: ApiService
-  fileprivate let locationService: LocationService
+  private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService")
+  private let apiService: ApiService
+  private let locationService: LocationService
   private let dataStore: DataStore
+  private let scheduler: SchedulerType
 
   #if os(iOS)
   let session = WCSession.default
@@ -74,6 +75,7 @@ public class TravelService: NSObject {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
+    self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
 
     super.init()
 
@@ -97,7 +99,7 @@ public class TravelService: NSObject {
     session.activate()
     #endif
 
-    _ = firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
+    _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -130,8 +132,9 @@ public class TravelService: NSObject {
 //      })
 
     _ = currentAdviceOnScreenVariable.asObservable()
+      .observeOn(scheduler)
       .filterOptional()
-      .throttle(3, scheduler: MainScheduler.asyncInstance)
+      .throttle(3, scheduler: scheduler)
       .subscribe(onNext: { advice in
 
         self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
@@ -143,7 +146,7 @@ public class TravelService: NSObject {
         #endif
       })
 
-    _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
+    _ = currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe(onNext: { advices in
 
       guard case .loaded(let advices) = advices else {
         return
@@ -213,16 +216,12 @@ public class TravelService: NSObject {
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
     let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .map {
-          .some($0)
-        }
+        .map { .some($0) }
     } ?? Promise(value: nil)
 
     let to: Promise<Station?, Error> = dataStore.toStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .map {
-          .some($0)
-        }
+        .map { .some($0) }
     } ?? Promise(value: nil)
     
     return whenBoth(from, to)

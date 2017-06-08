@@ -17,7 +17,7 @@ import Promissum
 #endif
 
 public class StorageAttachment {
-  private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment", attributes: [])
+  private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment")
   private lazy var scheduler: SerialDispatchQueueScheduler = {
     return SerialDispatchQueueScheduler(queue: self.queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   }()
@@ -32,7 +32,7 @@ public class StorageAttachment {
   public func attach() {
 
     _ = travelService.stationsObservable.asObservable()
-//      .observeOn(scheduler)
+      .observeOn(scheduler)
       .subscribe { [weak self] in
         switch $0 {
         case let .next(stations?):
@@ -48,7 +48,7 @@ public class StorageAttachment {
       }
 
     _ = travelService.firstAdviceRequestObservable
-//      .observeOn(scheduler)
+      .observeOn(scheduler)
       .filterOptional()
       .subscribe(onNext: { [weak self] in
         self?.insertHistoryFromRequest($0)

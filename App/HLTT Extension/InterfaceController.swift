@@ -108,7 +108,7 @@ class InterfaceController: WKInterfaceController {
     }
   }
 
-  func oneMinuteToGo() {
+  @objc func oneMinuteToGo() {
     WKInterfaceDevice.current().play(.directionUp)
   }
   

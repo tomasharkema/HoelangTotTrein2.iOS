@@ -46,15 +46,15 @@ public struct ReisDeel: Codable {
 }
 
 public enum FareStatus: String, Codable {
-  case VolgensPlan = "VOLGENS-PLAN"
-  case Gewijzigd = "GEWIJZIGD"
-  case Nieuw = "NIEUW"
-  case NietOptimaal = "NIET-OPTIMAAL"
-  case NietMogelijk = "NIET-MOGELIJK"
-  case Geannuleerd = "GEANNULEERD"
-  case OverstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
-  case Vertraagd = "VERTRAAGD"
-  case PlanGewijzigd = "PLAN-GEWIJZGD"
+  case volgensPlan = "VOLGENS-PLAN"
+  case gewijzigd = "GEWIJZIGD"
+  case nieuw = "NIEUW"
+  case nietOptimaal = "NIET-OPTIMAAL"
+  case nietMogelijk = "NIET-MOGELIJK"
+  case geannuleerd = "GEANNULEERD"
+  case overstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
+  case vertraagd = "VERTRAAGD"
+  case planGewijzigd = "PLAN-GEWIJZGD"
 }
 
 public struct AdviceRequestCodes: Codable {

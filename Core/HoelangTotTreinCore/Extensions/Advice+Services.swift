@@ -60,10 +60,10 @@ extension Advice {
   }
 
   public var isOngoing: Bool {
-    return (status == .VolgensPlan
-      || status == .Gewijzigd
-      || status == .Vertraagd
-      || status == .Nieuw)
+    return (status == .volgensPlan
+      || status == .gewijzigd
+      || status == .vertraagd
+      || status == .nieuw)
       && vertrek.actualDate > Date()
       && aankomst.actualDate > Date()
   }
