@@ -67,6 +67,7 @@ class TimeLabel: UILabel {
   private var disposeBag: DisposeBag?
 
   var autoStart = true
+  var goNegative = false
 
   var format: [TimeFormat] = []
 
@@ -81,6 +82,7 @@ class TimeLabel: UILabel {
         if autoStart {
           startTimer()
         }
+        render()
       } else {
         stopTimer()
       }
@@ -133,6 +135,10 @@ class TimeLabel: UILabel {
 
       guard let component = component(forFormat: format, toDate: date) else {
         return prev
+      }
+
+      if component < 0 && !goNegative {
+        return prev + String(format: stringFormat(forFormat: format), 0)
       }
 
       return prev + String(format: stringFormat(forFormat: format), component)
