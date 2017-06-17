@@ -36,11 +36,18 @@ class AdviceCell: UICollectionViewCell {
         secondsLabel.format = [.s]
       } else {
         minutesLabel.format = [.h]
-        secondsLabel.format = [.m]
+        secondsLabel.format = [.m, .customString(":"), .s]
       }
 
       minutesLabel.date = advice?.vertrek.actualDate
       secondsLabel.date = advice?.vertrek.actualDate
+
+      minutesLabel.didReachNulSecondsHandler = {
+        
+      }
+      secondsLabel.didReachNulSecondsHandler = {
+
+      }
     }
   }
 

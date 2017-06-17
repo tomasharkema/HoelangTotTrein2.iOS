@@ -276,6 +276,9 @@ class TickerViewController: ViewController {
     App.locationService.requestAuthorization().flatMap { state in
       App.travelService.travelFromCurrentLocation()
     }.then { print($0) }
+    .trap {
+      print("ERROR: \($0)")
+    }
   }
 
   @IBAction func switchPressed(_ sender: AnyObject) {

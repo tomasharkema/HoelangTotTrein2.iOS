@@ -148,7 +148,6 @@ class GeofenceService {
       .subscribe(onNext: { geofence in
         _ = self.travelService.setStation(.from, stationName: geofence.stationName)
       })
-
   }
 
 }

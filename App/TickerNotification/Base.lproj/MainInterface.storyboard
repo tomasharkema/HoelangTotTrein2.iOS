@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AKKURATL.ttf">
+            <string>Akkurat-Light</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Notification View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" userLabel="Notification View Controller" customClass="NotificationViewController" customModule="TickerNotification" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" simulatedAppContext="notificationCenter" translatesAutoresizingMaskIntoConstraints="NO" id="meU-Rw-oaZ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="8J8-68-nwD">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5u-6i-YB4">
+                                        <rect key="frame" x="8" y="4.5" width="304" height="20"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TFe-bd-vWh">
+                                        <rect key="frame" x="8" y="76" width="304" height="20"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="BGB-IZ-RJs" customClass="TimeLabel" customModule="TickerNotification" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="30" width="304" height="41"/>
+                                        <fontDescription key="fontDescription" name="Akkurat-Light" family="Akkurat-Light" pointSize="35"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1l9-Pp-4Y0"/>
+                                    <constraint firstItem="X5u-6i-YB4" firstAttribute="leading" secondItem="meU-Rw-oaZ" secondAttribute="leadingMargin" id="8Wn-B1-Hm7"/>
+                                    <constraint firstItem="BGB-IZ-RJs" firstAttribute="top" secondItem="X5u-6i-YB4" secondAttribute="bottom" constant="5" id="8vg-T6-V2D"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="BGB-IZ-RJs" secondAttribute="trailing" id="FyT-QD-OpB"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="X5u-6i-YB4" secondAttribute="trailing" id="NsP-de-xiR"/>
+                                    <constraint firstItem="8J8-68-nwD" firstAttribute="top" secondItem="meU-Rw-oaZ" secondAttribute="top" id="STO-Og-858"/>
+                                    <constraint firstItem="TFe-bd-vWh" firstAttribute="top" secondItem="BGB-IZ-RJs" secondAttribute="bottom" constant="5" id="fHt-86-qoJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="8J8-68-nwD" secondAttribute="bottom" id="fov-hB-IOG"/>
+                                    <constraint firstItem="TFe-bd-vWh" firstAttribute="leading" secondItem="meU-Rw-oaZ" secondAttribute="leadingMargin" id="pnJ-DO-MQC"/>
+                                    <constraint firstAttribute="trailing" secondItem="8J8-68-nwD" secondAttribute="trailing" id="pub-nb-Wdl"/>
+                                    <constraint firstItem="8J8-68-nwD" firstAttribute="leading" secondItem="meU-Rw-oaZ" secondAttribute="leading" id="vmH-Wf-WfG"/>
+                                    <constraint firstItem="TFe-bd-vWh" firstAttribute="trailing" secondItem="meU-Rw-oaZ" secondAttribute="trailingMargin" id="wmo-dm-kdG"/>
+                                    <constraint firstItem="BGB-IZ-RJs" firstAttribute="centerY" secondItem="meU-Rw-oaZ" secondAttribute="centerY" id="z2X-qh-FGC"/>
+                                    <constraint firstItem="BGB-IZ-RJs" firstAttribute="leading" secondItem="meU-Rw-oaZ" secondAttribute="leadingMargin" id="zN5-Ho-vcQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.45882353186607361" green="0.74901962280273438" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="meU-Rw-oaZ" firstAttribute="trailing" secondItem="2BE-c3-nQJ" secondAttribute="trailing" id="1nr-tg-hdB"/>
+                            <constraint firstItem="meU-Rw-oaZ" firstAttribute="top" secondItem="2BE-c3-nQJ" secondAttribute="top" id="NaZ-Aa-c86"/>
+                            <constraint firstItem="meU-Rw-oaZ" firstAttribute="bottom" secondItem="2BE-c3-nQJ" secondAttribute="bottom" id="Pfo-Fi-vkc"/>
+                            <constraint firstItem="meU-Rw-oaZ" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" id="qgs-kk-10b"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2BE-c3-nQJ"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="100"/>
+                    <connections>
+                        <outlet property="from" destination="X5u-6i-YB4" id="G4W-VM-IBQ"/>
+                        <outlet property="time" destination="BGB-IZ-RJs" id="FmB-2W-X6b"/>
+                        <outlet property="to" destination="TFe-bd-vWh" id="boq-z8-F9y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg" width="1920" height="1200"/>
+    </resources>
+</document>

@@ -32,6 +32,9 @@ abstract_target 'HoelangTotTrein2Pods' do
 		target 'Widget' do
 			inherit! :search_paths
 		end
+		target 'TickerNotification' do
+			inherit! :search_paths
+		end
   end
 
   target 'HoelangTotTreinAPI' do

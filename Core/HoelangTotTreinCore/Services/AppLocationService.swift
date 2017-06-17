@@ -52,7 +52,7 @@ public class AppLocationService: NSObject, CLLocationManagerDelegate, LocationSe
     let currentState = CLLocationManager.authorizationStatus()
 
     switch currentState {
-    case .authorizedAlways:
+    case .authorizedAlways, .authorizedWhenInUse:
       return Promise(value: currentState)
 
     default:

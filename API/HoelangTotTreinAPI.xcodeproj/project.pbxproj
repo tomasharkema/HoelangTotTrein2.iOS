@@ -26,6 +26,8 @@
 		C30B40881E98F6B000D99541 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40561E98F0B100D99541 /* Station.swift */; };
 		C30B40891E98F6B200D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
 		C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C975B1EA23AC9007BD463 /* MockApiService.swift */; };
+		C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
+		C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
 		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C375384C1E9921C20047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
@@ -72,6 +74,7 @@
 		C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPIWatch.h; sourceTree = "<group>"; };
 		C30B40801E98F68F00D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C31C975B1EA23AC9007BD463 /* MockApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
+		C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
 		C375381C1E9919DA0047108C /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
 		C375381E1E991A290047108C /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
 		EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				C30B40641E98F15800D99541 /* SessionManager+Request.swift */,
+				C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -488,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30B40581E98F0B100D99541 /* ApiService.swift in Sources */,
+				C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */,
 				C375381D1E9919DA0047108C /* Bounds.swift in Sources */,
 				C375381F1E991A290047108C /* HistoryType.swift in Sources */,
 				C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */,
@@ -517,6 +522,7 @@
 				C30B40871E98F6AE00D99541 /* GeofenceModel.swift in Sources */,
 				C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */,
 				C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */,
+				C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */,
 				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
 				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
 				C375384C1E9921C20047108C /* Bounds.swift in Sources */,
@@ -660,7 +666,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = HoelangTotTreinAPI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
@@ -684,7 +690,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = HoelangTotTreinAPI/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinAPI;
@@ -745,7 +751,7 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -770,7 +776,7 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};

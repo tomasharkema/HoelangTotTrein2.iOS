@@ -44,7 +44,7 @@ public class TravelService: NSObject {
   private let scheduler: SchedulerType
 
   #if os(iOS)
-  let session = WCSession.default
+  private let session: WCSession?
   #endif
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
@@ -77,6 +77,14 @@ public class TravelService: NSObject {
     self.dataStore = dataStore
     self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
 
+    #if os(iOS)
+      if WCSession.isSupported() {
+        session = WCSession.default
+      } else {
+        session = nil
+      }
+    #endif
+
     super.init()
 
     currentAdviceObservable = currentAdviceVariable.asObservable()
@@ -95,8 +103,10 @@ public class TravelService: NSObject {
   
   public func attach() {
     #if os(iOS)
-    session.delegate = self
-    session.activate()
+      session?.delegate = self
+      if session?.isReachable ?? false {
+        session?.activate()
+      }
     #endif
 
     _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
@@ -140,9 +150,10 @@ public class TravelService: NSObject {
         self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
 
         #if os(iOS)
-        self.session.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
-        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-        print(complicationUpdate)
+          if self.session?.isReachable ?? false {
+            self.session?.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
+            let complicationUpdate = self.session?.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+          }
         #endif
       })
 

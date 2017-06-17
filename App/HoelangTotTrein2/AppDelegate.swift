@@ -11,17 +11,18 @@ import CoreData
 import RxSwift
 import Promissum
 import HoelangTotTreinAPI
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  var disposeBag = DisposeBag()
+  private var disposeBag = DisposeBag()
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-    HockeyApp.register()
+    HockeyAppConfig.register()
 
     App.storageAttachment.attach()
     App.travelService.attach()
@@ -30,8 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.appShortcutService.attach()
 
-    application.registerForRemoteNotifications()
-    application.registerUserNotificationSettings(UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: nil))
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+    center.requestAuthorization(options: options) { (granted, _) in
+      if granted {
+        DispatchQueue.main.async {
+          application.registerForRemoteNotifications()
+        }
+      }
+    }
+
     return true
   }
 
@@ -69,17 +78,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       .take(1)
       .subscribe(onNext: { _ in
         completionHandler(.newData)
-      }).addDisposableTo(disposeBag)
+      })
+      .addDisposableTo(disposeBag)
 
     guard let message = userInfo["message"] as? String else {
       return
     }
 
-    let not = UILocalNotification()
-    not.alertTitle = "Delay"
-    not.alertBody = message
-    not.applicationIconBadgeNumber = 0
-    application.presentLocalNotificationNow(not)
+    let content = UNMutableNotificationContent()
+    content.title = R.string.localization.delayed()
+    content.badge = 0
+    content.body = message
+
+    let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
+    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
   }
+
 }
 

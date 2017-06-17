@@ -20,6 +20,7 @@
 "searchResults" = "Search results";
 "arrival" = "arrival: %@";
 "delayed" = "delayed";
+"delay" = "delay";
 "notOptimal" = "not optimal";
 "onTime" = "on time";
 "changed" = "changed";

@@ -20,6 +20,11 @@ private class TimeLabelCoordinator {
 
   private var subjects = [(UIView & Updatable)]()
 
+  init() {
+    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidBecomeActive, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidEnterBackground, object: nil)
+  }
+
   func attach(updatable: (UIView & Updatable)) {
     subjects.append(updatable)
 
@@ -37,8 +42,16 @@ private class TimeLabelCoordinator {
   }
 
   private func resetIfNeeded() {
-    if subjects.isEmpty {
+
+    #if IOSAPP
+      let isInActive = UIApplication.shared.applicationState != .active
+    #else
+      let isInActive = false
+    #endif
+
+    if subjects.isEmpty || isInActive {
       timer?.dispose()
+      timer = nil
     } else {
 
       if timer != nil {
@@ -52,6 +65,15 @@ private class TimeLabelCoordinator {
           }
         }
     }
+  }
+
+  @objc func updateApplicationState() {
+    resetIfNeeded()
+  }
+
+  deinit {
+    timer?.dispose()
+    timer = nil
   }
 }
 
@@ -70,6 +92,8 @@ class TimeLabel: UILabel {
   var goNegative = false
 
   var format: [TimeFormat] = []
+  var didReachNulSecondsHandler: (() -> ())?
+  private(set) var secondsToNul: Int = 0
 
   var date: Date? {
     didSet {
@@ -126,6 +150,12 @@ class TimeLabel: UILabel {
   private func render() {
     guard let date = date else {
       return
+    }
+
+    secondsToNul = Calendar.current.dateComponents([.second], from: Date(), to: date).second ?? 0
+
+    if secondsToNul == 0 {
+      didReachNulSecondsHandler?()
     }
 
     let newText = format.reduce("") { (prev, format) -> String in
