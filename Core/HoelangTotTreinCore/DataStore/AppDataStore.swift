@@ -29,14 +29,14 @@ import HoelangTotTreinAPI
     let bundleIdentifier = "io.harkema.HoelangTotTreinCore"
     #endif
 
-    guard let bundle = Bundle(identifier: bundleIdentifier),
-      let url = bundle.url(forResource: "HoelangTotTrein2", withExtension: "momd"),
-      let model = NSManagedObjectModel(contentsOf: url)
+    guard let url = Bundle(identifier: bundleIdentifier)?.url(forResource: "HoelangTotTrein2", withExtension: "momd")
       else {
         fatalError("NO MODEL")
         persistentContainer = NSPersistentContainer()
         return
       }
+
+    let model = NSManagedObjectModel(contentsOf: url)
 
     persistentContainer = NSPersistentContainer(name: "HoelangTotTrein2", managedObjectModel: model)
 

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -24,9 +20,27 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>79</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>0d5f284b42c7fd8392f27151595fcb94b4ac009e</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
 	<key>UIBackgroundModes</key>
 	<array>

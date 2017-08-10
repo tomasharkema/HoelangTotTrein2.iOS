@@ -25,6 +25,8 @@ abstract_target 'HoelangTotTrein2Pods' do
 		pod 'R.swift', '~> 3.2'
 		pod 'SegueManager/R.swift', '~> 3.1.0'
 		pod 'AFDateHelper', '~> 4.0'
+    pod 'Fabric'
+    pod 'Crashlytics'
 
 		target 'HoelangTotTrein2Tests' do
 			inherit! :search_paths
