@@ -20,6 +20,7 @@
 "searchResults" = "Zoekresultaten";
 "arrival" = "aankomst: %@";
 "delayed" = "vertraagd";
+"delay" = "vertraging";
 "notOptimal" = "niet optimaal";
 "onTime" = "op tijd";
 "changed" = "alternatief";

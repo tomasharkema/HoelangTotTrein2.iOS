@@ -44,7 +44,7 @@ class MockApiService: ApiService {
                 ])
         ],
              vertrekVertraging: nil,
-             status: FareStatus.VolgensPlan,
+             status: FareStatus.volgensPlan,
              request: AdviceRequestCodes(from: from, to: to)
       )
     }

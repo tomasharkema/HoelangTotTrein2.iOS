@@ -17,3 +17,4 @@ public func nsdataToJSON(_ data: Data) -> Any? {
 public func jsonToNSData(_ json: Any) -> Data?{
   return try? JSONSerialization.data(withJSONObject: json, options: [])
 }
+

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FareTime: Equatable {
+public struct FareTime: Equatable, Codable {
   public let planned: Double
   public let actual: Double
 }
@@ -17,7 +17,7 @@ public func ==(lhs: FareTime, rhs: FareTime) -> Bool {
   return lhs.planned == rhs.planned && lhs.actual == rhs.actual
 }
 
-public struct Melding: Equatable {
+public struct Melding: Equatable, Codable {
   let id: String
   let ernstig: Bool
   let text: String
@@ -27,7 +27,7 @@ public func ==(lhs: Melding, rhs: Melding) -> Bool {
   return lhs.id == rhs.id && lhs.ernstig == rhs.ernstig && lhs.text == rhs.text
 }
 
-public struct Stop: Equatable {
+public struct Stop: Equatable, Codable {
   public let time: Double
   public let spoor: String?
   public let name: String
@@ -39,30 +39,30 @@ public func ==(lhs: Stop, rhs: Stop) -> Bool {
     lhs.name == rhs.name
 }
 
-public struct ReisDeel {
+public struct ReisDeel: Codable {
   public let vervoerder: String
   public let vervoerType: String
   public let stops: [Stop]
 }
 
-public enum FareStatus: String {
-  case VolgensPlan = "VOLGENS-PLAN"
-  case Gewijzigd = "GEWIJZIGD"
-  case Nieuw = "NIEUW"
-  case NietOptimaal = "NIET-OPTIMAAL"
-  case NietMogelijk = "NIET-MOGELIJK"
-  case Geannuleerd = "GEANNULEERD"
-  case OverstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
-  case Vertraagd = "VERTRAAGD"
-  case PlanGewijzigd = "PLAN-GEWIJZGD"
+public enum FareStatus: String, Codable {
+  case volgensPlan = "VOLGENS-PLAN"
+  case gewijzigd = "GEWIJZIGD"
+  case nieuw = "NIEUW"
+  case nietOptimaal = "NIET-OPTIMAAL"
+  case nietMogelijk = "NIET-MOGELIJK"
+  case geannuleerd = "GEANNULEERD"
+  case overstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
+  case vertraagd = "VERTRAAGD"
+  case planGewijzigd = "PLAN-GEWIJZGD"
 }
 
-public struct AdviceRequestCodes {
+public struct AdviceRequestCodes: Codable {
   public let from: String
   public let to: String
 }
 
-public struct Advice: Equatable {
+public struct Advice: Equatable, Codable {
   public let overstappen: Int
   public let vertrek: FareTime
   public let aankomst: FareTime
@@ -87,7 +87,7 @@ public func ==(lhs: Advice, rhs: Advice) -> Bool {
     lhs.status == rhs.status
 }
 
-public struct AdvicesResult {
+public struct AdvicesResult: Codable {
   public let advices: Advices
 }
 

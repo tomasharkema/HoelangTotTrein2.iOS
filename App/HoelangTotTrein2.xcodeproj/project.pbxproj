@@ -13,6 +13,18 @@
 		C30B408B1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; };
 		C30B408C1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */; };
+		C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216901EEB212400BC2745 /* UserNotifications.framework */; };
+		C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216921EEB212400BC2745 /* UserNotificationsUI.framework */; };
+		C32216961EEB212400BC2745 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32216951EEB212400BC2745 /* NotificationViewController.swift */; };
+		C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32216971EEB212400BC2745 /* MainInterface.storyboard */; };
+		C322169D1EEB212400BC2745 /* TickerNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322168F1EEB212400BC2745 /* TickerNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
+		C32216A21EEB241900BC2745 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
+		C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
+		C32216A41EEB258B00BC2745 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
+		C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */; };
+		C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
+		C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
 		C33348221EAA481000EE2340 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33348211EAA481000EE2340 /* Interface.storyboard */; };
@@ -42,7 +54,6 @@
 		C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
 		C3894E2F1E91307E00C6FCE2 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* InterfaceController.swift */; };
 		C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */; };
-		C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
@@ -52,16 +63,12 @@
 		C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
 		C3C26C0E1C552B4A00197471 /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
 		C3C26C161C5556C100197471 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C26C151C5556C100197471 /* NotificationService.swift */; };
-		C3E19C2F1E913DF3003A1529 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07D61CC767FA002893B3 /* Info.plist */; };
-		C3E19C301E913DF5003A1529 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07EE1CC767FA002893B3 /* Info.plist */; };
 		C3E19C311E913DF9003A1529 /* ExtensionAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07EC1CC767FA002893B3 /* ExtensionAssets.xcassets */; };
 		C3E19C321E913DFC003A1529 /* HLTTAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07D41CC767FA002893B3 /* HLTTAssets.xcassets */; };
 		C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */; };
 		C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */; };
-		C3E19C421E941DA7003A1529 /* HockeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E19C411E941DA7003A1529 /* HockeyApp.swift */; };
 		C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E19C501E9529C7003A1529 /* AppShortcutService.swift */; };
 		C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3E19C561E96CDE1003A1529 /* Localization.strings */; };
-		C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847521BB82A01007D17C3 /* AppDelegate.swift */; };
 		C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E847541BB82A01007D17C3 /* TickerViewController.swift */; };
 		C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E847561BB82A01007D17C3 /* Main.storyboard */; };
 		C3E8475D1BB82A01007D17C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
@@ -78,11 +85,20 @@
 		C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F72AC01C95D3F60024CF2C /* StepView.xib */; };
 		C3F8AF0B1C5564ED009B9C91 /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
 		C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
+		C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38681641F6E899800550D96 /* AppDelegate.swift */; };
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
+		E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */; };
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C322169B1EEB212400BC2745 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C322168E1EEB212400BC2745;
+			remoteInfo = TickerNotification;
+		};
 		C339A7C41C943EC30058E97C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
@@ -152,6 +168,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				C38335911EA932A700A9E077 /* Widget.appex in Embed App Extensions */,
+				C322169D1EEB212400BC2745 /* TickerNotification.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,11 +198,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TickerNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BC2443A88F443FA497FC735 /* Pods-HoelangTotTrein2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Tests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Tests/Pods-HoelangTotTrein2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		201683E81181DDE0C1FAC08A /* Pods_HLTT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HLTT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE12F78931A9DBECABEAB2E /* Pods-HoelangTotTrein2WatchPods-HLTT Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2WatchPods-HLTT Extension.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		3792CBC26C8872F46C6B2E86 /* Pods_HoelangTotTreinPods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinPods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEF34E9AF5CDB5E25433961 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E3DC6F090D65FF583AFDB32 /* Pods-TickerNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.release.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.release.xcconfig"; sourceTree = "<group>"; };
 		5A1E3D4DD73981FB247D8244 /* Pods-Widget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Widget/Pods-Widget.release.xcconfig"; sourceTree = "<group>"; };
 		5CC68A4CC5E6349314E4274F /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		600576A30D03663369758751 /* Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +221,14 @@
 		C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
+		C322168F1EEB212400BC2745 /* TickerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TickerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C32216901EEB212400BC2745 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		C32216921EEB212400BC2745 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		C32216951EEB212400BC2745 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		C32216981EEB212400BC2745 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		C322169A1EEB212400BC2745 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
+		C32845E11EE8A83B0012E651 /* TimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabel.swift; sourceTree = "<group>"; };
 		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
 		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
@@ -221,10 +248,10 @@
 		C38335A41EA94AA100A9E077 /* WidgetApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WidgetApp.swift; sourceTree = "<group>"; };
 		C38335A61EA94C4C00A9E077 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
 		C38335B51EAA321E00A9E077 /* WatchApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchApp.swift; sourceTree = "<group>"; };
+		C38681641F6E899800550D96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3894E031E912FAB00C6FCE2 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HLTT Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3A47C361BBEF48C00A3CDA8 /* Station+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Station+Services.swift"; sourceTree = "<group>"; };
-		C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdviceCell.swift; path = ../../Views/AdviceCell.swift; sourceTree = "<group>"; };
@@ -234,14 +261,12 @@
 		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
 		C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sloterdijk.gpx; sourceTree = "<group>"; };
 		C3C26C151C5556C100197471 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		C3E19C411E941DA7003A1529 /* HockeyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HockeyApp.swift; sourceTree = "<group>"; };
 		C3E19C501E9529C7003A1529 /* AppShortcutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppShortcutService.swift; sourceTree = "<group>"; };
 		C3E19C551E96CDE1003A1529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		C3E19C581E96CE11003A1529 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localization.strings; sourceTree = "<group>"; };
 		C3E19C591E96CE1E003A1529 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3E19C5A1E96CE20003A1529 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3E8474F1BB82A01007D17C3 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3E847521BB82A01007D17C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E847541BB82A01007D17C3 /* TickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewController.swift; sourceTree = "<group>"; };
 		C3E8475C1BB82A01007D17C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3E847611BB82A01007D17C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -274,9 +299,22 @@
 		C424109171437A61C4274751 /* Pods-HoelangTotTrein2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Tests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Tests/Pods-HoelangTotTrein2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5166C0608BA10DBEC4E99C1 /* Pods_HoelangTotTrein2Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C322168C1EEB212400BC2745 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */,
+				C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */,
+				C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */,
+				C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */,
+				E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C38335821EA932A700A9E077 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -336,6 +374,7 @@
 		09A521EB6C856AE8207FF398 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */,
 				C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */,
 				C383359A1EA9490800A9E077 /* HoelangTotTreinAPI.framework */,
 				C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */,
@@ -352,6 +391,9 @@
 				C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */,
 				C38335861EA932A700A9E077 /* NotificationCenter.framework */,
 				86DFC88AF0DFAFC84270E57E /* Pods_Widget.framework */,
+				C32216901EEB212400BC2745 /* UserNotifications.framework */,
+				C32216921EEB212400BC2745 /* UserNotificationsUI.framework */,
+				0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -367,8 +409,20 @@
 				6E05B85E71E4F316A0CE1BC3 /* Pods-HoelangTotTrein2WatchPods-HLTT Extension.release.xcconfig */,
 				970E1883D236A542F2E64F8E /* Pods-Widget.debug.xcconfig */,
 				5A1E3D4DD73981FB247D8244 /* Pods-Widget.release.xcconfig */,
+				E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */,
+				4E3DC6F090D65FF583AFDB32 /* Pods-TickerNotification.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C32216941EEB212400BC2745 /* TickerNotification */ = {
+			isa = PBXGroup;
+			children = (
+				C32216951EEB212400BC2745 /* NotificationViewController.swift */,
+				C32216971EEB212400BC2745 /* MainInterface.storyboard */,
+				C322169A1EEB212400BC2745 /* Info.plist */,
+			);
+			path = TickerNotification;
 			sourceTree = "<group>";
 		};
 		C38335881EA932A700A9E077 /* Widget */ = {
@@ -400,6 +454,7 @@
 				C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */,
 				C3F72ABE1C95D3E30024CF2C /* StepView.swift */,
 				C3F72AC01C95D3F60024CF2C /* StepView.xib */,
+				C32845E11EE8A83B0012E651 /* TimeLabel.swift */,
 			);
 			path = Ticker;
 			sourceTree = "<group>";
@@ -435,13 +490,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		C3E19C3C1E92CB01003A1529 /* Watchkit */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Watchkit;
-			sourceTree = "<group>";
-		};
 		C3E847461BB82A01007D17C3 = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +497,7 @@
 				C37538171E99182B0047108C /* HoelangTotTreinCore.framework */,
 				C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */,
 				C38335881EA932A700A9E077 /* Widget */,
+				C32216941EEB212400BC2745 /* TickerNotification */,
 				09A521EB6C856AE8207FF398 /* Frameworks */,
 				C3FD07D01CC767FA002893B3 /* HLTT */,
 				C3FD07DF1CC767FA002893B3 /* HLTT Extension */,
@@ -470,6 +519,7 @@
 				C3894E031E912FAB00C6FCE2 /* HLTT.app */,
 				C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */,
 				C38335851EA932A700A9E077 /* Widget.appex */,
+				C322168F1EEB212400BC2745 /* TickerNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -483,8 +533,7 @@
 				C3E847851BB82B87007D17C3 /* Helpers */,
 				C3E847891BB82C0E007D17C3 /* Services */,
 				C3E847911BB836A5007D17C3 /* App.swift */,
-				C3E847521BB82A01007D17C3 /* AppDelegate.swift */,
-				C3E19C411E941DA7003A1529 /* HockeyApp.swift */,
+				C38681641F6E899800550D96 /* AppDelegate.swift */,
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
@@ -518,7 +567,6 @@
 			children = (
 				C3E847B11BB85591007D17C3 /* Controllers */,
 				C3E19C3A1E92CAAF003A1529 /* Locations */,
-				C3E19C3C1E92CB01003A1529 /* Watchkit */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -547,7 +595,6 @@
 		C3E847A41BB840E9007D17C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C3A47C3C1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift */,
 				C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */,
 				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
 			);
@@ -602,6 +649,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C322168E1EEB212400BC2745 /* TickerNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C32216A01EEB212400BC2745 /* Build configuration list for PBXNativeTarget "TickerNotification" */;
+			buildPhases = (
+				ECF51089AB90EE2F1F3365A8 /* [CP] Check Pods Manifest.lock */,
+				C322168B1EEB212400BC2745 /* Sources */,
+				C322168C1EEB212400BC2745 /* Frameworks */,
+				C322168D1EEB212400BC2745 /* Resources */,
+				7212CE03406F9F8A15D25058 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TickerNotification;
+			productName = TickerNotification;
+			productReference = C322168F1EEB212400BC2745 /* TickerNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C38335841EA932A700A9E077 /* Widget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C38335941EA932A700A9E077 /* Build configuration list for PBXNativeTarget "Widget" */;
@@ -674,12 +740,14 @@
 				D7E69BAEFC50F1D05969C461 /* [CP] Embed Pods Frameworks */,
 				C872988A50BD0C92D9CF7D8A /* [CP] Copy Pods Resources */,
 				C38335951EA932A700A9E077 /* Embed App Extensions */,
+				FFC0C73F1F3C515200A49942 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				C3894E221E912FAB00C6FCE2 /* PBXTargetDependency */,
 				C38335901EA932A700A9E077 /* PBXTargetDependency */,
+				C322169C1EEB212400BC2745 /* PBXTargetDependency */,
 			);
 			name = HoelangTotTrein2;
 			productName = HoelangTotTrein2;
@@ -731,13 +799,18 @@
 		C3E847471BB82A01007D17C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Tomas Harkema";
 				TargetAttributes = {
+					C322168E1EEB212400BC2745 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = RSRVS8D9PW;
+					};
 					C38335841EA932A700A9E077 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = RSRVS8D9PW;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -761,6 +834,7 @@
 					C3894E0E1E912FAB00C6FCE2 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = RSRVS8D9PW;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -771,7 +845,7 @@
 					C3E8474E1BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = RSRVS8D9PW;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -787,7 +861,7 @@
 					};
 					C3E847651BB82A01007D17C3 = {
 						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						TestTargetID = C3E8474E1BB82A01007D17C3;
 					};
 					C3E847701BB82A01007D17C3 = {
@@ -817,11 +891,23 @@
 				C3894E021E912FAB00C6FCE2 /* HLTT */,
 				C3894E0E1E912FAB00C6FCE2 /* HLTT Extension */,
 				C38335841EA932A700A9E077 /* Widget */,
+				C322168E1EEB212400BC2745 /* TickerNotification */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C322168D1EEB212400BC2745 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32216A21EEB241900BC2745 /* AKKURAT.ttf in Resources */,
+				C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */,
+				C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */,
+				C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C38335831EA932A700A9E077 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -839,7 +925,6 @@
 			files = (
 				C33348221EAA481000EE2340 /* Interface.storyboard in Resources */,
 				C3E19C321E913DFC003A1529 /* HLTTAssets.xcassets in Resources */,
-				C3E19C2F1E913DF3003A1529 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -850,7 +935,6 @@
 				C3E19C311E913DF9003A1529 /* ExtensionAssets.xcassets in Resources */,
 				C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */,
 				C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */,
-				C3E19C301E913DF5003A1529 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,9 +997,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-watchOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Promissum.common/Promissum.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-watchOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Statham-watchOS/Statham.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Statham.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -928,13 +1021,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HoelangTotTrein2WatchPods-HLTT Extension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5DC845BD27F5D5CD32A71438 /* [CP] Copy Pods Resources */ = {
@@ -967,19 +1063,37 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7732E2E737D80F980C04EA51 /* [CP] Check Pods Manifest.lock */ = {
+		7212CE03406F9F8A15D25058 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7732E2E737D80F980C04EA51 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A1DC8640A90788C40C205DF3 /* [CP] Check Pods Manifest.lock */ = {
@@ -988,13 +1102,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HoelangTotTrein2Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C1D2BAE150259F2820ACC0FD /* [CP] Check Pods Manifest.lock */ = {
@@ -1003,13 +1120,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Widget-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C3E847AE1BB85518007D17C3 /* ShellScript */ = {
@@ -1031,9 +1151,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1046,9 +1169,26 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Promissum.common-UIKit/Promissum.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
+				"${BUILT_PRODUCTS_DIR}/Statham-iOS/Statham.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Statham.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1070,9 +1210,49 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Tests/Pods-HoelangTotTrein2Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ECF51089AB90EE2F1F3365A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TickerNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFC0C73F1F3C515200A49942 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 0d5f284b42c7fd8392f27151595fcb94b4ac009e fa45da05d03a9997255b9671a8f7b29baedf2fb0fdbb4a0b04563c7b79308db4";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C322168B1EEB212400BC2745 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C32216961EEB212400BC2745 /* NotificationViewController.swift in Sources */,
+				C32216A41EEB258B00BC2745 /* TimeLabel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C38335811EA932A700A9E077 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1098,8 +1278,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3A47C3D1BC0058000A3CDA8 /* CLCircularRegion+Bounds.swift in Sources */,
-				C3E19C421E941DA7003A1529 /* HockeyApp.swift in Sources */,
 				C3A47C371BBEF48C00A3CDA8 /* Station+Services.swift in Sources */,
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
 				C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */,
@@ -1108,10 +1286,11 @@
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
+				C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */,
 				C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */,
+				C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
 				C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */,
-				C3E847531BB82A01007D17C3 /* AppDelegate.swift in Sources */,
 				C3E847B31BB855AA007D17C3 /* SegueManagerController.swift in Sources */,
 				C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */,
 				C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */,
@@ -1141,6 +1320,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C322169C1EEB212400BC2745 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C322168E1EEB212400BC2745 /* TickerNotification */;
+			targetProxy = C322169B1EEB212400BC2745 /* PBXContainerItemProxy */;
+		};
 		C339A7C51C943EC30058E97C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3E8474E1BB82A01007D17C3 /* HoelangTotTrein2 */;
@@ -1169,6 +1353,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C32216971EEB212400BC2745 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C32216981EEB212400BC2745 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		C383358B1EA932A700A9E077 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1207,6 +1399,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C322169E1EEB212400BC2745 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TickerNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.TickerNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C322169F1EEB212400BC2745 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E3DC6F090D65FF583AFDB32 /* Pods-TickerNotification.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = TickerNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.TickerNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C38335921EA932A700A9E077 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 970E1883D236A542F2E64F8E /* Pods-Widget.debug.xcconfig */;
@@ -1219,14 +1463,16 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1242,12 +1488,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = Widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1322,8 +1569,9 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1345,8 +1593,8 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
@@ -1361,14 +1609,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1408,14 +1662,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1452,13 +1712,14 @@
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -Xfrontend -debug-time-function-bodies";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -Xfrontend -debug-time-function-bodies -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1476,14 +1737,14 @@
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1497,7 +1758,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Debug;
@@ -1511,7 +1773,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Release;
@@ -1545,6 +1808,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C32216A01EEB212400BC2745 /* Build configuration list for PBXNativeTarget "TickerNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C322169E1EEB212400BC2745 /* Debug */,
+				C322169F1EEB212400BC2745 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C38335941EA932A700A9E077 /* Build configuration list for PBXNativeTarget "Widget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

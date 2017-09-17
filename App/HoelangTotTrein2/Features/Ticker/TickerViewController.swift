@@ -15,7 +15,7 @@ import HoelangTotTreinCore
 
 class TickerViewController: ViewController {
 
-  private let AnimationInterval: TimeInterval = 0.7
+  private let AnimationInterval: TimeInterval = 2
 
   private var fromStation: Station?
   private var toStation: Station?
@@ -127,7 +127,7 @@ class TickerViewController: ViewController {
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable
-      .distinctUntilChanged { $0.0 == $0.1 }
+      .distinctUntilChanged { $0 == $1 }
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext:  { [weak self] _ in
         assert(Thread.isMainThread)
@@ -172,12 +172,12 @@ class TickerViewController: ViewController {
     App.travelService.stopTimer()
   }
 
-  func startTimer() {
+  @objc func startTimer() {
     timer?.invalidate()
     timer = Timer.scheduledTimer(timeInterval: AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
   }
 
-  func stopTimer() {
+  @objc func stopTimer() {
     timer?.invalidate()
     timer = nil
   }
@@ -207,10 +207,9 @@ class TickerViewController: ViewController {
     }
   }
 
-  func tick(_ timer: Timer) {
+  @objc func tick(_ timer: Timer) {
     render()
     renderBackground()
-    dataSource?.tick()
   }
 
   private func renderBackground() {
@@ -239,26 +238,26 @@ class TickerViewController: ViewController {
 
   private func render() {
 
-    if let nextAdvice = nextAdvice {
-
-      let offset = nextAdvice.vertrek.actualDate.timeIntervalSince(Date())
-      let difference = Date(timeIntervalSince1970: offset - 60*60)
-
-      let timeString: String
-      if Calendar.current.component(.hour, from: difference) > 0 {
-        timeString = difference.toString(format: .custom("H:mm"))
-
-      } else {
-        timeString = difference.toString(format: .custom("mm:ss"))
-      }
-
-      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") //+ " - \(nextAdvice.smallExtraMessage)"
-      nextDelayLabel.text = nextAdvice.vertrekVertraging
-      nextView.alpha = 1
-    } else {
-      nextView.alpha = 0
-      nextDelayLabel.text = ""
-    }
+//    if let nextAdvice = nextAdvice {
+//
+//      let offset = nextAdvice.vertrek.actualDate.timeIntervalSince(Date())
+//      let difference = Date(timeIntervalSince1970: offset - 60*60)
+//
+//      let timeString: String
+//      if Calendar.current.component(.hour, from: difference) > 0 {
+//        timeString = difference.toString(format: .custom("H:mm"))
+//
+//      } else {
+//        timeString = difference.toString(format: .custom("mm:ss"))
+//      }
+//
+//      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") //+ " - \(nextAdvice.smallExtraMessage)"
+//      nextDelayLabel.text = nextAdvice.vertrekVertraging
+//      nextView.alpha = 1
+//    } else {
+//      nextView.alpha = 0
+//      nextDelayLabel.text = ""
+//    }
   }
 
   private func applyErrorState() {
@@ -277,6 +276,9 @@ class TickerViewController: ViewController {
     App.locationService.requestAuthorization().flatMap { state in
       App.travelService.travelFromCurrentLocation()
     }.then { print($0) }
+    .trap {
+      print("ERROR: \($0)")
+    }
   }
 
   @IBAction func switchPressed(_ sender: AnyObject) {
@@ -356,8 +358,8 @@ extension TickerViewController {
     assert(Thread.isMainThread, "call from main thread")
     let showAdvices = advices.prefix(6)
 
-    showAdvices.enumerated().forEach { (idx, element) in
-
+    showAdvices.enumerated().forEach { el in
+      let (idx, element) = el
       let view: UIView
       if let cachedView = _indicatorStackViewCache[idx] {
         view = cachedView
@@ -373,11 +375,11 @@ extension TickerViewController {
       let bgColor: UIColor
       if idx == i && !element.isOngoing && element == current {
         bgColor = UIColor.white.withAlphaComponent(0.2)
-      } else if idx == i && (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
+      } else if idx == i && (element.status != .volgensPlan || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor()
       } else if idx == i {
         bgColor = UIColor.white
-      } else if (element.status != .VolgensPlan || element.vertrekVertraging != nil) {
+      } else if (element.status != .volgensPlan || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor().withAlphaComponent(0.3)
       } else {
         bgColor = UIColor.clear

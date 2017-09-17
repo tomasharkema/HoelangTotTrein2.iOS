@@ -37,13 +37,14 @@ public enum LoadingState<ValueType> {
 }
 
 public class TravelService: NSObject {
-  private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService", attributes: [])
-  fileprivate let apiService: ApiService
-  fileprivate let locationService: LocationService
+  private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService")
+  private let apiService: ApiService
+  private let locationService: LocationService
   private let dataStore: DataStore
+  private let scheduler: SchedulerType
 
   #if os(iOS)
-  let session = WCSession.default()
+  private let session: WCSession?
   #endif
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
@@ -74,6 +75,15 @@ public class TravelService: NSObject {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
+    self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
+
+    #if os(iOS)
+      if WCSession.isSupported() {
+        session = WCSession.default
+      } else {
+        session = nil
+      }
+    #endif
 
     super.init()
 
@@ -93,11 +103,13 @@ public class TravelService: NSObject {
   
   public func attach() {
     #if os(iOS)
-    session.delegate = self
-    session.activate()
+      session?.delegate = self
+      if session?.isReachable ?? false {
+        session?.activate()
+      }
     #endif
 
-    _ = firstAdviceRequestObservable.subscribe(onNext: { adviceRequest in
+    _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
       guard let adviceRequest = adviceRequest else {
         return
       }
@@ -130,20 +142,22 @@ public class TravelService: NSObject {
 //      })
 
     _ = currentAdviceOnScreenVariable.asObservable()
+      .observeOn(scheduler)
       .filterOptional()
-      .throttle(3, scheduler: MainScheduler.asyncInstance)
+      .throttle(3, scheduler: scheduler)
       .subscribe(onNext: { advice in
 
         self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
 
         #if os(iOS)
-        self.session.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
-        let complicationUpdate = self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-        print(complicationUpdate)
+          if self.session?.isReachable ?? false {
+            self.session?.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
+            let complicationUpdate = self.session?.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+          }
         #endif
       })
 
-    _ = currentAdvicesObservable.asObservable().subscribe(onNext: { advices in
+    _ = currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe(onNext: { advices in
 
       guard case .loaded(let advices) = advices else {
         return
@@ -169,7 +183,7 @@ public class TravelService: NSObject {
       }
   }
 
-  public func startTimer() {
+  @objc public func startTimer() {
     guard timer == nil else {
       return
     }
@@ -187,12 +201,12 @@ public class TravelService: NSObject {
     departureTimer = Timer.scheduledTimer(timeInterval: time + 1, target: self, selector: #selector(tick), userInfo: "departure", repeats: false)
   }
 
-  public func stopTimer() {
+  @objc public func stopTimer() {
     timer?.invalidate()
     timer = nil
   }
 
-  public func tick() {
+  @objc public func tick() {
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
         print("DID FINISH TICK has value \($0.value != nil)")
@@ -213,16 +227,12 @@ public class TravelService: NSObject {
   func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
     let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .map {
-          .some($0)
-        }
+        .map { .some($0) }
     } ?? Promise(value: nil)
 
     let to: Promise<Station?, Error> = dataStore.toStationCode.map {
       self.dataStore.find(stationCode: $0)
-        .map {
-          .some($0)
-        }
+        .map { .some($0) }
     } ?? Promise(value: nil)
     
     return whenBoth(from, to)
@@ -272,7 +282,7 @@ public class TravelService: NSObject {
       .flatMap {
         self.setStation(state, station: $0, byPicker: byPicker)
       }
-      .then {
+      .then { _ in
         print("TravelService did set station \(stationName)")
       }
       .trap {
@@ -285,7 +295,7 @@ public class TravelService: NSObject {
       .flatMap {
         self.setStation(state, station: $0, byPicker: byPicker)
       }
-      .then {
+      .then { _ in
         print("TravelService did set station \(stationCode)")
       }
       .trap {
@@ -362,7 +372,7 @@ public class TravelService: NSObject {
 
   public func travelFromCurrentLocation() -> Promise<Void, Error> {
     return whenBoth(getCloseStations(), getCurrentAdviceRequest())
-      .flatMap { (stations, currentAdvice) in
+      .flatMap { let (stations, currentAdvice) = $0;
         guard let station = stations.first else {
           return Promise(error: TravelServiceError.notChanged)
         }
@@ -424,7 +434,9 @@ extension TravelService: WCSessionDelegate {
   }
 
   public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-    guard let advice = currentAdviceOnScreenVariable.value?.encodeJson(), let data = jsonToNSData(advice) else {
+
+    let encoder = JSONEncoder()
+    guard let data = try? encoder.encode(currentAdviceOnScreenVariable.value) else {
       return
     }
 

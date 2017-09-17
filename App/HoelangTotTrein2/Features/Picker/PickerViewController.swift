@@ -57,7 +57,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     currentStation.text = state.description
 
-    searchField.attributedPlaceholder = NSAttributedString(string: R.string.localization.search(), attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.4)])
+    searchField.attributedPlaceholder = NSAttributedString(string: R.string.localization.search(), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.4)])
 
     App.travelService.getCloseStations()
       .dispatchMain()

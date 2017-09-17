@@ -36,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let fromStation = WidgetApp.travelService.find(stationCode: advice.request.from)
         let toStation = WidgetApp.travelService.find(stationCode: advice.request.to)
         whenBoth(fromStation, toStation)
-          .then { [weak self] (from, to) in
+          .then { /*[weak self]*/ let (from, to) = $0;
             self?.render(advice: advice, from: from, to: to)
           }
       })
@@ -53,7 +53,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     toLabel.text = "\(toPlatform)\(advice.endStation ?? "")"
   }
 
-  func tick(timer: Timer) {
+  @objc func tick(timer: Timer) {
     guard let advice = timer.userInfo as? Advice else { return }
     let offset = advice.vertrek.actualDate.timeIntervalSince(Date())
     let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
@@ -73,7 +73,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     // If there's no update required, use NCUpdateResult.NoData
     // If there's an update, use NCUpdateResult.NewData
       
-    completionHandler(NCUpdateResult.newData)
+    completionHandler(.newData)
   }
   
 }

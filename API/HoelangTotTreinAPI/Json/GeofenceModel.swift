@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum GeofenceType: String {
+public enum GeofenceType: String, Codable {
   case start = "start"
   case overstap = "overstap"
   case end = "end"
@@ -16,7 +16,7 @@ public enum GeofenceType: String {
   case tussenStation = "tussenstation"
 }
 
-public struct GeofenceModel: Equatable {
+public struct GeofenceModel: Equatable, Codable {
   public let type: GeofenceType
   public let stationName: String
   public let fromStop: Stop?

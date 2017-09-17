@@ -88,80 +88,25 @@ extension AppDataStore {
     return returnedUserId
   }
 
-
   public var geofenceInfo: [String: [GeofenceModel]]? {
     set {
-      if let value = newValue {
-        let dict = value.encodeJson({$0}) {
-          $0.encodeJson {
-            $0.encodeJson()
-          }
-        }
-
-        geofenceInfoObject = dict
-      }
-    }
-    get {
-      if let dict = geofenceInfoObject {
-        do {
-          return try Dictionary.decodeJson({
-            try String.decodeJson($0)
-            }, {
-              return try Array.decodeJson({
-                try GeofenceModel.decodeJson($0)
-              })($0)
-            })(dict)
-        } catch {
-          print(error)
-        }
-      }
-      return nil
-    }
-  }
-
-
-  fileprivate var geofenceInfoObject: [String: Any]? {
-    get {
-      assert(!Thread.isMainThread)
-      guard let data = UserDefaults.object(forKey: Keys.GeofenceInfoKey) as? Data else {
-        return nil
-      }
-
+      let encoder = JSONEncoder()
       do {
-        let object = try JSONSerialization.jsonObject(with: data, options: [])
-        return object as? [String: Any]
+        UserDefaults.set(try encoder.encode(newValue), forKey: Keys.GeofenceInfoKey)
       } catch {
-        assertionFailure("ERROR: \(error)")
-        return nil
-      }
-    }
-    set {
-      assert(!Thread.isMainThread)
-      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        UserDefaults.set(json, forKey: Keys.GeofenceInfoKey)
-        UserDefaults.synchronize()
-      }
-    }
-  }
-
-  public var persistedAdvicesAndRequest: AdvicesAndRequest? {
-    set {
-      if let value = newValue {
-
-        let dict = value.encodeJson()
-
-        persistedAdvicesAndRequestObject = dict
+        fatalError("Error! \(error)")
       }
     }
     get {
-      if let dict = persistedAdvicesAndRequestObject {
-        do {
-          return try AdvicesAndRequest.decodeJson(dict)
-        } catch {
-          print(error)
-        }
+      let decoder = JSONDecoder()
+      guard let data = UserDefaults.data(forKey: Keys.GeofenceInfoKey) else {
+        return nil
       }
-      return nil
+      do {
+        return try decoder.decode([String: [GeofenceModel]].self, from: data)
+      } catch {
+        fatalError("Error! \(error)")
+      }
     }
   }
 
@@ -209,46 +154,23 @@ extension AppDataStore {
 
   public var persistedAdvices: Advices? {
     set {
-      if let value = newValue {
-        let array = value.encodeJson {
-          $0.encodeJson()
-        }
-        persistedAdvicesObject = array
-      }
-    }
-    get {
-      if let array = persistedAdvicesObject {
-        do {
-          return try Array.decodeJson({
-            try Advice.decodeJson($0)
-          })(array)
-        } catch {
-          print(error)
-        }
-      }
-      return nil
-    }
-  }
-
-  fileprivate var persistedAdvicesObject: [Any]? {
-    get {
-      guard let data = UserDefaults.object(forKey: Keys.PersistedAdvices) as? Data else {
-        return nil
-      }
-
+      let encoder = JSONEncoder()
       do {
-        let object = try JSONSerialization.jsonObject(with: data, options: [])
-        return object as? [Any]
+        UserDefaults.set(try encoder.encode(newValue), forKey: Keys.PersistedAdvices)
       } catch {
-        assertionFailure("ERROR: \(error)")
-        return nil
+        fatalError("Error! \(error)")
       }
     }
-    set {
-      assert(!Thread.isMainThread)
-      if let value = newValue, let json = try? JSONSerialization.data(withJSONObject: value, options: []) {
-        UserDefaults.set(json, forKey: Keys.PersistedAdvices)
-        UserDefaults.synchronize()
+
+    get {
+      let decoder = JSONDecoder()
+      guard let data = UserDefaults.data(forKey: Keys.PersistedAdvices) else {
+        return nil
+      }
+      do {
+        return try decoder.decode(Advices.self, from: data)
+      } catch {
+        fatalError("Error! \(error)")
       }
     }
   }

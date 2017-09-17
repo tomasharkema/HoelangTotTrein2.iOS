@@ -39,7 +39,9 @@ class NotificationController: WKUserNotificationInterfaceController {
 
 
   override func didReceive(_ localNotification: UILocalNotification, withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
-    if let userInfo = localNotification.userInfo, let _ = try? GeofenceModel.decodeJson(userInfo) {
+
+    let decoder = JSONDecoder()
+    if let _ = localNotification.userInfo {
       completionHandler(.custom)
     } else {
       completionHandler(.default)
@@ -49,19 +51,22 @@ class NotificationController: WKUserNotificationInterfaceController {
 
   override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any], withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
 
-    if let userInfo = remoteNotification["geofenceModel"] as? [String: AnyObject], let model = try? GeofenceModel.decodeJson(userInfo) {
-      guard let platform = model.fromStop?.spoor, let date = model.fromStop?.timeDate else {
+    let decoder = JSONDecoder()
+
+    guard let userInfo = remoteNotification["geofenceModel"],
+      let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
+      let model = try? decoder.decode(GeofenceModel.self, from: data),
+      let platform = model.fromStop?.spoor,
+      let date = model.fromStop?.timeDate
+    else {
         completionHandler(.default)
         return
-      }
-      platformLabel.setText("platform \(platform)")
-      timeLabel.setDate(date)
-      timeLabel.start()
-      completionHandler(.custom)
-    } else {
-      completionHandler(.default)
     }
 
+    platformLabel.setText("platform \(platform)")
+    timeLabel.setDate(date)
+    timeLabel.start()
+    completionHandler(.custom)
   }
 
 }

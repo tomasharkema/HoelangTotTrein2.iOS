@@ -15,7 +15,9 @@ import HoelangTotTreinAPIWatch
 import HoelangTotTreinAPI
 #endif
 
-public class AppDataStore: DataStore {
+ public class AppDataStore: DataStore {
+  public var persistedAdvicesAndRequest: AdvicesAndRequest?
+  
   let defaultKeepDepartedAdvice: Bool
   fileprivate let persistentContainer: NSPersistentContainer
 
@@ -27,8 +29,7 @@ public class AppDataStore: DataStore {
     let bundleIdentifier = "io.harkema.HoelangTotTreinCore"
     #endif
 
-    guard let bundle = Bundle(identifier: bundleIdentifier),
-      let url = bundle.url(forResource: "HoelangTotTrein2", withExtension: "momd"),
+    guard let url = Bundle(identifier: bundleIdentifier)?.url(forResource: "HoelangTotTrein2", withExtension: "momd"),
       let model = NSManagedObjectModel(contentsOf: url)
       else {
         fatalError("NO MODEL")
@@ -120,7 +121,7 @@ extension AppDataStore {
         }
 
         try context.save()
-        promiseSource.resolve()
+        promiseSource.resolve(())
       } catch {
         promiseSource.reject(error)
       }
@@ -227,11 +228,11 @@ extension AppDataStore {
         let history = History(context: context)
         history.stationCode = station.code
         history.station = stationRecord
-        history.date = NSDate()
+        history.date = Date()
         history.historyType = historyType
 
         try context.save()
-        promiseSource.resolve()
+        promiseSource.resolve(())
       } catch {
         promiseSource.reject(error)
       }
@@ -292,8 +293,8 @@ extension AppDataStore {
   public func mostUsedStations() -> Promise<[Station], Error> {
     return fetchMostUsedDict()
       .flatMap { stationCodes in
-        whenAll(stationCodes.map({ (code, _) in
-          self.find(stationCode: code)
+        whenAll(stationCodes.map({ let (code, _) = $0;
+          return self.find(stationCode: code)
         }))
       }
   }

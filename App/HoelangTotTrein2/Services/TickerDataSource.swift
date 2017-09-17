@@ -68,19 +68,7 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
 
     cell.advice = advices[indexPath.row]
 
-    cell.renderTimer()
-
     return cell
-  }
-
-  func tick() {
-    collectionView?.visibleCells.forEach {
-      guard let adviceCell = $0 as? AdviceCell else {
-        return
-      }
-
-      adviceCell.renderTimer()
-    }
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

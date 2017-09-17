@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Coords {
+public struct Coords: Codable {
   public let lat: Double
   public let lon: Double
 
@@ -18,7 +18,7 @@ public struct Coords {
   }
 }
 
-public enum StationType: String {
+public enum StationType: String, Codable {
   case MegaStation = "megastation"
   case KnooppuntIntercityStation = "knooppuntIntercitystation"
   case KnooppuntSneltreinStation = "knooppuntSneltreinstation"
@@ -29,7 +29,7 @@ public enum StationType: String {
   case FacultatiefStation = "facultatiefStation"
 }
 
-public struct Station: Equatable, Hashable {
+public struct Station: Equatable, Hashable, Codable {
   public let name: String
   public let code: String
   public let land: String
@@ -41,7 +41,7 @@ public func ==(lhs: Station, rhs: Station) -> Bool {
   return lhs.code == rhs.code
 }
 
-public struct StationsResponse {
+public struct StationsResponse: Codable {
   public let stations: [Station]
 }
 
