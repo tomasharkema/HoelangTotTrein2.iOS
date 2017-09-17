@@ -27,6 +27,8 @@
 		C30B40891E98F6B200D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
 		C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C975B1EA23AC9007BD463 /* MockApiService.swift */; };
 		C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
+		C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
+		C33E05E01F6ECAB000265057 /* HttpJsonApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */; };
 		C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
 		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
@@ -553,7 +555,9 @@
 				C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */,
 				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
 				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
+				C33E05E01F6ECAB000265057 /* HttpJsonApiService.swift in Sources */,
 				C375384C1E9921C20047108C /* Bounds.swift in Sources */,
+				C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */,
 				C30B40851E98F6A700D99541 /* Advice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

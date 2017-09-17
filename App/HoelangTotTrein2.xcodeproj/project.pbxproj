@@ -234,6 +234,8 @@
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C333482A1EAA59C200EE2340 /* HLTT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
+		C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCore.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinCore.framework"; sourceTree = "<group>"; };
+		C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C37538171E99182B0047108C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37538611E99235B0047108C /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCoreWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
@@ -425,6 +427,15 @@
 			path = TickerNotification;
 			sourceTree = "<group>";
 		};
+		C33E05DC1F6ECA3200265057 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */,
+				C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C38335881EA932A700A9E077 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,6 +538,7 @@
 		C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */ = {
 			isa = PBXGroup;
 			children = (
+				C33E05DC1F6ECA3200265057 /* Resources */,
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E19C371E92C9C0003A1529 /* Features */,
 				C3E19C3B1E92CAC8003A1529 /* Fonts */,

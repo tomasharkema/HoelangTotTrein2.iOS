@@ -18,18 +18,18 @@ final public class HttpXmlApiService: ApiService {
   }
 
   public func stations() -> Promise<StationsResponse, Error> {
-    <#code#>
+    return Promise(error: ApiError.notImplemented)
   }
 
   public func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
-    <#code#>
+    return Promise(error: ApiError.notImplemented)
   }
 
   public func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error> {
-    <#code#>
+    return Promise(error: ApiError.notImplemented)
   }
 
   public func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error> {
-    <#code#>
+    return Promise(error: ApiError.notImplemented)
   }
 }

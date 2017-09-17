@@ -11,7 +11,7 @@ import Promissum
 import Alamofire
 import Statham
 
-final public class HttpApiService: ApiService {
+final public class HttpJsonApiService: ApiService {
   private let endpoint: String
 
   private let manager = Alamofire.SessionManager.default

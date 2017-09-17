@@ -27,3 +27,7 @@ public protocol ApiService {
   func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error>
   func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error>
 }
+
+enum ApiError: Error {
+  case notImplemented
+}

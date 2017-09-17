@@ -13,7 +13,7 @@ import HoelangTotTreinCoreWatch
 class WatchApp {
   //TODO: make private
   static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)
-  static private let apiService = HttpApiService(endpoint: "https://ns.harkema.io")
+  static private let apiService = HttpJsonApiService(endpoint: "https://ns.harkema.io")
   static let locationService = AppLocationService()
   static let travelService = TravelService(apiService: apiService, locationService: locationService, dataStore: dataStore)
   static let storageAttachment = StorageAttachment(travelService: travelService, dataStore: dataStore)
