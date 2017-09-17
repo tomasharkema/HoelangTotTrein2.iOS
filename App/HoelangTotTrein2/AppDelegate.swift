@@ -23,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private var disposeBag = DisposeBag()
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-    HockeyAppConfig.register()
     Fabric.with([Crashlytics.self])
 
     App.storageAttachment.attach()
