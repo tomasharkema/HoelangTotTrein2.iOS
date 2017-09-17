@@ -34,6 +34,8 @@
 		C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404B1E98F0B100D99541 /* ApiService.swift */; };
 		C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40641E98F15800D99541 /* SessionManager+Request.swift */; };
+		C3F92E0A1F6E8BDD00A2B19F /* HttpJsonApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */; };
+		C3F92E0C1F6E8BFC00A2B19F /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
 		E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */; };
 		EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */; };
 /* End PBXBuildFile section */
@@ -77,6 +79,8 @@
 		C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
 		C375381C1E9919DA0047108C /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
 		C375381E1E991A290047108C /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
+		C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpJsonApiService.swift; sourceTree = "<group>"; };
+		C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpXmlApiService.swift; sourceTree = "<group>"; };
 		EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; sourceTree = "<group>"; };
 		F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				C30B404B1E98F0B100D99541 /* ApiService.swift */,
+				C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */,
+				C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -513,12 +519,14 @@
 			files = (
 				C30B40581E98F0B100D99541 /* ApiService.swift in Sources */,
 				C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */,
+				C3F92E0C1F6E8BFC00A2B19F /* HttpXmlApiService.swift in Sources */,
 				C375381D1E9919DA0047108C /* Bounds.swift in Sources */,
 				C375381F1E991A290047108C /* HistoryType.swift in Sources */,
 				C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */,
 				C30B40591E98F0B100D99541 /* Advice.swift in Sources */,
 				C30B405A1E98F0B100D99541 /* ErrorJson.swift in Sources */,
 				C30B40611E98F0B100D99541 /* Station.swift in Sources */,
+				C3F92E0A1F6E8BDD00A2B19F /* HttpJsonApiService.swift in Sources */,
 				C30B405B1E98F0B100D99541 /* GeofenceModel.swift in Sources */,
 				C30B40621E98F0B100D99541 /* SuccessResponse.swift in Sources */,
 				C30B40651E98F15800D99541 /* SessionManager+Request.swift in Sources */,
