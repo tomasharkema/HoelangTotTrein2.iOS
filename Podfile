@@ -4,7 +4,7 @@ abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
   platform :ios, '10.0'
 
-	pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => "swift4"
+	pod 'Alamofire'
 
 	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
 	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
@@ -13,8 +13,8 @@ abstract_target 'HoelangTotTrein2Pods' do
   pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
   pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
 
-	pod 'RxSwift',    '~> 3.5'
-	pod 'RxCocoa',    '~> 3.5'
+	pod 'RxSwift'
+	pod 'RxCocoa'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
@@ -22,9 +22,9 @@ abstract_target 'HoelangTotTrein2Pods' do
 		project 'App/HoelangTotTrein2.xcodeproj'
 
 		pod 'HockeySDK'
-		pod 'R.swift', '~> 3.2'
-		pod 'SegueManager/R.swift', '~> 3.1.0'
-		pod 'AFDateHelper', '~> 4.0'
+		pod 'R.swift'
+		pod 'SegueManager/R.swift'
+		pod 'AFDateHelper'
     pod 'Fabric'
     pod 'Crashlytics'
 
