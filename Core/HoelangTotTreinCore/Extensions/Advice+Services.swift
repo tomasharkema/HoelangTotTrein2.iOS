@@ -60,12 +60,11 @@ extension Advice {
   }
 
   public var isOngoing: Bool {
-    return (status == .volgensPlan
-      || status == .gewijzigd
-      || status == .vertraagd
-      || status == .nieuw)
-      && vertrek.actualDate > Date()
-      && aankomst.actualDate > Date()
+    let isPossible = FareStatus.impossibleFares.first { $0 == status } == nil
+    
+    return isPossible
+      && vertrek.actual > Date()
+      && aankomst.actual > Date()
   }
 
   public var startStation: String? {
@@ -80,16 +79,6 @@ extension Advice {
 extension ReisDeel {
   public var modalityType: ModalityType {
     return ModalityType.fromString(vervoerType)
-  }
-}
-
-extension FareTime {
-  public var plannedDate: Date {
-    return Date(timeIntervalSince1970: planned/1000)
-  }
-
-  public var actualDate: Date {
-    return Date(timeIntervalSince1970: actual/1000)
   }
 }
 

@@ -31,7 +31,7 @@ class AdviceCell: UICollectionViewCell {
     didSet {
       renderInfo()
 
-      if let date = advice?.vertrek.actualDate, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
+      if let date = advice?.vertrek.actual, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
         minutesLabel.format = [.m]
         secondsLabel.format = [.s]
       } else {
@@ -39,8 +39,8 @@ class AdviceCell: UICollectionViewCell {
         secondsLabel.format = [.m, .customString(":"), .s]
       }
 
-      minutesLabel.date = advice?.vertrek.actualDate
-      secondsLabel.date = advice?.vertrek.actualDate
+      minutesLabel.date = advice?.vertrek.actual
+      secondsLabel.date = advice?.vertrek.actual
 
       minutesLabel.didReachNulSecondsHandler = {
         
@@ -56,7 +56,7 @@ class AdviceCell: UICollectionViewCell {
       return
     }
 
-    let interval = Calendar.current.dateComponents([.second], from: Date(), to: advice.vertrek.actualDate).second ?? -1
+    let interval = Calendar.current.dateComponents([.second], from: Date(), to: advice.vertrek.actual).second ?? -1
 
     if interval > 0 {
       tickerContainer.alpha = 1

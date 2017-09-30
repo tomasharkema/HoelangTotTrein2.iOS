@@ -34,7 +34,10 @@ final public class HttpJsonApiService: ApiService {
     return manager.requestWithDecoder(
       url: "\(endpoint)/api/advices",
       parameters: ["from": from, "to": to],
-      decoderType: AdvicesResult.self)
+      decoderType: AdvicesResultJson.self)
+      .map {
+        AdvicesResult(json: $0)
+      }
   }
 
   public func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error> {

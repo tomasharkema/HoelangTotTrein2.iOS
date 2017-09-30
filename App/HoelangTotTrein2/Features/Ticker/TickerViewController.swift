@@ -214,12 +214,12 @@ class TickerViewController: ViewController {
 
   private func renderBackground() {
     if let currentAdvice = currentAdvice {
-      let offset = currentAdvice.vertrek.actualDate.timeIntervalSince(Date())
+      let offset = currentAdvice.vertrek.actual.timeIntervalSince(Date())
       let difference = Date(timeIntervalSince1970: offset - 60*60)
 
       let leftBackgroundOffset: CGFloat
       if let startTime = startTime {
-        let actualOffset = currentAdvice.vertrek.actualDate.timeIntervalSince1970
+        let actualOffset = currentAdvice.vertrek.actual.timeIntervalSince1970
         let startOffset = startTime.timeIntervalSince1970
         let currentOffset = Date().timeIntervalSince1970
 

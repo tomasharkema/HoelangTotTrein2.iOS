@@ -146,8 +146,8 @@ public class TravelService: NSObject {
       .filterOptional()
       .throttle(3, scheduler: scheduler)
       .subscribe(onNext: { advice in
-
-        self.startDepartureTimer(for: advice.vertrek.actualDate.timeIntervalSince(Date()))
+        
+        self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
 
         #if os(iOS)
           if self.session?.isReachable ?? false {

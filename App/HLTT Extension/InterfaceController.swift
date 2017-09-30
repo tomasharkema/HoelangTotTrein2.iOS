@@ -82,11 +82,11 @@ class InterfaceController: WKInterfaceController {
 
     previousAdvice = advice
 
-    fromButton.setTitle("\(formatTime(advice.vertrek.actualDate))\n\(advice.startStation ?? "")")
-    toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actualDate))")
+    fromButton.setTitle("\(formatTime(advice.vertrek.actual))\n\(advice.startStation ?? "")")
+    toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actual))")
 
-    if advice.vertrek.actualDate > Date() {
-      timerLabel.setDate(advice.vertrek.actualDate)
+    if advice.vertrek.actual > Date() {
+      timerLabel.setDate(advice.vertrek.actual)
       timerLabel.start()
     } else {
       timerLabel.setDate(Date())
@@ -99,7 +99,7 @@ class InterfaceController: WKInterfaceController {
     loadingLabel.setHidden(true)
     tickerContainer.setHidden(false)
 
-    let finished = advice.vertrek.actualDate.timeIntervalSinceNow
+    let finished = advice.vertrek.actual.timeIntervalSinceNow
     oneMinuteToGoTimer?.invalidate()
 
     let oneMinuteToGoOffset = finished - 60

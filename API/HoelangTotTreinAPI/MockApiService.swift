@@ -19,19 +19,19 @@ class MockApiService: ApiService {
   private let date = Date().timeIntervalSince1970
 
   func stations() -> Promise<StationsResponse, Error> {
-    return Promise(value: StationsResponse(stations: []))
+    return Promise(value: StationsResponse(stations: [])) //TODO: fix deze eens!
   }
 
   private func generateAdvices(n: Int, from: String, to: String, startTime: Double = 1000, duration: Double = 1000) -> Advices {
 
-    return (0..<n).map { i in
+    return (0..<n).map { (i) -> Advice in
 
       let start = startTime + self.date + (duration * Double(i))
       let end = startTime + duration + self.date + (duration * Double(i))
       let middle = end - (duration / 2)
       return Advice(overstappen: 1,
-             vertrek:  FareTime(planned: start * 1000, actual: start * 1000),
-             aankomst: FareTime(planned: end * 1000, actual: end * 1000),
+                    vertrek: FareTime(planned: Date(timeIntervalSince1970: start), actual: Date(timeIntervalSince1970: start)),
+             aankomst: FareTime(planned: Date(timeIntervalSince1970: end), actual: Date(timeIntervalSince1970: end)),
              melding: nil,
              reisDeel: [
               ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [

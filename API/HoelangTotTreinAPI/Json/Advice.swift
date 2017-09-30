@@ -10,11 +10,30 @@ import Foundation
 import SWXMLHash
 
 public struct FareTime: Equatable, Codable {
+  public let planned: Date
+  public let actual: Date
+  
+  init(planned: Date, actual: Date) {
+    self.planned = planned
+    self.actual = actual
+  }
+  
+  init(json: FareTimeJson) {
+    self.planned = Date(timeIntervalSince1970: json.planned / 1000)
+    self.actual = Date(timeIntervalSince1970: json.actual / 1000)
+  }
+}
+
+struct FareTimeJson: Equatable, Codable {
   public let planned: Double
   public let actual: Double
 }
 
 public func ==(lhs: FareTime, rhs: FareTime) -> Bool {
+  return lhs.planned == rhs.planned && lhs.actual == rhs.actual
+}
+
+func ==(lhs: FareTimeJson, rhs: FareTimeJson) -> Bool {
   return lhs.planned == rhs.planned && lhs.actual == rhs.actual
 }
 
@@ -56,6 +75,11 @@ public enum FareStatus: String, Codable {
   case overstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
   case vertraagd = "VERTRAAGD"
   case planGewijzigd = "PLAN-GEWIJZGD"
+    
+  public static let impossibleFares: [FareStatus] = [
+    .nietMogelijk,
+    .geannuleerd
+  ]
 }
 
 public struct AdviceRequestCodes: Codable {
@@ -72,6 +96,51 @@ public struct Advice: Equatable, Codable {
   public let vertrekVertraging: String?
   public let status: FareStatus
   public let request: AdviceRequestCodes
+  
+  public func identifier() -> String {
+    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)"
+  }
+  
+  init(json: AdviceJson) {
+    self.overstappen = json.overstappen
+    self.vertrek = FareTime(json: json.vertrek)
+    self.aankomst = FareTime(json: json.aankomst)
+    self.melding = json.melding
+    self.reisDeel = json.reisDeel
+    self.vertrekVertraging = json.vertrekVertraging
+    self.status = json.status
+    self.request = json.request
+  }
+  
+  public init(overstappen: Int,
+              vertrek: FareTime,
+              aankomst: FareTime,
+              melding: Melding?,
+              reisDeel: [ReisDeel],
+              vertrekVertraging: String?,
+              status: FareStatus,
+              request: AdviceRequestCodes)
+  {
+    self.overstappen = overstappen
+    self.vertrek = vertrek
+    self.aankomst = aankomst
+    self.melding = melding
+    self.reisDeel = reisDeel
+    self.vertrekVertraging = vertrekVertraging
+    self.status = status
+    self.request = request
+  }
+}
+
+struct AdviceJson: Equatable, Codable {
+  public let overstappen: Int
+  public let vertrek: FareTimeJson
+  public let aankomst: FareTimeJson
+  public let melding: Melding?
+  public let reisDeel: [ReisDeel]
+  public let vertrekVertraging: String?
+  public let status: FareStatus
+  public let request: AdviceRequestCodes
 
   public func identifier() -> String {
     return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)"
@@ -79,6 +148,7 @@ public struct Advice: Equatable, Codable {
 }
 
 public typealias Advices = [Advice]
+typealias AdvicesJson = [AdviceJson]
 
 public func ==(lhs: Advice, rhs: Advice) -> Bool {
   return lhs.overstappen == rhs.overstappen &&
@@ -88,11 +158,33 @@ public func ==(lhs: Advice, rhs: Advice) -> Bool {
     lhs.status == rhs.status
 }
 
-public struct AdvicesResult: Codable {
-  public let advices: Advices
+func ==(lhs: AdviceJson, rhs: AdviceJson) -> Bool {
+  return lhs.overstappen == rhs.overstappen &&
+    lhs.vertrek == rhs.vertrek &&
+    lhs.melding == rhs.melding &&
+    lhs.vertrekVertraging == rhs.vertrekVertraging &&
+    lhs.status == rhs.status
+}
 
+struct AdvicesResultJson: Codable {
+  public let advices: AdvicesJson
+
+  public init(advices: AdvicesJson) {
+    self.advices = advices
+  }
+}
+
+public struct AdvicesResult {
+  public let advices: Advices
+  
   public init(advices: Advices) {
     self.advices = advices
+  }
+  
+  init(json: AdvicesResultJson) {
+    self.advices = json.advices.map {
+      Advice(json: $0)
+    }
   }
 }
 
@@ -154,10 +246,10 @@ extension Advice {
         return nil
       }
 
-    self.vertrek = FareTime(planned: vertrekDate.timeIntervalSince1970,
-                            actual: actueelVertrekDate.timeIntervalSince1970)
-    self.aankomst = FareTime(planned: aankomstDate.timeIntervalSince1970,
-                             actual: actueelVertrekDate.timeIntervalSince1970)
+    self.vertrek = FareTime(planned: vertrekDate,
+                            actual: actueelVertrekDate)
+    self.aankomst = FareTime(planned: aankomstDate,
+                             actual: actueelVertrekDate)
 
     self.melding = (xml["Melding"].element?.text).map {
       Melding(id: "", ernstig: false, text: $0)
@@ -175,7 +267,7 @@ extension Advice {
 
     self.status = status
 
-    self.request = AdviceRequestCodes(from: "", to: "")
+    self.request = AdviceRequestCodes(from: "", to: "") // TODO: Fix dit!
   }
 }
 

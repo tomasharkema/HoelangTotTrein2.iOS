@@ -55,7 +55,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   @objc func tick(timer: Timer) {
     guard let advice = timer.userInfo as? Advice else { return }
-    let offset = advice.vertrek.actualDate.timeIntervalSince(Date())
+    let offset = advice.vertrek.actual.timeIntervalSince(Date())
     let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
 
     timerLabel.text = difference.toString(format: .custom("mm:ss"))
