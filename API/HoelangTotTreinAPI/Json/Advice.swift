@@ -221,7 +221,7 @@ public struct AdvicesAndRequest {
 }
 
 extension Advice {
-  public init?(fromXml xml: XMLIndexer) {
+  public init?(fromXml xml: XMLIndexer, request: AdviceRequestCodes) {
     guard let overstappenText = xml["AantalOverstappen"].element?.text,
       let overstappen = Int(overstappenText)
       else {
@@ -267,7 +267,7 @@ extension Advice {
 
     self.status = status
 
-    self.request = AdviceRequestCodes(from: "", to: "") // TODO: Fix dit!
+    self.request = request
   }
 }
 

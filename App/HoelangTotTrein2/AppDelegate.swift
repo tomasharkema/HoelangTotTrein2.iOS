@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.storageAttachment.attach()
     App.travelService.attach()
     _ = App.travelService.fetchStations()
-    App.notificationService.attach()
+//    App.notificationService.attach()
+    App.transferService.attach()
 
     App.appShortcutService.attach()
 
@@ -69,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    App.notificationService.register(token: deviceToken)
+//    App.notificationService.register(token: deviceToken)
   }
 
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

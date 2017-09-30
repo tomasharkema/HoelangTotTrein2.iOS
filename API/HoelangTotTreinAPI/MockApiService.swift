@@ -50,7 +50,7 @@ class MockApiService: ApiService {
     }
   }
 
-  func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
 
     guard let from = adviceRequest.from, let to = adviceRequest.to else {
       return Promise(error: MockApiError.requestNotCorrect)

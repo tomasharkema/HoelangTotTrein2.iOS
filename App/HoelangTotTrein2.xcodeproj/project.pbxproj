@@ -86,6 +86,7 @@
 		FF647CC41F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
 		FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
 		FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
+		FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF647CC91F80197F008D28EC /* TransferService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,8 +228,6 @@
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C333482A1EAA59C200EE2340 /* HLTT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
-		C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCore.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinCore.framework"; sourceTree = "<group>"; };
-		C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
 		C37626901C947356006A42A7 /* AKKURATL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURATL.ttf; sourceTree = "<group>"; };
 		C38335851EA932A700A9E077 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,8 +293,7 @@
 		D5166C0608BA10DBEC4E99C1 /* Pods_HoelangTotTrein2Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		FF647CC31F7E90E0008D28EC /* xml-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "xml-credentials.plist"; sourceTree = "<group>"; };
-		FF647CC71F7E90F9008D28EC /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCore.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-gzdzhembaznwqlgbapokvfqoicps/Build/Products/Debug-iphoneos/HoelangTotTreinCore.framework"; sourceTree = "<group>"; };
-		FF647CC81F7E90F9008D28EC /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCoreWatch.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-gzdzhembaznwqlgbapokvfqoicps/Build/Products/Debug-iphoneos/HoelangTotTreinCoreWatch.framework"; sourceTree = "<group>"; };
+		FF647CC91F80197F008D28EC /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,17 +419,6 @@
 			path = TickerNotification;
 			sourceTree = "<group>";
 		};
-		C33E05DC1F6ECA3200265057 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				FF647CC81F7E90F9008D28EC /* HoelangTotTreinCoreWatch.framework */,
-				C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */,
-				FF647CC71F7E90F9008D28EC /* HoelangTotTreinCore.framework */,
-				C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		C38335881EA932A700A9E077 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,7 +517,6 @@
 		C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */ = {
 			isa = PBXGroup;
 			children = (
-				C33E05DC1F6ECA3200265057 /* Resources */,
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E19C371E92C9C0003A1529 /* Features */,
 				C3E19C3B1E92CAC8003A1529 /* Fonts */,
@@ -584,6 +570,7 @@
 				C3C26C151C5556C100197471 /* NotificationService.swift */,
 				C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */,
 				C3E19C501E9529C7003A1529 /* AppShortcutService.swift */,
+				FF647CC91F80197F008D28EC /* TransferService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1296,6 +1283,7 @@
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
+				FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
 				C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */,

@@ -74,12 +74,17 @@ final public class HttpXmlApiService: ApiService {
       }
   }
 
-  public func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+  public func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+    guard let fromCode = adviceRequest.from?.code,
+      let toCode = adviceRequest.to?.code
+      else {
+        return Promise(error: ApiError.notImplemented)
+      }
 
     let url = root.appendingPathComponent("ns-api-treinplanner")
     let parameters = [
-      "fromStation": adviceRequest.from?.code ?? "",
-      "toStation": adviceRequest.to?.code ?? ""
+      "fromStation": fromCode,
+      "toStation": toCode
     ]
 
     let request = Alamofire.request(url, parameters: parameters, headers: credentials.header)
@@ -92,7 +97,7 @@ final public class HttpXmlApiService: ApiService {
       .xmlPromise(xmlParser: xmlParser)
       .map { result in
         AdvicesResult(advices: result["ReisMogelijkheden"].children.flatMap { mogelijkheden in
-          Advice(fromXml: mogelijkheden)
+          Advice(fromXml: mogelijkheden, request: AdviceRequestCodes(from: fromCode, to: toCode))
         })
       }
   }

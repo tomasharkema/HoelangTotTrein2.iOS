@@ -224,7 +224,7 @@ public class TravelService: NSObject {
       }
   }
 
-  func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
+  public func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
     let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
       self.dataStore.find(stationCode: $0)
         .map { .some($0) }
@@ -317,13 +317,17 @@ public class TravelService: NSObject {
       }
   }
 
+  public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+    return apiService.advices(for: adviceRequest)
+  }
+
   private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
     if shouldEmitLoading {
       currentAdvicesVariable.value = .loading
     }
 
     return (adviceRequest.map { Promise(value: $0) } ?? getCurrentAdviceRequest())
-      .flatMap { self.apiService.advices($0) }
+      .flatMap { self.fetchAdvices(for: $0) }
       .then { advicesResult in
         print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
         self.notifyOfNewAdvices(advicesResult.advices)

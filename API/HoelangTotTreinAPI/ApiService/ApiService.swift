@@ -23,7 +23,7 @@ extension String: URLRequestConvertible {
 
 public protocol ApiService {
   func stations() -> Promise<StationsResponse, Error>
-  func advices(_ adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error>
+  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error>
   func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error>
   func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error>
 }
