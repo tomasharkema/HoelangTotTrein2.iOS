@@ -10,8 +10,6 @@
 		31D50C77F21EC02392B24CAF /* Pods_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB2EA3348B901CB466144D6 /* Pods_HoelangTotTrein2Tests.framework */; };
 		645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEF34E9AF5CDB5E25433961 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework */; };
 		74ADAFC9E07CAA1EFF812F22 /* Pods_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DFC88AF0DFAFC84270E57E /* Pods_Widget.framework */; };
-		C30B408B1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; };
-		C30B408C1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */; };
 		C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216901EEB212400BC2745 /* UserNotifications.framework */; };
 		C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216921EEB212400BC2745 /* UserNotificationsUI.framework */; };
@@ -27,9 +25,9 @@
 		C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
+		C3308C561F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */; };
+		C3308C581F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */; };
 		C33348221EAA481000EE2340 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33348211EAA481000EE2340 /* Interface.storyboard */; };
-		C37537EC1E9901720047108C /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */; };
-		C37537ED1E9901720047108C /* HoelangTotTreinAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
 		C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C38335871EA932A700A9E077 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38335861EA932A700A9E077 /* NotificationCenter.framework */; };
@@ -142,7 +140,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C37537ED1E9901720047108C /* HoelangTotTreinAPI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,7 +150,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C30B408C1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,8 +211,6 @@
 		A24FCB8729C6D9964200300A /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
-		C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		C322168F1EEB212400BC2745 /* TickerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TickerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32216901EEB212400BC2745 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -228,6 +222,8 @@
 		C32845E11EE8A83B0012E651 /* TimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLabel.swift; sourceTree = "<group>"; };
 		C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceTests.swift; sourceTree = "<group>"; };
 		C32D78BD1BDEC98C00603805 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCoreWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C333482A1EAA59C200EE2340 /* HLTT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
@@ -330,7 +326,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30B408B1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Frameworks */,
+				C3308C581F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework in Frameworks */,
+				C3308C561F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework in Frameworks */,
 				E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,7 +336,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C37537EC1E9901720047108C /* HoelangTotTreinAPI.framework in Frameworks */,
 				645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +368,8 @@
 		09A521EB6C856AE8207FF398 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */,
+				C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */,
 				C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */,
 				C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */,
 				C383359A1EA9490800A9E077 /* HoelangTotTreinAPI.framework */,
@@ -512,8 +510,6 @@
 				C3E847741BB82A01007D17C3 /* HoelangTotTrein2UITests */,
 				876C5AAC680F3F681C665ABC /* Pods */,
 				C3E847501BB82A01007D17C3 /* Products */,
-				C30B408A1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework */,
-				C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */,
 			);
 			sourceTree = "<group>";
 		};
