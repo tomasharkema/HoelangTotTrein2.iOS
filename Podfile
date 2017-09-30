@@ -15,6 +15,7 @@ abstract_target 'HoelangTotTrein2Pods' do
 
 	pod 'RxSwift'
 	pod 'RxCocoa'
+  pod 'SWXMLHash'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
@@ -41,7 +42,6 @@ abstract_target 'HoelangTotTrein2Pods' do
 
   target 'HoelangTotTreinAPI' do
     project 'API/HoelangTotTreinAPI.xcodeproj'
-
     target 'HoelangTotTreinAPITests' do
       inherit! :search_paths
     end
@@ -67,7 +67,8 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 
   pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
   pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
-	pod 'RxSwift',    '~> 3.5'
+	pod 'RxSwift'
+  pod 'SWXMLHash'
 
   target 'HLTT Extension' do
     project 'App/HoelangTotTrein2.xcodeproj'

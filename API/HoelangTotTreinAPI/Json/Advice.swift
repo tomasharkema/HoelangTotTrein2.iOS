@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SWXMLHash
 
 public struct FareTime: Equatable, Codable {
   public let planned: Double
@@ -89,6 +90,10 @@ public func ==(lhs: Advice, rhs: Advice) -> Bool {
 
 public struct AdvicesResult: Codable {
   public let advices: Advices
+
+  public init(advices: Advices) {
+    self.advices = advices
+  }
 }
 
 public struct AdviceRequest: Equatable {
@@ -120,5 +125,99 @@ public struct AdvicesAndRequest {
   public init(advices: Advices, adviceRequest: AdviceRequest) {
     self.advices = advices
     self.adviceRequest = adviceRequest
+  }
+}
+
+extension Advice {
+  public init?(fromXml xml: XMLIndexer) {
+    guard let overstappenText = xml["AantalOverstappen"].element?.text,
+      let overstappen = Int(overstappenText)
+      else {
+        return nil
+      }
+
+    self.overstappen = overstappen
+
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    guard let vertrek = xml["GeplandeVertrekTijd"].element?.text,
+      let aankomst = xml["GeplandeAankomstTijd"].element?.text,
+      let actueelVertrek = xml["ActueleVertrekTijd"].element?.text,
+      let actueelAankomst = xml["ActueleAankomstTijd"].element?.text,
+
+      let vertrekDate = dateFormatter.date(from: vertrek),
+      let aankomstDate = dateFormatter.date(from: aankomst),
+      let actueelVertrekDate = dateFormatter.date(from: actueelVertrek),
+      let actueelAankomstDate = dateFormatter.date(from: actueelAankomst)
+      else {
+        return nil
+      }
+
+    self.vertrek = FareTime(planned: vertrekDate.timeIntervalSince1970,
+                            actual: actueelVertrekDate.timeIntervalSince1970)
+    self.aankomst = FareTime(planned: aankomstDate.timeIntervalSince1970,
+                             actual: actueelVertrekDate.timeIntervalSince1970)
+
+    self.melding = (xml["Melding"].element?.text).map {
+      Melding(id: "", ernstig: false, text: $0)
+    }
+
+    self.reisDeel = xml["ReisDeel"].all.flatMap { deel in
+      ReisDeel(fromXml: deel)
+    }
+    self.vertrekVertraging = nil
+
+    guard let statusText = xml["Status"].element?.text,
+      let status = FareStatus(rawValue: statusText) else {
+      return nil
+    }
+
+    self.status = status
+
+    self.request = AdviceRequestCodes(from: "", to: "")
+  }
+}
+
+extension ReisDeel {
+  init?(fromXml xml: XMLIndexer) {
+    guard let vervoerder = xml["Vervoerder"].element?.text else {
+      return nil
+    }
+
+    self.vervoerder = vervoerder
+
+    guard let vervoerType = xml["VervoerType"].element?.text else {
+      return nil
+    }
+
+    self.vervoerType = vervoerType
+
+    self.stops = xml["ReisStop"].all.flatMap {
+      Stop(fromXml: $0)
+    }
+  }
+}
+
+extension Stop {
+  init?(fromXml xml: XMLIndexer) {
+    guard let name = xml["Naam"].element?.text else {
+      return nil
+    }
+
+    self.name = name
+
+    spoor = xml["Spoor"].element?.text
+
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+
+    guard let timeText = xml["Tijd"].element?.text,
+      let time = dateFormatter.date(from: timeText)
+      else {
+        return nil
+      }
+
+    self.time = time.timeIntervalSince1970
   }
 }

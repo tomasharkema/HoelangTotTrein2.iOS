@@ -19,14 +19,14 @@ public struct Coords: Codable {
 }
 
 public enum StationType: String, Codable {
-  case MegaStation = "megastation"
-  case KnooppuntIntercityStation = "knooppuntIntercitystation"
-  case KnooppuntSneltreinStation = "knooppuntSneltreinstation"
-  case KnooppuntStoptreinStation = "knooppuntStoptreinstation"
-  case IntercityStation = "intercitystation"
-  case SneltreinStation = "sneltreinstation"
-  case StoptreinStation = "stoptreinstation"
-  case FacultatiefStation = "facultatiefStation"
+  case megaStation = "megastation"
+  case knooppuntIntercityStation = "knooppuntIntercitystation"
+  case knooppuntSneltreinStation = "knooppuntSneltreinstation"
+  case knooppuntStoptreinStation = "knooppuntStoptreinstation"
+  case intercityStation = "intercitystation"
+  case sneltreinStation = "sneltreinstation"
+  case stoptreinStation = "stoptreinstation"
+  case facultatiefStation = "facultatiefStation"
 }
 
 public struct Station: Equatable, Hashable, Codable {
@@ -35,6 +35,15 @@ public struct Station: Equatable, Hashable, Codable {
   public let land: String
   public let coords: Coords
   public let type: StationType?
+
+  init(name: String, code: String, land: String, coords: Coords, type: StationType?) {
+    self.name = name
+    self.code = code
+    self.land = land
+    self.coords = coords
+    self.type = type
+  }
+
 }
 
 public func ==(lhs: Station, rhs: Station) -> Bool {

@@ -30,10 +30,6 @@
 		C33348221EAA481000EE2340 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33348211EAA481000EE2340 /* Interface.storyboard */; };
 		C37537EC1E9901720047108C /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */; };
 		C37537ED1E9901720047108C /* HoelangTotTreinAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40751E98F63B00D99541 /* HoelangTotTreinAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C37538181E99182B0047108C /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538171E99182B0047108C /* HoelangTotTreinCore.framework */; };
-		C37538191E99182B0047108C /* HoelangTotTreinCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C37538171E99182B0047108C /* HoelangTotTreinCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C37538621E99235B0047108C /* HoelangTotTreinCoreWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538611E99235B0047108C /* HoelangTotTreinCoreWatch.framework */; };
-		C37538631E99235B0047108C /* HoelangTotTreinCoreWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C37538611E99235B0047108C /* HoelangTotTreinCoreWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
 		C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C38335871EA932A700A9E077 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38335861EA932A700A9E077 /* NotificationCenter.framework */; };
@@ -89,6 +85,9 @@
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
 		E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */; };
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
+		FF647CC41F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
+		FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
+		FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +143,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C37537ED1E9901720047108C /* HoelangTotTreinAPI.framework in Embed Frameworks */,
-				C37538191E99182B0047108C /* HoelangTotTreinCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +154,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				C30B408C1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */,
-				C37538631E99235B0047108C /* HoelangTotTreinCoreWatch.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,8 +233,6 @@
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
 		C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCore.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinCore.framework"; sourceTree = "<group>"; };
 		C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
-		C37538171E99182B0047108C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C37538611E99235B0047108C /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCoreWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
 		C37626901C947356006A42A7 /* AKKURATL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURATL.ttf; sourceTree = "<group>"; };
 		C38335851EA932A700A9E077 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +297,9 @@
 		C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5166C0608BA10DBEC4E99C1 /* Pods_HoelangTotTrein2Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
+		FF647CC31F7E90E0008D28EC /* xml-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "xml-credentials.plist"; sourceTree = "<group>"; };
+		FF647CC71F7E90F9008D28EC /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCore.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-gzdzhembaznwqlgbapokvfqoicps/Build/Products/Debug-iphoneos/HoelangTotTreinCore.framework"; sourceTree = "<group>"; };
+		FF647CC81F7E90F9008D28EC /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinCoreWatch.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-gzdzhembaznwqlgbapokvfqoicps/Build/Products/Debug-iphoneos/HoelangTotTreinCoreWatch.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,7 +331,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30B408B1E98F6C700D99541 /* HoelangTotTreinAPIWatch.framework in Frameworks */,
-				C37538621E99235B0047108C /* HoelangTotTreinCoreWatch.framework in Frameworks */,
 				E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C37537EC1E9901720047108C /* HoelangTotTreinAPI.framework in Frameworks */,
-				C37538181E99182B0047108C /* HoelangTotTreinCore.framework in Frameworks */,
 				645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,7 +426,9 @@
 		C33E05DC1F6ECA3200265057 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FF647CC81F7E90F9008D28EC /* HoelangTotTreinCoreWatch.framework */,
 				C33E05DD1F6ECA3900265057 /* HoelangTotTreinCore.framework */,
+				FF647CC71F7E90F9008D28EC /* HoelangTotTreinCore.framework */,
 				C33E05DE1F6ECA3C00265057 /* HoelangTotTreinAPI.framework */,
 			);
 			path = Resources;
@@ -504,8 +502,6 @@
 		C3E847461BB82A01007D17C3 = {
 			isa = PBXGroup;
 			children = (
-				C37538611E99235B0047108C /* HoelangTotTreinCoreWatch.framework */,
-				C37538171E99182B0047108C /* HoelangTotTreinCore.framework */,
 				C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */,
 				C38335881EA932A700A9E077 /* Widget */,
 				C32216941EEB212400BC2745 /* TickerNotification */,
@@ -552,6 +548,7 @@
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C3E19C561E96CDE1003A1529 /* Localization.strings */,
+				FF647CC31F7E90E0008D28EC /* xml-credentials.plist */,
 			);
 			path = HoelangTotTrein2;
 			sourceTree = "<group>";
@@ -936,6 +933,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C33348221EAA481000EE2340 /* Interface.storyboard in Resources */,
+				FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */,
 				C3E19C321E913DFC003A1529 /* HLTTAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -947,6 +945,7 @@
 				C3E19C311E913DF9003A1529 /* ExtensionAssets.xcassets in Resources */,
 				C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */,
 				C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */,
+				FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -961,6 +960,7 @@
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
+				FF647CC41F7E90E0008D28EC /* xml-credentials.plist in Resources */,
 				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
 				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
@@ -1013,6 +1013,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-watchOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum.common/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-watchOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash-watchOS/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/Statham-watchOS/Statham.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1020,6 +1021,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Statham.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1188,6 +1190,7 @@
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Statham-iOS/Statham.framework",
 			);
@@ -1199,6 +1202,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Statham.framework",
 			);
