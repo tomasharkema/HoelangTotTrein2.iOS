@@ -81,9 +81,3 @@ extension ReisDeel {
     return ModalityType.fromString(vervoerType)
   }
 }
-
-extension Stop {
-  public var timeDate: Date {
-    return Date(timeIntervalSince1970: time/1000)
-  }
-}

@@ -65,7 +65,7 @@ class NotificationController: WKUserNotificationInterfaceController {
       }
 
     platformLabel.setText("platform \(platform)")
-    timeLabel.setDate(model.stop.timeDate)
+    timeLabel.setDate(model.stop.time)
     timeLabel.start()
     completionHandler(.custom)
   }

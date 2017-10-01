@@ -28,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     App.storageAttachment.attach()
     App.travelService.attach()
     _ = App.travelService.fetchStations()
-//    App.notificationService.attach()
     App.transferService.attach()
+    App.notificationService.attach()
 
     App.appShortcutService.attach()
 

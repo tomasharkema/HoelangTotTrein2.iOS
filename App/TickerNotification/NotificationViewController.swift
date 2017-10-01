@@ -36,10 +36,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         return
       }
 
-    from.text = "\(geofenceModel.stop.name) \(geofenceModel.stop.timeDate)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
+    from.text = "\(geofenceModel.stop.name) \(geofenceModel.stop.time)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
     to.text = "" //"\(geofenceModel.toStop?.name ?? "") (\(geofenceModel.toStop?.timeDate.description ?? ""))"
     time.format = [.m, .customString(":"), .s]
-    time.date = geofenceModel.stop.timeDate
+    time.date = geofenceModel.stop.time
   }
 
 }

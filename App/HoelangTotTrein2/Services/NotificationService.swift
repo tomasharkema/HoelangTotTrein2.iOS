@@ -43,8 +43,8 @@ class NotificationService {
     center.add(request, withCompletionHandler: nil)
   }
 
-  fileprivate func secondsToStringOffset(_ jsTime: Double) -> String {
-    let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: Date(timeIntervalSince1970: jsTime / 1000))
+  fileprivate func secondsToStringOffset(_ date: Date) -> String {
+    let components = Calendar.current.dateComponents([.minute, .second], from: Date(), to: date)
     guard let minutes = components.minute, let seconds = components.second else {
       return "0:00"
     }
@@ -52,28 +52,20 @@ class NotificationService {
     return String(format: "%02d:%02d", minutes, seconds)
   }
 
-  //TODO: FIX OLD AND NEW GEOFENCE MODEL!!
-  fileprivate func notifyForGeofenceModel(_ oldModel: GeofenceModel, _ updatedModel: GeofenceModel? = nil) {
+  fileprivate func notify(for model: GeofenceModel) {
     assert(Thread.isMainThread)
 
-    let correctModel = updatedModel ?? oldModel
-
-
-
-    switch oldModel.type {
+    switch model.type {
     case .start:
-      let timeString = secondsToStringOffset(oldModel.stop.time)
+      let timeString = secondsToStringOffset(model.stop.time)
 
       do {
-        var fixedUserInfo = try oldModel.encodeJson() as? [String: Any] ?? [:]
-        fixedUserInfo.removeValue(forKey: "toStop")
-
         fireNotification(
           "io.harkema.notification.start",
           title: R.string.localization.startNotificationTitle(),
-          body: R.string.localization.startNotificationBody(timeString, oldModel.stop.spoor ?? ""),
-          categoryIdentifier: "startStationNotification",
-          userInfo: fixedUserInfo)
+          body: R.string.localization.startNotificationBody(timeString, model.stop.spoor ?? ""),
+          categoryIdentifier: "nextStationNotification",
+          userInfo: ["geofenceModel": try model.encodeJson()])
       } catch {
         print("ERROR \(error)")
       }
@@ -83,17 +75,17 @@ class NotificationService {
     case .overstap:
       do {
 
-        if (correctModel.stop.timeDate.timeIntervalSinceNow) < 0 {
+        guard model.stop.time > Date() else {
           return
         }
 
-        let timeString = secondsToStringOffset(correctModel.stop.time)
+        let timeString = secondsToStringOffset(model.stop.time)
         fireNotification(
           "io.harkema.notification.overstap",
           title: R.string.localization.transferNotificationTitle(),
-          body: R.string.localization.transferNotificationBody(correctModel.stop.spoor ?? "", timeString),
+          body: R.string.localization.transferNotificationBody(model.stop.spoor ?? "", timeString),
           categoryIdentifier: "nextStationNotification",
-          userInfo: ["geofenceModel": try oldModel.encodeJson()])
+          userInfo: ["geofenceModel": try model.encodeJson()])
       } catch {
         print("Error: \(error)")
       }
@@ -111,9 +103,10 @@ class NotificationService {
   func attach() {
     transferService.geofenceObservable?
       .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] geofenceModel in
-        self?.notifyForGeofenceModel(geofenceModel)
-      }).addDisposableTo(disposeBag)
+      .subscribe(onNext: { geofenceModel in
+        self.notify(for: geofenceModel)
+      })
+      .addDisposableTo(disposeBag)
   }
 
   func register(token deviceToken: Data) {

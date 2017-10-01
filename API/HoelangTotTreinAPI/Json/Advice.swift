@@ -48,7 +48,7 @@ public func ==(lhs: Melding, rhs: Melding) -> Bool {
 }
 
 public struct Stop: Equatable, Codable {
-  public let time: Double
+  public let time: Date
   public let spoor: String?
   public let name: String
 }
@@ -313,6 +313,6 @@ extension Stop {
         return nil
       }
 
-    self.time = time.timeIntervalSince1970
+    self.time = time
   }
 }

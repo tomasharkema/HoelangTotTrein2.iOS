@@ -91,7 +91,7 @@ extension Advice {
   var stepModels: [StepViewModel] {
     return reisDeel.flatMap { item in
       if let from = item.stops.first, let to = item.stops.last {
-        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.timeDate.toString(format: .custom("HH:mm")), toTime: to.timeDate.toString(format: .custom("HH:mm")))
+        return StepViewModel(fromStation: from.name, toStation: to.name, fromSpoor: from.spoor ?? "", toSpoor: to.spoor ?? "", fromTime: from.time.toString(format: .custom("HH:mm")), toTime: to.time.toString(format: .custom("HH:mm")))
       }
       return nil
     }
