@@ -10,6 +10,35 @@
 		31D50C77F21EC02392B24CAF /* Pods_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB2EA3348B901CB466144D6 /* Pods_HoelangTotTrein2Tests.framework */; };
 		645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEF34E9AF5CDB5E25433961 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework */; };
 		74ADAFC9E07CAA1EFF812F22 /* Pods_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DFC88AF0DFAFC84270E57E /* Pods_Widget.framework */; };
+		C303E8B51F81118900A9EC5C /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
+		C303E8B61F81118900A9EC5C /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
+		C303E8B71F81118900A9EC5C /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
+		C303E8B81F81118900A9EC5C /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
+		C303E8B91F81118900A9EC5C /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
+		C303E8BA1F81118900A9EC5C /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
+		C303E8BB1F81118A00A9EC5C /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
+		C303E8BC1F81118A00A9EC5C /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
+		C303E8BD1F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
+		C303E8BE1F81118A00A9EC5C /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
+		C303E8BF1F81118A00A9EC5C /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
+		C303E8C01F81118A00A9EC5C /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
+		C303E8C11F81118A00A9EC5C /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
+		C303E8C21F81118A00A9EC5C /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
+		C303E8C31F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
+		C303E8C41F81118A00A9EC5C /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
+		C303E8C51F81118A00A9EC5C /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
+		C303E8C61F81118A00A9EC5C /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
+		C303E8C81F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */; };
+		C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */; };
+		C303E8CA1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */; };
+		C303E8CB1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */; };
+		C303E8CC1F812A0700A9EC5C /* Leiden Centraal.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */; };
+		C303E8CD1F812A0900A9EC5C /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
+		C303E8CE1F812A0900A9EC5C /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
+		C303E8CF1F812A0900A9EC5C /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
+		C303E8D01F812A0900A9EC5C /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
+		C303E8D11F812A0900A9EC5C /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
+		C303E8D21F812A0900A9EC5C /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
 		C3188D271E904294006775D8 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */; };
 		C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216901EEB212400BC2745 /* UserNotifications.framework */; };
 		C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216921EEB212400BC2745 /* UserNotificationsUI.framework */; };
@@ -210,6 +239,8 @@
 		970E1883D236A542F2E64F8E /* Pods-Widget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Widget.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Widget/Pods-Widget.debug.xcconfig"; sourceTree = "<group>"; };
 		9E136B4502227C368F17F254 /* Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2_HoelangTotTrein2Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24FCB8729C6D9964200300A /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig"; sourceTree = "<group>"; };
+		C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Leiden Centraal.gpx"; sourceTree = "<group>"; };
+		C303E8D31F812A2200A9EC5C /* Heemstede-Aerdenhout.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heemstede-Aerdenhout.gpx"; sourceTree = "<group>"; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C3188D261E904294006775D8 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
@@ -471,6 +502,8 @@
 				C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */,
 				C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */,
 				C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */,
+				C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */,
+				C303E8D31F812A2200A9EC5C /* Heemstede-Aerdenhout.gpx */,
 			);
 			path = Locations;
 			sourceTree = "<group>";
@@ -895,8 +928,15 @@
 			files = (
 				C32216A21EEB241900BC2745 /* AKKURAT.ttf in Resources */,
 				C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */,
+				C303E8CC1F812A0700A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C303E8C51F81118A00A9EC5C /* Zaandam.gpx in Resources */,
+				C303E8C41F81118A00A9EC5C /* NOI.gpx in Resources */,
+				C303E8C31F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */,
+				C303E8C61F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */,
+				C303E8C11F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
+				C303E8C21F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,8 +946,15 @@
 			files = (
 				C38335971EA943BA00A9E077 /* AKKURAT.ttf in Resources */,
 				C38335961EA943AE00A9E077 /* Assets.xcassets in Resources */,
+				C303E8CB1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C303E8BF1F81118A00A9EC5C /* Zaandam.gpx in Resources */,
+				C303E8BE1F81118A00A9EC5C /* NOI.gpx in Resources */,
+				C303E8BD1F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */,
+				C303E8C01F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C38335981EA943BA00A9E077 /* AKKURATL.ttf in Resources */,
+				C303E8BB1F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
+				C303E8BC1F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +964,14 @@
 			files = (
 				C33348221EAA481000EE2340 /* Interface.storyboard in Resources */,
 				FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */,
+				C303E8D11F812A0900A9EC5C /* Zaandam.gpx in Resources */,
+				C303E8D01F812A0900A9EC5C /* NOI.gpx in Resources */,
+				C303E8CF1F812A0900A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C3E19C321E913DFC003A1529 /* HLTTAssets.xcassets in Resources */,
+				C303E8D21F812A0900A9EC5C /* sloterdijk.gpx in Resources */,
+				C303E8C81F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C303E8CD1F812A0900A9EC5C /* Den Haag HS.gpx in Resources */,
+				C303E8CE1F812A0900A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -927,8 +981,15 @@
 			files = (
 				C3E19C311E913DF9003A1529 /* ExtensionAssets.xcassets in Resources */,
 				C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */,
+				C303E8CA1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C303E8B91F81118900A9EC5C /* Zaandam.gpx in Resources */,
+				C303E8B81F81118900A9EC5C /* NOI.gpx in Resources */,
+				C303E8B71F81118900A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */,
+				C303E8BA1F81118900A9EC5C /* sloterdijk.gpx in Resources */,
 				FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */,
+				C303E8B51F81118900A9EC5C /* Den Haag HS.gpx in Resources */,
+				C303E8B61F81118900A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +1008,7 @@
 				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
 				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
+				C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
 				C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */,
 				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
 				C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */,

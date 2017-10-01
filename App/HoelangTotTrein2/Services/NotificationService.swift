@@ -13,13 +13,13 @@ import HoelangTotTreinCore
 import UserNotifications
 
 class NotificationService {
-  private let geofenceService: GeofenceService
+  private let transferService: TransferService
   private let dataStore: DataStore
   private let apiService: ApiService
   fileprivate let disposeBag = DisposeBag()
 
-  init(geofenceService: GeofenceService, dataStore: DataStore, apiService: ApiService) {
-    self.geofenceService = geofenceService
+  init(transferService: TransferService, dataStore: DataStore, apiService: ApiService) {
+    self.transferService = transferService
     self.dataStore = dataStore
     self.apiService = apiService
   }
@@ -62,7 +62,7 @@ class NotificationService {
 
     switch oldModel.type {
     case .start:
-      let timeString = secondsToStringOffset(oldModel.fromStop?.time ?? 0)
+      let timeString = secondsToStringOffset(oldModel.stop.time)
 
       do {
         var fixedUserInfo = try oldModel.encodeJson() as? [String: Any] ?? [:]
@@ -71,7 +71,7 @@ class NotificationService {
         fireNotification(
           "io.harkema.notification.start",
           title: R.string.localization.startNotificationTitle(),
-          body: R.string.localization.startNotificationBody(timeString, oldModel.fromStop?.spoor ?? ""),
+          body: R.string.localization.startNotificationBody(timeString, oldModel.stop.spoor ?? ""),
           categoryIdentifier: "startStationNotification",
           userInfo: fixedUserInfo)
       } catch {
@@ -83,15 +83,15 @@ class NotificationService {
     case .overstap:
       do {
 
-        if (correctModel.toStop?.timeDate.timeIntervalSinceNow ?? -1) < 0 {
+        if (correctModel.stop.timeDate.timeIntervalSinceNow) < 0 {
           return
         }
 
-        let timeString = secondsToStringOffset(correctModel.toStop?.time ?? 0)
+        let timeString = secondsToStringOffset(correctModel.stop.time)
         fireNotification(
           "io.harkema.notification.overstap",
           title: R.string.localization.transferNotificationTitle(),
-          body: R.string.localization.transferNotificationBody(correctModel.toStop?.spoor ?? "", timeString),
+          body: R.string.localization.transferNotificationBody(correctModel.stop.spoor ?? "", timeString),
           categoryIdentifier: "nextStationNotification",
           userInfo: ["geofenceModel": try oldModel.encodeJson()])
       } catch {
@@ -109,7 +109,7 @@ class NotificationService {
   }
 
   func attach() {
-    geofenceService.geofenceObservable?
+    transferService.geofenceObservable?
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] geofenceModel in
         self?.notifyForGeofenceModel(geofenceModel)

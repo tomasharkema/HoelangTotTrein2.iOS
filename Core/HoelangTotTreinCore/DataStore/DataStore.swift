@@ -38,4 +38,5 @@ public protocol DataStore: class {
   var currentAdviceIdentifier: String? { get set }
   var persistedAdvices: Advices? { get set }
   var keepDepartedAdvice: Bool { get set }
+  var firstLegRitNummers: [String] { get set }
 }

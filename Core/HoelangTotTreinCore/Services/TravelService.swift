@@ -240,14 +240,33 @@ public class TravelService: NSObject {
         AdviceRequest(from: $0.0, to: $0.1)
       }
   }
+  
+  func getPickedAdviceRequest() -> Promise<AdviceRequest, Error> {
+    let from: Promise<Station?, Error> = dataStore.fromStationByPickerCode.map {
+      self.dataStore.find(stationCode: $0)
+        .map { .some($0) }
+      } ?? Promise(value: nil)
+    
+    let to: Promise<Station?, Error> = dataStore.toStationByPickerCode.map {
+      self.dataStore.find(stationCode: $0)
+        .map { .some($0) }
+      } ?? Promise(value: nil)
+    
+    return whenBoth(from, to)
+      .map {
+        AdviceRequest(from: $0.0, to: $0.1)
+    }
+  }
 
   private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) -> Promise<Void, Error> {
-    let correctedAdviceRequest: Promise<AdviceRequest, Error> = getCurrentAdviceRequest()
-      .map { previousAdviceRequest in
+    let correctedAdviceRequest: Promise<AdviceRequest, Error> = whenBoth(getCurrentAdviceRequest(), getPickedAdviceRequest())
+      .map { previousAdviceRequest, adviceByPicker in
         if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
-          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from)
+          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from) // TODO: figure out this case
+        } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceByPicker.from {
+          return AdviceRequest(from: adviceByPicker.from, to: adviceByPicker.to)
         } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
-          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from)
+          return AdviceRequest(from: previousAdviceRequest.to, to: adviceByPicker.from ?? previousAdviceRequest.from)
         } else {
           return adviceRequest
         }

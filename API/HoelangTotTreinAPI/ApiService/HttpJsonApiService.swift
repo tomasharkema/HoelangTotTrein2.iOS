@@ -28,7 +28,7 @@ final public class HttpJsonApiService: ApiService {
 
   public func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
     guard let from = adviceRequest.from?.code, let to = adviceRequest.to?.code else {
-      return Promise(error: NSError(domain: "Geen volledige request", code: 100, userInfo: nil))
+      return Promise(error: ApiError.noFullRequest)
     }
 
     return manager.requestWithDecoder(

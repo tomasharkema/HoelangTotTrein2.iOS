@@ -30,4 +30,5 @@ public protocol ApiService {
 
 enum ApiError: Error {
   case notImplemented
+  case noFullRequest
 }

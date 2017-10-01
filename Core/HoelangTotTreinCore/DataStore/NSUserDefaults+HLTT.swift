@@ -26,6 +26,7 @@ private struct Keys {
   static let CurrentAdviceIdentifier = "CurrentAdviceIdentifier"
   static let PersistedAdvices = "PersistedAdvices"
   static let KeepDepartedAdvice = "KeepDepartedAdvice"
+  static let FirstLegRitNummers = "FirstLegRitNummers"
 }
 
 private let UserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
@@ -181,6 +182,16 @@ extension AppDataStore {
     }
     set {
       UserDefaults.set(newValue, forKey: Keys.KeepDepartedAdvice)
+      UserDefaults.synchronize()
+    }
+  }
+  
+  public var firstLegRitNummers: [String] {
+    get {
+      return UserDefaults.object(forKey: Keys.FirstLegRitNummers) as? [String] ?? []
+    }
+    set {
+      UserDefaults.set(newValue, forKey: Keys.FirstLegRitNummers)
       UserDefaults.synchronize()
     }
   }

@@ -62,6 +62,7 @@ public func ==(lhs: Stop, rhs: Stop) -> Bool {
 public struct ReisDeel: Codable {
   public let vervoerder: String
   public let vervoerType: String
+  public let ritNummer: String?
   public let stops: [Stop]
 }
 
@@ -285,6 +286,8 @@ extension ReisDeel {
 
     self.vervoerType = vervoerType
 
+    self.ritNummer = xml["RitNummer"].element?.text
+    
     self.stops = xml["ReisStop"].all.flatMap {
       Stop(fromXml: $0)
     }

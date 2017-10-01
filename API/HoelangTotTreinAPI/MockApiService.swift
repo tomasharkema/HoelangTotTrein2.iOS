@@ -34,11 +34,11 @@ class MockApiService: ApiService {
              aankomst: FareTime(planned: Date(timeIntervalSince1970: end), actual: Date(timeIntervalSince1970: end)),
              melding: nil,
              reisDeel: [
-              ReisDeel(vervoerder: "SPR", vervoerType: "SPR", stops: [
+              ReisDeel(vervoerder: "SPR", vervoerType: "SPR", ritNummer: "AAA", stops: [
                 Stop(time: start * 1000, spoor: "1", name: from),
                 Stop(time: middle * 1000, spoor: "1", name: "ASS")
                 ]),
-              ReisDeel(vervoerder: "IC", vervoerType: "SPR", stops: [
+              ReisDeel(vervoerder: "IC", vervoerType: "SPR", ritNummer: "BBB", stops: [
                 Stop(time: (middle + 1) * 1000, spoor: "1", name: "ASS"),
                 Stop(time: end * 1000, spoor: "1", name: to)
                 ])

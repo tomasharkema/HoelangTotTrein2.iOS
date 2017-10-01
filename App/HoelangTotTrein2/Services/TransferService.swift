@@ -22,25 +22,33 @@ class TransferService: NSObject {
   private let locationManager = CLLocationManager()
 
   private let disposeBag = DisposeBag()
-
+  
+  private let queue = DispatchQueue(label: "TransferService", attributes: .concurrent)
+  private lazy var scheduler: ConcurrentDispatchQueueScheduler = {
+    return ConcurrentDispatchQueueScheduler(queue: self.queue)
+  }()
+  
+  private let geofenceValue: Variable<GeofenceModel?> = Variable(nil)
+  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
+  
   init(travelService: TravelService, dataStore: DataStore, radius: CLLocationDistance = 200) {
     self.radius = radius
     self.travelService = travelService
     self.dataStore = dataStore
     super.init()
     locationManager.delegate = self
+    geofenceObservable = geofenceValue.asObservable().filterOptional()
   }
 
   func attach() {
-    Observable.zip(travelService.currentAdvicesObservable,
-                   travelService.currentAdviceObservable,
-                   resultSelector: { ($0, $1) })
-      .subscribe(onNext: { advicesResult, adviceResult in
-        guard case .loaded(let advices) = advicesResult, let advice = adviceResult else {
+    travelService.currentAdvicesObservable
+      .observeOn(scheduler)
+      .subscribe(onNext: { advicesResult in
+        guard case .loaded(let advices) = advicesResult else {
           return
         }
 
-        self.updateGeofences(for: advices, currentAdvice: advice)
+        self.updateGeofences(for: advices)
       })
       .addDisposableTo(disposeBag)
   }
@@ -61,10 +69,10 @@ class TransferService: NSObject {
 
   private func updateGeofence(for station: Station) {
     let region = CLCircularRegion(center: station.coords.location.coordinate, radius: radius, identifier: station.name)
-    self.locationManager.startMonitoring(for: region)
+    locationManager.startMonitoring(for: region)
   }
 
-  private func updateGeofences(for advices: Advices, currentAdvice advice: Advice) {
+  private func updateGeofences(for advices: Advices) {
     let stationNames = Set(advices.flatMap { getStationNames(from: $0) })
 
     let stationPromises = whenAll(stationNames.map { dataStore.find(stationName: $0) })
@@ -73,44 +81,76 @@ class TransferService: NSObject {
       self.resetGeofences()
       stations.forEach { self.updateGeofence(for: $0) }
     }
+    let ritNummers = advices.flatMap { $0.reisDeel.first }.flatMap { $0.ritNummer }
+    dataStore.firstLegRitNummers = ritNummers
   }
-
-  private func notify(for newAdvice: Advice, currentAdvice: Advice, station: Station, geofenceType: GeofenceType) {
-    print("advice: \(newAdvice) currentAdvice: \(currentAdvice) station: \(station) geofenceType: \(geofenceType)")
-    print(newAdvice.startStation)
-  }
-
-  private func arrive(at station: Station, for advice: Advice) {
+  
+  private func geofenceModel(for newAdvice: Advice, request: AdviceRequest, station: Station) -> GeofenceModel? {
+    
+    let newAdviceIsFirstLeg = newAdvice.reisDeel.first?.ritNummer.map { dataStore.firstLegRitNummers.contains($0) } ?? false
+    
     let geofenceType: GeofenceType
-    if advice.startStation == station.name {
+    if newAdvice.startStation == request.from?.name {
       geofenceType = .start
-    } else if advice.endStation == station.name {
+    } else if newAdviceIsFirstLeg {
+      geofenceType = .tussenStation
+    } else if request.to == station {
       geofenceType = .end
-    } else {
+    } else if newAdvice.startStation == station.name {
       geofenceType = .overstap
+    } else {
+      geofenceType = .tussenStation
     }
+    
+    guard let stop = newAdvice.reisDeel.first?.stops.first else {
+      return nil
+    }
+    
+    return GeofenceModel(type: geofenceType, stationName: newAdvice.startStation!, stop: stop)
+  }
+  
+  private func notify(for newAdvice: Advice, request: AdviceRequest, station: Station) {
+    guard let geofenceModel = self.geofenceModel(for: newAdvice, request: request, station: station) else {
+      return
+    }
+    
+    notify(geofenceModel: geofenceModel)
+  }
+  
+  private func notify(geofenceModel: GeofenceModel) {
+    geofenceValue.value = geofenceModel
+    if geofenceModel.type != .tussenStation {
+      travelService.setStation(.from, stationName: geofenceModel.stationName)
+    }
+  }
 
+  private func arrive(at station: Station) {
     travelService.getCurrentAdviceRequest()
-      .flatMap { request -> Promise<AdvicesResult, Error> in
-        let newRequest = AdviceRequest(from: station, to: request.to)
+      .dispatch(on: queue)
+      .flatMap { (request: AdviceRequest) -> Promise<(AdvicesResult, AdviceRequest), Error> in
+        let newRequest: AdviceRequest
+        if station == request.to {
+          newRequest = AdviceRequest(from: request.to, to: request.from)
+        } else {
+          newRequest = AdviceRequest(from: station, to: request.to)
+        }
+        
         return self.travelService.fetchAdvices(for: newRequest)
-          .map { AdvicesResult(advices: $0.advices.filter { $0.isOngoing })}
+          .map { (AdvicesResult(advices: $0.advices.filter { $0.isOngoing }), request) }
       }
-      .then { advicesResult in
+      .then { (advicesResult, request) in
         if let newAdvice = advicesResult.advices.first {
-          self.notify(for: newAdvice, currentAdvice: advice, station: station, geofenceType: geofenceType)
+          self.notify(for: newAdvice, request: request, station: station)
         }
       }
   }
 
   private func arrive(at stationName: String) {
-    travelService.currentAdviceObservable.filterOptional()
-      .take(1)
-      .subscribe(onNext: { advice in
-        self.dataStore.find(stationName: stationName).then { currentStation in
-          self.arrive(at: currentStation, for: advice)
-        }
-      })
+    self.dataStore.find(stationName: stationName)
+      .dispatch(on: queue)
+      .then { currentStation in
+        self.arrive(at: currentStation)
+      }
   }
 
 }

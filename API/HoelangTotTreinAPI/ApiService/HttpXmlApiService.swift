@@ -78,7 +78,7 @@ final public class HttpXmlApiService: ApiService {
     guard let fromCode = adviceRequest.from?.code,
       let toCode = adviceRequest.to?.code
       else {
-        return Promise(error: ApiError.notImplemented)
+        return Promise(error: ApiError.noFullRequest)
       }
 
     let url = root.appendingPathComponent("ns-api-treinplanner")

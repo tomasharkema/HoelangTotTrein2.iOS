@@ -19,22 +19,19 @@ public enum GeofenceType: String, Codable {
 public struct GeofenceModel: Equatable, Codable {
   public let type: GeofenceType
   public let stationName: String
-  public let fromStop: Stop?
-  public let toStop: Stop?
-
-  public init(type: GeofenceType, stationName: String, fromStop: Stop?, toStop: Stop?) {
+  public let stop: Stop
+  
+  public init(type: GeofenceType, stationName: String, stop: Stop) {
     self.type = type
     self.stationName = stationName
-    self.fromStop = fromStop
-    self.toStop = toStop
+    self.stop = stop
   }
 }
 
 public func ==(lhs: GeofenceModel, rhs: GeofenceModel) -> Bool {
   return lhs.type == rhs.type &&
     lhs.stationName == rhs.stationName &&
-    lhs.fromStop == rhs.fromStop &&
-    lhs.toStop == rhs.toStop
+    lhs.stop == rhs.stop
 }
 
 public struct GeofenceModels {
