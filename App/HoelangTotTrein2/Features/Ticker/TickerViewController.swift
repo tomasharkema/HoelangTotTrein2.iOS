@@ -123,7 +123,6 @@ class TickerViewController: ViewController {
         }
         assert(Thread.isMainThread)
         self?.currentAdvice = advice
-        self?.render()
       }).addDisposableTo(disposeBag)
 
     App.travelService.currentAdviceObservable
@@ -140,7 +139,6 @@ class TickerViewController: ViewController {
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         self?.nextAdvice = advice
-        self?.render()
       }).addDisposableTo(disposeBag)
 
     App.travelService.firstAdviceRequestObservable
@@ -159,8 +157,6 @@ class TickerViewController: ViewController {
       .subscribe(onNext: { [weak self] _ in
         _ = self?.notifyCurrentAdvice()
       }).addDisposableTo(disposeBag)
-
-    render()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -208,7 +204,6 @@ class TickerViewController: ViewController {
   }
 
   @objc func tick(_ timer: Timer) {
-    render()
     renderBackground()
   }
 
@@ -234,30 +229,6 @@ class TickerViewController: ViewController {
         self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
       }) 
     }
-  }
-
-  private func render() {
-
-//    if let nextAdvice = nextAdvice {
-//
-//      let offset = nextAdvice.vertrek.actualDate.timeIntervalSince(Date())
-//      let difference = Date(timeIntervalSince1970: offset - 60*60)
-//
-//      let timeString: String
-//      if Calendar.current.component(.hour, from: difference) > 0 {
-//        timeString = difference.toString(format: .custom("H:mm"))
-//
-//      } else {
-//        timeString = difference.toString(format: .custom("mm:ss"))
-//      }
-//
-//      nextLabel.text = "\(timeString)" + (nextAdvice.vertrekSpoor.map { " - spoor \($0)" } ?? "") //+ " - \(nextAdvice.smallExtraMessage)"
-//      nextDelayLabel.text = nextAdvice.vertrekVertraging
-//      nextView.alpha = 1
-//    } else {
-//      nextView.alpha = 0
-//      nextDelayLabel.text = ""
-//    }
   }
 
   private func applyErrorState() {
