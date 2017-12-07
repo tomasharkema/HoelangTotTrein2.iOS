@@ -118,10 +118,12 @@
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
 		E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */; };
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
-		FF647CC41F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
-		FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
-		FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF647CC31F7E90E0008D28EC /* xml-credentials.plist */; };
 		FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF647CC91F80197F008D28EC /* TransferService.swift */; };
+		FFAC674B1FD9809A007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */; };
+		FFAC674C1FD980DE007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */; };
+		FFAC674D1FD980DF007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */; };
+		FFAC674E1FD980E0007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */; };
+		FFAC674F1FD980E1007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,8 +337,8 @@
 		C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5166C0608BA10DBEC4E99C1 /* Pods_HoelangTotTrein2Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
-		FF647CC31F7E90E0008D28EC /* xml-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "xml-credentials.plist"; sourceTree = "<group>"; };
 		FF647CC91F80197F008D28EC /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
+		FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "xml-credentials.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -579,7 +581,7 @@
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C3E19C561E96CDE1003A1529 /* Localization.strings */,
-				FF647CC31F7E90E0008D28EC /* xml-credentials.plist */,
+				FFAC674A1FD9809A007F6EBA /* xml-credentials.plist */,
 			);
 			path = HoelangTotTrein2;
 			sourceTree = "<group>";
@@ -948,6 +950,7 @@
 				C303E8C41F81118A00A9EC5C /* NOI.gpx in Resources */,
 				C303E8C31F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */,
+				FFAC674E1FD980E0007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C61F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */,
 				C303E8C11F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
@@ -966,6 +969,7 @@
 				C303E8BE1F81118A00A9EC5C /* NOI.gpx in Resources */,
 				C303E8BD1F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */,
+				FFAC674D1FD980DF007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C01F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C38335981EA943BA00A9E077 /* AKKURATL.ttf in Resources */,
 				C303E8BB1F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
@@ -978,13 +982,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C33348221EAA481000EE2340 /* Interface.storyboard in Resources */,
-				FF647CC51F7E90E0008D28EC /* xml-credentials.plist in Resources */,
 				C303E8D11F812A0900A9EC5C /* Zaandam.gpx in Resources */,
 				C303E8D01F812A0900A9EC5C /* NOI.gpx in Resources */,
 				C303E8CF1F812A0900A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C3E19C321E913DFC003A1529 /* HLTTAssets.xcassets in Resources */,
 				C303E8D21F812A0900A9EC5C /* sloterdijk.gpx in Resources */,
 				C303E8C81F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
+				FFAC674F1FD980E1007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8CD1F812A0900A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8CE1F812A0900A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
@@ -1002,7 +1006,7 @@
 				C303E8B71F81118900A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */,
 				C303E8BA1F81118900A9EC5C /* sloterdijk.gpx in Resources */,
-				FF647CC61F7E90E0008D28EC /* xml-credentials.plist in Resources */,
+				FFAC674C1FD980DE007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8B51F81118900A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8B61F81118900A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
@@ -1019,11 +1023,11 @@
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
-				FF647CC41F7E90E0008D28EC /* xml-credentials.plist in Resources */,
 				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
 				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
 				C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
+				FFAC674B1FD9809A007F6EBA /* xml-credentials.plist in Resources */,
 				C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */,
 				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
 				C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */,
