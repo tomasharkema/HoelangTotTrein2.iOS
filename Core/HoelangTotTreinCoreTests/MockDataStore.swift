@@ -16,9 +16,9 @@ enum MockError: Error {
 }
 
 class MockDataStore: DataStore {
-  var keepDepartedAdvice: Bool
+  var firstLegRitNummers = [String]()
+  var keepDepartedAdvice: Bool = false
   
-
   private var _stations = [
     Station(name: "Zaandam", code: "ZD", land: "NL", coords: Coords(lat: 50, lon: 50), type: nil),
     Station(name: "Amsterdam Centraal", code: "AMS", land: "NL", coords: Coords(lat: 60, lon: 60), type: nil),
