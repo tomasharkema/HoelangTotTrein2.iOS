@@ -4,7 +4,7 @@ abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
   platform :ios, '10.0'
 
-	pod 'Alamofire'
+	pod 'Alamofire', '~> 4.6.0'
 
 	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
 	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
@@ -22,7 +22,7 @@ abstract_target 'HoelangTotTrein2Pods' do
     platform :ios, '10.0'
 		project 'App/HoelangTotTrein2.xcodeproj'
 
-		pod 'HockeySDK'
+		# pod 'HockeySDK'
 		pod 'R.swift'
 		pod 'SegueManager/R.swift'
 		pod 'AFDateHelper'

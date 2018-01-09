@@ -16,7 +16,7 @@
 "nearby" = "Nearby";
 "stations" = "Stations";
 "search" = "Search";
-"select" = "[Select]";
+"select" = "[Select Station]";
 "searchResults" = "Search results";
 "arrival" = "arrival: %@";
 "delayed" = "delayed";
@@ -25,7 +25,7 @@
 "onTime" = "on time";
 "changed" = "changed";
 
-"somethingsWrong" = "somethings wrong 🤷";
+"somethingsWrong" = "something's wrong 🤷";
 
 "startNotificationTitle" = "Arrived at Start Station";
 "startNotificationBody" = "Your train leaves in %@ min on platform %@";

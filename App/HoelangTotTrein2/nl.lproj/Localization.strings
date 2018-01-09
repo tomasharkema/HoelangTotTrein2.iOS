@@ -16,7 +16,7 @@
 "nearby" = "Dichtbij";
 "stations" = "Stations";
 "search" = "Zoek";
-"select" = "[Selecteer]";
+"select" = "[Selecteer Station]";
 "searchResults" = "Zoekresultaten";
 "arrival" = "aankomst: %@";
 "delayed" = "vertraagd";

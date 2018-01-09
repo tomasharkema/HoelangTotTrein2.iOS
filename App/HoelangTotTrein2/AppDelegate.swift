@@ -33,15 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.appShortcutService.attach()
 
-    let center = UNUserNotificationCenter.current()
-    let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-    center.requestAuthorization(options: options) { (granted, _) in
-      if granted {
-        DispatchQueue.main.async {
-          application.registerForRemoteNotifications()
-        }
-      }
-    }
+    requestPush()
 
     return true
   }
@@ -69,10 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Saves changes in the application's managed object context before the application terminates.
   }
 
-  func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-//    App.notificationService.register(token: deviceToken)
-  }
-
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
     App.travelService.currentAdviceOnScreenObservable
@@ -94,6 +82,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
     UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+  }
+
+  private func requestPush() {
+
+    UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+      if settings.authorizationStatus == .notDetermined {
+        let alert = UIAlertController(title: "Push Notificaties", message: "Deze app kan je een notificatie sturen wanneer je op het station aankomt, of als je op je eindbestemming aankomt. Wil je dit?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Nu niet", style: .cancel, handler: { _ in
+          alert.dismiss(animated: true)
+        }))
+
+        alert.addAction(UIAlertAction(title: "Ja doe maar", style: .cancel, handler: { _ in
+          self?.requestAuthorization()
+        }))
+      }
+    }
+  }
+
+  private func requestAuthorization() {
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+    center.requestAuthorization(options: options) { (_, _) in
+    }
   }
 
 }

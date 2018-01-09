@@ -32,7 +32,7 @@ import HoelangTotTreinAPI
     guard let url = Bundle(identifier: bundleIdentifier)?.url(forResource: "HoelangTotTrein2", withExtension: "momd"),
       let model = NSManagedObjectModel(contentsOf: url)
       else {
-        fatalError("NO MODEL")
+        assertionFailure("NO MODEL")
         persistentContainer = NSPersistentContainer()
         return
       }
@@ -51,7 +51,7 @@ import HoelangTotTreinAPI
 
     persistentContainer.loadPersistentStores { _, error in
       if let error = error {
-        fatalError(error.localizedDescription)
+        assertionFailure(error.localizedDescription)
       }
     }
   }

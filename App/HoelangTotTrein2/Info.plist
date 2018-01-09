@@ -18,8 +18,21 @@
 	<string>2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>io.harkema.hltt</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hltt</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>79</string>
+	<string>82</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -37,11 +50,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
+	<string>Om te bepalen welk station het meest dichtbij is en om je een notificatie te geven wanneer je moet uitstappen heeft deze app toegang tot je locatie nodig</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
+	<string>Om te bepalen welk station het meest dichtbij is en om je een notificatie te geven wanneer je moet uitstappen heeft deze app toegang tot je locatie nodig</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Om je notificaties op de stations te geven heb je locatie toegang nodig</string>
+	<string>Om te bepalen welk station het meest dichtbij is en om je een notificatie te geven wanneer je moet uitstappen heeft deze app toegang tot je locatie nodig</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

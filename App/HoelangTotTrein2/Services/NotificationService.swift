@@ -103,6 +103,13 @@ class NotificationService {
   func attach() {
     transferService.geofenceObservable?
       .observeOn(MainScheduler.asyncInstance)
+      .filter {
+        if $0.type == .overstap {
+          return self.dataStore.appSettings.contains(.transferNotificationEnabled)
+        }
+
+        return true
+      }
       .subscribe(onNext: { geofenceModel in
         self.notify(for: geofenceModel)
       })

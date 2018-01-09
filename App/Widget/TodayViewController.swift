@@ -76,4 +76,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     completionHandler(.newData)
   }
   
+  @IBAction func pressedWidget(_ sender: Any) {
+    extensionContext?.open(URL(string: "hltt://")!, completionHandler: nil)
+  }
 }

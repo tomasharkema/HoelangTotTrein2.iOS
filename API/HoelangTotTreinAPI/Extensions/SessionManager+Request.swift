@@ -15,7 +15,8 @@ extension DataRequest {
   {
     return DataResponseSerializer { (request, response, data, error) in
       guard let data = data else {
-        fatalError("NO DATA")
+        assertionFailure("NO DATA")
+        return .failure(NSError(domain: "DataRequestNoData", code: 0, userInfo: nil))
       }
 
       let decoder = JSONDecoder()

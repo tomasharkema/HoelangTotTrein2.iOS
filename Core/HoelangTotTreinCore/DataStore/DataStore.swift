@@ -39,4 +39,5 @@ public protocol DataStore: class {
   var persistedAdvices: Advices? { get set }
   var keepDepartedAdvice: Bool { get set }
   var firstLegRitNummers: [String] { get set }
+  var appSettings: AppSettings { get set }
 }

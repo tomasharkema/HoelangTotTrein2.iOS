@@ -161,8 +161,4 @@ extension TransferService: CLLocationManagerDelegate {
     arrive(at: region.identifier)
   }
 
-  func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-//    print("start monitoring: \(region)")
-  }
-
 }
