@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Statham
 
 #if os(watchOS)
   import HoelangTotTreinAPIWatch

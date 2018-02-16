@@ -99,7 +99,7 @@ public struct Advice: Equatable, Codable {
   public let request: AdviceRequestCodes
   
   public func identifier() -> String {
-    return "\(vertrek.planned):\(aankomst.planned):\(request.from):\(request.to)"
+    return "\(vertrek.planned.timeIntervalSince1970):\(aankomst.planned.timeIntervalSince1970):\(request.from):\(request.to)"
   }
   
   init(json: AdviceJson) {

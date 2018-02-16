@@ -156,9 +156,7 @@ class TransferService: NSObject {
 }
 
 extension TransferService: CLLocationManagerDelegate {
-
   func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
     arrive(at: region.identifier)
   }
-
 }

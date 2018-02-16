@@ -18,7 +18,6 @@
 		C30B405B1E98F0B100D99541 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404F1E98F0B100D99541 /* GeofenceModel.swift */; };
 		C30B40611E98F0B100D99541 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40561E98F0B100D99541 /* Station.swift */; };
 		C30B40621E98F0B100D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
-		C30B40651E98F15800D99541 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40641E98F15800D99541 /* SessionManager+Request.swift */; };
 		C30B40811E98F68F00D99541 /* HoelangTotTreinAPIWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C30B40851E98F6A700D99541 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404D1E98F0B100D99541 /* Advice.swift */; };
 		C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404E1E98F0B100D99541 /* ErrorJson.swift */; };
@@ -28,15 +27,12 @@
 		C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C975B1EA23AC9007BD463 /* MockApiService.swift */; };
 		C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
 		C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
-		C33E05E01F6ECAB000265057 /* HttpJsonApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */; };
 		C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
 		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C375384C1E9921C20047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404B1E98F0B100D99541 /* ApiService.swift */; };
-		C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40641E98F15800D99541 /* SessionManager+Request.swift */; };
-		C3F92E0A1F6E8BDD00A2B19F /* HttpJsonApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */; };
 		C3F92E0C1F6E8BFC00A2B19F /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
 		E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */; };
 		EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */; };
@@ -73,7 +69,6 @@
 		C30B404F1E98F0B100D99541 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
 		C30B40561E98F0B100D99541 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		C30B40571E98F0B100D99541 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
-		C30B40641E98F15800D99541 /* SessionManager+Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SessionManager+Request.swift"; sourceTree = "<group>"; };
 		C30B407D1E98F68F00D99541 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30B407F1E98F68F00D99541 /* HoelangTotTreinAPIWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPIWatch.h; sourceTree = "<group>"; };
 		C30B40801E98F68F00D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,7 +76,6 @@
 		C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
 		C375381C1E9919DA0047108C /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
 		C375381E1E991A290047108C /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
-		C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpJsonApiService.swift; sourceTree = "<group>"; };
 		C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpXmlApiService.swift; sourceTree = "<group>"; };
 		EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; sourceTree = "<group>"; };
@@ -173,7 +167,6 @@
 				C30B40631E98F15800D99541 /* Extensions */,
 				C30B404A1E98F0B100D99541 /* ApiService */,
 				C30B404C1E98F0B100D99541 /* Json */,
-				C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */,
 				C31C975B1EA23AC9007BD463 /* MockApiService.swift */,
 				C30B40341E98EE7400D99541 /* Info.plist */,
 			);
@@ -193,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				C30B404B1E98F0B100D99541 /* ApiService.swift */,
-				C3F92E091F6E8BDD00A2B19F /* HttpJsonApiService.swift */,
 				C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */,
 			);
 			path = ApiService;
@@ -202,6 +194,7 @@
 		C30B404C1E98F0B100D99541 /* Json */ = {
 			isa = PBXGroup;
 			children = (
+				C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */,
 				C30B404D1E98F0B100D99541 /* Advice.swift */,
 				C30B404E1E98F0B100D99541 /* ErrorJson.swift */,
 				C30B404F1E98F0B100D99541 /* GeofenceModel.swift */,
@@ -216,7 +209,6 @@
 		C30B40631E98F15800D99541 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C30B40641E98F15800D99541 /* SessionManager+Request.swift */,
 				C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */,
 			);
 			path = Extensions;
@@ -394,21 +386,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Promissum.common-UIKit/Promissum.framework",
+				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
-				"${BUILT_PRODUCTS_DIR}/Statham-iOS/Statham.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Statham.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -530,10 +518,8 @@
 				C30B40591E98F0B100D99541 /* Advice.swift in Sources */,
 				C30B405A1E98F0B100D99541 /* ErrorJson.swift in Sources */,
 				C30B40611E98F0B100D99541 /* Station.swift in Sources */,
-				C3F92E0A1F6E8BDD00A2B19F /* HttpJsonApiService.swift in Sources */,
 				C30B405B1E98F0B100D99541 /* GeofenceModel.swift in Sources */,
 				C30B40621E98F0B100D99541 /* SuccessResponse.swift in Sources */,
-				C30B40651E98F15800D99541 /* SessionManager+Request.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,11 +539,9 @@
 				C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */,
 				C30B40871E98F6AE00D99541 /* GeofenceModel.swift in Sources */,
 				C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */,
-				C38335EA1EAA389D00A9E077 /* SessionManager+Request.swift in Sources */,
 				C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */,
 				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
 				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
-				C33E05E01F6ECAB000265057 /* HttpJsonApiService.swift in Sources */,
 				C375384C1E9921C20047108C /* Bounds.swift in Sources */,
 				C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */,
 				C30B40851E98F6A700D99541 /* Advice.swift in Sources */,
@@ -781,7 +765,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;

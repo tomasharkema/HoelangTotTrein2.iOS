@@ -8,6 +8,8 @@
 
 import Foundation
 import WatchConnectivity
+import Promissum
+
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
   import HoelangTotTreinCoreWatch
@@ -19,16 +21,18 @@ import WatchConnectivity
 
 extension WCSession {
   func sendEvent(_ event: TravelEvent) {
+    if activationState != .activated {
+      activate()
+    }
     do {
-      if let data = jsonToNSData(event.encode), self.isReachable {
-        self.sendMessageData(data, replyHandler: nil, errorHandler: { error in
-          print(error)
-        })
+      let data = try JSONEncoder().encode(event)
+      if self.isReachable {
+        sendMessageData(data, replyHandler: nil, errorHandler: nil)
       } else {
-        try self.updateApplicationContext(event.encode)
+        try updateApplicationContext(["data": data])
       }
     } catch {
-//      assertionFailure("Some failiure: \(error)")
+      print(error)
     }
   }
 }

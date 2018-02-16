@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import CoreData
 import CoreLocation
 import Promissum
 import RxSwift
@@ -44,7 +43,7 @@ public class TravelService: NSObject {
   private let scheduler: SchedulerType
 
   #if os(iOS)
-  private let session: WCSession?
+  private let session = WCSession.default
   #endif
 
   private let currentAdviceVariable = Variable<Advice?>(nil)
@@ -77,14 +76,6 @@ public class TravelService: NSObject {
     self.dataStore = dataStore
     self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
 
-    #if os(iOS)
-      if WCSession.isSupported() {
-        session = WCSession.default
-      } else {
-        session = nil
-      }
-    #endif
-
     super.init()
 
     currentAdviceObservable = currentAdviceVariable.asObservable()
@@ -103,10 +94,8 @@ public class TravelService: NSObject {
   
   public func attach() {
     #if os(iOS)
-      session?.delegate = self
-      if session?.isReachable ?? false {
-        session?.activate()
-      }
+      session.delegate = self
+      session.activate()
     #endif
 
     _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
@@ -150,10 +139,8 @@ public class TravelService: NSObject {
         self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
 
         #if os(iOS)
-          if self.session?.isReachable ?? false {
-            self.session?.sendEvent(TravelEvent.currentAdviceChange(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
-            let complicationUpdate = self.session?.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-          }
+          self.session.sendEvent(.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to)))
+          self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
         #endif
       })
 
@@ -215,6 +202,7 @@ public class TravelService: NSObject {
 
   public func fetchStations() -> Promise<Stations, Error> {
     return apiService.stations()
+      .mapError { $0 as Error }
       .map { $0.stations.filter { $0.land == "NL" } }
       .then { stations in
         print("TravelService did fetch stations: \(stations.count)")
@@ -286,11 +274,13 @@ public class TravelService: NSObject {
       }
 
     let registerPromise: Promise<SuccessResult, Error> = correctedAdviceRequest
+      .mapError { $0 as Error }
       .flatMap { advice in
         guard let from = advice.from, let to = advice.to else {
           return Promise(error: TravelServiceError.notChanged)
         }
         return self.apiService.registerForNotification(self.dataStore.userId, from: from, to: to)
+          .mapError { $0 as Error }
       }
 
     return registerPromise.mapVoid()
@@ -338,6 +328,7 @@ public class TravelService: NSObject {
 
   public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
     return apiService.advices(for: adviceRequest)
+      .mapError { $0 as Error }
   }
 
   private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
@@ -456,15 +447,24 @@ extension TravelService: WCSessionDelegate {
     /* stub */
   }
 
+  public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+    print(String(data: messageData, encoding: .utf8))
+  }
+  
   public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-
-    let encoder = JSONEncoder()
-    guard let data = try? encoder.encode(currentAdviceOnScreenVariable.value) else {
+    guard let advice = currentAdviceOnScreenVariable.value else {
+      return
+    }
+    
+    let event = TravelEvent.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
+    
+    guard let data = try? JSONEncoder().encode(event) else {
       return
     }
 
     replyHandler(data)
   }
+  
 
   public func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
     print("didReceiveApplicationContext: \(applicationContext)")

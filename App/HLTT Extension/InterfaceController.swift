@@ -56,13 +56,12 @@ class InterfaceController: WKInterfaceController {
         guard let advice = advice else { return }
         self?.adviceDidChange(advice: advice)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
 
     super.willActivate()
   }
 
   override func didDeactivate() {
-    // This method is called when watch view controller is no longer visible
     disposeBag = nil
     super.didDeactivate()
   }
@@ -111,5 +110,4 @@ class InterfaceController: WKInterfaceController {
   @objc func oneMinuteToGo() {
     WKInterfaceDevice.current().play(.directionUp)
   }
-  
 }
