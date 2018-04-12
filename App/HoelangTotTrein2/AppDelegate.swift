@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           alert.dismiss(animated: true)
         }))
 
-        alert.addAction(UIAlertAction(title: "Ja doe maar", style: .cancel, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Ja doe maar", style: .default, handler: { _ in
           self?.requestAuthorization()
         }))
       }

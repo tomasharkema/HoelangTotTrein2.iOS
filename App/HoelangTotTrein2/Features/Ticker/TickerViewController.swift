@@ -36,9 +36,7 @@ class TickerViewController: ViewController {
   @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
   @IBOutlet private weak var fromButton: UIButton!
-  @IBOutlet private weak var fromLabel: UILabel!
   @IBOutlet private weak var toButton: UIButton!
-  @IBOutlet private weak var toLabel: UILabel!
   @IBOutlet private weak var fromIndicatorLabel: UILabel!
   @IBOutlet private weak var toIndicatorLabel: UILabel!
 
@@ -149,8 +147,8 @@ class TickerViewController: ViewController {
         }
         self?.fromStation = adviceRequest.from
         self?.toStation = adviceRequest.to
-        self?.fromLabel.text = adviceRequest.from?.name ?? R.string.localization.select()
-        self?.toLabel.text = adviceRequest.to?.name ?? R.string.localization.select()
+        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
+        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
       }).addDisposableTo(disposeBag)
 
     collectionView.rx.didScroll

@@ -55,8 +55,6 @@
 		C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32216971EEB212400BC2745 /* MainInterface.storyboard */; };
 		C322169D1EEB212400BC2745 /* TickerNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322168F1EEB212400BC2745 /* TickerNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
-		C32216A21EEB241900BC2745 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
-		C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C32216A41EEB258B00BC2745 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */; };
 		C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
@@ -64,15 +62,11 @@
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
 		C33348221EAA481000EE2340 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33348211EAA481000EE2340 /* Interface.storyboard */; };
-		C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
-		C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C38335871EA932A700A9E077 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38335861EA932A700A9E077 /* NotificationCenter.framework */; };
 		C383358A1EA932A700A9E077 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335891EA932A700A9E077 /* TodayViewController.swift */; };
 		C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C383358B1EA932A700A9E077 /* MainInterface.storyboard */; };
 		C38335911EA932A700A9E077 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C38335851EA932A700A9E077 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C38335961EA943AE00A9E077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
-		C38335971EA943BA00A9E077 /* AKKURAT.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C376268E1C947309006A42A7 /* AKKURAT.ttf */; };
-		C38335981EA943BA00A9E077 /* AKKURATL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37626901C947356006A42A7 /* AKKURATL.ttf */; };
 		C383359B1EA9490800A9E077 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359A1EA9490800A9E077 /* HoelangTotTreinAPI.framework */; };
 		C383359D1EA9491000A9E077 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
 		C38335A51EA94AA100A9E077 /* WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335A41EA94AA100A9E077 /* WidgetApp.swift */; };
@@ -272,8 +266,6 @@
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		C333482A1EAA59C200EE2340 /* HLTT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
-		C376268E1C947309006A42A7 /* AKKURAT.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURAT.ttf; sourceTree = "<group>"; };
-		C37626901C947356006A42A7 /* AKKURATL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AKKURATL.ttf; sourceTree = "<group>"; };
 		C38335851EA932A700A9E077 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38335861EA932A700A9E077 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C38335891EA932A700A9E077 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -526,8 +518,6 @@
 		C3E19C3B1E92CAC8003A1529 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				C376268E1C947309006A42A7 /* AKKURAT.ttf */,
-				C37626901C947356006A42A7 /* AKKURATL.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -939,7 +929,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32216A21EEB241900BC2745 /* AKKURAT.ttf in Resources */,
 				C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */,
 				C303E8CC1F812A0700A9EC5C /* Leiden Centraal.gpx in Resources */,
 				C303E8C51F81118A00A9EC5C /* Zaandam.gpx in Resources */,
@@ -948,7 +937,6 @@
 				C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */,
 				FFAC67541FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C61F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
-				C32216A31EEB241900BC2745 /* AKKURATL.ttf in Resources */,
 				C303E8C11F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8C21F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
@@ -958,7 +946,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C38335971EA943BA00A9E077 /* AKKURAT.ttf in Resources */,
 				C38335961EA943AE00A9E077 /* Assets.xcassets in Resources */,
 				C303E8CB1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */,
 				C303E8BF1F81118A00A9EC5C /* Zaandam.gpx in Resources */,
@@ -967,7 +954,6 @@
 				C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */,
 				FFAC67531FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C01F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
-				C38335981EA943BA00A9E077 /* AKKURATL.ttf in Resources */,
 				C303E8BB1F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8BC1F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
@@ -1018,8 +1004,6 @@
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
-				C376268F1C947309006A42A7 /* AKKURAT.ttf in Resources */,
-				C37626911C947356006A42A7 /* AKKURATL.ttf in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
 				C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
 				FFAC67511FD987F6007F6EBA /* xml-credentials.plist in Resources */,
