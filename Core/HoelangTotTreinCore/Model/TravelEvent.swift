@@ -13,66 +13,55 @@ import Foundation
   import HoelangTotTreinAPI
 #endif
 
-public enum TravelEvent {
-//  case advicesChange(advice: Advices)
-  case currentAdviceChange(identifier: String, fromCode: String, toCode: String)
+public struct CurrentAdviceChangeData: Codable {
+  public let identifier: String
+  public let fromCode: String
+  public let toCode: String
 }
 
-extension TravelEvent {
-  var name: String {
+public enum TravelEvent {
+  case advicesChange(advice: Advices)
+  case currentAdviceChange(change: CurrentAdviceChangeData)
+  
+  enum CodingKeys: String, CodingKey {
+    case advicesChange = "advicesChange"
+    case currentAdviceChange = "currentAdviceChange"
+    case name = "_name"
+  }
+}
+
+extension TravelEvent: Encodable {
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    
     switch self {
-//    case .advicesChange:
-//      return "advicesChange"
-    case .currentAdviceChange:
-      return "currentAdviceChange"
+    case .advicesChange(let advices):
+      try container.encode("advicesChange", forKey: .name)
+      try container.encode(advices, forKey: .advicesChange)
+    case .currentAdviceChange(let change):
+      try container.encode("currentAdviceChange", forKey: .name)
+      try container.encode(change, forKey: .currentAdviceChange)
     }
   }
 }
 
-//MARK: - TravelEvent Encode
-extension TravelEvent {
-  public var encode: [String: Any] {
-    let array: [String: Any] = { this in
-      switch this {
-//      case let .advicesChange(advices):
-//        return ["advices": advices.encodeJson {
-//          $0.encodeJson()
-//          }]
-
-      case let .currentAdviceChange(hash, from, to):
-        return ["hash": hash, "from": from, "to": to]
-      }
-    }(self)
-
-    var arrayAndMessage = array
-    arrayAndMessage["name"] = self.name
-    return arrayAndMessage
-  }
-}
-
-//MARK: - TravelEvent Decode
-
-extension TravelEvent {
-  public static func decode(_ message: [String: Any]) -> TravelEvent? {
-    switch message["name"] as? String {
-//    case "advicesChange"?:
-//      guard let advices = message["advices"] as? [AnyObject] else {
-//        return nil
-//      }
-//      do {
-//        return TravelEvent.advicesChange(advice: try Array.decodeJson({ try Advice.decodeJson($0) })(advices))
-//      } catch {
-//        return nil
-//      }
-
-    case "currentAdviceChange"?:
-      guard let hash = message["hash"] as? String, let from = message["from"] as? String, let to = message["to"] as? String else {
-        return nil
-      }
-      return TravelEvent.currentAdviceChange(identifier: hash, fromCode: from, toCode: to)
-
+extension TravelEvent: Decodable {
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    
+    guard container.contains(.name) else {
+      throw DecodingError.dataCorruptedError(forKey: .name, in: container, debugDescription: "Expect name")
+    }
+    
+    let name = try container.decode(String.self, forKey: .name)
+    
+    switch name {
+    case "advicesChange":
+      self = .advicesChange(advice: try container.decode(Advices.self, forKey: .advicesChange))
+    case "currentAdviceChange":
+      self = .currentAdviceChange(change: try container.decode(CurrentAdviceChangeData.self, forKey: .currentAdviceChange))
     default:
-      return nil
+      throw DecodingError.dataCorruptedError(forKey: .name, in: container, debugDescription: "Expect name to be advicesChange or currentAdviceChange")
     }
   }
 }

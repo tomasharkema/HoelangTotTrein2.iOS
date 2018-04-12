@@ -9,16 +9,11 @@
 import Foundation
 import Promissum
 
-enum MockApiError: Error {
-  case requestNotCorrect
-  case noAdvices
-}
-
 class MockApiService: ApiService {
 
   private let date = Date().timeIntervalSince1970
 
-  func stations() -> Promise<StationsResponse, Error> {
+  func stations() -> Promise<StationsResponse, ApiError> {
     return Promise(value: StationsResponse(stations: [])) //TODO: fix deze eens!
   }
 
@@ -50,20 +45,20 @@ class MockApiService: ApiService {
     }
   }
 
-  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ApiError> {
 
     guard let from = adviceRequest.from, let to = adviceRequest.to else {
-      return Promise(error: MockApiError.requestNotCorrect)
+      return Promise(error: ApiError.noFullRequest)
     }
 
     return Promise(value: AdvicesResult(advices: generateAdvices(n: 10, from: from.code, to: to.code)))
   }
 
-  func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error> {
+  func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, ApiError> {
     return Promise(value: SuccessResult(success: true))
   }
 
-  func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error> {
+  func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ApiError> {
     return Promise(value: SuccessResult(success: true))
   }
 }

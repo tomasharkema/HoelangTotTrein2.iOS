@@ -31,31 +31,38 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   }
 
   func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
-    requestInitialState()
+    if let data = userInfo["data"] as? Data {
+      on(data: data)
+    }
   }
 
   func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-    guard let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
-      return
+    on(data: messageData)
+  }
+  
+  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+    on(data: messageData)
+    replyHandler(Data(bytes: []))
+  }
+  
+  fileprivate func on(data: Data) {
+    do {
+      on(travelEvent: try JSONDecoder().decode(TravelEvent.self, from: data))
+    } catch {
+      print(error)
     }
-
-    decodeEvent(json)
   }
 
-  fileprivate func decodeEvent(_ message: [String: Any]) {
-    guard let event = TravelEvent.decode(message) else {
-      return
-    }
-
+  fileprivate func on(travelEvent event: TravelEvent) {
     switch event {
-//    case let .advicesChange(advice: advices):
-//      cachedAdvices = advices
-//      WatchApp.dataStore.persistedAdvices = advices
+    case let .advicesChange(advice: advices):
+      cachedAdvices = advices
+      WatchApp.dataStore.persistedAdvices = advices
 
-    case let .currentAdviceChange(currentHash, fromCode, toCode):
-      let from = WatchApp.travelService.setStation(.from, stationCode: fromCode, byPicker: true)
-      let to = WatchApp.travelService.setStation(.to, stationCode: toCode, byPicker: true)
-      WatchApp.travelService.setCurrentAdviceOnScreen(adviceIdentifier: currentHash)
+    case .currentAdviceChange(let data):
+      let from = WatchApp.travelService.setStation(.from, stationCode: data.fromCode, byPicker: true)
+      let to = WatchApp.travelService.setStation(.to, stationCode: data.toCode, byPicker: true)
+      WatchApp.travelService.setCurrentAdviceOnScreen(adviceIdentifier: data.identifier)
       whenBoth(from, to).finallyResult {
         print($0)
       }
@@ -80,11 +87,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     try? session.updateApplicationContext(["boot!": "Boot!"])
 
     session.sendMessageData(someData, replyHandler: { [weak self] messageData in
-      guard let service = self, let json = nsdataToJSON(messageData) as? [String : AnyObject] else {
+      guard let service = self else {
         return
       }
 
-      service.decodeEvent(json)
+      service.on(data: messageData)
       completionHandler?(nil)
     }) { error in
       print(error)
@@ -97,7 +104,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
   }
 
   func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    print(applicationContext)
-    decodeEvent(applicationContext)
+    if let data = applicationContext["data"] as? Data {
+      on(data: data)
+    }
   }
 }

@@ -2,20 +2,13 @@ workspace 'HoelangTotTrein2.xcworkspace'
 
 abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
-  platform :ios, '10.0'
+  	platform :ios, '10.0'
 
-	pod 'Alamofire', '~> 4.6.0'
+	pod 'Promissum'
 
-	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
-	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
-	pod 'Promissum/UIKit', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
-
-  pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
-  pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
-
-	pod 'RxSwift'
+	pod 'RxSwift', '~> 4.0'
 	pod 'RxCocoa'
-  pod 'SWXMLHash'
+  	pod 'SWXMLHash'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
@@ -26,8 +19,8 @@ abstract_target 'HoelangTotTrein2Pods' do
 		pod 'R.swift'
 		pod 'SegueManager/R.swift'
 		pod 'AFDateHelper'
-    pod 'Fabric'
-    pod 'Crashlytics'
+    	pod 'Fabric'
+    	pod 'Crashlytics'
 
 		target 'HoelangTotTrein2Tests' do
 			inherit! :search_paths
@@ -52,41 +45,30 @@ abstract_target 'HoelangTotTrein2Pods' do
 
     target 'HoelangTotTreinCoreTests' do
       inherit! :search_paths
-      pod 'RxTest', '~> 3.0'
+      pod 'RxTest'
     end
   end
 
 end
 
 abstract_target 'HoelangTotTrein2WatchPods' do
-  use_frameworks!
-  platform :watchos, '3.0'
+	use_frameworks!
+	platform :watchos, '3.0'
 
-	pod 'Promissum', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
-	pod 'Promissum/Alamofire', :git => 'https://github.com/tomasharkema/Promissum.git', :commit => 'ff41d41ce367422e2d5c38c8d3115f815efb7970'
+	pod 'Promissum'
+	pod 'RxSwift', '~> 4.0'
+  	pod 'SWXMLHash'
 
-  pod 'Statham', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
-  pod 'Statham/Alamofire+Promissum', :git => 'https://github.com/tomasharkema/Statham.git', :commit => '698ffe0b57d4b7a46a8f48ad5ea8f927f63b0980'
-	pod 'RxSwift'
-  pod 'SWXMLHash'
+	target 'HLTT Extension' do
+		project 'App/HoelangTotTrein2.xcodeproj'
+	end
 
-  target 'HLTT Extension' do
-    project 'App/HoelangTotTrein2.xcodeproj'
-  end
+	target 'HoelangTotTreinAPIWatch' do
+		project 'API/HoelangTotTreinAPI.xcodeproj'
+	end
 
-  target 'HoelangTotTreinAPIWatch' do
-    project 'API/HoelangTotTreinAPI.xcodeproj'
-  end
-
-  target 'HoelangTotTreinCoreWatch' do
-    project 'Core/HoelangTotTreinCore.xcodeproj'
-  end
+	target 'HoelangTotTreinCoreWatch' do
+		project 'Core/HoelangTotTreinCore.xcodeproj'
+	end
 end
 
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['SWIFT_VERSION'] = '3.2'
-    end
-  end
-end

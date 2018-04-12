@@ -8,7 +8,6 @@
 
 import Foundation
 import Promissum
-import Alamofire
 import SWXMLHash
 
 public struct Credentials {
@@ -32,9 +31,9 @@ public struct Credentials {
     self.password = password
   }
 
-  var header: [String: String] {
+  var header: (String, String) {
     let base64 = "\(username):\(password)".data(using: .utf8)?.base64EncodedString() ?? ""
-    return ["Authorization": "Basic: \(base64)"]
+    return ("Authorization", "Basic: \(base64)")
   }
 }
 
@@ -45,6 +44,8 @@ final public class HttpXmlApiService: ApiService {
   private let root: URL
   private let parseQueue = DispatchQueue(label: "HttpXmlApiService", attributes: .concurrent)
 
+  private let session = URLSession(configuration: URLSessionConfiguration.default)
+  
   public init(
     credentials: Credentials,
     root: URL = URL(string: "https://webservices.ns.nl/")!)
@@ -56,66 +57,92 @@ final public class HttpXmlApiService: ApiService {
       config.shouldProcessLazily = true
     }
   }
-
-  public func stations() -> Promise<StationsResponse, Error> {
-    let url = root.appendingPathComponent("ns-api-stations-v2")
-
-    let request = Alamofire.request(url, headers: credentials.header)
-      .validate()
-
-    print(request.debugDescription)
-
-    return request
-      .xmlPromise(xmlParser: xmlParser)
-      .map { (response: XMLIndexer) in
-        StationsResponse(stations: response["Stations"].children.flatMap { stationXml in
-          Station(fromXml: stationXml)
-        })
-      }
+  
+  private func xmlResponse(data: Data) -> XMLIndexer {
+    return xmlParser.parse(data)
   }
 
-  public func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+  public func stations() -> Promise<StationsResponse, ApiError> {
+    let url = root.appendingPathComponent("ns-api-stations-v2")
+    var request = URLRequest(url: url)
+    request.set(credentials: credentials)
+    
+    let promiseSource = PromiseSource<StationsResponse, ApiError>()
+    
+    let task = session.dataTask(with: request) { (data, response, error) in
+      if let error = error {
+        return promiseSource.reject(.external(error: error))
+      }
+      
+      guard let data = data else {
+        return promiseSource.reject(.noData)
+      }
+      
+      let xml = self.xmlResponse(data: data)
+      let response = StationsResponse(stations: xml["Stations"].children.flatMap { stationXml in
+        Station(fromXml: stationXml)
+      })
+      
+      promiseSource.resolve(response)
+    }
+    
+    task.resume()
+    
+    return promiseSource.promise
+  }
+
+  public func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ApiError> {
     guard let fromCode = adviceRequest.from?.code,
       let toCode = adviceRequest.to?.code
       else {
-        return Promise(error: ApiError.noFullRequest)
+        return Promise(error: .noFullRequest)
       }
 
-    let url = root.appendingPathComponent("ns-api-treinplanner")
-    let parameters = [
-      "fromStation": fromCode,
-      "toStation": toCode
+    guard var components = URLComponents(url: root.appendingPathComponent("ns-api-treinplanner"), resolvingAgainstBaseURL: true) else {
+      return Promise(error: .noFullRequest)
+    }
+    components.queryItems = [
+      URLQueryItem(name: "fromStation", value: fromCode),
+      URLQueryItem(name: "toStation", value: toCode)
     ]
-
-    let request = Alamofire.request(url, parameters: parameters, headers: credentials.header)
-      .validate()
-
-    print(request.debugDescription)
-
-    return request
-      .validate()
-      .xmlPromise(xmlParser: xmlParser)
-      .map { result in
-        AdvicesResult(advices: result["ReisMogelijkheden"].children.flatMap { mogelijkheden in
-          Advice(fromXml: mogelijkheden, request: AdviceRequestCodes(from: fromCode, to: toCode))
-        })
+    
+    guard let url = components.url else {
+      return Promise(error: .noFullRequest)
+    }
+    
+    var request = URLRequest(url: url)
+    request.set(credentials: credentials)
+    
+    let promiseSource = PromiseSource<AdvicesResult, ApiError>()
+    
+    let task = session.dataTask(with: request) { (data, response, error) in
+      if let error = error {
+        return promiseSource.reject(.external(error: error))
       }
+      
+      guard let data = data else {
+        return promiseSource.reject(.noData)
+      }
+      
+      let xml = self.xmlResponse(data: data)
+      let response = AdvicesResult(advices: xml["ReisMogelijkheden"].children.flatMap { mogelijkheden in
+        Advice(fromXml: mogelijkheden, request: AdviceRequestCodes(from: fromCode, to: toCode))
+      })
+      
+      promiseSource.resolve(response)
+    }
+    
+    task.resume()
+    
+    return promiseSource.promise
   }
 
-  public func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, Error> {
-    return Promise(error: ApiError.notImplemented)
+  public func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, ApiError> {
+    return Promise(error: .notImplemented)
   }
 
-  public func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, Error> {
-    return Promise(error: ApiError.notImplemented)
-  }
-}
-
-extension DataRequest {
-  func xmlPromise(xmlParser: SWXMLHash = SWXMLHash.config({ $0 })) -> Promise<XMLIndexer, Error> {
-    return responseStringPromise()
-      .mapError()
-      .map { result in xmlParser.parse(result.result) }
+  public func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ApiError> {
+    return Promise(error: .notImplemented)
   }
 }
 
@@ -156,5 +183,12 @@ extension Station {
     }
 
     self.type = type
+  }
+}
+
+extension URLRequest {
+  mutating func set(credentials: Credentials) {
+    let header = credentials.header
+    setValue(header.1, forHTTPHeaderField: header.0)
   }
 }

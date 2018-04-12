@@ -85,18 +85,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   private func requestPush() {
+    DispatchQueue.main.async { [weak self] in
+      UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+        if settings.authorizationStatus == .notDetermined {
+          let alert = UIAlertController(title: "Push Notificaties", message: "Deze app kan je een notificatie sturen wanneer je op het station aankomt, of als je op je eindbestemming aankomt. Wil je dit?", preferredStyle: .alert)
 
-    UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
-      if settings.authorizationStatus == .notDetermined {
-        let alert = UIAlertController(title: "Push Notificaties", message: "Deze app kan je een notificatie sturen wanneer je op het station aankomt, of als je op je eindbestemming aankomt. Wil je dit?", preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "Nu niet", style: .cancel, handler: { _ in
+            alert.dismiss(animated: true)
+          }))
 
-        alert.addAction(UIAlertAction(title: "Nu niet", style: .cancel, handler: { _ in
-          alert.dismiss(animated: true)
-        }))
-
-        alert.addAction(UIAlertAction(title: "Ja doe maar", style: .default, handler: { _ in
-          self?.requestAuthorization()
-        }))
+          alert.addAction(UIAlertAction(title: "Ja doe maar", style: .default, handler: { _ in
+            self?.requestAuthorization()
+          }))
+          
+          self?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
       }
     }
   }
