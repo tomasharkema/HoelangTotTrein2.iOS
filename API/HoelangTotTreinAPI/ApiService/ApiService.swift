@@ -12,12 +12,9 @@ import Promissum
 public protocol ApiService {
   func stations() -> Promise<StationsResponse, ApiError>
   func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ApiError>
-  func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, ApiError>
-  func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ApiError>
 }
 
 public enum ApiError: Error {
-  case notImplemented
   case noFullRequest
   case noData
   case external(error: Error)

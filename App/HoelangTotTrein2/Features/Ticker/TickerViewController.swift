@@ -20,7 +20,7 @@ class TickerViewController: ViewController {
   private var fromStation: Station?
   private var toStation: Station?
 
-  private let disposeBag = DisposeBag()
+  private let bag = DisposeBag()
   private var onScreenAdviceDisposable: Disposable?
 
   private var timer: Timer?
@@ -114,7 +114,7 @@ class TickerViewController: ViewController {
             self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
           })
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     App.travelService.currentAdviceObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -125,7 +125,7 @@ class TickerViewController: ViewController {
         assert(Thread.isMainThread)
         self?.currentAdvice = advice
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     App.travelService.currentAdviceObservable
       .distinctUntilChanged { $0 == $1 }
@@ -135,14 +135,14 @@ class TickerViewController: ViewController {
         self?.startTime = Date()
         self?.renderBackground()
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     App.travelService.nextAdviceObservable.asObservable()
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         self?.nextAdvice = advice
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     App.travelService.firstAdviceRequestObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -155,13 +155,13 @@ class TickerViewController: ViewController {
         self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
         self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     collectionView.rx.didScroll
       .subscribe(onNext: { [weak self] _ in
         _ = self?.notifyCurrentAdvice()
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
   }
 
   override func viewWillDisappear(_ animated: Bool) {

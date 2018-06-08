@@ -28,12 +28,6 @@ public struct GeofenceModel: Equatable, Codable {
   }
 }
 
-public func ==(lhs: GeofenceModel, rhs: GeofenceModel) -> Bool {
-  return lhs.type == rhs.type &&
-    lhs.stationName == rhs.stationName &&
-    lhs.stop == rhs.stop
-}
-
 public struct GeofenceModels {
   var geofenceModels: [GeofenceModel]
 }

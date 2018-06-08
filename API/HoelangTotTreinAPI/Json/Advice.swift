@@ -29,22 +29,10 @@ struct FareTimeJson: Equatable, Codable {
   public let actual: Double
 }
 
-public func ==(lhs: FareTime, rhs: FareTime) -> Bool {
-  return lhs.planned == rhs.planned && lhs.actual == rhs.actual
-}
-
-func ==(lhs: FareTimeJson, rhs: FareTimeJson) -> Bool {
-  return lhs.planned == rhs.planned && lhs.actual == rhs.actual
-}
-
 public struct Melding: Equatable, Codable {
   let id: String
   let ernstig: Bool
   let text: String
-}
-
-public func ==(lhs: Melding, rhs: Melding) -> Bool {
-  return lhs.id == rhs.id && lhs.ernstig == rhs.ernstig && lhs.text == rhs.text
 }
 
 public struct Stop: Equatable, Codable {
@@ -53,13 +41,7 @@ public struct Stop: Equatable, Codable {
   public let name: String
 }
 
-public func ==(lhs: Stop, rhs: Stop) -> Bool {
-  return lhs.time == rhs.time &&
-    lhs.spoor == rhs.spoor &&
-    lhs.name == rhs.name
-}
-
-public struct ReisDeel: Codable {
+public struct ReisDeel: Codable, Equatable {
   public let vervoerder: String
   public let vervoerType: String
   public let ritNummer: String?
@@ -83,7 +65,7 @@ public enum FareStatus: String, Codable {
   ]
 }
 
-public struct AdviceRequestCodes: Codable {
+public struct AdviceRequestCodes: Codable, Equatable {
   public let from: String
   public let to: String
 }
@@ -101,7 +83,9 @@ public struct Advice: Equatable, Codable {
   public func identifier() -> String {
     return "\(vertrek.planned.timeIntervalSince1970):\(aankomst.planned.timeIntervalSince1970):\(request.from):\(request.to)"
   }
-  
+}
+
+extension Advice {
   init(json: AdviceJson) {
     self.overstappen = json.overstappen
     self.vertrek = FareTime(json: json.vertrek)
@@ -111,25 +95,6 @@ public struct Advice: Equatable, Codable {
     self.vertrekVertraging = json.vertrekVertraging
     self.status = json.status
     self.request = json.request
-  }
-  
-  public init(overstappen: Int,
-              vertrek: FareTime,
-              aankomst: FareTime,
-              melding: Melding?,
-              reisDeel: [ReisDeel],
-              vertrekVertraging: String?,
-              status: FareStatus,
-              request: AdviceRequestCodes)
-  {
-    self.overstappen = overstappen
-    self.vertrek = vertrek
-    self.aankomst = aankomst
-    self.melding = melding
-    self.reisDeel = reisDeel
-    self.vertrekVertraging = vertrekVertraging
-    self.status = status
-    self.request = request
   }
 }
 
@@ -150,22 +115,6 @@ struct AdviceJson: Equatable, Codable {
 
 public typealias Advices = [Advice]
 typealias AdvicesJson = [AdviceJson]
-
-public func ==(lhs: Advice, rhs: Advice) -> Bool {
-  return lhs.overstappen == rhs.overstappen &&
-    lhs.vertrek == rhs.vertrek &&
-    lhs.melding == rhs.melding &&
-    lhs.vertrekVertraging == rhs.vertrekVertraging &&
-    lhs.status == rhs.status
-}
-
-func ==(lhs: AdviceJson, rhs: AdviceJson) -> Bool {
-  return lhs.overstappen == rhs.overstappen &&
-    lhs.vertrek == rhs.vertrek &&
-    lhs.melding == rhs.melding &&
-    lhs.vertrekVertraging == rhs.vertrekVertraging &&
-    lhs.status == rhs.status
-}
 
 struct AdvicesResultJson: Codable {
   public let advices: AdvicesJson
@@ -250,7 +199,7 @@ extension Advice {
     self.vertrek = FareTime(planned: vertrekDate,
                             actual: actueelVertrekDate)
     self.aankomst = FareTime(planned: aankomstDate,
-                             actual: actueelVertrekDate)
+                             actual: actueelAankomstDate)
 
     self.melding = (xml["Melding"].element?.text).map {
       Melding(id: "", ernstig: false, text: $0)

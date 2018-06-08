@@ -273,17 +273,7 @@ public class TravelService: NSObject {
         }
       }
 
-    let registerPromise: Promise<SuccessResult, Error> = correctedAdviceRequest
-      .mapError { $0 as Error }
-      .flatMap { advice in
-        guard let from = advice.from, let to = advice.to else {
-          return Promise(error: TravelServiceError.notChanged)
-        }
-        return self.apiService.registerForNotification(self.dataStore.userId, from: from, to: to)
-          .mapError { $0 as Error }
-      }
-
-    return registerPromise.mapVoid()
+    return correctedAdviceRequest.mapVoid()
   }
   
   public func setStation(_ state: PickerState, stationName: String, byPicker: Bool = false) -> Promise<Void, Error> {

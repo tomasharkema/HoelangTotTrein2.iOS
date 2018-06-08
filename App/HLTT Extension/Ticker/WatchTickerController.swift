@@ -13,13 +13,7 @@ import HoelangTotTreinAPIWatch
 import HoelangTotTreinCoreWatch
 import RxSwift
 
-func formatTime(_ date: Date) -> String {
-  let format = DateFormatter()
-  format.dateFormat = "HH:mm"
-  return format.string(from: date)
-}
-
-class InterfaceController: WKInterfaceController {
+class WatchTickerController: WKInterfaceController {
 
   @IBOutlet private var platformLabel: WKInterfaceLabel!
   @IBOutlet private var fromButton: WKInterfaceButton!
@@ -29,7 +23,8 @@ class InterfaceController: WKInterfaceController {
   @IBOutlet private var loadingLabel: WKInterfaceLabel!
   @IBOutlet private var delayLabel: WKInterfaceLabel!
 
-  private var disposeBag: DisposeBag!
+  private var bag: DisposeBag!
+
   private var oneMinuteToGoTimer: Timer?
 
   override func awake(withContext context: Any?) {
@@ -38,7 +33,7 @@ class InterfaceController: WKInterfaceController {
   }
 
   override func willActivate() {
-    // This method is called when watch view controller is about to be visible to user
+    super.willActivate()
 
     (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
       print("INITIAL STATE WITH: \(error)")
@@ -48,7 +43,7 @@ class InterfaceController: WKInterfaceController {
     WatchApp.travelService.attach()
     _ = WatchApp.travelService.fetchStations()
 
-    disposeBag = DisposeBag()
+    bag = DisposeBag()
 
     Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
       .observeOn(MainScheduler.asyncInstance)
@@ -56,17 +51,15 @@ class InterfaceController: WKInterfaceController {
         guard let advice = advice else { return }
         self?.adviceDidChange(advice: advice)
       })
-      .disposed(by: disposeBag)
-
-    super.willActivate()
+      .disposed(by: bag)
   }
 
   override func didDeactivate() {
-    disposeBag = nil
     super.didDeactivate()
+    bag = nil
   }
 
-  var previousAdvice: Advice?
+  private var previousAdvice: Advice?
 
   private func adviceDidChange(advice: Advice?) {
     guard let advice = advice else {
@@ -109,5 +102,11 @@ class InterfaceController: WKInterfaceController {
 
   @objc func oneMinuteToGo() {
     WKInterfaceDevice.current().play(.directionUp)
+  }
+
+  private func formatTime(_ date: Date) -> String {
+    let format = DateFormatter()
+    format.dateFormat = "HH:mm"
+    return format.string(from: date)
   }
 }

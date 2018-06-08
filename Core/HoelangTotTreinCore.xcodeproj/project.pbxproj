@@ -52,6 +52,8 @@
 		C38335E71EAA37D400A9E077 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E41EAA37D400A9E077 /* DataStore.swift */; };
 		C38335E81EAA37D400A9E077 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335E41EAA37D400A9E077 /* DataStore.swift */; };
 		F5BBE6F99260597FC4E38F6E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2152BD725B1728E9F39F90FA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinCore.framework */; };
+		FFE1B27520CAF1A5007BEE6E /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1B27420CAF1A5007BEE6E /* TickerViewModel.swift */; };
+		FFE1B27620CAF1B0007BEE6E /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1B27420CAF1A5007BEE6E /* TickerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,7 @@
 		C38335E31EAA37D400A9E077 /* AppDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataStore.swift; sourceTree = "<group>"; };
 		C38335E41EAA37D400A9E077 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		D115D95C547E554F036E4207 /* Pods_HoelangTotTreinCoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinCoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFE1B27420CAF1A5007BEE6E /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,7 @@
 		C37537FA1E9916190047108C /* HoelangTotTreinCore */ = {
 			isa = PBXGroup;
 			children = (
+				FFE1B27220CAF190007BEE6E /* ViewModel */,
 				C38335CE1EAA365B00A9E077 /* DataStore */,
 				C37538281E991D640047108C /* Model */,
 				C37538231E991C630047108C /* Extensions */,
@@ -282,6 +286,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FFE1B27220CAF190007BEE6E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1B27320CAF196007BEE6E /* Ticker */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FFE1B27320CAF196007BEE6E /* Ticker */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1B27420CAF1A5007BEE6E /* TickerViewModel.swift */,
+			);
+			path = Ticker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -313,7 +333,6 @@
 				C37537F41E9916190047108C /* Frameworks */,
 				C37537F51E9916190047108C /* Headers */,
 				C37537F61E9916190047108C /* Resources */,
-				EB7C9335ED62CD7DA707F8B6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -333,7 +352,6 @@
 				C37537FE1E9916190047108C /* Frameworks */,
 				C37537FF1E9916190047108C /* Resources */,
 				EACC30A99D536B90F269475E /* [CP] Embed Pods Frameworks */,
-				275396B8E905DCCE4DCCFF01 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,7 +372,6 @@
 				C375384E1E9923340047108C /* Frameworks */,
 				C375384F1E9923340047108C /* Headers */,
 				C37538501E9923340047108C /* Resources */,
-				47EBF7E4ACF280C972E01795 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -457,36 +474,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		275396B8E905DCCE4DCCFF01 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinCoreTests/Pods-HoelangTotTreinCoreTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		47EBF7E4ACF280C972E01795 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinCoreWatch-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4F4178D9D600FFA8DCAD8A00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,6 +519,7 @@
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinCoreTests/Pods-HoelangTotTreinCoreTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
+				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
@@ -540,6 +528,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
@@ -547,21 +536,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinCoreTests/Pods-HoelangTotTreinCoreTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB7C9335ED62CD7DA707F8B6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinCore/Pods-HoelangTotTrein2Pods-HoelangTotTreinCore-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -577,6 +551,7 @@
 				C37538271E991CC70047108C /* Advice+Services.swift in Sources */,
 				C38335E11EAA37A000A9E077 /* AppDataStore+UserDefaults.swift in Sources */,
 				C375382A1E991D720047108C /* TravelEvent.swift in Sources */,
+				FFE1B27520CAF1A5007BEE6E /* TickerViewModel.swift in Sources */,
 				C38335E71EAA37D400A9E077 /* DataStore.swift in Sources */,
 				C37538321E991EBC0047108C /* PickerState.swift in Sources */,
 				C375382E1E991DB40047108C /* Array+Helpers.swift in Sources */,
@@ -611,6 +586,7 @@
 				C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
 				C38335E61EAA37D400A9E077 /* AppDataStore.swift in Sources */,
 				C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */,
+				FFE1B27620CAF1B0007BEE6E /* TickerViewModel.swift in Sources */,
 				C375385A1E99233A0047108C /* TravelEvent.swift in Sources */,
 				C37538601E99233D0047108C /* Observable+FilterOptional.swift in Sources */,
 				C38335D21EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */,
@@ -811,7 +787,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -826,7 +802,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.harkema.HoelangTotTreinCoreTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

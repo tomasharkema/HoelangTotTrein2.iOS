@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  private var disposeBag = DisposeBag()
+  private var bag = DisposeBag()
   
   internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     Fabric.with([Crashlytics.self])
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       .subscribe(onNext: { _ in
         completionHandler(.newData)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     guard let message = userInfo["message"] as? String else {
       return

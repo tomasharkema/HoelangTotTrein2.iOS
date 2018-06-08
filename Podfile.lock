@@ -1,50 +1,79 @@
 PODS:
   - AFDateHelper (4.2.7)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
-  - Fabric (1.7.2)
-  - Promissum (2.1.0):
-    - Promissum/Core (= 2.1.0)
-  - Promissum/Core (2.1.0)
+  - Bindable/Core (0.4.1)
+  - Bindable/NSObject (0.4.1):
+    - Bindable/Core
+  - Crashlytics (3.10.2):
+    - Fabric (~> 1.7.7)
+  - Fabric (1.7.7)
+  - Promissum (2.2.0):
+    - Promissum/Core (= 2.2.0)
+  - Promissum/Core (2.2.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
-  - RxCocoa (4.0.0):
+  - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
-  - RxSwift (4.0.0)
-  - RxTest (4.0.0):
+  - RxSwift (4.1.2)
+  - RxTest (4.1.2):
     - RxSwift (~> 4.0)
-  - SegueManager/iOS (3.1.0)
-  - SegueManager/R.swift (3.1.0):
+  - SegueManager/iOS (4.0.0)
+  - SegueManager/R.swift (4.0.0):
     - R.swift.Library
     - SegueManager/iOS
-  - SWXMLHash (4.2.5)
+  - SWXMLHash (4.7.0)
 
 DEPENDENCIES:
   - AFDateHelper
+  - Bindable/NSObject (from `https://github.com/tomasharkema/Bindable.git`, branch `feature/watchos`)
   - Crashlytics
   - Fabric
   - Promissum
   - R.swift
   - RxCocoa
-  - RxSwift (~> 4.0)
+  - RxSwift
   - RxTest
   - SegueManager/R.swift
   - SWXMLHash
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFDateHelper
+    - Crashlytics
+    - Fabric
+    - Promissum
+    - R.swift
+    - R.swift.Library
+    - RxCocoa
+    - RxSwift
+    - RxTest
+    - SegueManager
+    - SWXMLHash
+
+EXTERNAL SOURCES:
+  Bindable:
+    :branch: feature/watchos
+    :git: https://github.com/tomasharkema/Bindable.git
+
+CHECKOUT OPTIONS:
+  Bindable:
+    :commit: 95b8d93019908184b945db52051bdde7ce43b14c
+    :git: https://github.com/tomasharkema/Bindable.git
+
 SPEC CHECKSUMS:
   AFDateHelper: 4ad66fb19503041fbba8a3018cb7ef9c71b2ff88
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
-  Promissum: 48b40e6b76b652fcdf6f9d0fe7e0c261e5a806bb
+  Bindable: 65843743d12b98b14c7193d512e7c8ace0cfdbcb
+  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
+  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
+  Promissum: e6a61175984d7ac4e51853644dd48e86b3446949
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
-  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
-  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
-  RxTest: 0041e792cede35e53e4749f378d21482af0e9d12
-  SegueManager: 553e2047fd9a83f0cdcc8038adbdfc28e278e2d9
-  SWXMLHash: eb16013c6f654853980822e0a778c9d66e017dde
+  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
+  SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
+  SWXMLHash: f4522438189f72b41e39676d19469a8969d60dd1
 
-PODFILE CHECKSUM: 8f08f7427c897308ee2fbc66759b799e9f9705cb
+PODFILE CHECKSUM: 2d6754658acb08d6a6338ebc91ff9bcb6f8ff216
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

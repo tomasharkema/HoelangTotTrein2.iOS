@@ -40,7 +40,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   private var ordinaryStations: [Station]?
   private var searchResults: [Station]?
 
-  private let disposeBag = DisposeBag()
+  private let bag = DisposeBag()
 
   var isSearching: Bool {
     return searchField.text ?? "" != ""
@@ -74,7 +74,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.ordinaryStations = stations
         self?.tableView.reloadData()
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
 
     App.travelService.mostUsedStationsObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -83,7 +83,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.mostUsedStations = Array(stations.prefix(5))
         self?.tableView.reloadData()
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
   }
 
   func search(_ string: String) {

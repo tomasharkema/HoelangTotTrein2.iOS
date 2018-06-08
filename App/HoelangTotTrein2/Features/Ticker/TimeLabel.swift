@@ -86,7 +86,7 @@ enum TimeFormat {
 
 class TimeLabel: UILabel {
 
-  private var disposeBag: DisposeBag?
+  private var bag: DisposeBag?
 
   var autoStart = true
   var goNegative = false

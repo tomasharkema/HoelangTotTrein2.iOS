@@ -254,7 +254,6 @@
 				C30B402C1E98EE7400D99541 /* Frameworks */,
 				C30B402D1E98EE7400D99541 /* Headers */,
 				C30B402E1E98EE7400D99541 /* Resources */,
-				472359A52C99E2814FED2085 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,7 +273,6 @@
 				C30B40361E98EE7400D99541 /* Frameworks */,
 				C30B40371E98EE7400D99541 /* Resources */,
 				2F0641884F7648C130855D44 /* [CP] Embed Pods Frameworks */,
-				8778281AF944F983635155A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -295,7 +293,6 @@
 				C30B40791E98F68F00D99541 /* Frameworks */,
 				C30B407A1E98F68F00D99541 /* Headers */,
 				C30B407B1E98F68F00D99541 /* Resources */,
-				D0DB044604DA81AFD720605C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,6 +383,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
@@ -393,6 +391,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -401,36 +400,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		472359A52C99E2814FED2085 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8778281AF944F983635155A0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		93DBA93C0E8276CD671C19E5 /* [CP] Check Pods Manifest.lock */ = {
@@ -467,21 +436,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D0DB044604DA81AFD720605C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD22646F7ECFE8EFC149E654 /* [CP] Check Pods Manifest.lock */ = {

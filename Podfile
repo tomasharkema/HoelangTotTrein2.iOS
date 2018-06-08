@@ -6,9 +6,10 @@ abstract_target 'HoelangTotTrein2Pods' do
 
 	pod 'Promissum'
 
-	pod 'RxSwift', '~> 4.0'
+	pod 'RxSwift'
 	pod 'RxCocoa'
   pod 'SWXMLHash'
+  pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
@@ -55,8 +56,9 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	platform :watchos, '3.0'
 
 	pod 'Promissum'
-	pod 'RxSwift', '~> 4.0'
+	pod 'RxSwift'
   pod 'SWXMLHash'
+  pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
 
 	target 'HLTT Extension' do
 		project 'App/HoelangTotTrein2.xcodeproj'
@@ -71,3 +73,12 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	end
 end
 
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'R.swift.Library' || target.name == 'R.swift' || target.name == 'RxCocoa'
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = '4.0'
+      end
+    end
+  end
+end

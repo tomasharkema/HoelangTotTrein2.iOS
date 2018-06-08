@@ -74,7 +74,7 @@
 		C3894E2C1E91307800C6FCE2 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */; };
 		C3894E2D1E91307A00C6FCE2 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E61CC767FA002893B3 /* NotificationController.swift */; };
 		C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
-		C3894E2F1E91307E00C6FCE2 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* InterfaceController.swift */; };
+		C3894E2F1E91307E00C6FCE2 /* WatchTickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* WatchTickerController.swift */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
@@ -311,7 +311,7 @@
 		C3FD07D41CC767FA002893B3 /* HLTTAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HLTTAssets.xcassets; sourceTree = "<group>"; };
 		C3FD07D61CC767FA002893B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3FD07E11CC767FA002893B3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		C3FD07E21CC767FA002893B3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		C3FD07E21CC767FA002893B3 /* WatchTickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTickerController.swift; sourceTree = "<group>"; };
 		C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		C3FD07E61CC767FA002893B3 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -648,13 +648,13 @@
 		C3FD07DF1CC767FA002893B3 /* HLTT Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FF3D0C0420CAA10B00C9B5A6 /* Ticker */,
 				C3FD07E01CC767FA002893B3 /* Supporting Files */,
 				C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */,
 				C3FD07EC1CC767FA002893B3 /* ExtensionAssets.xcassets */,
 				C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */,
 				C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */,
 				C3FD07EE1CC767FA002893B3 /* Info.plist */,
-				C3FD07E21CC767FA002893B3 /* InterfaceController.swift */,
 				C3FD07E61CC767FA002893B3 /* NotificationController.swift */,
 				C38335B51EAA321E00A9E077 /* WatchApp.swift */,
 			);
@@ -669,6 +669,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FF3D0C0420CAA10B00C9B5A6 /* Ticker */ = {
+			isa = PBXGroup;
+			children = (
+				C3FD07E21CC767FA002893B3 /* WatchTickerController.swift */,
+			);
+			path = Ticker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -680,7 +688,6 @@
 				C322168B1EEB212400BC2745 /* Sources */,
 				C322168C1EEB212400BC2745 /* Frameworks */,
 				C322168D1EEB212400BC2745 /* Resources */,
-				7212CE03406F9F8A15D25058 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -699,7 +706,6 @@
 				C38335811EA932A700A9E077 /* Sources */,
 				C38335821EA932A700A9E077 /* Frameworks */,
 				C38335831EA932A700A9E077 /* Resources */,
-				5DC845BD27F5D5CD32A71438 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -737,7 +743,6 @@
 				C3894E0C1E912FAB00C6FCE2 /* Frameworks */,
 				C3894E0D1E912FAB00C6FCE2 /* Resources */,
 				0C347D9F4DE8D8EAC6A9A2DD /* [CP] Embed Pods Frameworks */,
-				619D5430076678C3467D6A75 /* [CP] Copy Pods Resources */,
 				C30B408D1E98F6C700D99541 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -761,7 +766,6 @@
 				C3894E2B1E912FAB00C6FCE2 /* Embed Watch Content */,
 				C30B40701E98F5CD00D99541 /* Embed Frameworks */,
 				D7E69BAEFC50F1D05969C461 /* [CP] Embed Pods Frameworks */,
-				C872988A50BD0C92D9CF7D8A /* [CP] Copy Pods Resources */,
 				C38335951EA932A700A9E077 /* Embed App Extensions */,
 				FFC0C73F1F3C515200A49942 /* ShellScript */,
 			);
@@ -785,8 +789,6 @@
 				C3E847621BB82A01007D17C3 /* Sources */,
 				C3E847631BB82A01007D17C3 /* Frameworks */,
 				C3E847641BB82A01007D17C3 /* Resources */,
-				E0CF916409DA9C4FC73D2BA8 /* [CP] Embed Pods Frameworks */,
-				0550A9DF5256D569688C73F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1026,21 +1028,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0550A9DF5256D569688C73F8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Tests/Pods-HoelangTotTrein2Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0C347D9F4DE8D8EAC6A9A2DD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1048,12 +1035,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bindable-watchOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-watchOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-watchOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-watchOS/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
@@ -1079,51 +1068,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5DC845BD27F5D5CD32A71438 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Widget/Pods-Widget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		619D5430076678C3467D6A75 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7212CE03406F9F8A15D25058 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7732E2E737D80F980C04EA51 /* [CP] Check Pods Manifest.lock */ = {
@@ -1193,24 +1137,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/HoelangTotTrein2\"";
 		};
-		C872988A50BD0C92D9CF7D8A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/HockeySDK/HockeySDKResources.bundle,
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D7E69BAEFC50F1D05969C461 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1219,6 +1145,7 @@
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
+				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -1229,6 +1156,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -1239,21 +1167,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E0CF916409DA9C4FC73D2BA8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Tests/Pods-HoelangTotTrein2Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ECF51089AB90EE2F1F3365A8 /* [CP] Check Pods Manifest.lock */ = {
@@ -1314,7 +1227,7 @@
 			files = (
 				C38335B61EAA321E00A9E077 /* WatchApp.swift in Sources */,
 				C3894E2D1E91307A00C6FCE2 /* NotificationController.swift in Sources */,
-				C3894E2F1E91307E00C6FCE2 /* InterfaceController.swift in Sources */,
+				C3894E2F1E91307E00C6FCE2 /* WatchTickerController.swift in Sources */,
 				C3894E2C1E91307800C6FCE2 /* ComplicationController.swift in Sources */,
 				C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */,
 			);

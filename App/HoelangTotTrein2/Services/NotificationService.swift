@@ -115,24 +115,4 @@ class NotificationService {
       })
       .disposed(by: disposeBag)
   }
-
-  func register(token deviceToken: Data) {
-    #if RELEASE
-      let env = "production"
-    #else
-      let env = "sandbox"
-    #endif
-    var token = ""
-    for i in 0..<deviceToken.count {
-      token = token + String(format: "%02.2hhx", arguments: [deviceToken[i]])
-    }
-
-    apiService.registerForNotification(dataStore.userId, env: env, pushUUID: token)
-      .then {
-        print("ApiService did registerForNotification \($0)")
-      }
-      .trap {
-        print($0)
-    }
-  }
 }

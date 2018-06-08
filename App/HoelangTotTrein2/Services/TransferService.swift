@@ -21,7 +21,7 @@ class TransferService: NSObject {
   private let dataStore: DataStore
   private let locationManager = CLLocationManager()
 
-  private let disposeBag = DisposeBag()
+  private let bag = DisposeBag()
   
   private let queue = DispatchQueue(label: "TransferService", attributes: .concurrent)
   private lazy var scheduler: ConcurrentDispatchQueueScheduler = {
@@ -50,7 +50,7 @@ class TransferService: NSObject {
 
         self.updateGeofences(for: advices)
       })
-      .disposed(by: disposeBag)
+      .disposed(by: bag)
   }
 
   private func getStationNames(from advice: Advice) -> Set<String> {

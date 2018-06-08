@@ -136,14 +136,6 @@ final public class HttpXmlApiService: ApiService {
     
     return promiseSource.promise
   }
-
-  public func registerForNotification(_ userId: String, from: Station, to: Station) -> Promise<SuccessResult, ApiError> {
-    return Promise(error: .notImplemented)
-  }
-
-  public func registerForNotification(_ userId: String, env: String, pushUUID: String) -> Promise<SuccessResult, ApiError> {
-    return Promise(error: .notImplemented)
-  }
 }
 
 extension Station {

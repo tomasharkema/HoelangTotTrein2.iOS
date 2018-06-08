@@ -21,10 +21,6 @@ struct SignificantLocation: Equatable {
   let neighbouringStations: [Station]
 }
 
-func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
-  return lhs.location == rhs.location
-}
-
 public class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 
   let manager: CLLocationManager
