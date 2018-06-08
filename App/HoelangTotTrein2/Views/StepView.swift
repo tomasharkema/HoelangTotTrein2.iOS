@@ -9,19 +9,12 @@
 import UIKit
 
 struct StepViewModel {
-//
-//  enum Type {
-//    case Begin
-//    case End
-//  }
-
   let fromStation: String
   let toStation: String
   let fromSpoor: String
   let toSpoor: String
   let fromTime: String
   let toTime: String
-//  let type: Type
 }
 
 class StepView: UIView {
@@ -38,9 +31,11 @@ class StepView: UIView {
       fromStationLabel.text = viewModel.fromStation
       fromSpoorLabel.text = viewModel.fromSpoor
       fromTime.text = viewModel.fromTime
+      fromTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)
       toStationLabel.text = viewModel.toStation
       toSpoorLabel.text = viewModel.toSpoor
       toTime.text = viewModel.toTime
+      toTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)
     }
   }
 

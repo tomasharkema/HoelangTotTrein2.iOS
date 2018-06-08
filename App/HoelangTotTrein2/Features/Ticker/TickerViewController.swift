@@ -79,7 +79,9 @@ class TickerViewController: ViewController {
           return true
         case (.loaded(let lhsValue), .loaded(let rhsValue)):
           return lhsValue == rhsValue
-        default:
+        case (.loading, _):
+          return false
+        case (.loaded, _):
           return false
         }
       }

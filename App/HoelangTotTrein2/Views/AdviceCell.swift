@@ -31,6 +31,9 @@ class AdviceCell: UICollectionViewCell {
     didSet {
       renderInfo()
 
+      minutesLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 150, weight: .thin)
+      secondsLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .thin)
+
       if let date = advice?.vertrek.actual, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
         minutesLabel.format = [.m]
         secondsLabel.format = [.s]

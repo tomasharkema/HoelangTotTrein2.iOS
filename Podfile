@@ -8,19 +8,18 @@ abstract_target 'HoelangTotTrein2Pods' do
 
 	pod 'RxSwift', '~> 4.0'
 	pod 'RxCocoa'
-  	pod 'SWXMLHash'
+  pod 'SWXMLHash'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
     platform :ios, '10.0'
 		project 'App/HoelangTotTrein2.xcodeproj'
 
-		# pod 'HockeySDK'
 		pod 'R.swift'
 		pod 'SegueManager/R.swift'
 		pod 'AFDateHelper'
-    	pod 'Fabric'
-    	pod 'Crashlytics'
+    pod 'Fabric'
+    pod 'Crashlytics'
 
 		target 'HoelangTotTrein2Tests' do
 			inherit! :search_paths
@@ -57,7 +56,7 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 
 	pod 'Promissum'
 	pod 'RxSwift', '~> 4.0'
-  	pod 'SWXMLHash'
+  pod 'SWXMLHash'
 
 	target 'HLTT Extension' do
 		project 'App/HoelangTotTrein2.xcodeproj'
