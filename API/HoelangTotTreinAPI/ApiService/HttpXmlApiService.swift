@@ -79,7 +79,7 @@ final public class HttpXmlApiService: ApiService {
       }
       
       let xml = self.xmlResponse(data: data)
-      let response = StationsResponse(stations: xml["Stations"].children.flatMap { stationXml in
+      let response = StationsResponse(stations: xml["Stations"].children.compactMap { stationXml in
         Station(fromXml: stationXml)
       })
       
@@ -125,7 +125,7 @@ final public class HttpXmlApiService: ApiService {
       }
       
       let xml = self.xmlResponse(data: data)
-      let response = AdvicesResult(advices: xml["ReisMogelijkheden"].children.flatMap { mogelijkheden in
+      let response = AdvicesResult(advices: xml["ReisMogelijkheden"].children.compactMap { mogelijkheden in
         Advice(fromXml: mogelijkheden, request: AdviceRequestCodes(from: fromCode, to: toCode))
       })
       

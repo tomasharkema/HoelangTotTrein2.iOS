@@ -50,7 +50,7 @@ class TransferService: NSObject {
 
         self.updateGeofences(for: advices)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
   }
 
   private func getStationNames(from advice: Advice) -> Set<String> {
@@ -81,7 +81,7 @@ class TransferService: NSObject {
       self.resetGeofences()
       stations.forEach { self.updateGeofence(for: $0) }
     }
-    let ritNummers = advices.flatMap { $0.reisDeel.first }.flatMap { $0.ritNummer }
+    let ritNummers = advices.compactMap { $0.reisDeel.first }.compactMap { $0.ritNummer }
     dataStore.firstLegRitNummers = ritNummers
   }
   

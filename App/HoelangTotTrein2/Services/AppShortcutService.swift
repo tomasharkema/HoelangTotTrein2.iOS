@@ -25,7 +25,7 @@ class AppShortcutService {
       .subscribe(onNext: { stations in
         self.showAppShortcuts(forStations: stations)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
   }
 
   private func showAppShortcuts(forStations stations: [Station]) {
@@ -35,7 +35,7 @@ class AppShortcutService {
 
     let shortcuts: [UIApplicationShortcutItem] = firstStations.map { station in
       let icon = UIApplicationShortcutIcon(type: .favorite)
-      return UIMutableApplicationShortcutItem(type: "nl.tomasharkema.HoelangTotTrein.stationshortcut", localizedTitle: station.name, localizedSubtitle: nil, icon: icon, userInfo: ["stationCode": station.code])
+      return UIMutableApplicationShortcutItem(type: "nl.tomasharkema.HoelangTotTrein.stationshortcut", localizedTitle: station.name, localizedSubtitle: nil, icon: icon, userInfo: ["stationCode": station.code as NSSecureCoding])
     }
 
     UIApplication.shared.shortcutItems = shortcuts

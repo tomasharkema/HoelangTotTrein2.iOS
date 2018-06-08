@@ -57,7 +57,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
 
     currentStation.text = state.description
 
-    searchField.attributedPlaceholder = NSAttributedString(string: R.string.localization.search(), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.4)])
+    searchField.attributedPlaceholder = NSAttributedString(string: R.string.localization.search(), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.4)])
 
     App.travelService.getCloseStations()
       .dispatchMain()
@@ -74,7 +74,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.ordinaryStations = stations
         self?.tableView.reloadData()
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
 
     App.travelService.mostUsedStationsObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -83,7 +83,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.mostUsedStations = Array(stations.prefix(5))
         self?.tableView.reloadData()
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
   }
 
   func search(_ string: String) {

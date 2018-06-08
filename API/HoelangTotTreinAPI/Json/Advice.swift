@@ -256,7 +256,7 @@ extension Advice {
       Melding(id: "", ernstig: false, text: $0)
     }
 
-    self.reisDeel = xml["ReisDeel"].all.flatMap { deel in
+    self.reisDeel = xml["ReisDeel"].all.compactMap { deel in
       ReisDeel(fromXml: deel)
     }
     self.vertrekVertraging = nil
@@ -288,7 +288,7 @@ extension ReisDeel {
 
     self.ritNummer = xml["RitNummer"].element?.text
     
-    self.stops = xml["ReisStop"].all.flatMap {
+    self.stops = xml["ReisStop"].all.compactMap {
       Stop(fromXml: $0)
     }
   }

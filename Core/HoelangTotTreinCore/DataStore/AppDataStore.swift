@@ -87,7 +87,7 @@ extension AppDataStore {
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
       fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
       do {
-        promiseSource.resolve(try context.fetch(fetchRequest).flatMap({ Station(record: $0)}))
+        promiseSource.resolve(try context.fetch(fetchRequest).compactMap({ Station(record: $0)}))
       } catch {
         promiseSource.reject(error)
       }
@@ -183,7 +183,7 @@ extension AppDataStore {
       fetchRequest.predicate = NSPredicate(format: "lat > %f AND lat < %f AND lon > %f AND lon < %f", bounds.latmin, bounds.latmax, bounds.lonmin, bounds.lonmax)
 
       do {
-        promiseSource.resolve(try context.fetch(fetchRequest).flatMap { Station(record: $0) })
+        promiseSource.resolve(try context.fetch(fetchRequest).compactMap { Station(record: $0) })
       } catch {
         promiseSource.reject(error)
       }
@@ -200,7 +200,7 @@ extension AppDataStore {
       fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
       
       do {
-        promiseSource.resolve(try context.fetch(fetchRequest).flatMap { Station(record: $0) })
+        promiseSource.resolve(try context.fetch(fetchRequest).compactMap { Station(record: $0) })
       } catch {
         promiseSource.reject(error)
       }
@@ -270,7 +270,7 @@ extension AppDataStore {
         }
 
         let arr = results
-          .flatMap { dict -> (String, Int)? in
+          .compactMap { dict -> (String, Int)? in
             guard let code = dict["stationCode"] as? String,
               let count = dict["count"] as? Int
               else { return nil }

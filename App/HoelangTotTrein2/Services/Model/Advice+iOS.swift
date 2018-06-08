@@ -12,7 +12,7 @@ import HoelangTotTreinAPI
 
 extension Advice {
   var stepModels: [StepViewModel] {
-    return reisDeel.flatMap { item in
+    return reisDeel.compactMap { item in
       if let from = item.stops.first, let to = item.stops.last {
         return StepViewModel(
           fromStation: from.name,

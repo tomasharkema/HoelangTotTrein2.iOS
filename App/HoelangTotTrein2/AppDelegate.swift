@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   private var disposeBag = DisposeBag()
   
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+  internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     Fabric.with([Crashlytics.self])
 
     App.storageAttachment.attach()
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       .subscribe(onNext: { _ in
         completionHandler(.newData)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
 
     guard let message = userInfo["message"] as? String else {
       return

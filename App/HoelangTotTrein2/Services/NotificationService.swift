@@ -35,7 +35,7 @@ class NotificationService {
     if let userInfo = userInfo {
       content.userInfo = userInfo
     }
-    content.sound = UNNotificationSound.default()
+    content.sound = UNNotificationSound.default
 
     let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
@@ -113,7 +113,7 @@ class NotificationService {
       .subscribe(onNext: { geofenceModel in
         self.notify(for: geofenceModel)
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
   }
 
   func register(token deviceToken: Data) {

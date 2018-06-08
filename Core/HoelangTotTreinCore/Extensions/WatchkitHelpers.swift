@@ -10,14 +10,12 @@ import Foundation
 import WatchConnectivity
 import Promissum
 
-#if os(watchOS)
-  import HoelangTotTreinAPIWatch
-  import HoelangTotTreinCoreWatch
-#elseif os(iOS)
-  import HoelangTotTreinAPI
-  import HoelangTotTreinCore
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
 #endif
-
+#if canImport(HoelangTotTreinAPI)
+import HoelangTotTreinAPI
+#endif
 
 extension WCSession {
   func sendEvent(_ event: TravelEvent) {

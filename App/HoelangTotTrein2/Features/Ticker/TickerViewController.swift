@@ -68,8 +68,8 @@ class TickerViewController: ViewController {
     collectionView.backgroundColor = UIColor.clear
 
     App.travelService.startTimer()
-    NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
     App.travelService.currentAdvicesObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -113,7 +113,8 @@ class TickerViewController: ViewController {
             self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
             self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
           })
-      }).addDisposableTo(disposeBag)
+      })
+      .disposed(by: disposeBag)
 
     App.travelService.currentAdviceObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -123,7 +124,8 @@ class TickerViewController: ViewController {
         }
         assert(Thread.isMainThread)
         self?.currentAdvice = advice
-      }).addDisposableTo(disposeBag)
+      })
+      .disposed(by: disposeBag)
 
     App.travelService.currentAdviceObservable
       .distinctUntilChanged { $0 == $1 }
@@ -133,13 +135,14 @@ class TickerViewController: ViewController {
         self?.startTime = Date()
         self?.renderBackground()
       })
-      .addDisposableTo(disposeBag)
+      .disposed(by: disposeBag)
 
     App.travelService.nextAdviceObservable.asObservable()
       .observeOn(MainScheduler.asyncInstance)
       .subscribe(onNext: { [weak self] advice in
         self?.nextAdvice = advice
-      }).addDisposableTo(disposeBag)
+      })
+      .disposed(by: disposeBag)
 
     App.travelService.firstAdviceRequestObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -151,12 +154,14 @@ class TickerViewController: ViewController {
         self?.toStation = adviceRequest.to
         self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
         self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
-      }).addDisposableTo(disposeBag)
+      })
+      .disposed(by: disposeBag)
 
     collectionView.rx.didScroll
       .subscribe(onNext: { [weak self] _ in
         _ = self?.notifyCurrentAdvice()
-      }).addDisposableTo(disposeBag)
+      })
+      .disposed(by: disposeBag)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
