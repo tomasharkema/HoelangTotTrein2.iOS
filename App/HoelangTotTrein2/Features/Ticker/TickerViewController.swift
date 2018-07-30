@@ -13,6 +13,7 @@ import RxSwift
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
+
 class TickerViewController: ViewController {
 
   private let AnimationInterval: TimeInterval = 2
@@ -23,7 +24,6 @@ class TickerViewController: ViewController {
   private let bag = DisposeBag()
   private var onScreenAdviceDisposable: Disposable?
 
-  private var timer: Timer?
   private var currentAdvice: Advice?
 
   private var nextAdvice: Advice?
@@ -49,27 +49,36 @@ class TickerViewController: ViewController {
   @IBOutlet private weak var nextViewBlur: UIVisualEffectView!
   @IBOutlet private weak var nextDelayLabel: UILabel!
 
+  private var renderBackgroundToken: HeartBeat.Token?
+
+
+  private let viewModel = ListTickerViewModel(travelService: App.travelService)
+
   override func viewDidLoad() {
     super.viewDidLoad()
     dataSource = TickerDataSource(advices: [], collectionView: collectionView)
 
     fromIndicatorLabel.text = R.string.localization.fromStation()
     toIndicatorLabel.text = R.string.localization.toStation()
+
+    viewModel.fromIndicator.subscribe { [fromButton] variable in
+      fromButton?.setTitle(variable.value, for: .normal)
+    }.disposed(by: disposeBag)
+    fromButton.setTitle(viewModel.fromIndicator.value, for: .normal)
+
+    viewModel.toIndicator.subscribe { [toButton] variable in
+      toButton?.setTitle(variable.value, for: .normal)
+    }.disposed(by: disposeBag)
+    toButton.setTitle(viewModel.toIndicator.value, for: .normal)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    startTimer()
-
     updateTickerView(0, current: nil, advices: [])
 
     collectionView.backgroundView = UIView()
     collectionView.backgroundColor = UIColor.clear
-
-    App.travelService.startTimer()
-    NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
 
     App.travelService.currentAdvicesObservable
       .observeOn(MainScheduler.asyncInstance)
@@ -152,8 +161,8 @@ class TickerViewController: ViewController {
         }
         self?.fromStation = adviceRequest.from
         self?.toStation = adviceRequest.to
-        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
-        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
+//        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
+//        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
       })
       .disposed(by: bag)
 
@@ -162,25 +171,17 @@ class TickerViewController: ViewController {
         _ = self?.notifyCurrentAdvice()
       })
       .disposed(by: bag)
+
+    renderBackgroundToken = App.heartBeat.register(type: .repeating(interval: 1), callback: { [weak self] _ in
+      self?.renderBackground()
+    })
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-
-    stopTimer()
-    NotificationCenter.default.removeObserver(self)
-
-    App.travelService.stopTimer()
-  }
-
-  @objc func startTimer() {
-    timer?.invalidate()
-    timer = Timer.scheduledTimer(timeInterval: AnimationInterval, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
-  }
-
-  @objc func stopTimer() {
-    timer?.invalidate()
-    timer = nil
+    if let renderBackgroundToken = renderBackgroundToken {
+      App.heartBeat.unregister(token: renderBackgroundToken)
+      self.renderBackgroundToken = nil
+    }
   }
 
   func showPickerController(_ state: PickerState) {
@@ -206,10 +207,6 @@ class TickerViewController: ViewController {
         controller?.dismiss(animated: true, completion: nil)
       }
     }
-  }
-
-  @objc func tick(_ timer: Timer) {
-    renderBackground()
   }
 
   private func renderBackground() {

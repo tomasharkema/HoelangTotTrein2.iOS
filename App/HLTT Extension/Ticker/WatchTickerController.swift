@@ -11,7 +11,7 @@ import Foundation
 import WatchConnectivity
 import HoelangTotTreinAPIWatch
 import HoelangTotTreinCoreWatch
-import RxSwift
+import Bindable
 
 class WatchTickerController: WKInterfaceController {
 
@@ -23,9 +23,13 @@ class WatchTickerController: WKInterfaceController {
   @IBOutlet private var loadingLabel: WKInterfaceLabel!
   @IBOutlet private var delayLabel: WKInterfaceLabel!
 
-  private var bag: DisposeBag!
+  private let viewModel = ListTickerViewModel(travelService: WatchApp.travelService)
 
-  private var oneMinuteToGoTimer: Timer?
+  private var state: State<Advices> = .loading {
+    didSet {
+
+    }
+  }
 
   override func awake(withContext context: Any?) {
     super.awake(withContext: context)
@@ -35,28 +39,30 @@ class WatchTickerController: WKInterfaceController {
   override func willActivate() {
     super.willActivate()
 
-    (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
-      print("INITIAL STATE WITH: \(error)")
-    }
+    bind(\.state, to: viewModel.state)
 
-    WatchApp.storageAttachment.attach()
-    WatchApp.travelService.attach()
-    _ = WatchApp.travelService.fetchStations()
-
-    bag = DisposeBag()
-
-    Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] advice in
-        guard let advice = advice else { return }
-        self?.adviceDidChange(advice: advice)
-      })
-      .disposed(by: bag)
+//    (WKExtension.shared().delegate as? ExtensionDelegate)?.requestInitialState { error in
+//      print("INITIAL STATE WITH: \(error)")
+//    }
+//
+//    WatchApp.storageAttachment.attach()
+//    WatchApp.travelService.attach()
+//    _ = WatchApp.travelService.fetchStations()
+//
+//    bag = DisposeBag()
+//
+//    Observable.merge([WatchApp.travelService.currentAdviceOnScreenObservable, WatchApp.travelService.currentAdviceObservable])
+//      .observeOn(MainScheduler.asyncInstance)
+//      .subscribe(onNext: { [weak self] advice in
+//        guard let advice = advice else { return }
+//        self?.adviceDidChange(advice: advice)
+//      })
+//      .disposed(by: bag)
   }
 
   override func didDeactivate() {
     super.didDeactivate()
-    bag = nil
+    unbind(\.state, resetTo: .loading)
   }
 
   private var previousAdvice: Advice?
@@ -91,13 +97,13 @@ class WatchTickerController: WKInterfaceController {
     loadingLabel.setHidden(true)
     tickerContainer.setHidden(false)
 
-    let finished = advice.vertrek.actual.timeIntervalSinceNow
-    oneMinuteToGoTimer?.invalidate()
-
-    let oneMinuteToGoOffset = finished - 60
-    if oneMinuteToGoOffset > 60 {
-      oneMinuteToGoTimer = Timer.scheduledTimer(timeInterval: oneMinuteToGoOffset, target: self, selector: #selector(oneMinuteToGo), userInfo: nil, repeats: false)
-    }
+//    let finished = advice.vertrek.actual.timeIntervalSinceNow
+//    oneMinuteToGoTimer?.invalidate()
+//
+//    let oneMinuteToGoOffset = finished - 60
+//    if oneMinuteToGoOffset > 60 {
+//      oneMinuteToGoTimer = Timer.scheduledTimer(timeInterval: oneMinuteToGoOffset, target: self, selector: #selector(oneMinuteToGo), userInfo: nil, repeats: false)
+//    }
   }
 
   @objc func oneMinuteToGo() {

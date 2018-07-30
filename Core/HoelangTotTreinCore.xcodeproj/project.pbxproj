@@ -21,6 +21,10 @@
 		C33348271EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */; };
 		C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */; };
 		C33348291EAA529200EE2340 /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
+		C373B99D210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373B99C210F1B2800E9D762 /* DisposeBagContainer+Variable.swift */; };
+		C373B99E210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373B99C210F1B2800E9D762 /* DisposeBagContainer+Variable.swift */; };
+		C373B9A0210F26B100E9D762 /* HeartBeatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373B99F210F26B100E9D762 /* HeartBeatService.swift */; };
+		C373B9A1210F26B100E9D762 /* HeartBeatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373B99F210F26B100E9D762 /* HeartBeatService.swift */; };
 		C37538021E9916190047108C /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37537F81E9916190047108C /* HoelangTotTreinCore.framework */; };
 		C37538091E9916190047108C /* HoelangTotTreinCore.h in Headers */ = {isa = PBXBuildFile; fileRef = C37537FB1E9916190047108C /* HoelangTotTreinCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C37538151E99181C0047108C /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
@@ -81,6 +85,8 @@
 		C333481C1EAA3D5700EE2340 /* AppLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocationService.swift; sourceTree = "<group>"; };
 		C33348231EAA498900EE2340 /* JsonHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonHelpers.swift; sourceTree = "<group>"; };
 		C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchkitHelpers.swift; sourceTree = "<group>"; };
+		C373B99C210F1B2800E9D762 /* DisposeBagContainer+Variable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DisposeBagContainer+Variable.swift"; sourceTree = "<group>"; };
+		C373B99F210F26B100E9D762 /* HeartBeatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartBeatService.swift; sourceTree = "<group>"; };
 		C37537F81E9916190047108C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37537FB1E9916190047108C /* HoelangTotTreinCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinCore.h; sourceTree = "<group>"; };
 		C37537FC1E9916190047108C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 				C37538131E99181C0047108C /* StorageAttachment.swift */,
 				C37538141E99181C0047108C /* TravelService.swift */,
 				C375382F1E991E030047108C /* LocationService.swift */,
+				C373B99F210F26B100E9D762 /* HeartBeatService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -232,6 +239,7 @@
 				C375382C1E991DB40047108C /* Array+Helpers.swift */,
 				C37538261E991CC70047108C /* Advice+Services.swift */,
 				C37538241E991C750047108C /* Observable+FilterOptional.swift */,
+				C373B99C210F1B2800E9D762 /* DisposeBagContainer+Variable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -549,7 +557,9 @@
 				C37538341E991F030047108C /* CLCircularRegion+Bounds.swift in Sources */,
 				C38335E51EAA37D400A9E077 /* AppDataStore.swift in Sources */,
 				C37538271E991CC70047108C /* Advice+Services.swift in Sources */,
+				C373B99D210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */,
 				C38335E11EAA37A000A9E077 /* AppDataStore+UserDefaults.swift in Sources */,
+				C373B9A0210F26B100E9D762 /* HeartBeatService.swift in Sources */,
 				C375382A1E991D720047108C /* TravelEvent.swift in Sources */,
 				FFE1B27520CAF1A5007BEE6E /* TickerViewModel.swift in Sources */,
 				C38335E71EAA37D400A9E077 /* DataStore.swift in Sources */,
@@ -584,7 +594,9 @@
 				C375385E1E99233D0047108C /* Array+Helpers.swift in Sources */,
 				C375385F1E99233D0047108C /* Advice+Services.swift in Sources */,
 				C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
+				C373B99E210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */,
 				C38335E61EAA37D400A9E077 /* AppDataStore.swift in Sources */,
+				C373B9A1210F26B100E9D762 /* HeartBeatService.swift in Sources */,
 				C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */,
 				FFE1B27620CAF1B0007BEE6E /* TickerViewModel.swift in Sources */,
 				C375385A1E99233A0047108C /* TravelEvent.swift in Sources */,

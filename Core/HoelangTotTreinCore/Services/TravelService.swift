@@ -40,7 +40,10 @@ public class TravelService: NSObject {
   private let apiService: ApiService
   private let locationService: LocationService
   private let dataStore: DataStore
+  private let heartBeat: HeartBeat
   private let scheduler: SchedulerType
+
+  private var heartBeatToken: HeartBeat.Token?
 
   #if os(iOS)
   private let session = WCSession.default
@@ -67,13 +70,11 @@ public class TravelService: NSObject {
   private let mostUsedStationsVariable = Variable<[Station]>([])
   public private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
-  private var timer: Timer?
-  private var departureTimer: Timer?
-
-  public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore) {
+  public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, heartBeat: HeartBeat) {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
+    self.heartBeat = heartBeat
     self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
 
     super.init()
@@ -85,11 +86,14 @@ public class TravelService: NSObject {
     nextAdviceObservable = nextAdviceVariable.asObservable()
     currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
     mostUsedStationsObservable = mostUsedStationsVariable.asObservable()
-    
-    #if os(iOS)
-    NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: UIApplication.didBecomeActiveNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-    #endif
+
+    start()
+  }
+
+  private func start() {
+    heartBeatToken = heartBeat.register(type: .repeating(interval: 10)) { [weak self] _ in
+      self?.tick()
+    }
   }
   
   public func attach() {
@@ -114,29 +118,29 @@ public class TravelService: NSObject {
       _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
     })
 
-//    _ = stationsObservable.asObservable()
-//      .single()
-//      .subscribe(onNext: { _ in
-//        self.getCurrentAdviceRequest()
-//          .dispatch(on: self.queue)
-//          .then { adviceRequest in
-//            if self.firstAdviceRequestVariable.value != adviceRequest {
-//              self.firstAdviceRequestVariable.value = adviceRequest
-//            }
-//
+    _ = stationsObservable.asObservable()
+      .single()
+      .subscribe(onNext: { _ in
+        self.getCurrentAdviceRequest()
+          .dispatch(on: self.queue)
+          .then { adviceRequest in
+            if self.firstAdviceRequestVariable.value != adviceRequest {
+              self.firstAdviceRequestVariable.value = adviceRequest
+            }
+
 //            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
 //              self.notifyOfNewAdvices(advicesAndRequest.advices)
 //            }
-//          }
-//      })
+          }
+      })
 
     _ = currentAdviceOnScreenVariable.asObservable()
       .observeOn(scheduler)
       .filterOptional()
       .throttle(3, scheduler: scheduler)
       .subscribe(onNext: { advice in
-        
-        self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
+
+//        self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
 
         #if os(iOS)
           self.session.sendEvent(.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to)))
@@ -170,33 +174,10 @@ public class TravelService: NSObject {
       }
   }
 
-  @objc public func startTimer() {
-    guard timer == nil else {
-      return
-    }
-
-    timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(tick), userInfo: "normal", repeats: true)
-    tick()
-  }
-
-  public func startDepartureTimer(for time: TimeInterval) {
-    guard time > 1 else {
-      return
-    }
-
-    departureTimer?.invalidate()
-    departureTimer = Timer.scheduledTimer(timeInterval: time + 1, target: self, selector: #selector(tick), userInfo: "departure", repeats: false)
-  }
-
-  @objc public func stopTimer() {
-    timer?.invalidate()
-    timer = nil
-  }
-
   @objc public func tick() {
     fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
       .finallyResult {
-        print("DID FINISH TICK has value \($0.value != nil)")
+        print("\(Date()) DID FINISH TICK has value \($0.value != nil)")
       }
   }
 

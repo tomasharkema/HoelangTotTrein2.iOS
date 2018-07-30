@@ -21,8 +21,8 @@ private class TimeLabelCoordinator {
   private var subjects = [(UIView & Updatable)]()
 
   init() {
-    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: UIApplication.didBecomeActiveNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidBecomeActive, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidEnterBackground, object: nil)
   }
 
   func attach(updatable: (UIView & Updatable)) {

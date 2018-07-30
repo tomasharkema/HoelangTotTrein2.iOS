@@ -6,7 +6,8 @@
 //  Copyright © 2015 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Bindable
 
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
@@ -29,7 +30,7 @@ private struct Keys {
   static let AppSettings = "AppSettings"
 }
 
-private let HLTTUserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
+private let HLTTUserDefaults = Foundation.UserDefaults.standard //Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
 extension AppDataStore {
 

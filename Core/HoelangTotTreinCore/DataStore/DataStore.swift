@@ -8,6 +8,7 @@
 
 import Foundation
 import Promissum
+import Bindable
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
 #elseif os(iOS)
@@ -30,8 +31,16 @@ public protocol DataStore: class {
 
   var fromStationCode: String? { get set }
   var toStationCode: String? { get set }
+
+  var fromStationCodeVariable: Variable<String?> { get }
+  var toStationCodeVariable: Variable<String?> { get }
+
   var fromStationByPickerCode: String? { get set }
   var toStationByPickerCode: String? { get set }
+
+  var fromStationByPickerCodeVariable: Variable<String?> { get }
+  var toStationByPickerCodeVariable: Variable<String?> { get }
+
   var userId: String { get }
   var geofenceInfo: [String: [GeofenceModel]]? { get set }
   var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }

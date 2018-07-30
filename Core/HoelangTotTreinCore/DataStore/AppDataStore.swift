@@ -9,7 +9,9 @@
 import Foundation
 import CoreData
 import Promissum
-#if os(watchOS)
+import Bindable
+
+ #if os(watchOS)
 import HoelangTotTreinAPIWatch
 #elseif os(iOS)
 import HoelangTotTreinAPI
@@ -20,6 +22,9 @@ import HoelangTotTreinAPI
   
   let defaultKeepDepartedAdvice: Bool
   fileprivate let persistentContainer: NSPersistentContainer
+
+  public var fromStationCodeVariable: Variable<String?>
+  public var toStationCodeVariable: Variable<String?>
 
   public init(useInMemoryStore: Bool = false, defaultKeepDepartedAdvice: Bool) {
     self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
