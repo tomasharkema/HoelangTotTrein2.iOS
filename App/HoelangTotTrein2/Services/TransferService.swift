@@ -19,6 +19,7 @@ class TransferService: NSObject {
   private let radius: CLLocationDistance
   private let travelService: TravelService
   private let dataStore: DataStore
+  private let preferenceStore: PreferenceStore
   private let locationManager = CLLocationManager()
 
   private let bag = DisposeBag()
@@ -31,10 +32,11 @@ class TransferService: NSObject {
   private let geofenceValue: Variable<GeofenceModel?> = Variable(nil)
   fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
   
-  init(travelService: TravelService, dataStore: DataStore, radius: CLLocationDistance = 200) {
+  init(travelService: TravelService, dataStore: DataStore, preferenceStore: PreferenceStore, radius: CLLocationDistance = 200) {
     self.radius = radius
     self.travelService = travelService
     self.dataStore = dataStore
+    self.preferenceStore = preferenceStore
     super.init()
     locationManager.delegate = self
     geofenceObservable = geofenceValue.asObservable().filterOptional()
@@ -82,12 +84,12 @@ class TransferService: NSObject {
       stations.forEach { self.updateGeofence(for: $0) }
     }
     let ritNummers = advices.compactMap { $0.reisDeel.first }.compactMap { $0.ritNummer }
-    dataStore.firstLegRitNummers = ritNummers
+    preferenceStore.firstLegRitNummers = ritNummers
   }
   
   private func geofenceModel(for newAdvice: Advice, request: AdviceRequest, station: Station) -> GeofenceModel? {
     
-    let newAdviceIsFirstLeg = newAdvice.reisDeel.first?.ritNummer.map { dataStore.firstLegRitNummers.contains($0) } ?? false
+    let newAdviceIsFirstLeg = newAdvice.reisDeel.first?.ritNummer.map { preferenceStore.firstLegRitNummers.contains($0) } ?? false
     
     let geofenceType: GeofenceType
     if newAdvice.startStation == request.from?.name {

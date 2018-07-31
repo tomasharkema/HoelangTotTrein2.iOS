@@ -18,13 +18,9 @@ import HoelangTotTreinAPI
 #endif
 
  public class AppDataStore: DataStore {
-  public var persistedAdvicesAndRequest: AdvicesAndRequest?
   
   let defaultKeepDepartedAdvice: Bool
   fileprivate let persistentContainer: NSPersistentContainer
-
-  public var fromStationCodeVariable: Variable<String?>
-  public var toStationCodeVariable: Variable<String?>
 
   public init(useInMemoryStore: Bool = false, defaultKeepDepartedAdvice: Bool) {
     self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice

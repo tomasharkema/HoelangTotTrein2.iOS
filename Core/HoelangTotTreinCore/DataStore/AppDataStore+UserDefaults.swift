@@ -30,11 +30,82 @@ private struct Keys {
   static let AppSettings = "AppSettings"
 }
 
-private let HLTTUserDefaults = Foundation.UserDefaults.standard //Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
+private let HLTTUserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
-extension AppDataStore {
+public protocol PreferenceStore: class {
+  var fromStationCode: Variable<String?> { get }
+  var toStationCode: Variable<String?> { get }
+  func setFromStationCode(code: String?)
+  func setToStationCode(code: String?)
 
-  public var fromStationCode: String? {
+  var fromStationByPickerCode: Variable<String?> { get }
+  var toStationByPickerCode: Variable<String?> { get }
+  func setFromStationByPickerCode(code: String?)
+  func setToStationByPickerCode(code: String?)
+
+  var userId: String { get }
+  var geofenceInfo: [String: [GeofenceModel]]? { get set }
+  var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }
+  var currentAdviceIdentifier: String? { get set }
+  var persistedAdvices: Advices? { get set }
+  var keepDepartedAdvice: Bool { get set }
+  var firstLegRitNummers: [String] { get set }
+  var appSettings: AppSettings { get set }
+}
+
+public class UserDefaultsPreferenceStore: PreferenceStore {
+
+  public var fromStationCode: Variable<String?>
+  public var toStationCode: Variable<String?>
+  public var fromStationByPickerCode: Variable<String?>
+  public var toStationByPickerCode: Variable<String?>
+
+  public var fromStationCodeSource = VariableSource<String?>(value: nil)
+  public var toStationCodeSource = VariableSource<String?>(value: nil)
+  public var fromStationByPickerCodeSource = VariableSource<String?>(value: nil)
+  public var toStationByPickerCodeSource = VariableSource<String?>(value: nil)
+
+  private let defaultKeepDepartedAdvice: Bool
+
+  public init(defaultKeepDepartedAdvice: Bool) {
+    self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
+    
+    fromStationCode = fromStationCodeSource.variable
+    toStationCode = toStationCodeSource.variable
+    fromStationByPickerCode = fromStationByPickerCodeSource.variable
+    toStationByPickerCode = toStationByPickerCodeSource.variable
+
+    prefill()
+  }
+
+  private func prefill() {
+    fromStationCodeSource.value = fromStationCodeDefaults
+    toStationCodeSource.value = toStationCodeDefaults
+    fromStationByPickerCodeSource.value = fromStationByPickerCodeDefaults
+    toStationByPickerCodeSource.value = toStationByPickerCodeDefaults
+  }
+
+  public func setFromStationCode(code: String?) {
+    fromStationCodeDefaults = code
+    fromStationCodeSource.value = code
+  }
+
+  public func setToStationCode(code: String?) {
+    toStationCodeDefaults = code
+    toStationCodeSource.value = code
+  }
+
+  public func setFromStationByPickerCode(code: String?) {
+    fromStationByPickerCodeDefaults = code
+    fromStationByPickerCodeSource.value = code
+  }
+
+  public func setToStationByPickerCode(code: String?) {
+    toStationByPickerCodeDefaults = code
+    toStationByPickerCodeSource.value = code
+  }
+
+  private var fromStationCodeDefaults: String? {
     get {
       let fromCode = HLTTUserDefaults.string(forKey: Keys.FromStationCodeKey)
       return fromCode
@@ -45,7 +116,7 @@ extension AppDataStore {
     }
   }
 
-  public var toStationCode: String? {
+  private var toStationCodeDefaults: String? {
     get {
       let toCode = HLTTUserDefaults.string(forKey: Keys.ToStationCodeKey)
       return toCode
@@ -56,7 +127,7 @@ extension AppDataStore {
     }
   }
 
-  public var fromStationByPickerCode: String? {
+  private var fromStationByPickerCodeDefaults: String? {
     get {
       let fromCode = HLTTUserDefaults.string(forKey: Keys.FromStationByPickerCodeKey)
       return fromCode
@@ -67,7 +138,7 @@ extension AppDataStore {
     }
   }
 
-  public var toStationByPickerCode: String? {
+  private var toStationByPickerCodeDefaults: String? {
     get {
       let toCode = HLTTUserDefaults.string(forKey: Keys.ToStationByPickerCodeKey)
       return toCode
@@ -77,6 +148,7 @@ extension AppDataStore {
       HLTTUserDefaults.synchronize()
     }
   }
+
 
   public var userId: String {
     let returnedUserId: String
@@ -188,6 +260,17 @@ extension AppDataStore {
       HLTTUserDefaults.synchronize()
     }
   }
+
+  public var persistedAdvicesAndRequest: AdvicesAndRequest?
+
+  public var appSettings: AppSettings {
+    get {
+      return AppSettings(rawValue: HLTTUserDefaults.integer(forKey: Keys.AppSettings))
+    }
+    set {
+      HLTTUserDefaults.set(newValue.rawValue, forKey: Keys.AppSettings)
+    }
+  }
 }
 
 // MARK: - Settings
@@ -199,16 +282,5 @@ public struct AppSettings: OptionSet {
 
   public init(rawValue: Int) {
     self.rawValue = rawValue
-  }
-}
-
-extension AppDataStore {
-  public var appSettings: AppSettings {
-    get {
-      return AppSettings(rawValue: HLTTUserDefaults.integer(forKey: Keys.AppSettings))
-    }
-    set {
-      HLTTUserDefaults.set(newValue.rawValue, forKey: Keys.AppSettings)
-    }
   }
 }

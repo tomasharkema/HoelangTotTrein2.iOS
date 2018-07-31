@@ -27,8 +27,8 @@ public class ListTickerViewModel {
 
   public let currentAdvice: Variable<State<Advice?>>
 
-  public let fromIndicator: Variable<String>//(value: "[Pick Station]")
-  public let toIndicator: Variable<String>//(value: "[Pick Station]")
+  public let fromButtonTitle: Variable<String>
+  public let toButtonTitle: Variable<String>
 
   public init(travelService: TravelService) {
     state = stateSource.variable
@@ -44,20 +44,8 @@ public class ListTickerViewModel {
       }
     }
 
-//    //TODO: fix
-    let fromIndicatorSource = VariableSource<String>(value: "[Pick Station]")
-    let toIndicatorSource = VariableSource<String>(value: "[Pick Station]")
-    fromIndicator = fromIndicatorSource.variable
-    toIndicator = fromIndicatorSource.variable
-
-    travelService.getCurrentAdviceRequest()
-      .then {
-        fromIndicatorSource.setValue($0.from?.name ?? "[Pick Station]", animated: false)
-        toIndicatorSource.setValue($0.to?.name ?? "[Pick Station]", animated: false)
-      }
-      .trap {
-        print("\($0)")
-      }
+    fromButtonTitle = travelService.currentAdviceRequest.map { $0.from?.name ?? "[Pick Station]" }
+    toButtonTitle = travelService.currentAdviceRequest.map { $0.to?.name ?? "[Pick Station]" }
   }
 
 }

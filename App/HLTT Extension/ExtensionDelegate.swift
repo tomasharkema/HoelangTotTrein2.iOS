@@ -19,7 +19,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   private let session = WCSession.default
 
-  var cachedAdvices: [Advice] = WatchApp.dataStore.persistedAdvices ?? []
+  var cachedAdvices: [Advice] = WatchApp.preferenceStore.persistedAdvices ?? []
 
   func applicationDidFinishLaunching() {
     session.delegate = self
@@ -57,7 +57,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     switch event {
     case let .advicesChange(advice: advices):
       cachedAdvices = advices
-      WatchApp.dataStore.persistedAdvices = advices
+      WatchApp.preferenceStore.persistedAdvices = advices
 
     case .currentAdviceChange(let data):
       let from = WatchApp.travelService.setStation(.from, stationCode: data.fromCode, byPicker: true)

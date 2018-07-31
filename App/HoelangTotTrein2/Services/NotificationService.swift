@@ -15,12 +15,14 @@ import UserNotifications
 class NotificationService {
   private let transferService: TransferService
   private let dataStore: DataStore
+  private let preferenceStore: PreferenceStore
   private let apiService: ApiService
   fileprivate let disposeBag = DisposeBag()
 
-  init(transferService: TransferService, dataStore: DataStore, apiService: ApiService) {
+  init(transferService: TransferService, dataStore: DataStore, preferenceStore: PreferenceStore, apiService: ApiService) {
     self.transferService = transferService
     self.dataStore = dataStore
+    self.preferenceStore = preferenceStore
     self.apiService = apiService
   }
 
@@ -105,7 +107,7 @@ class NotificationService {
       .observeOn(MainScheduler.asyncInstance)
       .filter {
         if $0.type == .overstap {
-          return self.dataStore.appSettings.contains(.transferNotificationEnabled)
+          return self.preferenceStore.appSettings.contains(.transferNotificationEnabled)
         }
 
         return true

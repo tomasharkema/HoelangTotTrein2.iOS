@@ -10,6 +10,8 @@ import Foundation
 import CoreLocation
 import Promissum
 import RxSwift
+import Bindable
+
 #if os(watchOS)
 import HoelangTotTreinAPIWatch
 #elseif os(iOS)
@@ -40,6 +42,7 @@ public class TravelService: NSObject {
   private let apiService: ApiService
   private let locationService: LocationService
   private let dataStore: DataStore
+  private let preferenceStore: PreferenceStore
   private let heartBeat: HeartBeat
   private let scheduler: SchedulerType
 
@@ -49,31 +52,35 @@ public class TravelService: NSObject {
   private let session = WCSession.default
   #endif
 
-  private let currentAdviceVariable = Variable<Advice?>(nil)
+  private let currentAdviceVariable = RxSwift.Variable<Advice?>(nil)
   public private(set) var currentAdviceObservable: Observable<Advice?>!
 
-  private let currentAdvicesVariable = Variable<LoadingState<Advices>>(.loading)
+  private let currentAdvicesVariable = RxSwift.Variable<LoadingState<Advices>>(.loading)
   public private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
 
-  private let stationsVariable = Variable<Stations?>(nil)
+  private let stationsVariable = RxSwift.Variable<Stations?>(nil)
   public private(set) var stationsObservable: Observable<Stations?>!
 
-  private let firstAdviceRequestVariable = Variable<AdviceRequest?>(nil)
+  private let firstAdviceRequestVariable = RxSwift.Variable<AdviceRequest?>(nil)
   public private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
 
-  private let nextAdviceVariable = Variable<Advice?>(nil)
+  private let nextAdviceVariable = RxSwift.Variable<Advice?>(nil)
   public private(set) var nextAdviceObservable: Observable<Advice?>!
 
-  fileprivate let currentAdviceOnScreenVariable = Variable<Advice?>(nil)
+  fileprivate let currentAdviceOnScreenVariable = RxSwift.Variable<Advice?>(nil)
   public private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
 
-  private let mostUsedStationsVariable = Variable<[Station]>([])
+  private let mostUsedStationsVariable = RxSwift.Variable<[Station]>([])
   public private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
-  public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, heartBeat: HeartBeat) {
+  private var currentAdviceRequestSource = Bindable.VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
+  public var currentAdviceRequest: Bindable.Variable<AdviceRequest>
+
+  public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, preferenceStore: PreferenceStore, heartBeat: HeartBeat) {
     self.apiService = apiService
     self.locationService = locationService
     self.dataStore = dataStore
+    self.preferenceStore = preferenceStore
     self.heartBeat = heartBeat
     self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
 
@@ -87,13 +94,40 @@ public class TravelService: NSObject {
     currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
     mostUsedStationsObservable = mostUsedStationsVariable.asObservable()
 
+    currentAdviceRequest = currentAdviceRequestSource.variable
+
     start()
+  }
+
+  var fromAndToCode: (String?, String?) = (nil, nil) {
+    didSet {
+      let (fromCode, toCode) = fromAndToCode
+      let from: Promise<Station?, Error> = fromCode.map {
+        self.dataStore.find(stationCode: $0)
+          .map { .some($0) }
+        } ?? Promise(value: nil)
+
+      let to: Promise<Station?, Error> = toCode.map {
+        self.dataStore.find(stationCode: $0)
+          .map { .some($0) }
+        } ?? Promise(value: nil)
+
+      whenBoth(from, to)
+        .map {
+          AdviceRequest(from: $0.0, to: $0.1)
+        }
+        .then { [currentAdviceRequestSource] request in
+          currentAdviceRequestSource.value = request
+        }
+    }
   }
 
   private func start() {
     heartBeatToken = heartBeat.register(type: .repeating(interval: 10)) { [weak self] _ in
       self?.tick()
     }
+
+    bind(\.fromAndToCode, to: preferenceStore.fromStationCode && preferenceStore.toStationCode)
   }
   
   public func attach() {
@@ -108,11 +142,11 @@ public class TravelService: NSObject {
       }
 
       if let from = adviceRequest.from {
-        self.dataStore.fromStationCode = from.code
+        self.preferenceStore.setFromStationCode(code: from.code)
       }
 
       if let to = adviceRequest.to {
-        self.dataStore.toStationCode = to.code
+        self.preferenceStore.setToStationCode(code: to.code)
       }
 
       _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
@@ -155,23 +189,23 @@ public class TravelService: NSObject {
       }
 
       let element = advices.enumerated()
-        .first { $0.element.identifier() == self.dataStore.currentAdviceIdentifier }?
+        .first { $0.element.identifier() == self.preferenceStore.currentAdviceIdentifier }?
         .element ?? advices.first
 
       self.currentAdviceOnScreenVariable.value = element
     })
 
-    self.getCurrentAdviceRequest()
-      .dispatch(on: self.queue)
-      .then { adviceRequest in
-        if self.firstAdviceRequestVariable.value != adviceRequest {
-          self.firstAdviceRequestVariable.value = adviceRequest
-        }
-
-        if let advicesAndRequest = self.dataStore.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
-          self.notifyOfNewAdvices(advicesAndRequest.advices)
-        }
-      }
+//    self.getCurrentAdviceRequest()
+//      .dispatch(on: self.queue)
+//      .then { adviceRequest in
+//        if self.firstAdviceRequestVariable.value != adviceRequest {
+//          self.firstAdviceRequestVariable.value = adviceRequest
+//        }
+//
+//        if let advicesAndRequest = self.preferenceStore.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+//          self.notifyOfNewAdvices(advicesAndRequest.advices)
+//        }
+//      }
   }
 
   @objc public func tick() {
@@ -193,30 +227,31 @@ public class TravelService: NSObject {
       }
   }
 
-  public func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
-    let from: Promise<Station?, Error> = dataStore.fromStationCode.map {
-      self.dataStore.find(stationCode: $0)
-        .map { .some($0) }
-    } ?? Promise(value: nil)
 
-    let to: Promise<Station?, Error> = dataStore.toStationCode.map {
-      self.dataStore.find(stationCode: $0)
-        .map { .some($0) }
-    } ?? Promise(value: nil)
-    
-    return whenBoth(from, to)
-      .map {
-        AdviceRequest(from: $0.0, to: $0.1)
-      }
-  }
-  
+//  public func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
+//    let from: Promise<Station?, Error> = preferenceStore.fromStationCode.value.map {
+//      self.dataStore.find(stationCode: $0)
+//        .map { .some($0) }
+//    } ?? Promise(value: nil)
+//
+//    let to: Promise<Station?, Error> = preferenceStore.toStationCode.value.map {
+//      self.dataStore.find(stationCode: $0)
+//        .map { .some($0) }
+//    } ?? Promise(value: nil)
+//
+//    return whenBoth(from, to)
+//      .map {
+//        AdviceRequest(from: $0.0, to: $0.1)
+//      }
+//  }
+
   func getPickedAdviceRequest() -> Promise<AdviceRequest, Error> {
-    let from: Promise<Station?, Error> = dataStore.fromStationByPickerCode.map {
+    let from: Promise<Station?, Error> = preferenceStore.fromStationByPickerCode.value.map {
       self.dataStore.find(stationCode: $0)
         .map { .some($0) }
       } ?? Promise(value: nil)
     
-    let to: Promise<Station?, Error> = dataStore.toStationByPickerCode.map {
+    let to: Promise<Station?, Error> = preferenceStore.toStationByPickerCode.value.map {
       self.dataStore.find(stationCode: $0)
         .map { .some($0) }
       } ?? Promise(value: nil)
@@ -242,11 +277,11 @@ public class TravelService: NSObject {
       }
 
     correctedAdviceRequest
-      .then { request in
+      .then { [preferenceStore] request in
 
         if userInput {
-          self.dataStore.fromStationByPickerCode = request.from?.code
-          self.dataStore.toStationByPickerCode = request.to?.code
+          preferenceStore.setFromStationByPickerCode(code: request.from?.code)
+          preferenceStore.setToStationByPickerCode(code: request.to?.code)
         }
 
         if self.firstAdviceRequestVariable.value != request {
@@ -318,15 +353,15 @@ public class TravelService: NSObject {
   }
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
-    let keepDepartedAdvice = dataStore.keepDepartedAdvice
-    let currentAdviceIdentifier = dataStore.currentAdviceIdentifier
+    let keepDepartedAdvice = preferenceStore.keepDepartedAdvice
+    let currentAdviceIdentifier = preferenceStore.currentAdviceIdentifier
     let advices = advices.filter {
       $0.isOngoing || (keepDepartedAdvice && $0.identifier() == currentAdviceIdentifier)
     }
 
     currentAdvicesVariable.value = .loaded(value: advices)
 
-    let firstAdvice = advices.first { $0.identifier() == self.dataStore.currentAdviceIdentifier } 
+    let firstAdvice = advices.first { $0.identifier() == self.preferenceStore.currentAdviceIdentifier } 
     if let firstAdvice = firstAdvice ?? advices.first {
       currentAdviceVariable.value = firstAdvice
     }
@@ -377,15 +412,15 @@ public class TravelService: NSObject {
   }
 
   public func setCurrentAdviceOnScreen(advice: Advice?) {
-    dataStore.currentAdviceIdentifier = advice?.identifier()
+    preferenceStore.currentAdviceIdentifier = advice?.identifier()
     currentAdviceOnScreenVariable.value = advice
   }
 
   public func setCurrentAdviceOnScreen(adviceIdentifier: String?) {
-    dataStore.currentAdviceIdentifier = adviceIdentifier
+    preferenceStore.currentAdviceIdentifier = adviceIdentifier
 
     queue.async {
-      let advice = self.dataStore.persistedAdvices?.first { $0.identifier() == adviceIdentifier }
+      let advice = self.preferenceStore.persistedAdvices?.first { $0.identifier() == adviceIdentifier }
       self.currentAdviceOnScreenVariable.value = advice
     }
   }

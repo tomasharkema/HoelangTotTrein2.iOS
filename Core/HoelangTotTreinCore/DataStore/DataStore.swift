@@ -28,25 +28,4 @@ public protocol DataStore: class {
   func find(stationNameContains query: String) -> Promise<[Station], Error>
   func insertHistory(station: Station, historyType: HistoryType) -> Promise<Void, Error>
   func mostUsedStations() -> Promise<[Station], Error>
-
-  var fromStationCode: String? { get set }
-  var toStationCode: String? { get set }
-
-  var fromStationCodeVariable: Variable<String?> { get }
-  var toStationCodeVariable: Variable<String?> { get }
-
-  var fromStationByPickerCode: String? { get set }
-  var toStationByPickerCode: String? { get set }
-
-  var fromStationByPickerCodeVariable: Variable<String?> { get }
-  var toStationByPickerCodeVariable: Variable<String?> { get }
-
-  var userId: String { get }
-  var geofenceInfo: [String: [GeofenceModel]]? { get set }
-  var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }
-  var currentAdviceIdentifier: String? { get set }
-  var persistedAdvices: Advices? { get set }
-  var keepDepartedAdvice: Bool { get set }
-  var firstLegRitNummers: [String] { get set }
-  var appSettings: AppSettings { get set }
 }

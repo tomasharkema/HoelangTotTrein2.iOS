@@ -21,12 +21,15 @@ public class StorageAttachment {
   private lazy var scheduler: SerialDispatchQueueScheduler = {
     return SerialDispatchQueueScheduler(queue: self.queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
   }()
+
   private let travelService: TravelService
   private let dataStore: DataStore
+  private let preferenceStore: PreferenceStore
 
-  public init(travelService: TravelService, dataStore: DataStore) {
+  public init(travelService: TravelService, dataStore: DataStore, preferenceStore: PreferenceStore) {
     self.travelService = travelService
     self.dataStore = dataStore
+    self.preferenceStore = preferenceStore
   }
 
   public func attach() {
@@ -59,9 +62,9 @@ public class StorageAttachment {
       .observeOn(scheduler)
       .map { $0.value }
       .filterOptional()
-      .subscribe(onNext: { advices in
-        self.dataStore.persistedAdvices = advices
-        self.travelService.getCurrentAdviceRequest()
+      .subscribe(onNext: { [preferenceStore, travelService] advices in
+        preferenceStore.persistedAdvices = advices
+        travelService.getCurrentAdviceRequest()
           .dispatch(on: self.queue)
           .then { advice in
             self.persistCurrent(advices, forAdviceRequest: advice)
@@ -102,6 +105,6 @@ public class StorageAttachment {
   }
 
   fileprivate func persistCurrent(_ advices: Advices, forAdviceRequest adviceRequest: AdviceRequest) {
-    dataStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
+    preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advices, adviceRequest: adviceRequest)
   }
 }
