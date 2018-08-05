@@ -12,6 +12,8 @@
 		C31C97541EA22CE2007BD463 /* TravelServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */; };
 		C31C97561EA22FBB007BD463 /* MockDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97551EA22FBB007BD463 /* MockDataStore.swift */; };
 		C31C97581EA234EA007BD463 /* MockLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C97571EA234EA007BD463 /* MockLocationService.swift */; };
+		C32BCD3A21178AD300621921 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BCD3921178AD300621921 /* State.swift */; };
+		C32BCD3B21178ADA00621921 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BCD3921178AD300621921 /* State.swift */; };
 		C333481D1EAA3D5700EE2340 /* AppLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333481C1EAA3D5700EE2340 /* AppLocationService.swift */; };
 		C333481E1EAA3D5700EE2340 /* AppLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C333481C1EAA3D5700EE2340 /* AppLocationService.swift */; };
 		C333481F1EAA3D7B00EE2340 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375382F1E991E030047108C /* LocationService.swift */; };
@@ -82,6 +84,7 @@
 		C31C97531EA22CE2007BD463 /* TravelServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TravelServiceTests.swift; path = Services/TravelServiceTests.swift; sourceTree = "<group>"; };
 		C31C97551EA22FBB007BD463 /* MockDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDataStore.swift; sourceTree = "<group>"; };
 		C31C97571EA234EA007BD463 /* MockLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockLocationService.swift; sourceTree = "<group>"; };
+		C32BCD3921178AD300621921 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		C333481C1EAA3D5700EE2340 /* AppLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocationService.swift; sourceTree = "<group>"; };
 		C33348231EAA498900EE2340 /* JsonHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonHelpers.swift; sourceTree = "<group>"; };
 		C33348261EAA49BD00EE2340 /* WatchkitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchkitHelpers.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 			children = (
 				C37538291E991D720047108C /* TravelEvent.swift */,
 				C37538311E991EBC0047108C /* PickerState.swift */,
+				C32BCD3921178AD300621921 /* State.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -558,6 +562,7 @@
 				C38335E51EAA37D400A9E077 /* AppDataStore.swift in Sources */,
 				C37538271E991CC70047108C /* Advice+Services.swift in Sources */,
 				C373B99D210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */,
+				C32BCD3A21178AD300621921 /* State.swift in Sources */,
 				C38335E11EAA37A000A9E077 /* AppDataStore+UserDefaults.swift in Sources */,
 				C373B9A0210F26B100E9D762 /* HeartBeatService.swift in Sources */,
 				C375382A1E991D720047108C /* TravelEvent.swift in Sources */,
@@ -595,6 +600,7 @@
 				C375385F1E99233D0047108C /* Advice+Services.swift in Sources */,
 				C33348281EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
 				C373B99E210F1B2800E9D762 /* DisposeBagContainer+Variable.swift in Sources */,
+				C32BCD3B21178ADA00621921 /* State.swift in Sources */,
 				C38335E61EAA37D400A9E077 /* AppDataStore.swift in Sources */,
 				C373B9A1210F26B100E9D762 /* HeartBeatService.swift in Sources */,
 				C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */,

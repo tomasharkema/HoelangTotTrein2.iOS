@@ -24,9 +24,9 @@ class TickerViewController: ViewController {
   private let bag = DisposeBag()
   private var onScreenAdviceDisposable: Disposable?
 
-  private var currentAdvice: Advice?
+  private var currentAdvice: State<Advice> = .loading
 
-  private var nextAdvice: Advice?
+//  private var nextAdvice: Advice?
 
   private var startTime: Date?
 
@@ -70,6 +70,8 @@ class TickerViewController: ViewController {
       toButton?.setTitle(variable.value, for: .normal)
     }.disposed(by: disposeBag)
     toButton.setTitle(viewModel.fromButtonTitle.value, for: .normal)
+
+    bind(\.currentAdvice, to: viewModel.currentAdvice)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -125,46 +127,50 @@ class TickerViewController: ViewController {
       })
       .disposed(by: bag)
 
-    App.travelService.currentAdviceObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext:  { [weak self] advice in
-        guard let advice = advice else {
-          return
-        }
-        assert(Thread.isMainThread)
-        self?.currentAdvice = advice
-      })
-      .disposed(by: bag)
+//    App.travelService.currentAdviceObservable
+//      .observeOn(MainScheduler.asyncInstance)
+//      .subscribe(onNext:  { [weak self] advice in
+//        guard let advice = advice else {
+//          return
+//        }
+//        assert(Thread.isMainThread)
+//        self?.currentAdvice = advice
+//      })
+//      .disposed(by: bag)
+//
+//    App.travelService.currentAdviceObservable
+//      .distinctUntilChanged { $0 == $1 }
+//      .observeOn(MainScheduler.asyncInstance)
+//      .subscribe(onNext:  { [weak self] _ in
+//        assert(Thread.isMainThread)
+//        self?.startTime = Date()
+//        self?.renderBackground()
+//      })
+//      .disposed(by: bag)
+//
+//    App.travelService.nextAdviceObservable.asObservable()
+//      .observeOn(MainScheduler.asyncInstance)
+//      .subscribe(onNext: { [weak self] advice in
+//        self?.nextAdvice = advice
+//      })
+//      .disposed(by: bag)
 
-    App.travelService.currentAdviceObservable
-      .distinctUntilChanged { $0 == $1 }
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext:  { [weak self] _ in
-        assert(Thread.isMainThread)
-        self?.startTime = Date()
-        self?.renderBackground()
-      })
-      .disposed(by: bag)
 
-    App.travelService.nextAdviceObservable.asObservable()
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] advice in
-        self?.nextAdvice = advice
-      })
-      .disposed(by: bag)
 
-    App.travelService.firstAdviceRequestObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] adviceRequest in
-        guard let adviceRequest = adviceRequest else {
-          return
-        }
-        self?.fromStation = adviceRequest.from
-        self?.toStation = adviceRequest.to
-//        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
-//        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
-      })
-      .disposed(by: bag)
+
+
+//    App.travelService.firstAdviceRequestObservable
+//      .observeOn(MainScheduler.asyncInstance)
+//      .subscribe(onNext: { [weak self] adviceRequest in
+//        guard let adviceRequest = adviceRequest else {
+//          return
+//        }
+//        self?.fromStation = adviceRequest.from
+//        self?.toStation = adviceRequest.to
+////        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
+////        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
+//      })
+//      .disposed(by: bag)
 
     collectionView.rx.didScroll
       .subscribe(onNext: { [weak self] _ in
@@ -204,7 +210,7 @@ class TickerViewController: ViewController {
   }
 
   private func renderBackground() {
-    if let currentAdvice = currentAdvice {
+    if let currentAdvice = currentAdvice.value {
       let offset = currentAdvice.vertrek.actual.timeIntervalSince(Date())
       let difference = Date(timeIntervalSince1970: offset - 60*60)
 

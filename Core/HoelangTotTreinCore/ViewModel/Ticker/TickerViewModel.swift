@@ -15,12 +15,6 @@ import HoelangTotTreinAPIWatch
 import HoelangTotTreinAPI
 #endif
 
-public enum State<Result> {
-  case loading
-  case error(Error)
-  case result(Result)
-}
-
 public class ListTickerViewModel {
   private let stateSource = VariableSource<State<Advices>>(value: .loading)
   public let state: Variable<State<Advices>>
@@ -30,18 +24,15 @@ public class ListTickerViewModel {
   public let fromButtonTitle: Variable<String>
   public let toButtonTitle: Variable<String>
 
+  public let startTime: Variable<Date>
+
   public init(travelService: TravelService) {
     state = stateSource.variable
 
-    currentAdvice = state.map {
-      switch $0 {
-      case .error(let error):
-        return .error(error)
-      case .loading:
-        return .loading
-      case .result(let result):
-        return .result(result.first)
-      }
+    currentAdvice = travelService.currentAdvice
+
+    startTime = travelService.currentAdvice.map { event in
+      return Date()
     }
 
     fromButtonTitle = travelService.pickedAdviceRequest.map {
@@ -51,6 +42,5 @@ public class ListTickerViewModel {
       $0.to?.name ?? "[Pick Station]"
     }
   }
-
 }
 

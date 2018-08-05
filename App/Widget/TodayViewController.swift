@@ -20,7 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   @IBOutlet private weak var fromLabel: UILabel!
   @IBOutlet private weak var toLabel: UILabel!
 
-  private var currentAdvice: Advice?
+  private var currentAdvice: HoelangTotTreinCore.State<Advice?> = .loading
   private var heartBeatToken: HeartBeat.Token?
 
   override func viewDidLoad() {
@@ -32,7 +32,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     bind(\.currentAdvice, to: WidgetApp.travelService.currentAdvice)
 
     let fromVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
-      guard let advice = advice else {
+      guard let advice = advice.value.flatMap({ $0 }) else {
         return ""
       }
       let fromPlatform = advice.vertrekSpoor.map { "(\($0)) " } ?? ""
@@ -41,7 +41,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     fromLabel.bind(\.text, to: fromVariable)
 
     let toVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
-      guard let advice = advice else {
+      guard let advice = advice.value.flatMap({ $0 }) else {
         return ""
       }
       let toPlatform = advice.aankomstSpoor.map { "(\($0)) " } ?? ""
@@ -76,7 +76,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 //  }
 
   private func tick() {
-    guard let advice = currentAdvice else { return }
+    guard let advice = currentAdvice.value.flatMap({ $0 }) else { return }
     let offset = advice.vertrek.actual.timeIntervalSince(Date())
     let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
 

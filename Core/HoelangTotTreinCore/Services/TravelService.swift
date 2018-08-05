@@ -23,20 +23,6 @@ enum TravelServiceError: Error {
   case notChanged
 }
 
-public enum LoadingState<ValueType> {
-  case loaded(value: ValueType)
-  case loading
-
-  public var value: ValueType? {
-    switch self {
-    case .loading:
-      return nil
-    case .loaded(let value):
-      return value
-    }
-  }
-}
-
 public class TravelService: NSObject {
   private let queue = DispatchQueue(label: "nl.tomasharkema.TravelService")
   private let apiService: ApiService
@@ -71,8 +57,8 @@ public class TravelService: NSObject {
 //  private let currentAdviceRequestSource = Bindable.VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
 //  public let currentAdviceRequest: Bindable.Variable<AdviceRequest>
 
-  private let currentAdvicesSource = VariableSource<LoadingState<Advices>>(value: .loading)
-  public let currentAdvices: Variable<LoadingState<Advices>>
+  private let currentAdvicesSource = VariableSource<State<Advices>>(value: .loading)
+  public let currentAdvices: Variable<State<Advices>>
 
   private let currentAdviceOnScreenSource = VariableSource<Advice?>(value: nil)
   public let currentAdviceOnScreen: Variable<Advice?>
@@ -86,7 +72,7 @@ public class TravelService: NSObject {
   private let stationsSource = VariableSource(value: Stations())
   public let stations: Variable<Stations>
 
-  public let currentAdvice: Variable<Advice?>
+  public let currentAdvice: Variable<State<Advice?>>
 
   public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, preferenceStore: PreferenceStore, heartBeat: HeartBeat) {
     self.apiService = apiService
@@ -104,11 +90,13 @@ public class TravelService: NSObject {
     currentAdvice = (currentAdvices && preferenceStore.currentAdviceIdentifier)
       .map { (loadedAdvices, adviceIdentifier) in
         switch loadedAdvices {
-        case .loaded(let advices):
+        case .result(let advices):
           let firstAdvice = advices.first { $0.identifier == adviceIdentifier }
-          return firstAdvice ?? advices.first
+          return .result(firstAdvice ?? advices.first)
+        case .error(let error):
+          return .error(error)
         case .loading:
-          return nil
+          return .loading
         }
       }
 
@@ -338,7 +326,7 @@ public class TravelService: NSObject {
       $0.isOngoing || (keepDepartedAdvice && $0.identifier == currentAdviceIdentifier)
     }
 
-    currentAdvicesSource.value = .loaded(value: advices)
+    currentAdvicesSource.value = .result(advices)
 
 //    if let secondAdvice = advices.dropFirst().first {
 //      nextAdviceVariable.value = secondAdvice
