@@ -61,15 +61,15 @@ class TickerViewController: ViewController {
     fromIndicatorLabel.text = R.string.localization.fromStation()
     toIndicatorLabel.text = R.string.localization.toStation()
 
-    viewModel.fromIndicator.subscribe { [fromButton] variable in
+    viewModel.fromButtonTitle.subscribe { [fromButton] variable in
       fromButton?.setTitle(variable.value, for: .normal)
     }.disposed(by: disposeBag)
-    fromButton.setTitle(viewModel.fromIndicator.value, for: .normal)
+    fromButton.setTitle(viewModel.fromButtonTitle.value, for: .normal)
 
-    viewModel.toIndicator.subscribe { [toButton] variable in
+    viewModel.toButtonTitle.subscribe { [toButton] variable in
       toButton?.setTitle(variable.value, for: .normal)
     }.disposed(by: disposeBag)
-    toButton.setTitle(viewModel.toIndicator.value, for: .normal)
+    toButton.setTitle(viewModel.fromButtonTitle.value, for: .normal)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -193,13 +193,7 @@ class TickerViewController: ViewController {
       controller.state = state
       controller.selectedStation = state == .from ? self?.fromStation : self?.toStation
       controller.successHandler = { [weak controller] station in
-        App.travelService.setStation(state, station: station, byPicker: true)
-          .then {
-            print($0)
-          }
-          .trap {
-            print($0)
-          }
+        App.travelService.setStation(state, station: station)
         controller?.dismiss(animated: true, completion: nil)
       }
 
@@ -255,7 +249,7 @@ class TickerViewController: ViewController {
   }
 
   @IBAction func switchPressed(_ sender: AnyObject) {
-    App.travelService.switchFromTo().then { print($0) }
+    App.travelService.switchFromTo()
   }
 
   override var preferredStatusBarStyle : UIStatusBarStyle {

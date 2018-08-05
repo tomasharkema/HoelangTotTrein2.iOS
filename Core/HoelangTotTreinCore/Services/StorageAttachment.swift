@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import RxSwift
+import Bindable
 import Promissum
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
@@ -16,11 +16,7 @@ import Promissum
   import HoelangTotTreinAPI
 #endif
 
-public class StorageAttachment {
-  private let queue = DispatchQueue(label: "nl.tomasharkema.StorageAttachment")
-  private lazy var scheduler: SerialDispatchQueueScheduler = {
-    return SerialDispatchQueueScheduler(queue: self.queue, internalSerialQueueName: "nl.tomasharkema.StorageAttachment")
-  }()
+public class StorageAttachment: NSObject {
 
   private let travelService: TravelService
   private let dataStore: DataStore
@@ -30,55 +26,60 @@ public class StorageAttachment {
     self.travelService = travelService
     self.dataStore = dataStore
     self.preferenceStore = preferenceStore
+
+    super.init()
+
+    start()
   }
 
-  public func attach() {
-
-    _ = travelService.stationsObservable.asObservable()
-      .observeOn(scheduler)
-      .subscribe { [weak self] in
-        switch $0 {
-        case let .next(stations?):
-          self?.updateStations(stations)
-            .then {
-              print($0)
-            }
-            .trap {
-              print($0)
-            }
-        default: break;
-        }
-      }
-
-    _ = travelService.firstAdviceRequestObservable
-      .observeOn(scheduler)
-      .filterOptional()
-      .subscribe(onNext: { [weak self] in
-        self?.insertHistoryFromRequest($0)
-      })
-
-    _ = travelService.currentAdvicesObservable
-      .asObservable()
-      .observeOn(scheduler)
-      .map { $0.value }
-      .filterOptional()
-      .subscribe(onNext: { [preferenceStore, travelService] advices in
-        preferenceStore.persistedAdvices = advices
-        travelService.getCurrentAdviceRequest()
-          .dispatch(on: self.queue)
-          .then { advice in
-            self.persistCurrent(advices, forAdviceRequest: advice)
-          }
-          .trap { print($0) }
-      })
-
-    // prepopulate stations history
-
-    dataStore.mostUsedStations()
-      .then { stations in
-        self.travelService.setMostUsedStations(stations: stations)
-      }
+  private func start() {
+    travelService.stations.subscribe { [weak self] event in
+      self?.updateStations(event.value)
+    }.disposed(by: disposeBag)
   }
+
+//  public func attach() {
+//
+//    _ = travelService.stationsObservable.asObservable()
+//      .observeOn(scheduler)
+//      .subscribe { [weak self] in
+//        switch $0 {
+//        case let .next(stations?):
+//          self?.updateStations(stations)
+//            .then {
+//              print($0)
+//            }
+//            .trap {
+//              print($0)
+//            }
+//        default: break;
+//        }
+//      }
+//
+//    _ = travelService.firstAdviceRequestObservable
+//      .observeOn(scheduler)
+//      .filterOptional()
+//      .subscribe(onNext: { [weak self] in
+//        self?.insertHistoryFromRequest($0)
+//      })
+//
+//    _ = travelService.currentAdvicesObservable
+//      .asObservable()
+//      .observeOn(scheduler)
+//      .map { $0.value }
+//      .filterOptional()
+//      .subscribe(onNext: { [preferenceStore, travelService] advices in
+//        preferenceStore.persistedAdvices = advices
+//        self.persistCurrent(advices, forAdviceRequest: travelService.pickedAdviceRequest.value)
+//      })
+//
+//    // prepopulate stations history
+//
+//    dataStore.mostUsedStations()
+//      .then { [travelService] stations in
+//        travelService.setMostUsedStations(stations: stations)
+//      }
+//  }
 
   func insertHistoryFromRequest(_ advice: AdviceRequest) -> Promise<Void, Error> {
 
@@ -93,8 +94,8 @@ public class StorageAttachment {
 
     historyInsert
       .flatMap { _ in self.dataStore.mostUsedStations() }
-      .then { stations in
-        self.travelService.setMostUsedStations(stations: stations)
+      .then { [travelService] stations in
+        travelService.setMostUsedStations(stations: stations)
       }
 
     return historyInsert.mapVoid()

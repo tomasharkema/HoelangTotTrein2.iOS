@@ -44,8 +44,12 @@ public class ListTickerViewModel {
       }
     }
 
-    fromButtonTitle = travelService.currentAdviceRequest.map { $0.from?.name ?? "[Pick Station]" }
-    toButtonTitle = travelService.currentAdviceRequest.map { $0.to?.name ?? "[Pick Station]" }
+    fromButtonTitle = travelService.pickedAdviceRequest.map {
+      $0.from?.name ?? "[Pick Station]"
+    }
+    toButtonTitle = travelService.pickedAdviceRequest.map {
+      $0.to?.name ?? "[Pick Station]"
+    }
   }
 
 }

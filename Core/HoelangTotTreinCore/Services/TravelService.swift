@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 import Promissum
-import RxSwift
+//import RxSwift
 import Bindable
 
 #if os(watchOS)
@@ -44,37 +44,49 @@ public class TravelService: NSObject {
   private let dataStore: DataStore
   private let preferenceStore: PreferenceStore
   private let heartBeat: HeartBeat
-  private let scheduler: SchedulerType
-
   private var heartBeatToken: HeartBeat.Token?
 
   #if os(iOS)
   private let session = WCSession.default
   #endif
 
-  private let currentAdviceVariable = RxSwift.Variable<Advice?>(nil)
-  public private(set) var currentAdviceObservable: Observable<Advice?>!
+//  private let currentAdviceVariable = RxSwift.Variable<Advice?>(nil)
+//  public private(set) var currentAdviceObservable: Observable<Advice?>!
+//
+//  private let currentAdvicesVariable = RxSwift.Variable<LoadingState<Advices>>(.loading)
+//  public private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
+//
+//  private let firstAdviceRequestVariable = RxSwift.Variable<AdviceRequest?>(nil)
+//  public private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
+//
+//  private let nextAdviceVariable = RxSwift.Variable<Advice?>(nil)
+//  public private(set) var nextAdviceObservable: Observable<Advice?>!
+//
+//  fileprivate let currentAdviceOnScreenVariable = RxSwift.Variable<Advice?>(nil)
+//  public private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+//
+//  private let mostUsedStationsVariable = RxSwift.Variable<[Station]>([])
+//  public private(set) var mostUsedStationsObservable: Observable<[Station]>!
 
-  private let currentAdvicesVariable = RxSwift.Variable<LoadingState<Advices>>(.loading)
-  public private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
+//  private let currentAdviceRequestSource = Bindable.VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
+//  public let currentAdviceRequest: Bindable.Variable<AdviceRequest>
 
-  private let stationsVariable = RxSwift.Variable<Stations?>(nil)
-  public private(set) var stationsObservable: Observable<Stations?>!
+  private let currentAdvicesSource = VariableSource<LoadingState<Advices>>(value: .loading)
+  public let currentAdvices: Variable<LoadingState<Advices>>
 
-  private let firstAdviceRequestVariable = RxSwift.Variable<AdviceRequest?>(nil)
-  public private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
+  private let currentAdviceOnScreenSource = VariableSource<Advice?>(value: nil)
+  public let currentAdviceOnScreen: Variable<Advice?>
 
-  private let nextAdviceVariable = RxSwift.Variable<Advice?>(nil)
-  public private(set) var nextAdviceObservable: Observable<Advice?>!
+  private let pickedAdviceRequestSource = VariableSource(value: AdviceRequest(from: nil, to: nil))
+  public let pickedAdviceRequest: Variable<AdviceRequest>
 
-  fileprivate let currentAdviceOnScreenVariable = RxSwift.Variable<Advice?>(nil)
-  public private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
+  private let mostUsedStationsSource = VariableSource(value: Stations())
+  public let mostUsedStations: Variable<Stations>
 
-  private let mostUsedStationsVariable = RxSwift.Variable<[Station]>([])
-  public private(set) var mostUsedStationsObservable: Observable<[Station]>!
+  private let stationsSource = VariableSource(value: Stations())
+  public let stations: Variable<Stations>
 
-  private var currentAdviceRequestSource = Bindable.VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
-  public var currentAdviceRequest: Bindable.Variable<AdviceRequest>
+  public let currentAdvice: Variable<Advice?>
 
   public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, preferenceStore: PreferenceStore, heartBeat: HeartBeat) {
     self.apiService = apiService
@@ -82,32 +94,37 @@ public class TravelService: NSObject {
     self.dataStore = dataStore
     self.preferenceStore = preferenceStore
     self.heartBeat = heartBeat
-    self.scheduler = ConcurrentDispatchQueueScheduler(queue: self.queue)
+
+    currentAdvices = currentAdvicesSource.variable
+    currentAdviceOnScreen = currentAdviceOnScreenSource.variable
+    pickedAdviceRequest = pickedAdviceRequestSource.variable
+    mostUsedStations = mostUsedStationsSource.variable
+    stations = stationsSource.variable
+
+    currentAdvice = (currentAdvices && preferenceStore.currentAdviceIdentifier)
+      .map { (loadedAdvices, adviceIdentifier) in
+        switch loadedAdvices {
+        case .loaded(let advices):
+          let firstAdvice = advices.first { $0.identifier == adviceIdentifier }
+          return firstAdvice ?? advices.first
+        case .loading:
+          return nil
+        }
+      }
 
     super.init()
-
-    currentAdviceObservable = currentAdviceVariable.asObservable()
-    currentAdvicesObservable = currentAdvicesVariable.asObservable()
-    stationsObservable = stationsVariable.asObservable()
-    firstAdviceRequestObservable = firstAdviceRequestVariable.asObservable()
-    nextAdviceObservable = nextAdviceVariable.asObservable()
-    currentAdviceOnScreenObservable = currentAdviceOnScreenVariable.asObservable()
-    mostUsedStationsObservable = mostUsedStationsVariable.asObservable()
-
-    currentAdviceRequest = currentAdviceRequestSource.variable
 
     start()
   }
 
-  var fromAndToCode: (String?, String?) = (nil, nil) {
+  var fromAndToCodePicked: (String?, String?) = (nil, nil) {
     didSet {
-      let (fromCode, toCode) = fromAndToCode
-      let from: Promise<Station?, Error> = fromCode.map {
+      let from: Promise<Station?, Error> = fromAndToCodePicked.0.map {
         self.dataStore.find(stationCode: $0)
           .map { .some($0) }
         } ?? Promise(value: nil)
 
-      let to: Promise<Station?, Error> = toCode.map {
+      let to: Promise<Station?, Error> = fromAndToCodePicked.1.map {
         self.dataStore.find(stationCode: $0)
           .map { .some($0) }
         } ?? Promise(value: nil)
@@ -116,8 +133,11 @@ public class TravelService: NSObject {
         .map {
           AdviceRequest(from: $0.0, to: $0.1)
         }
-        .then { [currentAdviceRequestSource] request in
-          currentAdviceRequestSource.value = request
+        .then { [pickedAdviceRequestSource] request in
+          pickedAdviceRequestSource.value = request
+        }
+        .trap {
+          print("fromAndToCodePicked error \($0)")
         }
     }
   }
@@ -127,73 +147,70 @@ public class TravelService: NSObject {
       self?.tick()
     }
 
-    bind(\.fromAndToCode, to: preferenceStore.fromStationCode && preferenceStore.toStationCode)
+    bind(\.fromAndToCodePicked, to: preferenceStore.fromStationByPickerCode && preferenceStore.toStationByPickerCode)
   }
   
   public func attach() {
     #if os(iOS)
-      session.delegate = self
-      session.activate()
+//      session.delegate = self
+//      session.activate()
     #endif
 
-    _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
-      guard let adviceRequest = adviceRequest else {
-        return
-      }
+//    _ = firstAdviceRequestObservable.observeOn(scheduler).subscribe(onNext: { adviceRequest in
+//      guard let adviceRequest = adviceRequest else {
+//        return
+//      }
+//
+//      if let from = adviceRequest.from {
+//        self.preferenceStore.setFromStationCode(code: from.code)
+//      }
+//
+//      if let to = adviceRequest.to {
+//        self.preferenceStore.setToStationCode(code: to.code)
+//      }
+//
+//      _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
+//    })
 
-      if let from = adviceRequest.from {
-        self.preferenceStore.setFromStationCode(code: from.code)
-      }
+//    _ = stationsObservable.asObservable()
+//      .single()
+//      .subscribe(onNext: { [pickedAdviceRequest, preferenceStore] _ in
+//
+//        let adviceRequest = pickedAdviceRequest.value
+//        if self.firstAdviceRequestVariable.value != adviceRequest {
+//          self.firstAdviceRequestVariable.value = adviceRequest
+//        }
+//        if let advicesAndRequest = preferenceStore.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
+//          self.notifyOfNewAdvices(advicesAndRequest.advices)
+//        }
+//      })
 
-      if let to = adviceRequest.to {
-        self.preferenceStore.setToStationCode(code: to.code)
-      }
-
-      _ = self.fetchCurrentAdvices(for: adviceRequest, shouldEmitLoading: true)
-    })
-
-    _ = stationsObservable.asObservable()
-      .single()
-      .subscribe(onNext: { _ in
-        self.getCurrentAdviceRequest()
-          .dispatch(on: self.queue)
-          .then { adviceRequest in
-            if self.firstAdviceRequestVariable.value != adviceRequest {
-              self.firstAdviceRequestVariable.value = adviceRequest
-            }
-
-//            if let advicesAndRequest = UserDefaults.persistedAdvicesAndRequest, advicesAndRequest.adviceRequest == adviceRequest {
-//              self.notifyOfNewAdvices(advicesAndRequest.advices)
-//            }
-          }
-      })
-
-    _ = currentAdviceOnScreenVariable.asObservable()
-      .observeOn(scheduler)
-      .filterOptional()
-      .throttle(3, scheduler: scheduler)
-      .subscribe(onNext: { advice in
-
-//        self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
-
-        #if os(iOS)
-          self.session.sendEvent(.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to)))
-          self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
-        #endif
-      })
-
-    _ = currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe(onNext: { advices in
-
-      guard case .loaded(let advices) = advices else {
-        return
-      }
-
-      let element = advices.enumerated()
-        .first { $0.element.identifier() == self.preferenceStore.currentAdviceIdentifier }?
-        .element ?? advices.first
-
-      self.currentAdviceOnScreenVariable.value = element
-    })
+//    _ = currentAdviceOnScreenVariable.asObservable()
+//      .observeOn(scheduler)
+//      .filterOptional()
+//      .throttle(3, scheduler: scheduler)
+//      .subscribe(onNext: { advice in
+//
+////        self.startDepartureTimer(for: advice.vertrek.actual.timeIntervalSince(Date()))
+//
+//        #if os(iOS)
+//          self.session.sendEvent(.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to)))
+//          self.session.transferCurrentComplicationUserInfo(["delay": advice.vertrekVertraging ?? "+ 1 min"])
+//        #endif
+//      })
+//
+//    _ = currentAdvicesObservable.asObservable().observeOn(scheduler).subscribe(onNext: { advices in
+//
+//      guard case .loaded(let advices) = advices else {
+//        return
+//      }
+//
+//      let element = advices.enumerated()
+//        .first { $0.element.identifier() == self.preferenceStore.currentAdviceIdentifier }?
+//        .element ?? advices.first
+//
+//      self.currentAdviceOnScreenVariable.value = element
+//    })
 
 //    self.getCurrentAdviceRequest()
 //      .dispatch(on: self.queue)
@@ -219,83 +236,43 @@ public class TravelService: NSObject {
     return apiService.stations()
       .mapError { $0 as Error }
       .map { $0.stations.filter { $0.land == "NL" } }
-      .then { stations in
+      .then { [stationsSource] stations in
         print("TravelService did fetch stations: \(stations.count)")
-        if self.stationsVariable.value ?? [] != stations {
-          self.stationsVariable.value = stations
-        }
+//        if self.stationsVariable.value ?? [] != stations {
+//          self.stationsVariable.value = stations
+//        }
+        stationsSource.value = stations
       }
   }
 
+  private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest) {
 
-//  public func getCurrentAdviceRequest() -> Promise<AdviceRequest, Error> {
-//    let from: Promise<Station?, Error> = preferenceStore.fromStationCode.value.map {
-//      self.dataStore.find(stationCode: $0)
-//        .map { .some($0) }
-//    } ?? Promise(value: nil)
-//
-//    let to: Promise<Station?, Error> = preferenceStore.toStationCode.value.map {
-//      self.dataStore.find(stationCode: $0)
-//        .map { .some($0) }
-//    } ?? Promise(value: nil)
-//
-//    return whenBoth(from, to)
-//      .map {
-//        AdviceRequest(from: $0.0, to: $0.1)
-//      }
-//  }
+    let previousAdviceRequest = pickedAdviceRequest.value // TODO: currentAdviceRequest.value
+    let adviceByPicker = pickedAdviceRequest.value
 
-  func getPickedAdviceRequest() -> Promise<AdviceRequest, Error> {
-    let from: Promise<Station?, Error> = preferenceStore.fromStationByPickerCode.value.map {
-      self.dataStore.find(stationCode: $0)
-        .map { .some($0) }
-      } ?? Promise(value: nil)
-    
-    let to: Promise<Station?, Error> = preferenceStore.toStationByPickerCode.value.map {
-      self.dataStore.find(stationCode: $0)
-        .map { .some($0) }
-      } ?? Promise(value: nil)
-    
-    return whenBoth(from, to)
-      .map {
-        AdviceRequest(from: $0.0, to: $0.1)
+    let correctedAdviceRequest: AdviceRequest
+    if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
+      correctedAdviceRequest = AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from) // TODO: figure out this case
+    } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceByPicker.from {
+      correctedAdviceRequest = AdviceRequest(from: adviceByPicker.from, to: adviceByPicker.to)
+    } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
+      correctedAdviceRequest = AdviceRequest(from: previousAdviceRequest.to, to: adviceByPicker.from ?? previousAdviceRequest.from)
+    } else {
+      correctedAdviceRequest = adviceRequest
     }
-  }
 
-  private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, userInput: Bool) -> Promise<Void, Error> {
-    let correctedAdviceRequest: Promise<AdviceRequest, Error> = whenBoth(getCurrentAdviceRequest(), getPickedAdviceRequest())
-      .map { previousAdviceRequest, adviceByPicker in
-        if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
-          return AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from) // TODO: figure out this case
-        } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceByPicker.from {
-          return AdviceRequest(from: adviceByPicker.from, to: adviceByPicker.to)
-        } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
-          return AdviceRequest(from: previousAdviceRequest.to, to: adviceByPicker.from ?? previousAdviceRequest.from)
-        } else {
-          return adviceRequest
-        }
-      }
+    preferenceStore.setFromStationByPickerCode(code: correctedAdviceRequest.from?.code)
+    preferenceStore.setToStationByPickerCode(code: correctedAdviceRequest.to?.code)
 
-    correctedAdviceRequest
-      .then { [preferenceStore] request in
-
-        if userInput {
-          preferenceStore.setFromStationByPickerCode(code: request.from?.code)
-          preferenceStore.setToStationByPickerCode(code: request.to?.code)
-        }
-
-        if self.firstAdviceRequestVariable.value != request {
-          self.firstAdviceRequestVariable.value = request
-        }
-      }
-
-    return correctedAdviceRequest.mapVoid()
+//    if self.firstAdviceRequestVariable.value != correctedAdviceRequest {
+//      self.firstAdviceRequestVariable.value = correctedAdviceRequest
+//    }
   }
   
-  public func setStation(_ state: PickerState, stationName: String, byPicker: Bool = false) -> Promise<Void, Error> {
+  public func setStation(_ state: PickerState, stationName: String) -> Promise<Void, Error> {
     return dataStore.find(stationName: stationName)
-      .flatMap {
-        self.setStation(state, station: $0, byPicker: byPicker)
+      .then {
+        self.setStation(state, station: $0)
       }
       .then { _ in
         print("TravelService did set station \(stationName)")
@@ -303,12 +280,13 @@ public class TravelService: NSObject {
       .trap {
         print("TravelService setStation did encounter error \($0)")
       }
+      .mapVoid()
   }
 
-  public func setStation(_ state: PickerState, stationCode: String, byPicker: Bool = false) -> Promise<Void, Error> {
+  public func setStation(_ state: PickerState, stationCode: String) -> Promise<Void, Error> {
     return dataStore.find(stationCode: stationCode)
-      .flatMap {
-        self.setStation(state, station: $0, byPicker: byPicker)
+      .then {
+        self.setStation(state, station: $0)
       }
       .then { _ in
         print("TravelService did set station \(stationCode)")
@@ -316,20 +294,20 @@ public class TravelService: NSObject {
       .trap {
         print("TravelService setStation did encounter error \($0)")
       }
+      .mapVoid()
   }
 
-  public func setStation(_ state: PickerState, station: Station, byPicker: Bool = false) -> Promise<Void, Error> {
-    return getCurrentAdviceRequest()
-      .flatMap { advice in
-        let newAdvice: AdviceRequest
-        switch state {
-        case .from:
-          newAdvice = advice.setFrom(station)
-        case .to:
-          newAdvice = advice.setTo(station)
-        }
-        return self.setCurrentAdviceRequest(newAdvice, userInput: byPicker)
-      }
+  public func setStation(_ state: PickerState, station: Station) {
+    let advice = pickedAdviceRequest.value
+    let newAdvice: AdviceRequest
+    switch state {
+    case .from:
+      newAdvice = advice.setFrom(station)
+    case .to:
+      newAdvice = advice.setTo(station)
+    }
+
+    setCurrentAdviceRequest(newAdvice)
   }
 
   public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
@@ -339,35 +317,32 @@ public class TravelService: NSObject {
 
   private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
     if shouldEmitLoading {
-      currentAdvicesVariable.value = .loading
+      currentAdvicesSource.value = .loading
     }
 
-    return (adviceRequest.map { Promise(value: $0) } ?? getCurrentAdviceRequest())
-      .flatMap { self.fetchAdvices(for: $0) }
+    return fetchAdvices(for: adviceRequest ?? pickedAdviceRequest.value)
       .then { advicesResult in
         print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
         self.notifyOfNewAdvices(advicesResult.advices)
-      }.trap { error in
+      }
+      .trap { error in
         print(error)
       }
   }
 
   fileprivate func notifyOfNewAdvices(_ advices: Advices) {
     let keepDepartedAdvice = preferenceStore.keepDepartedAdvice
-    let currentAdviceIdentifier = preferenceStore.currentAdviceIdentifier
+    let currentAdviceIdentifier = preferenceStore.currentAdviceIdentifier.value
+    
     let advices = advices.filter {
-      $0.isOngoing || (keepDepartedAdvice && $0.identifier() == currentAdviceIdentifier)
+      $0.isOngoing || (keepDepartedAdvice && $0.identifier == currentAdviceIdentifier)
     }
 
-    currentAdvicesVariable.value = .loaded(value: advices)
+    currentAdvicesSource.value = .loaded(value: advices)
 
-    let firstAdvice = advices.first { $0.identifier() == self.preferenceStore.currentAdviceIdentifier } 
-    if let firstAdvice = firstAdvice ?? advices.first {
-      currentAdviceVariable.value = firstAdvice
-    }
-    if let secondAdvice = advices.dropFirst().first {
-      nextAdviceVariable.value = secondAdvice
-    }
+//    if let secondAdvice = advices.dropFirst().first {
+//      nextAdviceVariable.value = secondAdvice
+//    }
   }
 
   private func sortCloseLocations(_ center: CLLocation, stations: [Station]) -> [Station] {
@@ -391,20 +366,21 @@ public class TravelService: NSObject {
   }
 
   public func travelFromCurrentLocation() -> Promise<Void, Error> {
-    return whenBoth(getCloseStations(), getCurrentAdviceRequest())
-      .flatMap { let (stations, currentAdvice) = $0;
+    let currentAdvice = pickedAdviceRequest.value
+    return getCloseStations()
+      .then { stations in
         guard let station = stations.first else {
-          return Promise(error: TravelServiceError.notChanged)
+          return //Promise(error: TravelServiceError.notChanged)
         }
 
-        return self.setCurrentAdviceRequest(currentAdvice.setFrom(station), userInput: true)
+        self.setCurrentAdviceRequest(currentAdvice.setFrom(station))
       }
+      .mapVoid()
   }
 
-  public func switchFromTo() -> Promise<Void, Error> {
-    return getCurrentAdviceRequest().flatMap { currentAdvice in
-      self.setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), userInput: true)
-    }
+  public func switchFromTo() {
+    let currentAdvice = pickedAdviceRequest.value
+    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from))
   }
 
   deinit {
@@ -412,21 +388,21 @@ public class TravelService: NSObject {
   }
 
   public func setCurrentAdviceOnScreen(advice: Advice?) {
-    preferenceStore.currentAdviceIdentifier = advice?.identifier()
-    currentAdviceOnScreenVariable.value = advice
+    setCurrentAdviceOnScreen(adviceIdentifier: advice?.identifier)
   }
 
-  public func setCurrentAdviceOnScreen(adviceIdentifier: String?) {
-    preferenceStore.currentAdviceIdentifier = adviceIdentifier
-
-    queue.async {
-      let advice = self.preferenceStore.persistedAdvices?.first { $0.identifier() == adviceIdentifier }
-      self.currentAdviceOnScreenVariable.value = advice
-    }
+  public func setCurrentAdviceOnScreen(adviceIdentifier: AdviceIdentifier?) {
+    preferenceStore.setCurrentAdviceIdentifier(identifier: adviceIdentifier)
+//    preferenceStore.currentAdviceIdentifier = adviceIdentifier
+//
+//    queue.async {
+//      let advice = self.preferenceStore.persistedAdvices?.first { $0.identifier() == adviceIdentifier }
+//      self.currentAdviceOnScreenVariable.value = advice
+//    }
   }
 
   func setMostUsedStations(stations: [Station]) {
-    mostUsedStationsVariable.value = stations
+    mostUsedStationsSource.value = stations
   }
 
   public func find(stationNameContains: String) -> Promise<[Station], Error> {
@@ -438,42 +414,42 @@ public class TravelService: NSObject {
   }
 }
 
-#if os(iOS)
-
-extension TravelService: WCSessionDelegate {
-  public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-    /* stub */
-  }
-
-  public func sessionDidBecomeInactive(_ session: WCSession) {
-    /* stub */
-  }
-
-  public func sessionDidDeactivate(_ session: WCSession) {
-    /* stub */
-  }
-
-  public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-    print(String(data: messageData, encoding: .utf8))
-  }
-  
-  public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-    guard let advice = currentAdviceOnScreenVariable.value else {
-      return
-    }
-    
-    let event = TravelEvent.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
-    
-    guard let data = try? JSONEncoder().encode(event) else {
-      return
-    }
-
-    replyHandler(data)
-  }
-  
-
-  public func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-    print("didReceiveApplicationContext: \(applicationContext)")
-  }
-}
-#endif
+//#if os(iOS)
+//
+//extension TravelService: WCSessionDelegate {
+//  public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+//    /* stub */
+//  }
+//
+//  public func sessionDidBecomeInactive(_ session: WCSession) {
+//    /* stub */
+//  }
+//
+//  public func sessionDidDeactivate(_ session: WCSession) {
+//    /* stub */
+//  }
+//
+//  public func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+//    print(String(data: messageData, encoding: .utf8))
+//  }
+//
+//  public func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+//    guard let advice = currentAdviceOnScreenVariable.value else {
+//      return
+//    }
+//
+//    let event = TravelEvent.currentAdviceChange(change: CurrentAdviceChangeData(identifier: advice.identifier(), fromCode: advice.request.from, toCode: advice.request.to))
+//
+//    guard let data = try? JSONEncoder().encode(event) else {
+//      return
+//    }
+//
+//    replyHandler(data)
+//  }
+//
+//
+//  public func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+//    print("didReceiveApplicationContext: \(applicationContext)")
+//  }
+//}
+//#endif

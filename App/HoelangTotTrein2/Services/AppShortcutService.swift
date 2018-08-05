@@ -52,7 +52,7 @@ extension AppDelegate {
       return
     }
 
-    App.travelService.setStation(.to, stationCode: stationCode, byPicker: true)
+    App.travelService.setStation(.to, stationCode: stationCode)
       .flatMap { _ in App.travelService.travelFromCurrentLocation() }
       .then { _ in
         completionHandler(true)

@@ -33,20 +33,22 @@ private struct Keys {
 private let HLTTUserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
 public protocol PreferenceStore: class {
-  var fromStationCode: Variable<String?> { get }
-  var toStationCode: Variable<String?> { get }
-  func setFromStationCode(code: String?)
-  func setToStationCode(code: String?)
+//  var fromStationCode: Variable<String?> { get }
+//  var toStationCode: Variable<String?> { get }
+//  func setFromStationCode(code: String?)
+//  func setToStationCode(code: String?)
 
   var fromStationByPickerCode: Variable<String?> { get }
   var toStationByPickerCode: Variable<String?> { get }
   func setFromStationByPickerCode(code: String?)
   func setToStationByPickerCode(code: String?)
 
+  var currentAdviceIdentifier: Variable<AdviceIdentifier?> { get }
+  func setCurrentAdviceIdentifier(identifier: AdviceIdentifier?)
+
   var userId: String { get }
   var geofenceInfo: [String: [GeofenceModel]]? { get set }
   var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }
-  var currentAdviceIdentifier: String? { get set }
   var persistedAdvices: Advices? { get set }
   var keepDepartedAdvice: Bool { get set }
   var firstLegRitNummers: [String] { get set }
@@ -55,45 +57,52 @@ public protocol PreferenceStore: class {
 
 public class UserDefaultsPreferenceStore: PreferenceStore {
 
-  public var fromStationCode: Variable<String?>
-  public var toStationCode: Variable<String?>
-  public var fromStationByPickerCode: Variable<String?>
-  public var toStationByPickerCode: Variable<String?>
+//  public var fromStationCode: Variable<String?>
+//  public var toStationCode: Variable<String?>
+  public let fromStationByPickerCode: Variable<String?>
+  public let toStationByPickerCode: Variable<String?>
 
-  public var fromStationCodeSource = VariableSource<String?>(value: nil)
-  public var toStationCodeSource = VariableSource<String?>(value: nil)
-  public var fromStationByPickerCodeSource = VariableSource<String?>(value: nil)
-  public var toStationByPickerCodeSource = VariableSource<String?>(value: nil)
+//  public var fromStationCodeSource = VariableSource<String?>(value: nil)
+//  public var toStationCodeSource = VariableSource<String?>(value: nil)
+  private let fromStationByPickerCodeSource = VariableSource<String?>(value: nil)
+  private let toStationByPickerCodeSource = VariableSource<String?>(value: nil)
+
+  private let currentAdviceIdentifierSource = VariableSource<AdviceIdentifier?>(value: nil)
+  public let currentAdviceIdentifier: Variable<AdviceIdentifier?>
 
   private let defaultKeepDepartedAdvice: Bool
 
   public init(defaultKeepDepartedAdvice: Bool) {
     self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
     
-    fromStationCode = fromStationCodeSource.variable
-    toStationCode = toStationCodeSource.variable
+//    fromStationCode = fromStationCodeSource.variable
+//    toStationCode = toStationCodeSource.variable
     fromStationByPickerCode = fromStationByPickerCodeSource.variable
     toStationByPickerCode = toStationByPickerCodeSource.variable
+
+    currentAdviceIdentifier = currentAdviceIdentifierSource.variable
 
     prefill()
   }
 
   private func prefill() {
-    fromStationCodeSource.value = fromStationCodeDefaults
-    toStationCodeSource.value = toStationCodeDefaults
+//    fromStationCodeSource.value = fromStationCodeDefaults
+//    toStationCodeSource.value = toStationCodeDefaults
+
+    currentAdviceIdentifierSource.value = currentAdviceIdentifierValue
     fromStationByPickerCodeSource.value = fromStationByPickerCodeDefaults
     toStationByPickerCodeSource.value = toStationByPickerCodeDefaults
   }
 
-  public func setFromStationCode(code: String?) {
-    fromStationCodeDefaults = code
-    fromStationCodeSource.value = code
-  }
-
-  public func setToStationCode(code: String?) {
-    toStationCodeDefaults = code
-    toStationCodeSource.value = code
-  }
+//  public func setFromStationCode(code: String?) {
+//    fromStationCodeDefaults = code
+//    fromStationCodeSource.value = code
+//  }
+//
+//  public func setToStationCode(code: String?) {
+//    toStationCodeDefaults = code
+//    toStationCodeSource.value = code
+//  }
 
   public func setFromStationByPickerCode(code: String?) {
     fromStationByPickerCodeDefaults = code
@@ -210,13 +219,19 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
     }
   }
 
-  public var currentAdviceIdentifier: String? {
+  public func setCurrentAdviceIdentifier(identifier: AdviceIdentifier?) {
+    currentAdviceIdentifierValue = identifier
+    currentAdviceIdentifierSource.value = identifier
+  }
+  private var currentAdviceIdentifierValue: AdviceIdentifier? {
     get {
-      return HLTTUserDefaults.string(forKey: Keys.CurrentAdviceIdentifier)
+      return HLTTUserDefaults.string(forKey: Keys.CurrentAdviceIdentifier).map {
+        AdviceIdentifier(rawValue: $0)
+      }
     }
 
     set {
-      HLTTUserDefaults.set(newValue ?? 0, forKey: Keys.CurrentAdviceIdentifier)
+      HLTTUserDefaults.set(newValue?.rawValue ?? 0, forKey: Keys.CurrentAdviceIdentifier)
       HLTTUserDefaults.synchronize()
     }
   }

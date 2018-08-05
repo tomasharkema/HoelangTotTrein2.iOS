@@ -122,24 +122,22 @@ class TransferService: NSObject {
   private func notify(geofenceModel: GeofenceModel) {
     geofenceValue.value = geofenceModel
     if geofenceModel.type != .tussenStation {
-      travelService.setStation(.from, stationName: geofenceModel.stationName)
+      _ = travelService.setStation(.from, stationName: geofenceModel.stationName)
     }
   }
 
   private func arrive(at station: Station) {
-    travelService.getCurrentAdviceRequest()
-      .dispatch(on: queue)
-      .flatMap { (request: AdviceRequest) -> Promise<(AdvicesResult, AdviceRequest), Error> in
-        let newRequest: AdviceRequest
-        if station == request.to {
-          newRequest = AdviceRequest(from: request.to, to: request.from)
-        } else {
-          newRequest = AdviceRequest(from: station, to: request.to)
-        }
-        
-        return self.travelService.fetchAdvices(for: newRequest)
-          .map { (AdvicesResult(advices: $0.advices.filter { $0.isOngoing }), request) }
-      }
+
+    let request = travelService.pickedAdviceRequest.value
+    let newRequest: AdviceRequest
+    if station == request.to {
+      newRequest = AdviceRequest(from: request.to, to: request.from)
+    } else {
+      newRequest = AdviceRequest(from: station, to: request.to)
+    }
+
+    travelService.fetchAdvices(for: newRequest)
+      .map { (AdvicesResult(advices: $0.advices.filter { $0.isOngoing }), request) }
       .then { (advicesResult, request) in
         if let newAdvice = advicesResult.advices.first {
           self.notify(for: newAdvice, request: request, station: station)

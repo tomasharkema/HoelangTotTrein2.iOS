@@ -14,7 +14,7 @@ import Foundation
 #endif
 
 public struct CurrentAdviceChangeData: Codable {
-  public let identifier: String
+  public let identifier: AdviceIdentifier
   public let fromCode: String
   public let toCode: String
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import RxSwift
+import Bindable
 import Promissum
 import HoelangTotTreinCore
 import HoelangTotTreinAPI
@@ -17,8 +17,8 @@ import AFDateHelper
 class TodayViewController: UIViewController, NCWidgetProviding {
         
   @IBOutlet private weak var timerLabel: UILabel!
-  @IBOutlet weak var fromLabel: UILabel!
-  @IBOutlet weak var toLabel: UILabel!
+  @IBOutlet private weak var fromLabel: UILabel!
+  @IBOutlet private weak var toLabel: UILabel!
 
   private var currentAdvice: Advice?
   private var heartBeatToken: HeartBeat.Token?
@@ -26,22 +26,28 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    WidgetApp.storageAttachment.attach()
+//    WidgetApp.storageAttachment.attach()
     _ = WidgetApp.travelService.fetchStations()
 
-    _ = WidgetApp.travelService.currentAdviceObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] advice in
-        guard let advice = advice else { return }
+    bind(\.currentAdvice, to: WidgetApp.travelService.currentAdvice)
 
-        let fromStation = WidgetApp.travelService.find(stationCode: advice.request.from)
-        let toStation = WidgetApp.travelService.find(stationCode: advice.request.to)
-        whenBoth(fromStation, toStation)
-          .then { [weak self] item in
-            let (from, to) = item
-            self?.render(advice: advice, from: from, to: to)
-          }
-      })
+    let fromVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
+      guard let advice = advice else {
+        return ""
+      }
+      let fromPlatform = advice.vertrekSpoor.map { "(\($0)) " } ?? ""
+      return "\(fromPlatform)\(advice.startStation ?? "")"
+    }
+    fromLabel.bind(\.text, to: fromVariable)
+
+    let toVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
+      guard let advice = advice else {
+        return ""
+      }
+      let toPlatform = advice.aankomstSpoor.map { "(\($0)) " } ?? ""
+      return "\(toPlatform)\(advice.endStation ?? "")"
+    }
+    toLabel.bind(\.text, to: toVariable)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -60,14 +66,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
   }
 
-  private func render(advice: Advice, from: Station, to: Station) {
-    currentAdvice = advice
-    let fromPlatform = advice.vertrekSpoor.map { "(\($0)) " } ?? ""
-    let toPlatform = advice.aankomstSpoor.map { "(\($0)) " } ?? ""
-
-    fromLabel.text = "\(fromPlatform)\(advice.startStation ?? "")"
-    toLabel.text = "\(toPlatform)\(advice.endStation ?? "")"
-  }
+//  private func render(advice: Advice, from: Station, to: Station) {
+//    currentAdvice = advice
+//    let fromPlatform = advice.vertrekSpoor.map { "(\($0)) " } ?? ""
+//    let toPlatform = advice.aankomstSpoor.map { "(\($0)) " } ?? ""
+//
+//    fromLabel.text = "\(fromPlatform)\(advice.startStation ?? "")"
+//    toLabel.text = "\(toPlatform)\(advice.endStation ?? "")"
+//  }
 
   private func tick() {
     guard let advice = currentAdvice else { return }

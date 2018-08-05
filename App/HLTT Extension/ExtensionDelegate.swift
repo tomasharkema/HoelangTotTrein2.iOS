@@ -60,8 +60,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
       WatchApp.preferenceStore.persistedAdvices = advices
 
     case .currentAdviceChange(let data):
-      let from = WatchApp.travelService.setStation(.from, stationCode: data.fromCode, byPicker: true)
-      let to = WatchApp.travelService.setStation(.to, stationCode: data.toCode, byPicker: true)
+      let from = WatchApp.travelService.setStation(.from, stationCode: data.fromCode)
+      let to = WatchApp.travelService.setStation(.to, stationCode: data.toCode)
       WatchApp.travelService.setCurrentAdviceOnScreen(adviceIdentifier: data.identifier)
       whenBoth(from, to).finallyResult {
         print($0)

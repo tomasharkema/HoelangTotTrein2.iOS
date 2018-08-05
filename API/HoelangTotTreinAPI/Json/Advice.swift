@@ -70,6 +70,14 @@ public struct AdviceRequestCodes: Codable, Equatable {
   public let to: String
 }
 
+public struct AdviceIdentifier: RawRepresentable, Equatable, Codable {
+  public let rawValue: String
+  
+  public init(rawValue: String) {
+    self.rawValue = rawValue
+  }
+}
+
 public struct Advice: Equatable, Codable {
   public let overstappen: Int
   public let vertrek: FareTime
@@ -80,8 +88,8 @@ public struct Advice: Equatable, Codable {
   public let status: FareStatus
   public let request: AdviceRequestCodes
   
-  public func identifier() -> String {
-    return "\(vertrek.planned.timeIntervalSince1970):\(aankomst.planned.timeIntervalSince1970):\(request.from):\(request.to)"
+  public var identifier: AdviceIdentifier {
+    return AdviceIdentifier(rawValue: "\(vertrek.planned.timeIntervalSince1970):\(aankomst.planned.timeIntervalSince1970):\(request.from):\(request.to)")
   }
 }
 
