@@ -7,25 +7,29 @@
 //
 
 import UIKit
-import RxSwift
+import Bindable
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
-class AppShortcutService {
+class AppShortcutService: NSObject {
   private let travelService: TravelService
-  private let disposeBag = DisposeBag()
+
+  private var mostUsedStations: Stations? {
+    didSet {
+      showAppShortcuts(forStations: mostUsedStations ?? [])
+    }
+  }
 
   init(travelService: TravelService) {
     self.travelService = travelService
+
+    super.init()
+
+    start()
   }
 
-  func attach() {
-    travelService.mostUsedStationsObservable
-      .filter { !$0.isEmpty }
-      .subscribe(onNext: { stations in
-        self.showAppShortcuts(forStations: stations)
-      })
-      .disposed(by: disposeBag)
+  private func start() {
+    bind(\.mostUsedStations, to: travelService.mostUsedStations)
   }
 
   private func showAppShortcuts(forStations stations: [Station]) {

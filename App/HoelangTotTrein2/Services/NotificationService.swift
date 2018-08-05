@@ -7,23 +7,43 @@
 //
 
 import UIKit
-import RxSwift
+import Bindable
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 import UserNotifications
 
-class NotificationService {
+class NotificationService: NSObject {
   private let transferService: TransferService
   private let dataStore: DataStore
   private let preferenceStore: PreferenceStore
   private let apiService: ApiService
-  fileprivate let disposeBag = DisposeBag()
+
+  private var currentGeofence: GeofenceModel? {
+    didSet {
+      guard let currentGeofence = currentGeofence,
+        currentGeofence.type == .overstap,
+        preferenceStore.appSettings.contains(.transferNotificationEnabled)
+        else {
+          return
+        }
+
+      notify(for: currentGeofence)
+    }
+  }
 
   init(transferService: TransferService, dataStore: DataStore, preferenceStore: PreferenceStore, apiService: ApiService) {
     self.transferService = transferService
     self.dataStore = dataStore
     self.preferenceStore = preferenceStore
     self.apiService = apiService
+
+    super.init()
+
+    start()
+  }
+
+  private func start() {
+    bind(\.currentGeofence, to: transferService.geofence)
   }
 
   fileprivate func fireNotification(_ identifier: String, title: String, body: String, categoryIdentifier: String?, userInfo: [String: Any]?) {
@@ -100,21 +120,5 @@ class NotificationService {
         categoryIdentifier: nil,
         userInfo: nil)
     }
-  }
-
-  func attach() {
-    transferService.geofenceObservable?
-      .observeOn(MainScheduler.asyncInstance)
-      .filter {
-        if $0.type == .overstap {
-          return self.preferenceStore.appSettings.contains(.transferNotificationEnabled)
-        }
-
-        return true
-      }
-      .subscribe(onNext: { geofenceModel in
-        self.notify(for: geofenceModel)
-      })
-      .disposed(by: disposeBag)
   }
 }

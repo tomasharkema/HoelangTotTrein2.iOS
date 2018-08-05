@@ -28,21 +28,35 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
   var state: PickerState!
   var selectedStation: Station?
 
-  @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var currentStation: UILabel!
-  @IBOutlet weak var searchField: UITextField!
+  @IBOutlet private weak var tableView: UITableView!
+  @IBOutlet private weak var currentStation: UILabel!
+  @IBOutlet private weak var searchField: UITextField!
 
   var cancelHandler: (() -> ())?
   var successHandler: ((Station) -> ())?
 
-  private var closeStations: [Station]?
-  private var mostUsedStations: [Station]?
-  private var ordinaryStations: [Station]?
-  private var searchResults: [Station]?
+  private var closeStations: [Station]? {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  private var mostUsedStations: [Station]? {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  private var ordinaryStations: [Station]? {
+    didSet {
+      tableView.reloadData()
+    }
+  }
+  private var searchResults: [Station]? {
+    didSet {
+      tableView.reloadData()
+    }
+  }
 
-  private let bag = DisposeBag()
-
-  var isSearching: Bool {
+  private var isSearching: Bool {
     return searchField.text ?? "" != ""
   }
 
@@ -53,7 +67,7 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
     tableView.dataSource = self
 
     tableView.backgroundView = UIView()
-    tableView.backgroundColor = UIColor.clear
+    tableView.backgroundColor = .clear
 
     currentStation.text = state.description
 
@@ -67,30 +81,14 @@ class PickerViewController: ViewController, UITableViewDelegate, UITableViewData
         self?.tableView.reloadData()
       }
 
-    App.travelService.stationsObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] stations in
-        assert(Thread.isMainThread)
-        self?.ordinaryStations = stations
-        self?.tableView.reloadData()
-      })
-      .disposed(by: bag)
-
-    App.travelService.mostUsedStationsObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .subscribe(onNext: { [weak self] stations in
-        assert(Thread.isMainThread)
-        self?.mostUsedStations = Array(stations.prefix(5))
-        self?.tableView.reloadData()
-      })
-      .disposed(by: bag)
+    bind(\.ordinaryStations, to: App.travelService.stations)
+    bind(\.mostUsedStations, to: App.travelService.mostUsedStations)
   }
 
   func search(_ string: String) {
     App.travelService.find(stationNameContains: string)
       .then { [weak self] stations in
         self?.searchResults = stations
-        self?.tableView.reloadData()
       }
   }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreLocation
-import RxSwift
+import Bindable
 import HoelangTotTreinCore
 import HoelangTotTreinAPI
 import Promissum
@@ -21,38 +21,35 @@ class TransferService: NSObject {
   private let dataStore: DataStore
   private let preferenceStore: PreferenceStore
   private let locationManager = CLLocationManager()
+  
+//  private let geofenceValue: Variable<GeofenceModel?> = Variable(nil)
+//  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
 
-  private let bag = DisposeBag()
-  
-  private let queue = DispatchQueue(label: "TransferService", attributes: .concurrent)
-  private lazy var scheduler: ConcurrentDispatchQueueScheduler = {
-    return ConcurrentDispatchQueueScheduler(queue: self.queue)
-  }()
-  
-  private let geofenceValue: Variable<GeofenceModel?> = Variable(nil)
-  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
-  
+  private let geofenceSource = VariableSource<GeofenceModel?>(value: nil)
+  public let geofence: Variable<GeofenceModel?>
+
+  var advices: Advices? = [] {
+    didSet {
+      guard let advices = advices else { return }
+      updateGeofences(for: advices)
+    }
+  }
+
   init(travelService: TravelService, dataStore: DataStore, preferenceStore: PreferenceStore, radius: CLLocationDistance = 200) {
     self.radius = radius
     self.travelService = travelService
     self.dataStore = dataStore
     self.preferenceStore = preferenceStore
+
+    geofence = geofenceSource.variable
+
     super.init()
     locationManager.delegate = self
-    geofenceObservable = geofenceValue.asObservable().filterOptional()
+    start()
   }
 
-  func attach() {
-    travelService.currentAdvicesObservable
-      .observeOn(scheduler)
-      .subscribe(onNext: { advicesResult in
-        guard case .loaded(let advices) = advicesResult else {
-          return
-        }
-
-        self.updateGeofences(for: advices)
-      })
-      .disposed(by: bag)
+  func start() {
+    bind(\.advices, to: travelService.currentAdvices.map { $0.value })
   }
 
   private func getStationNames(from advice: Advice) -> Set<String> {
@@ -120,7 +117,7 @@ class TransferService: NSObject {
   }
   
   private func notify(geofenceModel: GeofenceModel) {
-    geofenceValue.value = geofenceModel
+    geofenceSource.value = geofenceModel
     if geofenceModel.type != .tussenStation {
       _ = travelService.setStation(.from, stationName: geofenceModel.stationName)
     }
@@ -146,8 +143,7 @@ class TransferService: NSObject {
   }
 
   private func arrive(at stationName: String) {
-    self.dataStore.find(stationName: stationName)
-      .dispatch(on: queue)
+    dataStore.find(stationName: stationName)
       .then { currentStation in
         self.arrive(at: currentStation)
       }

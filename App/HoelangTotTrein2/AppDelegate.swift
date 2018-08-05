@@ -25,12 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     Fabric.with([Crashlytics.self])
 
-    App.storageAttachment.attach()
+    App.storageAttachment
     _ = App.travelService.fetchStations()
-    App.transferService.attach()
-    App.notificationService.attach()
+    App.transferService
+    App.notificationService
 
-    App.appShortcutService.attach()
+    App.appShortcutService
 
     requestPush()
 
@@ -54,28 +54,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Saves changes in the application's managed object context before the application terminates.
   }
 
-  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-
-    App.travelService.currentAdviceOnScreenObservable
-      .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
-      .take(1)
-      .subscribe(onNext: { _ in
-        completionHandler(.newData)
-      })
-      .disposed(by: bag)
-
-    guard let message = userInfo["message"] as? String else {
-      return
-    }
-
-    let content = UNMutableNotificationContent()
-    content.title = R.string.localization.delayed()
-    content.badge = 0
-    content.body = message
-
-    let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
-    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-  }
+//  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//
+//    App.travelService.currentAdviceOnScreenObservable
+//      .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
+//      .take(1)
+//      .subscribe(onNext: { _ in
+//        completionHandler(.newData)
+//      })
+//      .disposed(by: bag)
+//
+//    guard let message = userInfo["message"] as? String else {
+//      return
+//    }
+//
+//    let content = UNMutableNotificationContent()
+//    content.title = R.string.localization.delayed()
+//    content.badge = 0
+//    content.body = message
+//
+//    let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
+//    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//  }
 
   private func requestPush() {
     DispatchQueue.main.async { [weak self] in
