@@ -9,7 +9,7 @@
 import UIKit
 import SegueManager
 import AFDateHelper
-import RxSwift
+import Bindable
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
@@ -21,10 +21,8 @@ class TickerViewController: ViewController {
   private var fromStation: Station?
   private var toStation: Station?
 
-  private let bag = DisposeBag()
-  private var onScreenAdviceDisposable: Disposable?
-
-  private var currentAdvice: State<Advice> = .loading
+  private var currentAdvice: HoelangTotTreinCore.State<Advice?> = .loading { didSet { applyLoadedState() } }
+  private var currentAdvices: HoelangTotTreinCore.State<Advices> = .loading { didSet { applyLoadedState() } }
 
 //  private var nextAdvice: Advice?
 
@@ -72,6 +70,7 @@ class TickerViewController: ViewController {
     toButton.setTitle(viewModel.fromButtonTitle.value, for: .normal)
 
     bind(\.currentAdvice, to: viewModel.currentAdvice)
+    bind(\.currentAdvices, to: viewModel.currentAdvices)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -82,50 +81,50 @@ class TickerViewController: ViewController {
     collectionView.backgroundView = UIView()
     collectionView.backgroundColor = UIColor.clear
 
-    App.travelService.currentAdvicesObservable
-      .observeOn(MainScheduler.asyncInstance)
-      .distinctUntilChanged { (lhs, rhs) in
-        switch (lhs, rhs) {
-        case (.loading, .loading):
-          return true
-        case (.loaded(let lhsValue), .loaded(let rhsValue)):
-          return lhsValue == rhsValue
-        case (.loading, _):
-          return false
-        case (.loaded, _):
-          return false
-        }
-      }
-      .subscribe(onNext: { [weak self] advicesLoading in
-        guard let controller = self else {
-          return
-        }
-
-        let advices: Advices
-        switch (advicesLoading) {
-        case .loaded(let ad):
-          self?.activityIndicator.stopAnimating()
-          advices = ad
-        case .loading:
-          self?.activityIndicator.startAnimating()
-          advices = []
-        }
-
-        controller.dataSource?.advices = advices
-
-        DispatchQueue.main.async { [weak self] in
-          _ = self?.notifyCurrentAdvice()
-        }
-
-        _ = App.travelService.currentAdviceObservable
-          .take(1)
-          .subscribe(onNext: { [weak self] advice in
-            guard let advice = advice else { return }
-            self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
-            self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
-          })
-      })
-      .disposed(by: bag)
+//    App.travelService.currentAdvicesObservable
+//      .observeOn(MainScheduler.asyncInstance)
+//      .distinctUntilChanged { (lhs, rhs) in
+//        switch (lhs, rhs) {
+//        case (.loading, .loading):
+//          return true
+//        case (.loaded(let lhsValue), .loaded(let rhsValue)):
+//          return lhsValue == rhsValue
+//        case (.loading, _):
+//          return false
+//        case (.loaded, _):
+//          return false
+//        }
+//      }
+//      .subscribe(onNext: { [weak self] advicesLoading in
+//        guard let controller = self else {
+//          return
+//        }
+//
+//        let advices: Advices
+//        switch (advicesLoading) {
+//        case .loaded(let ad):
+//          self?.activityIndicator.stopAnimating()
+//          advices = ad
+//        case .loading:
+//          self?.activityIndicator.startAnimating()
+//          advices = []
+//        }
+//
+//        controller.dataSource?.advices = advices
+//
+//        DispatchQueue.main.async { [weak self] in
+//          _ = self?.notifyCurrentAdvice()
+//        }
+//
+//        _ = App.travelService.currentAdviceObservable
+//          .take(1)
+//          .subscribe(onNext: { [weak self] advice in
+//            guard let advice = advice else { return }
+//            self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
+//            self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
+//          })
+//      })
+//      .disposed(by: bag)
 
 //    App.travelService.currentAdviceObservable
 //      .observeOn(MainScheduler.asyncInstance)
@@ -172,11 +171,11 @@ class TickerViewController: ViewController {
 //      })
 //      .disposed(by: bag)
 
-    collectionView.rx.didScroll
-      .subscribe(onNext: { [weak self] _ in
-        _ = self?.notifyCurrentAdvice()
-      })
-      .disposed(by: bag)
+//    collectionView.rx.didScroll
+//      .subscribe(onNext: { [weak self] _ in
+//        _ = self?.notifyCurrentAdvice()
+//      })
+//      .disposed(by: bag)
 
     renderBackgroundToken = App.heartBeat.register(type: .repeating(interval: 1), callback: { [weak self] _ in
       self?.renderBackground()
@@ -210,7 +209,7 @@ class TickerViewController: ViewController {
   }
 
   private func renderBackground() {
-    if let currentAdvice = currentAdvice.value {
+    if let currentAdvice = currentAdvice.value.flatMap({ $0 }) {
       let offset = currentAdvice.vertrek.actual.timeIntervalSince(Date())
       let difference = Date(timeIntervalSince1970: offset - 60*60)
 
@@ -231,6 +230,30 @@ class TickerViewController: ViewController {
         self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
       }) 
     }
+  }
+
+  private func applyLoadedState() {
+
+    switch currentAdvices {
+    case .loading:
+      activityIndicator.startAnimating()
+    case .error, .result:
+      activityIndicator.stopAnimating()
+    }
+
+    dataSource?.advices = currentAdvices.value ?? []
+
+    DispatchQueue.main.async { [weak self] in
+      _ = self?.notifyCurrentAdvice()
+    }
+
+//    _ = App.travelService.currentAdviceObservable
+//      .take(1)
+//      .subscribe(onNext: { [weak self] advice in
+//        guard let advice = advice else { return }
+//        self?.scrollToPersistedAdvice(advices, currentAdviceIdentifier: advice.identifier())
+//        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
+//      })
   }
 
   private func applyErrorState() {
@@ -266,9 +289,9 @@ class TickerViewController: ViewController {
     return .portrait
   }
 
-  fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceIdentifier: String) {
+  fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceIdentifier: AdviceIdentifier) {
     let adviceAndIndexOpt = advices.enumerated().lazy
-      .first{ $0.element.identifier() == currentAdviceIdentifier }
+      .first{ $0.element.identifier == currentAdviceIdentifier }
     guard let adviceAndIndex = adviceAndIndexOpt else {
       return
     }
@@ -276,9 +299,6 @@ class TickerViewController: ViewController {
     collectionView.scrollToItem(at: IndexPath(row: adviceAndIndex.offset, section: 0), at: .top, animated: false)
   }
 
-  fileprivate var _indicatorStackViewCache = [Int: UIView]()
-
-  private var _currentAdvice: Advice? = nil
   private func notifyCurrentAdvice() -> Advice? {
 
     let center = view.convert(view.center, to: collectionView)
@@ -288,19 +308,22 @@ class TickerViewController: ViewController {
       return nil
     }
 
-    if _currentAdvice == advice {
-      return advice
-    }
+    print(advice)
+    // TODO: Implement
 
-    _currentAdvice = advice
+//    if _currentAdvice == advice {
+//      return advice
+//    }
+//
+//    _currentAdvice = advice
 
-    _ = App.travelService.currentAdvicesObservable
-      .take(1)
-      .map { $0.value }
-      .filterOptional()
-      .subscribe(onNext: { [weak self] advices in
-        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
-      })
+//    _ = App.travelService.currentAdvicesObservable
+//      .take(1)
+//      .map { $0.value }
+//      .filterOptional()
+//      .subscribe(onNext: { [weak self] advices in
+//        self?.updateCurrentAdviceOnScreen(forAdvice: advice, in: advices)
+//      })
 
     return advice
   }
@@ -331,17 +354,11 @@ extension TickerViewController {
     assert(Thread.isMainThread, "call from main thread")
     let showAdvices = advices.prefix(6)
 
-    showAdvices.enumerated().forEach { el in
-      let (idx, element) = el
-      let view: UIView
-      if let cachedView = _indicatorStackViewCache[idx] {
-        view = cachedView
-      } else {
-        let newView = createIndicatorView()
-        self._indicatorStackViewCache[idx] = newView
-        self.stackIndicatorView.addArrangedSubview(newView)
-        view = newView
-      }
+    stackIndicatorView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+    showAdvices.enumerated().forEach { (idx, element) in
+      let view = createIndicatorView()
+      stackIndicatorView.addArrangedSubview(view)
 
       view.isHidden = false
 
@@ -361,9 +378,6 @@ extension TickerViewController {
       view.backgroundColor = bgColor
     }
 
-    stackIndicatorView.arrangedSubviews.skip(showAdvices.count).forEach {
-      $0.isHidden = true
-    }
   }
 }
 

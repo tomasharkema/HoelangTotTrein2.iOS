@@ -20,6 +20,7 @@ public class ListTickerViewModel {
   public let state: Variable<State<Advices>>
 
   public let currentAdvice: Variable<State<Advice?>>
+  public let currentAdvices: Variable<State<Advices>>
 
   public let fromButtonTitle: Variable<String>
   public let toButtonTitle: Variable<String>
@@ -30,6 +31,7 @@ public class ListTickerViewModel {
     state = stateSource.variable
 
     currentAdvice = travelService.currentAdvice
+    currentAdvices = travelService.currentAdvices
 
     startTime = travelService.currentAdvice.map { event in
       return Date()
