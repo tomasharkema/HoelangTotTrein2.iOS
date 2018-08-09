@@ -3,11 +3,8 @@ workspace 'HoelangTotTrein2.xcworkspace'
 abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
   	platform :ios, '10.0'
-
+  pod 'R.swift'
 	pod 'Promissum'
-
-	pod 'RxSwift'
-	pod 'RxCocoa'
   pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
 
@@ -16,7 +13,6 @@ abstract_target 'HoelangTotTrein2Pods' do
     platform :ios, '10.0'
 		project 'App/HoelangTotTrein2.xcodeproj'
 
-		pod 'R.swift'
 		pod 'SegueManager/R.swift'
 		pod 'AFDateHelper'
     pod 'Fabric'
@@ -45,7 +41,6 @@ abstract_target 'HoelangTotTrein2Pods' do
 
     target 'HoelangTotTreinCoreTests' do
       inherit! :search_paths
-      pod 'RxTest'
     end
   end
 
@@ -55,8 +50,8 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	use_frameworks!
 	platform :watchos, '3.0'
 
+#  pod 'R.swift'
 	pod 'Promissum'
-	pod 'RxSwift'
   pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
 
@@ -75,7 +70,7 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    if target.name == 'R.swift.Library' || target.name == 'R.swift' || target.name == 'RxCocoa'
+    if target.name == 'R.swift.Library' || target.name == 'R.swift'
       target.build_configurations.each do |config|
         config.build_settings['SWIFT_VERSION'] = '4.0'
       end

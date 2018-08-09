@@ -26,12 +26,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    WidgetApp.storageAttachment.attach()
-    _ = WidgetApp.travelService.fetchStations()
+    App.storageAttachment
+    _ = App.travelService.fetchStations()
 
-    bind(\.currentAdvice, to: WidgetApp.travelService.currentAdvice)
+    bind(\.currentAdvice, to: App.travelService.currentAdvice)
 
-    let fromVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
+    let fromVariable: Variable<String> = App.travelService.currentAdvice.map { advice in
       guard let advice = advice.value.flatMap({ $0 }) else {
         return ""
       }
@@ -40,7 +40,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     fromLabel.bind(\.text, to: fromVariable)
 
-    let toVariable: Variable<String> = WidgetApp.travelService.currentAdvice.map { advice in
+    let toVariable: Variable<String> = App.travelService.currentAdvice.map { advice in
       guard let advice = advice.value.flatMap({ $0 }) else {
         return ""
       }
@@ -52,18 +52,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
-    heartBeatToken = WidgetApp.heartBeat.register(type: .repeating(interval: 1)) { [weak self] _ in
+    
+    heartBeatToken = nil
+    heartBeatToken = App.heartBeat.register(type: .repeating(interval: 1)) { [weak self] _ in
       self?.tick()
     }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    if let heartBeatToken = heartBeatToken {
-      WidgetApp.heartBeat.unregister(token: heartBeatToken)
-      self.heartBeatToken = nil
-    }
+    heartBeatToken = nil
   }
 
 //  private func render(advice: Advice, from: Station, to: Station) {

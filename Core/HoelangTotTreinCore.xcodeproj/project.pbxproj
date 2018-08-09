@@ -32,7 +32,6 @@
 		C37538151E99181C0047108C /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538131E99181C0047108C /* StorageAttachment.swift */; };
 		C37538161E99181C0047108C /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538141E99181C0047108C /* TravelService.swift */; };
 		C37538211E991AF30047108C /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538201E991AF30047108C /* HoelangTotTreinAPI.framework */; };
-		C37538251E991C750047108C /* Observable+FilterOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538241E991C750047108C /* Observable+FilterOptional.swift */; };
 		C37538271E991CC70047108C /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538261E991CC70047108C /* Advice+Services.swift */; };
 		C375382A1E991D720047108C /* TravelEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538291E991D720047108C /* TravelEvent.swift */; };
 		C375382D1E991DB40047108C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375382B1E991DB40047108C /* Array+Extensions.swift */; };
@@ -47,7 +46,6 @@
 		C375385D1E99233D0047108C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375382B1E991DB40047108C /* Array+Extensions.swift */; };
 		C375385E1E99233D0047108C /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375382C1E991DB40047108C /* Array+Helpers.swift */; };
 		C375385F1E99233D0047108C /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538261E991CC70047108C /* Advice+Services.swift */; };
-		C37538601E99233D0047108C /* Observable+FilterOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37538241E991C750047108C /* Observable+FilterOptional.swift */; };
 		C37538651E9923D50047108C /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37538641E9923D50047108C /* HoelangTotTreinAPIWatch.framework */; };
 		C38335D11EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */; };
 		C38335D21EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C38335CF1EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld */; };
@@ -98,7 +96,6 @@
 		C37538131E99181C0047108C /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
 		C37538141E99181C0047108C /* TravelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelService.swift; sourceTree = "<group>"; };
 		C37538201E991AF30047108C /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../../../Library/Developer/Xcode/DerivedData/HoelangTotTrein2-awasppsyfxxeyscposmsgommelcm/Build/Products/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
-		C37538241E991C750047108C /* Observable+FilterOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+FilterOptional.swift"; sourceTree = "<group>"; };
 		C37538261E991CC70047108C /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
 		C37538291E991D720047108C /* TravelEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelEvent.swift; sourceTree = "<group>"; };
 		C375382B1E991DB40047108C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
@@ -241,7 +238,6 @@
 				C375382B1E991DB40047108C /* Array+Extensions.swift */,
 				C375382C1E991DB40047108C /* Array+Helpers.swift */,
 				C37538261E991CC70047108C /* Advice+Services.swift */,
-				C37538241E991C750047108C /* Observable+FilterOptional.swift */,
 				C373B99C210F1B2800E9D762 /* DisposeBagContainer+Variable.swift */,
 			);
 			path = Extensions;
@@ -529,20 +525,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTreinCoreTests/Pods-HoelangTotTreinCoreTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxTest.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,7 +565,6 @@
 				C33348241EAA498900EE2340 /* JsonHelpers.swift in Sources */,
 				C33348271EAA49BD00EE2340 /* WatchkitHelpers.swift in Sources */,
 				C375382D1E991DB40047108C /* Array+Extensions.swift in Sources */,
-				C37538251E991C750047108C /* Observable+FilterOptional.swift in Sources */,
 				C37538301E991E030047108C /* LocationService.swift in Sources */,
 				C37538161E99181C0047108C /* TravelService.swift in Sources */,
 				C333481D1EAA3D5700EE2340 /* AppLocationService.swift in Sources */,
@@ -606,7 +597,6 @@
 				C33348251EAA498F00EE2340 /* JsonHelpers.swift in Sources */,
 				FFE1B27620CAF1B0007BEE6E /* TickerViewModel.swift in Sources */,
 				C375385A1E99233A0047108C /* TravelEvent.swift in Sources */,
-				C37538601E99233D0047108C /* Observable+FilterOptional.swift in Sources */,
 				C38335D21EAA368900A9E077 /* HoelangTotTrein2.xcdatamodeld in Sources */,
 				C375385C1E99233D0047108C /* CLCircularRegion+Bounds.swift in Sources */,
 				C38335E21EAA37A000A9E077 /* AppDataStore+UserDefaults.swift in Sources */,

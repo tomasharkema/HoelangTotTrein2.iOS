@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import RxSwift
 import Promissum
 import HoelangTotTreinAPI
 import UserNotifications
@@ -19,8 +18,6 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
-  private var bag = DisposeBag()
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
     Fabric.with([Crashlytics.self])

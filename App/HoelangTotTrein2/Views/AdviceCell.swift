@@ -8,6 +8,7 @@
 
 import UIKit
 import HoelangTotTreinAPI
+import HoelangTotTreinCore
 
 class AdviceCell: UICollectionViewCell {
 
@@ -20,37 +21,58 @@ class AdviceCell: UICollectionViewCell {
   @IBOutlet private weak var tickerContainer: UIView!
   @IBOutlet private weak var modalityLabel: UILabel!
 
+  private var heartBeatToken: HeartBeat.Token?
+
   override func prepareForReuse() {
     super.prepareForReuse()
 
-    minutesLabel.stopTimer()
-    secondsLabel.stopTimer()
+    heartBeatToken = nil
+    
+    minutesLabel.isActive = false
+    secondsLabel.isActive = false
   }
 
   var advice: Advice? {
     didSet {
       renderInfo()
+      minutesLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 80, weight: .thin)
+      secondsLabel.isHidden = true
+//      minutesLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 150, weight: .thin)
+//      secondsLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .thin)
 
-      minutesLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 150, weight: .thin)
-      secondsLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .thin)
+      let minutesFormatter = DateComponentsFormatter()
+      minutesFormatter.allowedUnits = [.second, .minute, .hour]
+//      minutesFormatter.unitsStyle = .abbreviated
+      minutesLabel.formatter = minutesFormatter
+      let secondsFormatter = DateComponentsFormatter()
+      secondsFormatter.allowedUnits = []
+      secondsLabel.formatter = secondsFormatter
 
-      if let date = advice?.vertrek.actual, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
-        minutesLabel.format = [.m]
-        secondsLabel.format = [.s]
-      } else {
-        minutesLabel.format = [.h]
-        secondsLabel.format = [.m, .customString(":"), .s]
-      }
+
+//      if let date = advice?.vertrek.actual, (Calendar.current.dateComponents([.hour], from: Date(), to: date).hour ?? -1) < 1 {
+//        let minutesFormatter = DateComponentsFormatter()
+//        minutesFormatter.allowedUnits = [.minute, .hour]
+//        minutesFormatter.maximumUnitCount = 1
+//        minutesLabel.formatter = minutesFormatter
+//        let secondsFormatter = DateComponentsFormatter()
+//        secondsFormatter.allowedUnits = [.second, .minute]
+////        secondsFormatter.maximumUnitCount = 1
+//        secondsLabel.formatter = secondsFormatter
+//      } else {
+//        let minutesFormatter = DateComponentsFormatter()
+//        minutesFormatter.allowedUnits = [.hour]
+////        minutesFormatter.maximumUnitCount = 1
+//        minutesLabel.formatter = minutesFormatter
+//        let secondsFormatter = DateComponentsFormatter()
+//        secondsFormatter.allowedUnits = [.minute, .second]
+////        secondsFormatter.maximumUnitCount = 1
+//        secondsLabel.formatter = secondsFormatter
+//      }
 
       minutesLabel.date = advice?.vertrek.actual
       secondsLabel.date = advice?.vertrek.actual
-
-      minutesLabel.didReachNulSecondsHandler = {
-        
-      }
-      secondsLabel.didReachNulSecondsHandler = {
-
-      }
+      minutesLabel.isActive = true
+      secondsLabel.isActive = true
     }
   }
 

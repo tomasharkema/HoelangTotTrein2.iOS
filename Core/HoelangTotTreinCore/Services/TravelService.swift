@@ -131,9 +131,11 @@ public class TravelService: NSObject {
   }
 
   private func start() {
+    heartBeatToken = nil
     heartBeatToken = heartBeat.register(type: .repeating(interval: 10)) { [weak self] _ in
       self?.tick()
     }
+    tick()
 
     bind(\.fromAndToCodePicked, to: preferenceStore.fromStationByPickerCode && preferenceStore.toStationByPickerCode)
   }

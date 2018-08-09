@@ -53,7 +53,6 @@
 		C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32216971EEB212400BC2745 /* MainInterface.storyboard */; };
 		C322169D1EEB212400BC2745 /* TickerNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322168F1EEB212400BC2745 /* TickerNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
-		C32216A41EEB258B00BC2745 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */; };
 		C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
 		C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
@@ -114,6 +113,8 @@
 		FFAC67521FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
 		FFAC67531FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
 		FFAC67541FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
+		FFD3651B211B35EB00A13867 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
+		FFD3651D211B35FD00A13867 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD3651C211B35FD00A13867 /* App.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -324,6 +325,7 @@
 		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		FF647CC91F80197F008D28EC /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 		FFAC67501FD987F6007F6EBA /* xml-credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "xml-credentials.plist"; path = "../../xml-credentials.plist"; sourceTree = "<group>"; };
+		FFD3651C211B35FD00A13867 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,6 +451,7 @@
 				C32216951EEB212400BC2745 /* NotificationViewController.swift */,
 				C32216971EEB212400BC2745 /* MainInterface.storyboard */,
 				C322169A1EEB212400BC2745 /* Info.plist */,
+				FFD3651C211B35FD00A13867 /* App.swift */,
 			);
 			path = TickerNotification;
 			sourceTree = "<group>";
@@ -1037,14 +1040,12 @@
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bindable-watchOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-watchOS/Promissum.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift-watchOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-watchOS/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1148,8 +1149,6 @@
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
 			);
@@ -1159,8 +1158,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
 			);
@@ -1207,8 +1204,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD3651D211B35FD00A13867 /* App.swift in Sources */,
 				C32216961EEB212400BC2745 /* NotificationViewController.swift in Sources */,
-				C32216A41EEB258B00BC2745 /* TimeLabel.swift in Sources */,
+				FFD3651B211B35EB00A13867 /* TimeLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

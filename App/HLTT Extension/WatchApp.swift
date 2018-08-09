@@ -10,7 +10,7 @@ import Foundation
 import HoelangTotTreinAPIWatch
 import HoelangTotTreinCoreWatch
 
-class WatchApp {
+struct App {
   //TODO: make private
   static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)
   static private let apiService = HttpXmlApiService(credentials: Credentials(file: Bundle.main.url(forResource: "xml-credentials", withExtension: "plist")!))

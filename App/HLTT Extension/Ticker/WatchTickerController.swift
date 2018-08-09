@@ -23,7 +23,7 @@ class WatchTickerController: WKInterfaceController {
   @IBOutlet private var loadingLabel: WKInterfaceLabel!
   @IBOutlet private var delayLabel: WKInterfaceLabel!
 
-  private let viewModel = ListTickerViewModel(travelService: WatchApp.travelService)
+  private let viewModel = ListTickerViewModel(travelService: App.travelService)
 
   private var state: State<Advices> = .loading {
     didSet {

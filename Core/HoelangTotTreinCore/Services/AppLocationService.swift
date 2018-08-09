@@ -9,7 +9,8 @@
 import Foundation
 import CoreLocation
 import Promissum
-import RxSwift
+import Bindable
+
 #if os(watchOS)
   import HoelangTotTreinAPIWatch
 #elseif os(iOS)
@@ -25,10 +26,12 @@ public class AppLocationService: NSObject, CLLocationManagerDelegate, LocationSe
 
   let manager: CLLocationManager
 
-  let significantLocationChangeObservable = Variable<SignificantLocation?>(nil).asObservable()
+  let significantLocationChange: Variable<SignificantLocation?>
+  private let significantLocationChangeSource = VariableSource<SignificantLocation?>(value: nil)
 
   public override init() {
     manager = CLLocationManager()
+    significantLocationChange = significantLocationChangeSource.variable
     super.init()
     manager.delegate = self
   }

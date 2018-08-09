@@ -10,7 +10,7 @@ import Foundation
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
-struct WidgetApp {
+struct App {
   static let heartBeat = HeartBeat()
   static private let preferenceStore = UserDefaultsPreferenceStore(defaultKeepDepartedAdvice: false)
   static private let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)

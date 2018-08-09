@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 import HoelangTotTreinAPI
 
 class TickerFlowLayout: UICollectionViewFlowLayout {
@@ -38,7 +36,6 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
   }
   
   fileprivate weak var collectionView: UICollectionView?
-  fileprivate var disposable: Disposable?
 
   init(advices: Advices, collectionView: UICollectionView) {
     self.advices = advices
@@ -49,10 +46,6 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     collectionView.delegate = self
     collectionView.dataSource = self
     collectionView.reloadData()
-  }
-
-  deinit {
-    disposable?.dispose()
   }
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {

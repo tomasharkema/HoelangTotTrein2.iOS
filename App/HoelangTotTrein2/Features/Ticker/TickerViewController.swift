@@ -177,16 +177,14 @@ class TickerViewController: ViewController {
 //      })
 //      .disposed(by: bag)
 
+    renderBackgroundToken = nil
     renderBackgroundToken = App.heartBeat.register(type: .repeating(interval: 1), callback: { [weak self] _ in
       self?.renderBackground()
     })
   }
 
   override func viewWillDisappear(_ animated: Bool) {
-    if let renderBackgroundToken = renderBackgroundToken {
-      App.heartBeat.unregister(token: renderBackgroundToken)
-      self.renderBackgroundToken = nil
-    }
+    renderBackgroundToken = nil
   }
 
   func showPickerController(_ state: PickerState) {
@@ -308,7 +306,6 @@ class TickerViewController: ViewController {
       return nil
     }
 
-    print(advice)
     // TODO: Implement
 
 //    if _currentAdvice == advice {

@@ -38,7 +38,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
     from.text = "\(geofenceModel.stop.name) \(geofenceModel.stop.time)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
     to.text = "" //"\(geofenceModel.toStop?.name ?? "") (\(geofenceModel.toStop?.timeDate.description ?? ""))"
-    time.format = [.m, .customString(":"), .s]
+    let formatter = DateComponentsFormatter()
+    formatter.allowedUnits = [.minute, .second]
+    time.formatter = formatter
     time.date = geofenceModel.stop.time
   }
 

@@ -3,25 +3,20 @@ PODS:
   - Bindable/Core (0.4.1)
   - Bindable/NSObject (0.4.1):
     - Bindable/Core
-  - Crashlytics (3.10.2):
-    - Fabric (~> 1.7.7)
-  - Fabric (1.7.7)
+  - Crashlytics (3.10.5):
+    - Fabric (~> 1.7.9)
+  - Fabric (1.7.9)
   - Promissum (2.2.0):
     - Promissum/Core (= 2.2.0)
   - Promissum/Core (2.2.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
   - R.swift.Library (4.0.0)
-  - RxCocoa (4.1.2):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.1.2)
-  - RxTest (4.1.2):
-    - RxSwift (~> 4.0)
   - SegueManager/iOS (4.0.0)
   - SegueManager/R.swift (4.0.0):
     - R.swift.Library
     - SegueManager/iOS
-  - SWXMLHash (4.7.0)
+  - SWXMLHash (4.7.1)
 
 DEPENDENCIES:
   - AFDateHelper
@@ -30,9 +25,6 @@ DEPENDENCIES:
   - Fabric
   - Promissum
   - R.swift
-  - RxCocoa
-  - RxSwift
-  - RxTest
   - SegueManager/R.swift
   - SWXMLHash
 
@@ -44,9 +36,6 @@ SPEC REPOS:
     - Promissum
     - R.swift
     - R.swift.Library
-    - RxCocoa
-    - RxSwift
-    - RxTest
     - SegueManager
     - SWXMLHash
 
@@ -63,17 +52,14 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFDateHelper: 4ad66fb19503041fbba8a3018cb7ef9c71b2ff88
   Bindable: 65843743d12b98b14c7193d512e7c8ace0cfdbcb
-  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
-  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
+  Crashlytics: 7f2e38d302d9da96475b3d64d86fb29e31a542b7
+  Fabric: a2917d3895e4c1569b9c3170de7320ea1b1e6661
   Promissum: e6a61175984d7ac4e51853644dd48e86b3446949
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
-  RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
-  RxSwift: e49536837d9901277638493ea537394d4b55f570
-  RxTest: e634f15fd2c2cd0e0120132ef7a4f7be69ad0393
   SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
-  SWXMLHash: f4522438189f72b41e39676d19469a8969d60dd1
+  SWXMLHash: 661b67bc94a01fe71a6ad4ca690cf2cafa5d1d6f
 
-PODFILE CHECKSUM: 2d6754658acb08d6a6338ebc91ff9bcb6f8ff216
+PODFILE CHECKSUM: b32c10122fad97248fa47e907a6c2cd0693ac432
 
 COCOAPODS: 1.5.3

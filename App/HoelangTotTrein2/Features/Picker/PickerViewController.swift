@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import RxSwift
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
 
