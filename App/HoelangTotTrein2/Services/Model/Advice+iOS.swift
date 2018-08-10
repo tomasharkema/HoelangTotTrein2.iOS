@@ -14,13 +14,17 @@ extension Advice {
   var stepModels: [StepViewModel] {
     return reisDeel.compactMap { item in
       if let from = item.stops.first, let to = item.stops.last {
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+
         return StepViewModel(
           fromStation: from.name,
           toStation: to.name,
           fromSpoor: from.spoor ?? "",
           toSpoor: to.spoor ?? "",
-          fromTime: from.time.toString(format: .custom("HH:mm")),
-          toTime: to.time.toString(format: .custom("HH:mm"))
+          fromTime: formatter.string(from: from.time),
+          toTime: formatter.string(from: to.time)
         )
       }
       return nil

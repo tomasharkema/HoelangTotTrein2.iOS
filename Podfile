@@ -7,6 +7,7 @@ abstract_target 'HoelangTotTrein2Pods' do
 	pod 'Promissum'
   pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
+  pod 'SwiftLint'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
@@ -14,7 +15,6 @@ abstract_target 'HoelangTotTrein2Pods' do
 		project 'App/HoelangTotTrein2.xcodeproj'
 
 		pod 'SegueManager/R.swift'
-		pod 'AFDateHelper'
     pod 'Fabric'
     pod 'Crashlytics'
 
@@ -50,7 +50,6 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	use_frameworks!
 	platform :watchos, '3.0'
 
-#  pod 'R.swift'
 	pod 'Promissum'
   pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'

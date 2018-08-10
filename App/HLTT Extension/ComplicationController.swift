@@ -32,7 +32,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void)) {
-      let myDelegate = WKExtension.shared().delegate as! ExtensionDelegate
+      guard let myDelegate = WKExtension.shared().delegate as? ExtensionDelegate else {
+        return
+      }
       myDelegate.requestInitialState { _ in
         handler(self.getTemplateForFamily(complication).map { CLKComplicationTimelineEntry(date: Date(), complicationTemplate: $0) })
       }

@@ -12,7 +12,6 @@ import Promissum
 import HoelangTotTreinCore
 import HoelangTotTreinAPI
 import NotificationCenter
-import AFDateHelper
 
 class TodayViewController: UIViewController, NCWidgetProviding {
         
@@ -22,6 +21,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   private var currentAdvice: HoelangTotTreinCore.State<Advice?> = .loading
   private var heartBeatToken: HeartBeat.Token?
+
+  private var dateFormatter: DateComponentsFormatter = {
+    let dateFormatter = DateComponentsFormatter()
+    dateFormatter.allowedUnits = [.hour, .minute, .second]
+    return dateFormatter
+  }()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -52,7 +57,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    
+
     heartBeatToken = nil
     heartBeatToken = App.heartBeat.register(type: .repeating(interval: 1)) { [weak self] _ in
       self?.tick()
@@ -75,10 +80,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   private func tick() {
     guard let advice = currentAdvice.value.flatMap({ $0 }) else { return }
-    let offset = advice.vertrek.actual.timeIntervalSince(Date())
-    let difference = Date(timeIntervalSince1970: max(0, offset) - 60*60)
-
-    timerLabel.text = difference.toString(format: .custom("mm:ss"))
+    timerLabel.text = dateFormatter.string(from: Date(), to: advice.vertrek.actual)
   }
   
   func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {

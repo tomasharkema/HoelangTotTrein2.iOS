@@ -763,6 +763,7 @@
 			buildPhases = (
 				7732E2E737D80F980C04EA51 /* [CP] Check Pods Manifest.lock */,
 				C3E847AE1BB85518007D17C3 /* ShellScript */,
+				FFB3A56C211CB95600B45DE1 /* ShellScript */,
 				C3E8474B1BB82A01007D17C3 /* Sources */,
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
@@ -1145,7 +1146,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFDateHelper/AFDateHelper.framework",
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
@@ -1154,7 +1154,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFDateHelper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
@@ -1183,6 +1182,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FFB3A56C211CB95600B45DE1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
 		FFC0C73F1F3C515200A49942 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

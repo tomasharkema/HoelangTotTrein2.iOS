@@ -8,11 +8,9 @@
 
 import UIKit
 import SegueManager
-import AFDateHelper
 import Bindable
 import HoelangTotTreinAPI
 import HoelangTotTreinCore
-
 
 class TickerViewController: ViewController {
 
@@ -20,9 +18,8 @@ class TickerViewController: ViewController {
 
   private var fromStation: Station?
   private var toStation: Station?
-
-  private var currentAdvice: HoelangTotTreinCore.State<Advice?> = .loading { didSet { applyLoadedState() } }
-  private var currentAdvices: HoelangTotTreinCore.State<Advices> = .loading { didSet { applyLoadedState() } }
+  private var currentAdvice: State<Advice?> = .loading { didSet { applyLoadedState() } }
+  private var currentAdvices: State<Advices> = .loading { didSet { applyLoadedState() } }
 
 //  private var nextAdvice: Advice?
 
@@ -191,7 +188,9 @@ class TickerViewController: ViewController {
 
     segueManager.performSegue(withIdentifier: R.segue.tickerViewController.presentPickerSegue.identifier) { [weak self] segue in
 
-      let controller = segue.destination as! PickerViewController
+      guard let controller = segue.destination as? PickerViewController else {
+        return
+      }
 
       controller.state = state
       controller.selectedStation = state == .from ? self?.fromStation : self?.toStation
