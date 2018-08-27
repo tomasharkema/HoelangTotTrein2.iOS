@@ -10,7 +10,13 @@ import Foundation
 import CoreLocation
 import Bindable
 import HoelangTotTreinCore
+
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import Promissum
 
 /// a service to notify users that they need to transfer.

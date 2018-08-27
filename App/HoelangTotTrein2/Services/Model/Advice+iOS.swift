@@ -8,7 +8,13 @@
 
 import Foundation
 import CoreData
+
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 
 extension Advice {
   var stepModels: [StepViewModel] {

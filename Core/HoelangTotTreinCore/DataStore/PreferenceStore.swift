@@ -9,35 +9,31 @@
 import Foundation
 import Bindable
 
-#if os(watchOS)
-  import HoelangTotTreinAPIWatch
-#elseif os(iOS)
-  import HoelangTotTreinAPI
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
+import HoelangTotTreinAPI
 #endif
 
 private struct Keys {
-  static let FromStationCodeKey = "FromStationCodeKey"
-  static let ToStationCodeKey = "ToStationCodeKey"
-  static let FromStationByPickerCodeKey = "FromStationByPickerCodeKey"
-  static let ToStationByPickerCodeKey = "ToStationByPickerCodeKey"
-  static let UserIdKey = "UserIdKey"
-  static let GeofenceInfoKey = "GeofenceInfoKey"
-  static let PersistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
-  static let CurrentAdviceIdentifier = "CurrentAdviceIdentifier"
-  static let PersistedAdvices = "PersistedAdvices"
-  static let KeepDepartedAdvice = "KeepDepartedAdvice"
-  static let FirstLegRitNummers = "FirstLegRitNummers"
-  static let AppSettings = "AppSettings"
+  static let fromStationCodeKey = "FromStationCodeKey"
+  static let toStationCodeKey = "ToStationCodeKey"
+  static let fromStationByPickerCodeKey = "FromStationByPickerCodeKey"
+  static let toStationByPickerCodeKey = "ToStationByPickerCodeKey"
+  static let userIdKey = "UserIdKey"
+  static let geofenceInfoKey = "GeofenceInfoKey"
+  static let persistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
+  static let currentAdviceIdentifier = "CurrentAdviceIdentifier"
+  static let persistedAdvices = "PersistedAdvices"
+  static let keepDepartedAdvice = "KeepDepartedAdvice"
+  static let firstLegRitNummers = "FirstLegRitNummers"
+  static let appSettings = "AppSettings"
 }
 
 private let HLTTUserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
 public protocol PreferenceStore: class {
-//  var fromStationCode: Variable<String?> { get }
-//  var toStationCode: Variable<String?> { get }
-//  func setFromStationCode(code: String?)
-//  func setToStationCode(code: String?)
-
   var fromStationByPickerCode: Variable<String?> { get }
   var toStationByPickerCode: Variable<String?> { get }
   func setFromStationByPickerCode(code: String?)
@@ -57,13 +53,9 @@ public protocol PreferenceStore: class {
 
 public class UserDefaultsPreferenceStore: PreferenceStore {
 
-//  public var fromStationCode: Variable<String?>
-//  public var toStationCode: Variable<String?>
   public let fromStationByPickerCode: Variable<String?>
   public let toStationByPickerCode: Variable<String?>
 
-//  public var fromStationCodeSource = VariableSource<String?>(value: nil)
-//  public var toStationCodeSource = VariableSource<String?>(value: nil)
   private let fromStationByPickerCodeSource = VariableSource<String?>(value: nil)
   private let toStationByPickerCodeSource = VariableSource<String?>(value: nil)
 
@@ -75,8 +67,6 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
   public init(defaultKeepDepartedAdvice: Bool) {
     self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
     
-//    fromStationCode = fromStationCodeSource.variable
-//    toStationCode = toStationCodeSource.variable
     fromStationByPickerCode = fromStationByPickerCodeSource.variable
     toStationByPickerCode = toStationByPickerCodeSource.variable
 
@@ -86,23 +76,10 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
   }
 
   private func prefill() {
-//    fromStationCodeSource.value = fromStationCodeDefaults
-//    toStationCodeSource.value = toStationCodeDefaults
-
     currentAdviceIdentifierSource.value = currentAdviceIdentifierValue
     fromStationByPickerCodeSource.value = fromStationByPickerCodeDefaults
     toStationByPickerCodeSource.value = toStationByPickerCodeDefaults
   }
-
-//  public func setFromStationCode(code: String?) {
-//    fromStationCodeDefaults = code
-//    fromStationCodeSource.value = code
-//  }
-//
-//  public func setToStationCode(code: String?) {
-//    toStationCodeDefaults = code
-//    toStationCodeSource.value = code
-//  }
 
   public func setFromStationByPickerCode(code: String?) {
     fromStationByPickerCodeDefaults = code
@@ -116,44 +93,44 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   private var fromStationCodeDefaults: String? {
     get {
-      let fromCode = HLTTUserDefaults.string(forKey: Keys.FromStationCodeKey)
+      let fromCode = HLTTUserDefaults.string(forKey: Keys.fromStationCodeKey)
       return fromCode
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.FromStationCodeKey)
+      HLTTUserDefaults.set(newValue, forKey: Keys.fromStationCodeKey)
       HLTTUserDefaults.synchronize()
     }
   }
 
   private var toStationCodeDefaults: String? {
     get {
-      let toCode = HLTTUserDefaults.string(forKey: Keys.ToStationCodeKey)
+      let toCode = HLTTUserDefaults.string(forKey: Keys.toStationCodeKey)
       return toCode
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.ToStationCodeKey)
+      HLTTUserDefaults.set(newValue, forKey: Keys.toStationCodeKey)
       HLTTUserDefaults.synchronize()
     }
   }
 
   private var fromStationByPickerCodeDefaults: String? {
     get {
-      let fromCode = HLTTUserDefaults.string(forKey: Keys.FromStationByPickerCodeKey)
+      let fromCode = HLTTUserDefaults.string(forKey: Keys.fromStationByPickerCodeKey)
       return fromCode
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.FromStationByPickerCodeKey)
+      HLTTUserDefaults.set(newValue, forKey: Keys.fromStationByPickerCodeKey)
       HLTTUserDefaults.synchronize()
     }
   }
 
   private var toStationByPickerCodeDefaults: String? {
     get {
-      let toCode = HLTTUserDefaults.string(forKey: Keys.ToStationByPickerCodeKey)
+      let toCode = HLTTUserDefaults.string(forKey: Keys.toStationByPickerCodeKey)
       return toCode
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.ToStationByPickerCodeKey)
+      HLTTUserDefaults.set(newValue, forKey: Keys.toStationByPickerCodeKey)
       HLTTUserDefaults.synchronize()
     }
   }
@@ -161,11 +138,11 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   public var userId: String {
     let returnedUserId: String
-    if let userId = HLTTUserDefaults.string(forKey: Keys.UserIdKey) {
+    if let userId = HLTTUserDefaults.string(forKey: Keys.userIdKey) {
       returnedUserId = userId
     } else {
       returnedUserId = UUID().uuidString
-      HLTTUserDefaults.set(returnedUserId, forKey: Keys.UserIdKey)
+      HLTTUserDefaults.set(returnedUserId, forKey: Keys.userIdKey)
       HLTTUserDefaults.synchronize()
     }
     return returnedUserId
@@ -175,14 +152,14 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
     set {
       let encoder = JSONEncoder()
       do {
-        HLTTUserDefaults.set(try encoder.encode(newValue), forKey: Keys.GeofenceInfoKey)
+        HLTTUserDefaults.set(try encoder.encode(newValue), forKey: Keys.geofenceInfoKey)
       } catch {
         assertionFailure("Error! \(error)")
       }
     }
     get {
       let decoder = JSONDecoder()
-      guard let data = HLTTUserDefaults.data(forKey: Keys.GeofenceInfoKey) else {
+      guard let data = HLTTUserDefaults.data(forKey: Keys.geofenceInfoKey) else {
         return nil
       }
 
@@ -192,7 +169,7 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   fileprivate var persistedAdvicesAndRequestObject: [String: Any]? {
     get {
-      guard let data = HLTTUserDefaults.object(forKey: Keys.PersistedAdvicesAndRequest) as? Data else {
+      guard let data = HLTTUserDefaults.object(forKey: Keys.persistedAdvicesAndRequest) as? Data else {
         return nil
       }
 
@@ -211,7 +188,7 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
         }
 
         let json: Data = try JSONSerialization.data(withJSONObject: value, options: [])
-        HLTTUserDefaults.set(json, forKey: Keys.PersistedAdvicesAndRequest)
+        HLTTUserDefaults.set(json, forKey: Keys.persistedAdvicesAndRequest)
         HLTTUserDefaults.synchronize()
       } catch {
         assertionFailure("ERROR: \(error)")
@@ -225,13 +202,13 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
   }
   private var currentAdviceIdentifierValue: AdviceIdentifier? {
     get {
-      return HLTTUserDefaults.string(forKey: Keys.CurrentAdviceIdentifier).map {
+      return HLTTUserDefaults.string(forKey: Keys.currentAdviceIdentifier).map {
         AdviceIdentifier(rawValue: $0)
       }
     }
 
     set {
-      HLTTUserDefaults.set(newValue?.rawValue ?? 0, forKey: Keys.CurrentAdviceIdentifier)
+      HLTTUserDefaults.set(newValue?.rawValue ?? 0, forKey: Keys.currentAdviceIdentifier)
       HLTTUserDefaults.synchronize()
     }
   }
@@ -240,7 +217,7 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
     set {
       let encoder = JSONEncoder()
       do {
-        HLTTUserDefaults.set(try encoder.encode(newValue), forKey: Keys.PersistedAdvices)
+        HLTTUserDefaults.set(try encoder.encode(newValue), forKey: Keys.persistedAdvices)
       } catch {
         assertionFailure("Error! \(error)")
       }
@@ -248,7 +225,7 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
     get {
       let decoder = JSONDecoder()
-      guard let data = HLTTUserDefaults.data(forKey: Keys.PersistedAdvices) else {
+      guard let data = HLTTUserDefaults.data(forKey: Keys.persistedAdvices) else {
         return nil
       }
 
@@ -258,20 +235,20 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   public var keepDepartedAdvice: Bool {
     get {
-      return HLTTUserDefaults.object(forKey: Keys.KeepDepartedAdvice) as? Bool ?? defaultKeepDepartedAdvice
+      return HLTTUserDefaults.object(forKey: Keys.keepDepartedAdvice) as? Bool ?? defaultKeepDepartedAdvice
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.KeepDepartedAdvice)
+      HLTTUserDefaults.set(newValue, forKey: Keys.keepDepartedAdvice)
       HLTTUserDefaults.synchronize()
     }
   }
   
   public var firstLegRitNummers: [String] {
     get {
-      return HLTTUserDefaults.object(forKey: Keys.FirstLegRitNummers) as? [String] ?? []
+      return HLTTUserDefaults.object(forKey: Keys.firstLegRitNummers) as? [String] ?? []
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.FirstLegRitNummers)
+      HLTTUserDefaults.set(newValue, forKey: Keys.firstLegRitNummers)
       HLTTUserDefaults.synchronize()
     }
   }
@@ -280,10 +257,10 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   public var appSettings: AppSettings {
     get {
-      return AppSettings(rawValue: HLTTUserDefaults.integer(forKey: Keys.AppSettings))
+      return AppSettings(rawValue: HLTTUserDefaults.integer(forKey: Keys.appSettings))
     }
     set {
-      HLTTUserDefaults.set(newValue.rawValue, forKey: Keys.AppSettings)
+      HLTTUserDefaults.set(newValue.rawValue, forKey: Keys.appSettings)
     }
   }
 }

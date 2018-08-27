@@ -8,7 +8,12 @@
 
 import UIKit
 import CoreData
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import HoelangTotTreinCore
 
 extension PickerState: CustomStringConvertible {

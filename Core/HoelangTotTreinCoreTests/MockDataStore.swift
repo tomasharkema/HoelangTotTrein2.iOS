@@ -8,7 +8,13 @@
 
 import Foundation
 @testable import HoelangTotTreinCore
-@testable import HoelangTotTreinAPI
+@testable 
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
+import HoelangTotTreinAPI
+#endif
 import Promissum
 
 enum MockError: Error {

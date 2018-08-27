@@ -7,7 +7,13 @@
 //
 
 import XCTest
-@testable import HoelangTotTreinAPI
+@testable 
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
+import HoelangTotTreinAPI
+#endif
 @testable import HoelangTotTreinCore
 
 class TravelServiceTests: XCTestCase {

@@ -8,7 +8,13 @@
 
 import UIKit
 import Bindable
+
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import HoelangTotTreinCore
 import UserNotifications
 

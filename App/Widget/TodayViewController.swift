@@ -10,7 +10,13 @@ import UIKit
 import Bindable
 import Promissum
 import HoelangTotTreinCore
+
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding {
@@ -58,7 +64,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    heartBeatToken = nil
     heartBeatToken = App.heartBeat.register(type: .repeating(interval: 1)) { [weak self] _ in
       self?.tick()
     }

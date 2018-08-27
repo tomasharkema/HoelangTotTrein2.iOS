@@ -9,7 +9,12 @@
 import UIKit
 import SegueManager
 import Bindable
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import HoelangTotTreinCore
 
 class TickerViewController: ViewController {
@@ -174,7 +179,6 @@ class TickerViewController: ViewController {
 //      })
 //      .disposed(by: bag)
 
-    renderBackgroundToken = nil
     renderBackgroundToken = App.heartBeat.register(type: .repeating(interval: 1), callback: { [weak self] _ in
       self?.renderBackground()
     })

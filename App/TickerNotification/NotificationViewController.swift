@@ -7,7 +7,13 @@
 //
 
 import UIKit
+
+#if canImport(HoelangTotTreinAPIWatch)
+import HoelangTotTreinAPIWatch
+#endif
+#if canImport(HoelangTotTreinAPI)
 import HoelangTotTreinAPI
+#endif
 import HoelangTotTreinCore
 import UserNotifications
 import UserNotificationsUI
