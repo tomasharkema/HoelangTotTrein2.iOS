@@ -132,9 +132,9 @@ public class TravelService: NSObject {
 
   private func start() {
     heartBeatToken = heartBeat.register(type: .repeating(interval: 10)) { [weak self] _ in
-      self?.tick()
+      self?.tick(userInteraction: false)
     }
-    tick()
+    tick(userInteraction: true)
 
     bind(\.fromAndToCodePicked, to: preferenceStore.fromStationByPickerCode && preferenceStore.toStationByPickerCode)
   }
@@ -214,8 +214,8 @@ public class TravelService: NSObject {
 //      }
   }
 
-  @objc public func tick() {
-    fetchCurrentAdvices(for: nil, shouldEmitLoading: false)
+  @objc public func tick(userInteraction: Bool) {
+    fetchCurrentAdvices(for: nil, shouldEmitLoading: userInteraction)
       .finallyResult {
         print("\(Date()) DID FINISH TICK has value \($0.value != nil)")
       }
@@ -253,9 +253,7 @@ public class TravelService: NSObject {
     preferenceStore.setFromStationByPickerCode(code: correctedAdviceRequest.from?.code)
     preferenceStore.setToStationByPickerCode(code: correctedAdviceRequest.to?.code)
 
-//    if self.firstAdviceRequestVariable.value != correctedAdviceRequest {
-//      self.firstAdviceRequestVariable.value = correctedAdviceRequest
-//    }
+    tick(userInteraction: true)
   }
   
   public func setStation(_ state: PickerState, stationName: String) -> Promise<Void, Error> {
