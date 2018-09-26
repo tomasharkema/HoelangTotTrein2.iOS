@@ -63,7 +63,7 @@ class NotificationService: NSObject {
     if let userInfo = userInfo {
       content.userInfo = userInfo
     }
-    content.sound = UNNotificationSound.default()
+    content.sound = UNNotificationSound.default
 
     let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
 
