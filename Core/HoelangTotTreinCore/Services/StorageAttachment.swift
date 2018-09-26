@@ -36,32 +36,13 @@ public class StorageAttachment: NSObject {
     travelService.stations.subscribe { [weak self] event in
       self?.updateStations(event.value)
     }.disposed(by: disposeBag)
+
+    travelService.pickedAdviceRequest.subscribe { [weak self] event in
+      self?.insertHistoryFromRequest(event.value)
+    }.disposed(by: disposeBag)
   }
 
 //  public func attach() {
-//
-//    _ = travelService.stationsObservable.asObservable()
-//      .observeOn(scheduler)
-//      .subscribe { [weak self] in
-//        switch $0 {
-//        case let .next(stations?):
-//          self?.updateStations(stations)
-//            .then {
-//              print($0)
-//            }
-//            .trap {
-//              print($0)
-//            }
-//        default: break;
-//        }
-//      }
-//
-//    _ = travelService.firstAdviceRequestObservable
-//      .observeOn(scheduler)
-//      .filterOptional()
-//      .subscribe(onNext: { [weak self] in
-//        self?.insertHistoryFromRequest($0)
-//      })
 //
 //    _ = travelService.currentAdvicesObservable
 //      .asObservable()
