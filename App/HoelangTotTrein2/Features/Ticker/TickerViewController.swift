@@ -51,7 +51,6 @@ class TickerViewController: ViewController {
 
   private var renderBackgroundToken: HeartBeat.Token?
 
-
   private let viewModel = ListTickerViewModel(travelService: App.travelService)
 
   override func viewDidLoad() {
@@ -282,11 +281,11 @@ class TickerViewController: ViewController {
     App.travelService.switchFromTo()
   }
 
-  override var preferredStatusBarStyle : UIStatusBarStyle {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
 
-  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     return .portrait
   }
 
@@ -369,7 +368,7 @@ extension TickerViewController {
         bgColor = UIColor.redTintColor()
       } else if idx == i {
         bgColor = UIColor.white
-      } else if (element.status != .volgensPlan || element.vertrekVertraging != nil) {
+      } else if element.status != .volgensPlan || element.vertrekVertraging != nil {
         bgColor = UIColor.redTintColor().withAlphaComponent(0.3)
       } else {
         bgColor = UIColor.clear
@@ -380,4 +379,3 @@ extension TickerViewController {
 
   }
 }
-
