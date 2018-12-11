@@ -8,7 +8,7 @@
 
 import Foundation
 @testable import HoelangTotTreinCore
-@testable 
+
 #if canImport(HoelangTotTreinAPIWatch)
 import HoelangTotTreinAPIWatch
 #endif

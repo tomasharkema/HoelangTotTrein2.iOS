@@ -25,7 +25,6 @@ private struct Keys {
   static let geofenceInfoKey = "GeofenceInfoKey"
   static let persistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
   static let currentAdviceIdentifier = "CurrentAdviceIdentifier"
-  static let persistedAdvices = "PersistedAdvices"
   static let keepDepartedAdvice = "KeepDepartedAdvice"
   static let firstLegRitNummers = "FirstLegRitNummers"
   static let appSettings = "AppSettings"
@@ -45,7 +44,6 @@ public protocol PreferenceStore: class {
   var userId: String { get }
   var geofenceInfo: [String: [GeofenceModel]]? { get set }
   var persistedAdvicesAndRequest: AdvicesAndRequest? { get set }
-  var persistedAdvices: Advices? { get set }
   var keepDepartedAdvice: Bool { get set }
   var firstLegRitNummers: [String] { get set }
   var appSettings: AppSettings { get set }
@@ -213,26 +211,6 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
     }
   }
 
-  public var persistedAdvices: Advices? {
-    set {
-      let encoder = JSONEncoder()
-      do {
-        HLTTUserDefaults.set(try encoder.encode(newValue), forKey: Keys.persistedAdvices)
-      } catch {
-        assertionFailure("Error! \(error)")
-      }
-    }
-
-    get {
-      let decoder = JSONDecoder()
-      guard let data = HLTTUserDefaults.data(forKey: Keys.persistedAdvices) else {
-        return nil
-      }
-
-      return try? decoder.decode(Advices.self, from: data)
-    }
-  }
-
   public var keepDepartedAdvice: Bool {
     get {
       return HLTTUserDefaults.object(forKey: Keys.keepDepartedAdvice) as? Bool ?? defaultKeepDepartedAdvice
@@ -253,7 +231,29 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
     }
   }
 
-  public var persistedAdvicesAndRequest: AdvicesAndRequest?
+  public var persistedAdvicesAndRequest: AdvicesAndRequest? {
+    set {
+      do {
+        let data = try JSONEncoder().encode(newValue)
+        HLTTUserDefaults.set(data, forKey: Keys.persistedAdvicesAndRequest)
+      } catch {
+        print(error)
+        HLTTUserDefaults.set(nil, forKey: Keys.persistedAdvicesAndRequest)
+      }
+    }
+    get {
+      do {
+        guard let data = HLTTUserDefaults.data(forKey: Keys.persistedAdvicesAndRequest) else {
+          return nil
+        }
+        let object = try JSONDecoder().decode(AdvicesAndRequest.self, from: data)
+        return object
+      } catch {
+        print(error)
+        return nil
+      }
+    }
+  }
 
   public var appSettings: AppSettings {
     get {

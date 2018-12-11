@@ -108,6 +108,7 @@
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
 		E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */; };
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
+		FF04CDA1215BE04A001B20AC /* UserNotification+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */; };
 		FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF647CC91F80197F008D28EC /* TransferService.swift */; };
 		FFAC67511FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
 		FFAC67521FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
@@ -261,7 +262,6 @@
 		C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCoreWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		C333482A1EAA59C200EE2340 /* HLTT.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
 		C38335851EA932A700A9E077 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38335861EA932A700A9E077 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -323,7 +323,9 @@
 		C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5166C0608BA10DBEC4E99C1 /* Pods_HoelangTotTrein2Pods_HLTT_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HLTT_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TickerNotification.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-TickerNotification/Pods-TickerNotification.debug.xcconfig"; sourceTree = "<group>"; };
+		FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserNotification+Promise.swift"; sourceTree = "<group>"; };
 		FF647CC91F80197F008D28EC /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
+		FFA8EBCD218E344500215FF5 /* HLTT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
 		FFAC67501FD987F6007F6EBA /* xml-credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "xml-credentials.plist"; path = "../../xml-credentials.plist"; sourceTree = "<group>"; };
 		FFD3651C211B35FD00A13867 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -622,6 +624,7 @@
 		C3E847A41BB840E9007D17C3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */,
 				C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */,
 			);
 			path = Extensions;
@@ -640,7 +643,7 @@
 		C3FD07D01CC767FA002893B3 /* HLTT */ = {
 			isa = PBXGroup;
 			children = (
-				C333482A1EAA59C200EE2340 /* HLTT.entitlements */,
+				FFA8EBCD218E344500215FF5 /* HLTT.entitlements */,
 				C33348211EAA481000EE2340 /* Interface.storyboard */,
 				C3FD07D41CC767FA002893B3 /* HLTTAssets.xcassets */,
 				C3FD07D61CC767FA002893B3 /* Info.plist */,
@@ -868,6 +871,9 @@
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
 							};
 						};
 					};
@@ -1248,6 +1254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
+				FF04CDA1215BE04A001B20AC /* UserNotification+Promise.swift in Sources */,
 				C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */,
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
@@ -1474,9 +1481,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				IBSC_MODULE = HLTT_Extension;
 				INFOPLIST_FILE = HLTT/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
@@ -1500,9 +1509,11 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				IBSC_MODULE = HLTT_Extension;
 				INFOPLIST_FILE = HLTT/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp;
@@ -1680,7 +1691,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
@@ -1707,7 +1718,7 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;

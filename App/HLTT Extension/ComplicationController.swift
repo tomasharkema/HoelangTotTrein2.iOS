@@ -67,7 +67,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
   fileprivate func getTemplateForFamily(_ complication: CLKComplication) -> CLKComplicationTemplate? {
     
     let delayString: String
-    if let delay = App.preferenceStore.persistedAdvices?.first, let delayMessage = delay.vertrekVertraging {
+    if let delay = App.preferenceStore.persistedAdvicesAndRequest?.advices.first, let delayMessage = delay.vertrekVertraging {
       delayString = delayMessage
     } else {
       delayString = "✅"

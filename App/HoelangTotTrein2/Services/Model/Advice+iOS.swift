@@ -36,5 +36,4 @@ extension Advice {
       return nil
     }
   }
-  
 }

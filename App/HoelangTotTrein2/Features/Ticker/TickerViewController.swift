@@ -211,7 +211,6 @@ class TickerViewController: ViewController {
   private func renderBackground() {
     if let currentAdvice = currentAdvice.value.flatMap({ $0 }) {
       let offset = currentAdvice.vertrek.actual.timeIntervalSince(Date())
-      let difference = Date(timeIntervalSince1970: offset - 60*60)
 
       let leftBackgroundOffset: CGFloat
       if let startTime = startTime {
@@ -226,9 +225,9 @@ class TickerViewController: ViewController {
         leftBackgroundOffset = 0
       }
 
-      UIView.animate(withDuration: AnimationInterval, animations: { [weak self] in
-        self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
-      }) 
+//      UIView.animate(withDuration: AnimationInterval) { [weak self] in
+//        self?.backgroundView.transform = CGAffineTransform(translationX: -leftBackgroundOffset/2, y: 0)
+//      }
     }
   }
 

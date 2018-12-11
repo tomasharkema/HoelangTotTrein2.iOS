@@ -8,78 +8,6 @@
 
 import UIKit
 import HoelangTotTreinCore
-//protocol Updatable {
-//  func update()
-//}
-//
-//private class TimeLabelCoordinator {
-//  static var shared = TimeLabelCoordinator()
-//
-//  private var subjects = [(UIView & Updatable)]()
-//
-//  init() {
-//    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidBecomeActive, object: nil)
-//    NotificationCenter.default.addObserver(self, selector: #selector(updateApplicationState), name: .UIApplicationDidEnterBackground, object: nil)
-//  }
-//
-//  func attach(updatable: (UIView & Updatable)) {
-//    subjects.append(updatable)
-//
-//    resetIfNeeded()
-//  }
-//
-//  func remove(updatable: (UIView & Updatable)) {
-//    if let index = subjects.index(where: { view -> Bool in
-//      view === updatable
-//    }) {
-//      subjects.remove(at: index)
-//    }
-//
-//    resetIfNeeded()
-//  }
-//
-//  private func resetIfNeeded() {
-//
-//    #if IOSAPP
-//      let isInActive = UIApplication.shared.applicationState != .active
-//    #else
-//      let isInActive = false
-//    #endif
-//
-//    if subjects.isEmpty || isInActive {
-//      timer?.dispose()
-//      timer = nil
-//    } else {
-//
-//      if timer != nil {
-//        return
-//      }
-//
-//      timer = Observable<Int>.interval(0.2, scheduler: MainScheduler.asyncInstance)
-//        .subscribe { [weak self] _ in
-//          self?.subjects.forEach { (updatable: (UIView & Updatable)) in
-//            updatable.update()
-//          }
-//        }
-//    }
-//  }
-//
-//  @objc func updateApplicationState() {
-//    resetIfNeeded()
-//  }
-//
-//  deinit {
-//    timer?.dispose()
-//    timer = nil
-//  }
-//}
-//
-//enum TimeFormat {
-//  case h
-//  case m
-//  case s
-//  case customString(String)
-//}
 
 class TimeLabel: UILabel {
 
@@ -87,19 +15,36 @@ class TimeLabel: UILabel {
   var goNegative = false
 
   var formatter: DateComponentsFormatter!
-  var didReachNulSecondsHandler: (() -> ())?
   private(set) var secondsToNul: Int = 0
 
-  private var heartBeatToken: HeartBeat.Token?
+  private var displayLink: CADisplayLink!
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    initialize()
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    initialize()
+  }
+
+  deinit {
+    isActive = false
+  }
+
+  private func initialize() {
+    displayLink = CADisplayLink(target: self, selector: #selector(render))
+    NotificationCenter.default.addObserver(self, selector: #selector(becomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(becomeInactive), name: UIApplication.willResignActiveNotification, object: nil)
+  }
 
   var isActive: Bool = false {
     didSet {
       if isActive {
-        heartBeatToken = heartBeat.register(type: .repeating(interval: 1)) { [weak self] _ in
-          self?.render()
-        }
+        displayLink.add(to: .main, forMode: .default)
       } else {
-        heartBeatToken = nil
+        displayLink.remove(from: .main, forMode: .default)
       }
     }
   }
@@ -110,62 +55,28 @@ class TimeLabel: UILabel {
     }
   }
 
-
-//  private func component(forFormat format: TimeFormat, toDate date: Date) -> Int? {
-//
-//    let components = Calendar.current.dateComponents([.hour, .minute, .second], from: Date(), to: date)
-//    switch format {
-//    case .h:
-//      return components.hour
-//    case .m:
-//      return components.minute
-//    case .s:
-//      return components.second
-//    default:
-//      return nil
-//    }
-//  }
-//
-//  private func stringFormat(forFormat format: TimeFormat) -> String {
-//    switch format {
-//    case .h:
-//      return "%01d"
-//    case .m, .s:
-//      return "%02d"
-//    case .customString:
-//      return "%@"
-//    }
-//  }
-
-  private func render() {
+  @objc private func render() {
     guard let date = date else {
       return
     }
 
     secondsToNul = Calendar.current.dateComponents([.second], from: Date(), to: date).second ?? 0
 
-    if secondsToNul == 0 {
-      didReachNulSecondsHandler?()
+    if secondsToNul < 0 {
+      text = "0:00"
+    } else {
+      let format = formatter.string(from: Date(), to: date)
+      if text != format {
+        text = format
+      }
     }
+  }
 
-    text = formatter.string(from: Date(), to: date)
+  @objc private func becomeActive() {
+    displayLink.isPaused = false
+  }
 
-//    let newText = format.reduce("") { (prev, format) -> String in
-//      if case .customString(let string) = format {
-//        return prev + string
-//      }
-//
-//      guard let component = component(forFormat: format, toDate: date) else {
-//        return prev
-//      }
-//
-//      if component < 0 && !goNegative {
-//        return prev + String(format: stringFormat(forFormat: format), 0)
-//      }
-//
-//      return prev + String(format: stringFormat(forFormat: format), component)
-//    }
-
-//    text = newText
+  @objc private func becomeInactive() {
+    displayLink.isPaused = true
   }
 }

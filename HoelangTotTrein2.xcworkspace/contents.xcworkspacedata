@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:App/HoelangTotTrein2/Extensions/UserNotification+Promise.swift">
+   </FileRef>
+   <FileRef
       location = "group:App/HoelangTotTrein2.xcodeproj">
    </FileRef>
    <FileRef

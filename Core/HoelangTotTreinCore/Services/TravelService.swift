@@ -136,6 +136,10 @@ public class TravelService: NSObject {
     }
     tick(userInteraction: true)
 
+    if let persisted = preferenceStore.persistedAdvicesAndRequest {
+      notifyOfNewAdvices(persisted.advices)
+    }
+    
     bind(\.fromAndToCodePicked, to: preferenceStore.fromStationByPickerCode && preferenceStore.toStationByPickerCode)
   }
   
@@ -306,10 +310,11 @@ public class TravelService: NSObject {
     if shouldEmitLoading {
       currentAdvicesSource.value = .loading
     }
-
-    return fetchAdvices(for: adviceRequest ?? pickedAdviceRequest.value)
+    let request = adviceRequest ?? pickedAdviceRequest.value
+    return fetchAdvices(for: request)
       .then { advicesResult in
         print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
+        self.preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advicesResult.advices, adviceRequest: request)
         self.notifyOfNewAdvices(advicesResult.advices)
       }
       .trap { error in

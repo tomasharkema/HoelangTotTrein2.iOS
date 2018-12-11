@@ -35,7 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     App.appShortcutService
 
-    requestPush()
+    DispatchQueue.main.async { [weak self] in
+      self?.requestPush()
+    }
 
     return true
   }
@@ -81,8 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //  }
 
   private func requestPush() {
-    DispatchQueue.main.async { [weak self] in
-      UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+
+    UNUserNotificationCenter.current().notificationSettings()
+      .then { [weak self] settings in
         if settings.authorizationStatus == .notDetermined {
           let alert = UIAlertController(title: "Push Notificaties", message: "Deze app kan je een notificatie sturen als je op je eindbestemming aankomt. Wil je dit?", preferredStyle: .alert)
 
@@ -93,12 +96,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           alert.addAction(UIAlertAction(title: "Ja doe maar", style: .default, handler: { _ in
             self?.requestAuthorization()
           }))
-          
+
           self?.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
       }
     }
-  }
 
   private func requestAuthorization() {
     let center = UNUserNotificationCenter.current()

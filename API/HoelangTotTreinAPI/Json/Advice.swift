@@ -12,15 +12,13 @@ import SWXMLHash
 public struct FareTime: Equatable, Codable {
   public let planned: Date
   public let actual: Date
+  public let delay: TimeInterval?
   
   init(planned: Date, actual: Date) {
     self.planned = planned
     self.actual = actual
-  }
-  
-  init(json: FareTimeJson) {
-    self.planned = Date(timeIntervalSince1970: json.planned / 1000)
-    self.actual = Date(timeIntervalSince1970: json.actual / 1000)
+    let interval = actual.timeIntervalSince(planned)
+    self.delay = interval == 0 ? nil : interval
   }
 }
 
@@ -93,19 +91,6 @@ public struct Advice: Equatable, Codable {
   }
 }
 
-extension Advice {
-  init(json: AdviceJson) {
-    self.overstappen = json.overstappen
-    self.vertrek = FareTime(json: json.vertrek)
-    self.aankomst = FareTime(json: json.aankomst)
-    self.melding = json.melding
-    self.reisDeel = json.reisDeel
-    self.vertrekVertraging = json.vertrekVertraging
-    self.status = json.status
-    self.request = json.request
-  }
-}
-
 struct AdviceJson: Equatable, Codable {
   public let overstappen: Int
   public let vertrek: FareTimeJson
@@ -138,15 +123,9 @@ public struct AdvicesResult {
   public init(advices: Advices) {
     self.advices = advices
   }
-  
-  init(json: AdvicesResultJson) {
-    self.advices = json.advices.map {
-      Advice(json: $0)
-    }
-  }
 }
 
-public struct AdviceRequest: Equatable {
+public struct AdviceRequest: Equatable, Codable {
   public var from: Station?
   public var to: Station?
 
@@ -168,13 +147,15 @@ public func ==(lhs: AdviceRequest, rhs: AdviceRequest) -> Bool {
   return lhs.from == rhs.from && lhs.to == rhs.to
 }
 
-public struct AdvicesAndRequest {
+public struct AdvicesAndRequest: Codable {
   public let advices: Advices
   public let adviceRequest: AdviceRequest
+  public let lastUpdated: Date
 
   public init(advices: Advices, adviceRequest: AdviceRequest) {
     self.advices = advices
     self.adviceRequest = adviceRequest
+    lastUpdated = Date()
   }
 }
 
