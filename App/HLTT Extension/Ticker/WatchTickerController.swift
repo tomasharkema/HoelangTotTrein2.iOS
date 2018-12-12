@@ -80,11 +80,11 @@ class WatchTickerController: WKInterfaceController {
 
     previousAdvice = advice
 
-    fromButton.setTitle("\(formatTime(advice.vertrek.actual))\n\(advice.startStation ?? "")")
-    toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.aankomst.actual))")
+    fromButton.setTitle("\(formatTime(advice.departure.actual))\n\(advice.startStation ?? "")")
+    toButton.setTitle("\(advice.endStation ?? "")\n\(formatTime(advice.arrival.actual))")
 
-    if advice.vertrek.actual > Date() {
-      timerLabel.setDate(advice.vertrek.actual)
+    if advice.departure.actual > Date() {
+      timerLabel.setDate(advice.departure.actual)
       timerLabel.start()
     } else {
       timerLabel.setDate(Date())

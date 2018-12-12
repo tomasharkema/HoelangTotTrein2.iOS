@@ -50,24 +50,24 @@ class NotificationController: WKUserNotificationInterfaceController {
   }
 
 
-  override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any],
-                                             withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
-
-    let decoder = JSONDecoder()
-
-    guard let userInfo = remoteNotification["geofenceModel"],
-      let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
-      let model = try? decoder.decode(GeofenceModel.self, from: data),
-      let platform = model.stop.spoor
-      else {
-        completionHandler(.default)
-        return
-      }
-
-    platformLabel.setText("platform \(platform)")
-    timeLabel.setDate(model.stop.time)
-    timeLabel.start()
-    completionHandler(.custom)
-  }
+//  override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any],
+//                                             withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
+//
+//    let decoder = JSONDecoder()
+//
+//    guard let userInfo = remoteNotification["geofenceModel"],
+//      let data = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
+//      let model = try? decoder.decode(GeofenceModel.self, from: data),
+//      let platform = model.stop.plannedTrack
+//      else {
+//        completionHandler(.default)
+//        return
+//      }
+//
+//    platformLabel.setText("platform \(platform)")
+//    timeLabel.setDate(model.stop.time)
+//    timeLabel.start()
+//    completionHandler(.custom)
+//  }
 
 }

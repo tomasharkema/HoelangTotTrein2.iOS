@@ -16,7 +16,6 @@ PODS:
     - R.swift.Library
     - SegueManager/iOS
   - SwiftLint (0.27.0)
-  - SWXMLHash (4.7.1)
 
 DEPENDENCIES:
   - Bindable/NSObject (from `https://github.com/tomasharkema/Bindable.git`, branch `feature/watchos`)
@@ -26,7 +25,6 @@ DEPENDENCIES:
   - R.swift
   - SegueManager/R.swift
   - SwiftLint
-  - SWXMLHash
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -37,7 +35,6 @@ SPEC REPOS:
     - R.swift.Library
     - SegueManager
     - SwiftLint
-    - SWXMLHash
 
 EXTERNAL SOURCES:
   Bindable:
@@ -58,8 +55,7 @@ SPEC CHECKSUMS:
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
   SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
-  SWXMLHash: 661b67bc94a01fe71a6ad4ca690cf2cafa5d1d6f
 
-PODFILE CHECKSUM: 6186e72cab94da8ca181ade84955673f9f83fd6b
+PODFILE CHECKSUM: d5721f9cc88c29bf9e706c45f937fd4d0785e495
 
 COCOAPODS: 1.5.3

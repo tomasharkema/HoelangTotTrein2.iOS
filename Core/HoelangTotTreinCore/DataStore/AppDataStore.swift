@@ -63,19 +63,28 @@ import HoelangTotTreinAPI
 extension Station {
   init?(record: StationRecord) {
     guard let name = record.name,
+      let nameKort = record.nameKort,
+      let nameMiddle = record.nameMiddle,
       let code = record.code,
       let land = record.land,
       let lat = record.lat?.doubleValue,
-      let long = record.lon?.doubleValue
+      let long = record.lon?.doubleValue,
+      let radius = record.radius?.doubleValue,
+      let naderenRadius = record.naderenRadius?.doubleValue,
+      let synoniemen = record.synoniemen as? [String]
       else {
         return nil
-    }
+      }
 
-    self.name = name
-    self.code = code
+    self.namen = Names(lang: name, middel: nameMiddle, kort: nameKort)
+    self.code = code.lowercased()
     self.land = land
-    self.coords = Coords(lat: lat, lon: long)
+    self.lat = lat
+    self.lng = long
     self.type = record.type.flatMap { StationType(rawValue: $0) }
+    self.radius = radius
+    self.naderenRadius = naderenRadius
+    self.synoniemen = synoniemen
   }
 }
 
@@ -104,20 +113,33 @@ extension AppDataStore {
       do {
         for station in stations {
           let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-          fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code)
-
+          fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code.lowercased())
+          
           if let stationRecord = try context.fetch(fetchRequest).first {
             stationRecord.name = station.name
+            stationRecord.nameKort = station.namen.kort
+            stationRecord.nameMiddle = station.namen.middel
+            stationRecord.code = station.code.lowercased()
             stationRecord.land = station.land
+            stationRecord.lat = station.coords.lat as NSNumber
+            stationRecord.lon = station.coords.lng as NSNumber
             stationRecord.type = station.type?.rawValue
+            stationRecord.radius = station.radius as NSNumber
+            stationRecord.naderenRadius = station.naderenRadius as NSNumber
+            stationRecord.synoniemen = station.synoniemen as NSArray
           } else {
             let newStation = StationRecord(context: context)
             newStation.name = station.name
-            newStation.code = station.code
+            newStation.nameKort = station.namen.kort
+            newStation.nameMiddle = station.namen.middel
+            newStation.code = station.code.lowercased()
             newStation.land = station.land
             newStation.lat = station.coords.lat as NSNumber
-            newStation.lon = station.coords.lon as NSNumber
+            newStation.lon = station.coords.lng as NSNumber
             newStation.type = station.type?.rawValue
+            newStation.radius = station.radius as NSNumber
+            newStation.naderenRadius = station.naderenRadius as NSNumber
+            newStation.synoniemen = station.synoniemen as NSArray
           }
         }
 
@@ -158,7 +180,7 @@ extension AppDataStore {
 
     persistentContainer.performBackgroundTask { context in
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode)
+      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode.lowercased())
 
       do {
         guard let record = try context.fetch(fetchRequest)

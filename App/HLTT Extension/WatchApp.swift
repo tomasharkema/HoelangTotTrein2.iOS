@@ -12,9 +12,7 @@ import HoelangTotTreinCoreWatch
 
 struct App {
   private static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)
-  static private let apiService = HttpXmlApiService(credentials:
-    Credentials(file: Bundle.main.url(forResource: "xml-credentials", withExtension: "plist")!)
-  )
+  static private let apiService = HttpApiService(credentials: ApiCredentials(file: Bundle.main.url(forResource: "json-credentials", withExtension: "plist")!))
   static let heartBeat = HeartBeat()
   static let locationService = AppLocationService()
   static let preferenceStore = UserDefaultsPreferenceStore(defaultKeepDepartedAdvice: false)

@@ -39,6 +39,10 @@
 		C303E8D01F812A0900A9EC5C /* NOI.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F2BCB31C7CF91000DB3DA0 /* NOI.gpx */; };
 		C303E8D11F812A0900A9EC5C /* Zaandam.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0A1C5564ED009B9C91 /* Zaandam.gpx */; };
 		C303E8D21F812A0900A9EC5C /* sloterdijk.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */; };
+		C30A16C121C1523000677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
+		C30A16C221C1523300677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
+		C30A16C321C1523300677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
+		C30A16C421C1523400677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
 		C3141CEA1F816B8F009F453D /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D81F8139E600A9EC5C /* HoelangTotTreinCore.framework */; };
 		C3141CEB1F816B8F009F453D /* HoelangTotTreinCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D81F8139E600A9EC5C /* HoelangTotTreinCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3141CEC1F816B94009F453D /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D61F8139E100A9EC5C /* HoelangTotTreinAPI.framework */; };
@@ -110,10 +114,6 @@
 		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
 		FF04CDA1215BE04A001B20AC /* UserNotification+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */; };
 		FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF647CC91F80197F008D28EC /* TransferService.swift */; };
-		FFAC67511FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
-		FFAC67521FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
-		FFAC67531FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
-		FFAC67541FD987F6007F6EBA /* xml-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFAC67501FD987F6007F6EBA /* xml-credentials.plist */; };
 		FFD3651B211B35EB00A13867 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		FFD3651D211B35FD00A13867 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD3651C211B35FD00A13867 /* App.swift */; };
 /* End PBXBuildFile section */
@@ -247,6 +247,7 @@
 		C303E8D31F812A2200A9EC5C /* Heemstede-Aerdenhout.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Heemstede-Aerdenhout.gpx"; sourceTree = "<group>"; };
 		C303E8D61F8139E100A9EC5C /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C303E8D81F8139E600A9EC5C /* HoelangTotTreinCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30A16C021C1523000677EAB /* json-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "json-credentials.plist"; sourceTree = "<group>"; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C322168F1EEB212400BC2745 /* TickerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TickerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -326,7 +327,6 @@
 		FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserNotification+Promise.swift"; sourceTree = "<group>"; };
 		FF647CC91F80197F008D28EC /* TransferService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferService.swift; sourceTree = "<group>"; };
 		FFA8EBCD218E344500215FF5 /* HLTT.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HLTT.entitlements; sourceTree = "<group>"; };
-		FFAC67501FD987F6007F6EBA /* xml-credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "xml-credentials.plist"; path = "../../xml-credentials.plist"; sourceTree = "<group>"; };
 		FFD3651C211B35FD00A13867 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -566,10 +566,10 @@
 				C3E8475C1BB82A01007D17C3 /* Assets.xcassets */,
 				C3E847611BB82A01007D17C3 /* Info.plist */,
 				C3E8475E1BB82A01007D17C3 /* LaunchScreen.storyboard */,
-				FFAC67501FD987F6007F6EBA /* xml-credentials.plist */,
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C3E19C561E96CDE1003A1529 /* Localization.strings */,
+				C30A16C021C1523000677EAB /* json-credentials.plist */,
 			);
 			path = HoelangTotTrein2;
 			sourceTree = "<group>";
@@ -938,11 +938,11 @@
 			files = (
 				C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */,
 				C303E8CC1F812A0700A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C30A16C221C1523300677EAB /* json-credentials.plist in Resources */,
 				C303E8C51F81118A00A9EC5C /* Zaandam.gpx in Resources */,
 				C303E8C41F81118A00A9EC5C /* NOI.gpx in Resources */,
 				C303E8C31F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */,
-				FFAC67541FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C61F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C303E8C11F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8C21F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
@@ -955,11 +955,11 @@
 			files = (
 				C38335961EA943AE00A9E077 /* Assets.xcassets in Resources */,
 				C303E8CB1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */,
+				C30A16C321C1523300677EAB /* json-credentials.plist in Resources */,
 				C303E8BF1F81118A00A9EC5C /* Zaandam.gpx in Resources */,
 				C303E8BE1F81118A00A9EC5C /* NOI.gpx in Resources */,
 				C303E8BD1F81118A00A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */,
-				FFAC67531FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8C01F81118A00A9EC5C /* sloterdijk.gpx in Resources */,
 				C303E8BB1F81118A00A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8BC1F81118A00A9EC5C /* Hoofddorp.gpx in Resources */,
@@ -987,6 +987,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E19C311E913DF9003A1529 /* ExtensionAssets.xcassets in Resources */,
+				C30A16C421C1523400677EAB /* json-credentials.plist in Resources */,
 				C3E19C361E913E19003A1529 /* PushNotificationPayload.apns in Resources */,
 				C303E8CA1F812A0600A9EC5C /* Leiden Centraal.gpx in Resources */,
 				C303E8B91F81118900A9EC5C /* Zaandam.gpx in Resources */,
@@ -994,7 +995,6 @@
 				C303E8B71F81118900A9EC5C /* Koog aan de Zaan.gpx in Resources */,
 				C3E19C351E913E0D003A1529 /* HLTT Extension.entitlements in Resources */,
 				C303E8BA1F81118900A9EC5C /* sloterdijk.gpx in Resources */,
-				FFAC67521FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C303E8B51F81118900A9EC5C /* Den Haag HS.gpx in Resources */,
 				C303E8B61F81118900A9EC5C /* Hoofddorp.gpx in Resources */,
 			);
@@ -1011,9 +1011,9 @@
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
+				C30A16C121C1523000677EAB /* json-credentials.plist in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
 				C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
-				FFAC67511FD987F6007F6EBA /* xml-credentials.plist in Resources */,
 				C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */,
 				C3C26C0C1C552B4300197471 /* Koog aan de Zaan.gpx in Resources */,
 				C3F2BCB41C7CF91000DB3DA0 /* NOI.gpx in Resources */,
@@ -1047,13 +1047,11 @@
 				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bindable-watchOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-watchOS/Promissum.framework",
-				"${BUILT_PRODUCTS_DIR}/SWXMLHash-watchOS/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1155,7 +1153,6 @@
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1163,7 +1160,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

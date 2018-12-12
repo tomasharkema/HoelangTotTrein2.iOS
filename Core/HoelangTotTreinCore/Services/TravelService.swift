@@ -91,7 +91,7 @@ public class TravelService: NSObject {
       .map { (loadedAdvices, adviceIdentifier) in
         switch loadedAdvices {
         case .result(let advices):
-          let firstAdvice = advices.first { $0.identifier == adviceIdentifier }
+          let firstAdvice = advices.first { $0.checksum == adviceIdentifier?.rawValue }
           return .result(firstAdvice ?? advices.first)
         case .error(let error):
           return .error(error)
@@ -228,7 +228,7 @@ public class TravelService: NSObject {
   public func fetchStations() -> Promise<Stations, Error> {
     return apiService.stations()
       .mapError { $0 as Error }
-      .map { $0.stations.filter { $0.land == "NL" } }
+      .map { $0.payload.filter { $0.land == "NL" } }
       .then { [stationsSource] stations in
         print("TravelService did fetch stations: \(stations.count)")
 //        if self.stationsVariable.value ?? [] != stations {
@@ -301,21 +301,21 @@ public class TravelService: NSObject {
     setCurrentAdviceRequest(newAdvice)
   }
 
-  public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, Error> {
+  public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, Error> {
     return apiService.advices(for: adviceRequest)
       .mapError { $0 as Error }
   }
 
-  private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResult, Error> {
+  private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResponse, Error> {
     if shouldEmitLoading {
       currentAdvicesSource.value = .loading
     }
     let request = adviceRequest ?? pickedAdviceRequest.value
     return fetchAdvices(for: request)
       .then { advicesResult in
-        print("TravelService fetchCurrentAdvices \(advicesResult.advices.count)")
-        self.preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advicesResult.advices, adviceRequest: request)
-        self.notifyOfNewAdvices(advicesResult.advices)
+        print("TravelService fetchCurrentAdvices \(advicesResult.trips.count)")
+        self.preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advicesResult.trips, adviceRequest: request)
+        self.notifyOfNewAdvices(advicesResult.trips)
       }
       .trap { error in
         print(error)

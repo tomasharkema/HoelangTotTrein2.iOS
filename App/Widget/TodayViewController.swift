@@ -85,7 +85,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
   private func tick() {
     guard let advice = currentAdvice.value.flatMap({ $0 }) else { return }
-    timerLabel.text = dateFormatter.string(from: Date(), to: advice.vertrek.actual)
+    timerLabel.text = dateFormatter.string(from: Date(), to: advice.departure.actual)
   }
   
   func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {

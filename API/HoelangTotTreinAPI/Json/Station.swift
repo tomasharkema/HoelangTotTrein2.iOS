@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct Coords: Codable, Equatable {
+public struct Coords: Codable, Equatable, Hashable {
   public let lat: Double
-  public let lon: Double
+  public let lng: Double
 
-  public init(lat: Double, lon: Double) {
+  public init(lat: Double, lng: Double) {
     self.lat = lat
-    self.lon = lon
+    self.lng = lng
   }
 }
 
@@ -29,31 +29,43 @@ public enum StationType: String, Codable, Equatable {
   case facultatiefStation = "facultatiefStation"
 }
 
+public struct Names {
+  public let lang: String
+  public let middel: String
+  public let kort: String
+  
+  public init(lang: String, middel: String, kort: String) {
+    self.lang = lang
+    self.middel = middel
+    self.kort = kort
+  }
+}
+
+extension Names: Codable, Equatable, Hashable { }
+
 public struct Station: Equatable, Hashable, Codable {
-  public let name: String
+  public let namen: Names
   public let code: String
   public let land: String
-  public let coords: Coords
+  public let lat: Double
+  public let lng: Double
   public let type: StationType?
-
-  init(name: String, code: String, land: String, coords: Coords, type: StationType?) {
-    self.name = name
-    self.code = code
-    self.land = land
-    self.coords = coords
-    self.type = type
+  public let radius: Double
+  public let naderenRadius: Double
+  public let synoniemen: [String]
+  
+  public var name: String {
+    return namen.lang
   }
-
-}
-
-public struct StationsResponse: Codable {
-  public let stations: [Station]
-}
-
-extension Station {
-  public var hashValue: Int {
-    return name.hashValue
+  
+  public var coords: Coords {
+    return Coords(lat: lat, lng: lng)
   }
 }
 
+public struct Response<ResponseType: Codable>: Codable {
+  public let payload: ResponseType
+}
+
+public typealias StationsResponse = Response<Stations>
 public typealias Stations = [Station]

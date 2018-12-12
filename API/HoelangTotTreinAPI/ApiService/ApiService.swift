@@ -11,7 +11,7 @@ import Promissum
 
 public protocol ApiService {
   func stations() -> Promise<StationsResponse, ApiError>
-  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResult, ApiError>
+  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, ApiError>
 }
 
 public enum ApiError: Error {

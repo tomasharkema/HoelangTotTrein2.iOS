@@ -37,17 +37,18 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
     guard
       let geofenceModelJson = notification.request.content.userInfo["geofenceModel"],
-      let geofenceModel = try? GeofenceModel.decodeJson(data: geofenceModelJson)
+      let geofenceModel = try? GeofenceModel.decodeJson(data: geofenceModelJson),
+      case .stop(let stop) = geofenceModel.stop
       else {
         return
       }
 
-    from.text = "\(geofenceModel.stop.name) \(geofenceModel.stop.time)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
+    from.text = "\(geofenceModel.stop.name) \(stop.actualDepartureDateTime)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
     to.text = "" //"\(geofenceModel.toStop?.name ?? "") (\(geofenceModel.toStop?.timeDate.description ?? ""))"
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.minute, .second]
     time.formatter = formatter
-    time.date = geofenceModel.stop.time
+    time.date = stop.actualDepartureDateTime
   }
 
 }

@@ -5,7 +5,6 @@ abstract_target 'HoelangTotTrein2Pods' do
   	platform :ios, '10.0'
   pod 'R.swift'
 	pod 'Promissum'
-  pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
   pod 'SwiftLint'
 
@@ -51,7 +50,6 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	platform :watchos, '3.0'
 
 	pod 'Promissum'
-  pod 'SWXMLHash'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
 
 	target 'HLTT Extension' do

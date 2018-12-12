@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3D346C53C3C9BF087A27E429 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */; };
 		890A64C90065EAB07E7D3E17 /* Pods_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4322D3BF0D9BD5657A9652 /* Pods_HoelangTotTreinAPITests.framework */; };
+		C30A16BE21C14CAA00677EAB /* HttpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A16BD21C14CAA00677EAB /* HttpApiService.swift */; };
+		C30A16BF21C1519B00677EAB /* HttpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30A16BD21C14CAA00677EAB /* HttpApiService.swift */; };
 		C30B403A1E98EE7400D99541 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */; };
 		C30B403F1E98EE7400D99541 /* HoelangTotTreinAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B403E1E98EE7400D99541 /* HoelangTotTreinAPITests.swift */; };
 		C30B40411E98EE7400D99541 /* HoelangTotTreinAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,14 +28,12 @@
 		C30B40891E98F6B200D99541 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B40571E98F0B100D99541 /* SuccessResponse.swift */; };
 		C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31C975B1EA23AC9007BD463 /* MockApiService.swift */; };
 		C32216A51EEB273600BC2745 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
-		C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
 		C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */; };
 		C375381D1E9919DA0047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C375381F1E991A290047108C /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C375384C1E9921C20047108C /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381C1E9919DA0047108C /* Bounds.swift */; };
 		C38335DF1EAA378300A9E077 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C375381E1E991A290047108C /* HistoryType.swift */; };
 		C38335E91EAA388F00A9E077 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30B404B1E98F0B100D99541 /* ApiService.swift */; };
-		C3F92E0C1F6E8BFC00A2B19F /* HttpXmlApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */; };
 		E76F7803AAA4F6BDA6FF4CDD /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD08311A282775A55608A85E /* Pods_HoelangTotTreinAPI_HoelangTotTreinAPITests.framework */; };
 		EDFE36C3AB56D06FD47624CA /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */; };
 /* End PBXBuildFile section */
@@ -57,6 +57,7 @@
 		60DEFDC4D226EBFF54C13D10 /* Pods-HoelangTotTreinAPITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTreinAPITests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTreinAPITests/Pods-HoelangTotTreinAPITests.debug.xcconfig"; sourceTree = "<group>"; };
 		703180784529F26E58672B85 /* Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch/Pods-HoelangTotTrein2WatchPods-HoelangTotTreinAPIWatch.release.xcconfig"; sourceTree = "<group>"; };
 		AC4322D3BF0D9BD5657A9652 /* Pods_HoelangTotTreinAPITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTreinAPITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30A16BD21C14CAA00677EAB /* HttpApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpApiService.swift; sourceTree = "<group>"; };
 		C30B40301E98EE7400D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30B40331E98EE7400D99541 /* HoelangTotTreinAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPI.h; sourceTree = "<group>"; };
 		C30B40341E98EE7400D99541 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		C37332001EEA0688002A80D1 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
 		C375381C1E9919DA0047108C /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
 		C375381E1E991A290047108C /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
-		C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpXmlApiService.swift; sourceTree = "<group>"; };
 		EF2FE8E8DDC1FCD514183F02 /* Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2WatchPods_HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA745B831DC393FEB83B383 /* Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI/Pods-HoelangTotTrein2Pods-HoelangTotTreinAPI.release.xcconfig"; sourceTree = "<group>"; };
 		F8C36CE1D32CE765F67C741E /* Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HoelangTotTrein2Pods_HoelangTotTreinAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				C30B404B1E98F0B100D99541 /* ApiService.swift */,
-				C3F92E0B1F6E8BFC00A2B19F /* HttpXmlApiService.swift */,
+				C30A16BD21C14CAA00677EAB /* HttpApiService.swift */,
 			);
 			path = ApiService;
 			sourceTree = "<group>";
@@ -386,14 +386,12 @@
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/SWXMLHash-iOS/SWXMLHash.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -463,10 +461,10 @@
 			files = (
 				C30B40581E98F0B100D99541 /* ApiService.swift in Sources */,
 				C37332011EEA0688002A80D1 /* Encodable+EncodeJson.swift in Sources */,
-				C3F92E0C1F6E8BFC00A2B19F /* HttpXmlApiService.swift in Sources */,
 				C375381D1E9919DA0047108C /* Bounds.swift in Sources */,
 				C375381F1E991A290047108C /* HistoryType.swift in Sources */,
 				C31C975C1EA23AC9007BD463 /* MockApiService.swift in Sources */,
+				C30A16BE21C14CAA00677EAB /* HttpApiService.swift in Sources */,
 				C30B40591E98F0B100D99541 /* Advice.swift in Sources */,
 				C30B405A1E98F0B100D99541 /* ErrorJson.swift in Sources */,
 				C30B40611E98F0B100D99541 /* Station.swift in Sources */,
@@ -495,7 +493,7 @@
 				C30B40861E98F6AA00D99541 /* ErrorJson.swift in Sources */,
 				C30B40881E98F6B000D99541 /* Station.swift in Sources */,
 				C375384C1E9921C20047108C /* Bounds.swift in Sources */,
-				C33E05DF1F6ECAAE00265057 /* HttpXmlApiService.swift in Sources */,
+				C30A16BF21C1519B00677EAB /* HttpApiService.swift in Sources */,
 				C30B40851E98F6A700D99541 /* Advice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

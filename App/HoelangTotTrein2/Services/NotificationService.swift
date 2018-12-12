@@ -83,15 +83,19 @@ class NotificationService: NSObject {
   fileprivate func notify(for model: GeofenceModel) {
     assert(Thread.isMainThread)
 
+    guard let time = model.stop.time else {
+      return
+    }
+    
     switch model.type {
     case .start:
-      let timeString = secondsToStringOffset(model.stop.time)
+      let timeString = secondsToStringOffset(time)
 
       do {
         fireNotification(
           "io.harkema.notification.start",
           title: R.string.localization.startNotificationTitle(),
-          body: R.string.localization.startNotificationBody(timeString, model.stop.spoor ?? ""),
+          body: R.string.localization.startNotificationBody(timeString, model.stop.halt?.plannedDepartureTrack ?? ""),
           categoryIdentifier: "nextStationNotification",
           userInfo: ["geofenceModel": try model.encodeJson()])
       } catch {
@@ -103,15 +107,15 @@ class NotificationService: NSObject {
     case .overstap:
       do {
 
-        guard model.stop.time > Date() else {
+        guard time > Date() else {
           return
         }
 
-        let timeString = secondsToStringOffset(model.stop.time)
+        let timeString = secondsToStringOffset(time)
         fireNotification(
           "io.harkema.notification.overstap",
           title: R.string.localization.transferNotificationTitle(),
-          body: R.string.localization.transferNotificationBody(model.stop.spoor ?? "", timeString),
+          body: R.string.localization.transferNotificationBody(model.stop.halt?.plannedDepartureTrack ?? "", timeString),
           categoryIdentifier: "nextStationNotification",
           userInfo: ["geofenceModel": try model.encodeJson()])
       } catch {

@@ -59,7 +59,7 @@ class TransferService: NSObject {
   }
 
   private func getStationNames(from advice: Advice) -> Set<String> {
-    return Set(advice.reisDeel.flatMap {
+    return Set(advice.legs.flatMap {
       $0.stops.map {
         $0.name
       }
@@ -86,7 +86,7 @@ class TransferService: NSObject {
       self.resetGeofences()
       stations.forEach { self.updateGeofence(for: $0) }
     }
-    let ritNummers = advices.compactMap { $0.reisDeel.first }.compactMap { $0.ritNummer }
+    let ritNummers = advices.compactMap { $0.legs.first }.compactMap { $0.journeyDetailRef }
     preferenceStore.firstLegRitNummers = ritNummers
   }
   
@@ -140,9 +140,9 @@ class TransferService: NSObject {
     }
 
     travelService.fetchAdvices(for: newRequest)
-      .map { (AdvicesResult(advices: $0.advices.filter { $0.isOngoing }), request) }
-      .then { (advicesResult, request) in
-        if let newAdvice = advicesResult.advices.first {
+      .map { ($0.trips.filter { $0.isOngoing }, request) }
+      .then { (advices, request) in
+        if let newAdvice = advices.first {
           self.notify(for: newAdvice, request: request, station: station)
         }
       }

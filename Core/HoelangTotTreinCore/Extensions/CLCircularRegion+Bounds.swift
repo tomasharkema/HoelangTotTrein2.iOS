@@ -26,7 +26,7 @@ extension CLCircularRegion {
 
 extension Coords {
   public var location: CLLocation {
-    return CLLocation(latitude: lat, longitude: lon)
+    return CLLocation(latitude: lat, longitude: lng)
   }
 }
 
