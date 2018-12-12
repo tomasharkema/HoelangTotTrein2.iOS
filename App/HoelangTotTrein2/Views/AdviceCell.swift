@@ -45,7 +45,7 @@ class AdviceCell: UICollectionViewCell {
       minutesFormatter.allowedUnits = [.second, .minute, .hour]
 
       minutesLabel.formatter = minutesFormatter
-      minutesLabel.date = advice?.vertrek.actual
+      minutesLabel.date = advice?.departure.actual
 
       minutesLabel.isActive = true
     }
@@ -56,7 +56,7 @@ class AdviceCell: UICollectionViewCell {
       return
     }
 
-    let interval = Calendar.current.dateComponents([.second], from: Date(), to: advice.vertrek.actual).second ?? -1
+    let interval = Calendar.current.dateComponents([.second], from: Date(), to: advice.departure.actual).second ?? -1
 
     if interval > 0 {
       tickerContainer.alpha = 1
@@ -68,7 +68,7 @@ class AdviceCell: UICollectionViewCell {
 
     platformLabel.text = advice.vertrekSpoor.map { R.string.localization.platform($0) }
 
-    aankomstVertragingLabel.text = advice.vertrek.delay.flatMap {
+    aankomstVertragingLabel.text = advice.departure.delay.flatMap {
       let formatter = DateComponentsFormatter()
       formatter.unitsStyle = .abbreviated
       return formatter.string(from: $0).map { "+ \($0)" }
@@ -76,8 +76,8 @@ class AdviceCell: UICollectionViewCell {
       R.string.localization.arrival($0)
     }
 
-    modalityLabel.text = advice.reisDeel.map {
-      $0.modalityType.abbriviation
+    modalityLabel.text = advice.legs.map {
+      $0.product.shortCategoryName
     }.joined(separator: " > ")
 
     render(stepModels: advice.stepModels)
@@ -99,17 +99,18 @@ class AdviceCell: UICollectionViewCell {
 
 extension FareStatus {
   var alertDescription: String {
-    switch self {
-    case .vertraagd:
-      return R.string.localization.delayed()
-    case .nietOptimaal:
-      return R.string.localization.notOptimal()
-    case .volgensPlan:
-      return R.string.localization.onTime()
-    case .gewijzigd:
-      return R.string.localization.changed()
-    default:
-      return R.string.localization.somethingsWrong()
-    }
+    return self.rawValue
+//    switch self {
+//    case .:
+//      return R.string.localization.delayed()
+//    case .nietOptimaal:
+//      return R.string.localization.notOptimal()
+//    case .NORMAL:
+//      return R.string.localization.onTime()
+//    case .gewijzigd:
+//      return R.string.localization.changed()
+//    default:
+//      return R.string.localization.somethingsWrong()
+//    }
   }
 }

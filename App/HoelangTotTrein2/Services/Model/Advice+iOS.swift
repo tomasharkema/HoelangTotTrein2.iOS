@@ -18,22 +18,19 @@ import HoelangTotTreinAPI
 
 extension Advice {
   var stepModels: [StepViewModel] {
-    return reisDeel.compactMap { item in
-      if let from = item.stops.first, let to = item.stops.last {
+    return legs.compactMap { item in
 
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+      let formatter = DateFormatter()
+      formatter.dateFormat = "HH:mm"
 
-        return StepViewModel(
-          fromStation: from.name,
-          toStation: to.name,
-          fromSpoor: from.spoor ?? "",
-          toSpoor: to.spoor ?? "",
-          fromTime: formatter.string(from: from.time),
-          toTime: formatter.string(from: to.time)
-        )
-      }
-      return nil
+      return StepViewModel(
+        fromStation: item.origin.name,
+        toStation: item.destination.name,
+        fromSpoor: item.origin.plannedTrack,
+        toSpoor: item.destination.plannedTrack,
+        fromTime: formatter.string(from: item.origin.time.actual),
+        toTime: formatter.string(from: item.destination.time.actual)
+      )
     }
   }
 }

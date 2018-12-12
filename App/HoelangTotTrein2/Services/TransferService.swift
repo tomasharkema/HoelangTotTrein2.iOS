@@ -92,7 +92,7 @@ class TransferService: NSObject {
   
   private func geofenceModel(for newAdvice: Advice, request: AdviceRequest, station: Station) -> GeofenceModel? {
     
-    let newAdviceIsFirstLeg = newAdvice.reisDeel.first?.ritNummer.map { preferenceStore.firstLegRitNummers.contains($0) } ?? false
+    let newAdviceIsFirstLeg = (newAdvice.legs.first?.journeyDetailRef).map { preferenceStore.firstLegRitNummers.contains($0) } ?? false
     
     let geofenceType: GeofenceType
     if newAdvice.startStation == request.from?.name {
@@ -107,7 +107,7 @@ class TransferService: NSObject {
       geofenceType = .tussenStation
     }
     
-    guard let stop = newAdvice.reisDeel.first?.stops.first else {
+    guard let stop = newAdvice.legs.first?.stops.first else {
       return nil
     }
     

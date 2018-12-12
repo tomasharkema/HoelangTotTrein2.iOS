@@ -210,11 +210,11 @@ class TickerViewController: ViewController {
 
   private func renderBackground() {
     if let currentAdvice = currentAdvice.value.flatMap({ $0 }) {
-      let offset = currentAdvice.vertrek.actual.timeIntervalSince(Date())
+      let offset = currentAdvice.departure.actual.timeIntervalSince(Date())
 
       let leftBackgroundOffset: CGFloat
       if let startTime = startTime {
-        let actualOffset = currentAdvice.vertrek.actual.timeIntervalSince1970
+        let actualOffset = currentAdvice.departure.actual.timeIntervalSince1970
         let startOffset = startTime.timeIntervalSince1970
         let currentOffset = Date().timeIntervalSince1970
 
@@ -363,11 +363,11 @@ extension TickerViewController {
       let bgColor: UIColor
       if idx == i && !element.isOngoing && element == current {
         bgColor = UIColor.white.withAlphaComponent(0.2)
-      } else if idx == i && (element.status != .volgensPlan || element.vertrekVertraging != nil) {
+      } else if idx == i && (element.status != .NORMAL || element.vertrekVertraging != nil) {
         bgColor = UIColor.redTintColor()
       } else if idx == i {
         bgColor = UIColor.white
-      } else if element.status != .volgensPlan || element.vertrekVertraging != nil {
+      } else if element.status != .NORMAL || element.vertrekVertraging != nil {
         bgColor = UIColor.redTintColor().withAlphaComponent(0.3)
       } else {
         bgColor = UIColor.clear

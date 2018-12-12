@@ -35,6 +35,12 @@ final public class HttpApiService: ApiService {
   private let credentials: ApiCredentials
   private let session = URLSession(configuration: URLSessionConfiguration.default)
   
+  private lazy var jsonDecoder: JSONDecoder = {
+    let jsonDecoder = JSONDecoder()
+    jsonDecoder.dateDecodingStrategy = .iso8601
+    return jsonDecoder
+  }()
+  
   public init(credentials: ApiCredentials) {
     self.credentials = credentials
   }
@@ -47,7 +53,7 @@ final public class HttpApiService: ApiService {
     
     let promiseSource = PromiseSource<StationsResponse, ApiError>()
     
-    let task = session.dataTask(with: request) { (data, response, error) in
+    let task = session.dataTask(with: request) { [jsonDecoder] (data, response, error) in
       if let error = error {
         return promiseSource.reject(.external(error: error))
       }
@@ -57,7 +63,7 @@ final public class HttpApiService: ApiService {
       }
       
       do {
-        let response = try JSONDecoder().decode(StationsResponse.self, from: data)
+        let response = try jsonDecoder.decode(StationsResponse.self, from: data)
         promiseSource.resolve(response)
       } catch {
         promiseSource.reject(.external(error: error))
@@ -82,7 +88,7 @@ final public class HttpApiService: ApiService {
     
     let promiseSource = PromiseSource<AdvicesResponse, ApiError>()
     
-    let task = session.dataTask(with: request) { (data, response, error) in
+    let task = session.dataTask(with: request) { [jsonDecoder] (data, response, error) in
       if let error = error {
         return promiseSource.reject(.external(error: error))
       }
@@ -92,9 +98,10 @@ final public class HttpApiService: ApiService {
       }
       
       do {
-        let response = try JSONDecoder().decode(AdvicesResponse.self, from: data)
+        let response = try jsonDecoder.decode(AdvicesResponse.self, from: data)
         promiseSource.resolve(response)
       } catch {
+        print("Catched error \(error)")
         promiseSource.reject(.external(error: error))
       }
     }

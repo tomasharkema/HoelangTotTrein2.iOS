@@ -80,8 +80,8 @@ public struct LegPlace: Equatable, Codable {
   public let prognosisType: String
   public let plannedTimeZoneOffset: Int
   public let plannedDateTime: Date
-  public let actualTimeZoneOffset: Int
-  public let actualDateTime: Date
+  public let actualTimeZoneOffset: Int?
+  public let actualDateTime: Date?
   public let plannedTrack: String
   public let checkinStatus: String
   public let name: String
@@ -93,7 +93,7 @@ public struct LegPlace: Equatable, Codable {
   public let products: Int
   
   public var time: FareTime {
-    return FareTime(planned: plannedDateTime, actual: actualDateTime)
+    return FareTime(planned: plannedDateTime, actual: actualDateTime ?? plannedDateTime)
   }
 }
 
@@ -126,21 +126,31 @@ public struct PassingStation: LegStation, Equatable, Codable {
 }
 
 public struct HaltStation: LegStation, Equatable, Codable {
-  public let routeIdx: Int
-  public let departurePrognosisType: String
-  public let plannedDepartureDateTime: Date
-  public let plannedDepartureTimeZoneOffset: Int
-  public let actualDepartureDateTime: Date
-  public let plannedDepartureTrack: String
-  public let plannedArrivalDateTime: Date
-  public let plannedArrivalTimeZoneOffset: Int
-  public let plannedArrivalTrack: String
-  public let cancelled: Bool
   public let name: String
   public let lng: Double
   public let lat: Double
+  public let city: String?
   public let countryCode: String
   public let uicCode: String
+  public let weight: Int?
+  public let products: Int?
+  public let routeIdx: Int
+  public let plannedDepartureDateTime: Date?  // arrival leg?
+  public let plannedDepartureTimeZoneOffset: Int?  // arrival leg?
+  public let actualDepartureDateTime: Date?
+  public let actualDepartureTimeZoneOffset: Int?
+  public let plannedDepartureTrack: String? // arrival leg?
+  public let actualDepartureTrack: String?
+  public let plannedArrivalDateTime: Date
+  public let plannedArrivalTimeZoneOffset: Int
+  public let actualArrivalDateTime: Date?
+  public let actualArrivalTimeZoneOffset: Int?
+  public let plannedArrivalTrack: String
+  public let actualArrivalTrack: String?
+  public let departureDelayInSeconds: Int?
+  public let arrivalDelayInSeconds: Int?
+  public let cancelled: Bool
+  public let quayCode: String?
 }
 
 public enum Stop: Equatable, Codable, LegStation {
@@ -216,6 +226,7 @@ public enum Stop: Equatable, Codable, LegStation {
 
 public enum CrowdForecast: String, Codable {
   case medium = "MEDIUM"
+  case low = "LOW"
 }
 
 public struct Leg: Equatable, Codable {
