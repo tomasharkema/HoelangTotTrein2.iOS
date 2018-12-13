@@ -211,7 +211,7 @@ public struct Leg: Equatable, Codable {
   public let stops: [Stop]
   public let steps: [String] // TODO
   public let crowdForecast: CrowdForecast?
-  public let punctuality: Double
+  public let punctuality: Double?
   public let reachable: Bool
 }
 
@@ -236,7 +236,7 @@ public struct Advice: Equatable, Codable {
   public let overviewPolyLine: [String] // TODO
   public let checksum: String
   public let crowdForecast: CrowdForecast?
-  public let punctuality: Double
+  public let punctuality: Double?
   public let ctxRecon: String
   public let actualDurationInMinutes: Int
   public let idx: Int
