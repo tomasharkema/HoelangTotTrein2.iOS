@@ -2,15 +2,16 @@ workspace 'HoelangTotTrein2.xcworkspace'
 
 abstract_target 'HoelangTotTrein2Pods' do
 	use_frameworks!
-  	platform :ios, '10.0'
-  pod 'R.swift'
+  platform :ios, '12.0'
+  
+  pod 'R.swift', '5.0.0.alpha.3'
 	pod 'Promissum'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
   pod 'SwiftLint'
+  pod 'CancellationToken'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
-    platform :ios, '10.0'
 		project 'App/HoelangTotTrein2.xcodeproj'
 
 		pod 'SegueManager/R.swift'
@@ -51,6 +52,7 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 
 	pod 'Promissum'
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
+  pod 'CancellationToken'
 
 	target 'HLTT Extension' do
 		project 'App/HoelangTotTrein2.xcodeproj'
@@ -63,14 +65,4 @@ abstract_target 'HoelangTotTrein2WatchPods' do
 	target 'HoelangTotTreinCoreWatch' do
 		project 'Core/HoelangTotTreinCore.xcodeproj'
 	end
-end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == 'R.swift.Library' || target.name == 'R.swift'
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '4.0'
-      end
-    end
-  end
 end

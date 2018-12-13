@@ -15,20 +15,21 @@ struct StepViewModel {
   let toSpoor: String
   let fromTime: String
   let toTime: String
+  let destination: String
 }
 
 class StepView: UIView {
 
-  @IBOutlet weak fileprivate var fromStationLabel: UILabel!
-  @IBOutlet weak fileprivate var fromSpoorLabel: UILabel!
-  @IBOutlet weak var fromTime: UILabel!
-  @IBOutlet weak var toStationLabel: UILabel!
-  @IBOutlet weak var toSpoorLabel: UILabel!
-  @IBOutlet weak var toTime: UILabel!
+  @IBOutlet weak private var fromStationLabel: UILabel!
+  @IBOutlet weak private var fromSpoorLabel: UILabel!
+  @IBOutlet weak private var fromTime: UILabel!
+  @IBOutlet weak private var toStationLabel: UILabel!
+  @IBOutlet weak private var toSpoorLabel: UILabel!
+  @IBOutlet weak private var toTime: UILabel!
 
   var viewModel: StepViewModel! {
     didSet {
-      fromStationLabel.text = viewModel.fromStation
+      fromStationLabel.text = "\(viewModel.fromStation) > \(viewModel.destination)"
       fromSpoorLabel.text = viewModel.fromSpoor
       fromTime.text = viewModel.fromTime
       fromTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)

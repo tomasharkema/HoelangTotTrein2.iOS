@@ -8,10 +8,11 @@
 
 import Foundation
 import Promissum
+import CancellationToken
 
 public protocol ApiService {
-  func stations() -> Promise<StationsResponse, ApiError>
-  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, ApiError>
+  func stations(cancellationToken: CancellationToken?) -> Promise<StationsResponse, ApiError>
+  func advices(for adviceRequest: AdviceRequest, cancellationToken: CancellationToken?) -> Promise<AdvicesResponse, ApiError>
 }
 
 public enum ApiError: Error {

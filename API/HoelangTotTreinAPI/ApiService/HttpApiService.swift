@@ -8,6 +8,7 @@
 
 import Foundation
 import Promissum
+import CancellationToken
 
 public struct ApiCredentials {
   let key: String
@@ -45,7 +46,7 @@ final public class HttpApiService: ApiService {
     self.credentials = credentials
   }
   
-  public func stations() -> Promise<StationsResponse, ApiError> {
+  public func stations(cancellationToken: CancellationToken?) -> Promise<StationsResponse, ApiError> {
     let url = URL(string: "https://ns-api.nl/reisinfo/api/v2/stations")!
     
     var request = URLRequest(url: url)
@@ -72,10 +73,14 @@ final public class HttpApiService: ApiService {
     
     task.resume()
     
+    cancellationToken?.register {
+      task.cancel()
+    }
+    
     return promiseSource.promise
   }
   
-  public func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, ApiError> {
+  public func advices(for adviceRequest: AdviceRequest, cancellationToken: CancellationToken?) -> Promise<AdvicesResponse, ApiError> {
     guard let fromCode = adviceRequest.from?.code,
       let toCode = adviceRequest.to?.code
       else {
@@ -107,6 +112,10 @@ final public class HttpApiService: ApiService {
     }
     
     task.resume()
+    
+    cancellationToken?.register {
+      task.cancel()
+    }
     
     return promiseSource.promise
   }

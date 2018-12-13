@@ -9,8 +9,8 @@
 import Foundation
 import CoreLocation
 import Promissum
-//import RxSwift
 import Bindable
+import CancellationToken
 
 #if os(watchOS)
 import HoelangTotTreinAPIWatch
@@ -31,6 +31,7 @@ public class TravelService: NSObject {
   private let preferenceStore: PreferenceStore
   private let heartBeat: HeartBeat
   private var heartBeatToken: HeartBeat.Token?
+  private var advicesCancellationToken: CancellationTokenSource?
 
   #if os(iOS)
   private let session = WCSession.default
@@ -226,14 +227,11 @@ public class TravelService: NSObject {
   }
 
   public func fetchStations() -> Promise<Stations, Error> {
-    return apiService.stations()
+    return apiService.stations(cancellationToken: nil)
       .mapError { $0 as Error }
       .map { $0.payload.filter { $0.land == "NL" } }
       .then { [stationsSource] stations in
         print("TravelService did fetch stations: \(stations.count)")
-//        if self.stationsVariable.value ?? [] != stations {
-//          self.stationsVariable.value = stations
-//        }
         stationsSource.value = stations
       }
   }
@@ -302,7 +300,10 @@ public class TravelService: NSObject {
   }
 
   public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, Error> {
-    return apiService.advices(for: adviceRequest)
+    advicesCancellationToken?.cancel()
+    let token = CancellationTokenSource()
+    advicesCancellationToken = token
+    return apiService.advices(for: adviceRequest, cancellationToken: token.token)
       .mapError { $0 as Error }
   }
 

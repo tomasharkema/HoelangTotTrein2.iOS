@@ -26,42 +26,6 @@ struct FareTimeJson: Equatable, Codable {
   public let actual: Double
 }
 
-//public struct Melding: Equatable, Codable {
-//  let id: String
-//  let ernstig: Bool
-//  let text: String
-//}
-//
-//public struct Stop: Equatable, Codable {
-//  public let time: Date
-//  public let spoor: String?
-//  public let name: String
-//}
-//
-//public struct ReisDeel: Codable, Equatable {
-//  public let vervoerder: String
-//  public let vervoerType: String
-//  public let ritNummer: String?
-//  public let stops: [Stop]
-//}
-
-//public enum FareStatus: String, Codable {
-//  case volgensPlan = "VOLGENS-PLAN"
-//  case gewijzigd = "GEWIJZIGD"
-//  case nieuw = "NIEUW"
-//  case nietOptimaal = "NIET-OPTIMAAL"
-//  case nietMogelijk = "NIET-MOGELIJK"
-//  case geannuleerd = "GEANNULEERD"
-//  case overstapNietMogelijk = "OVERSTAP-NIET-MOGELIJK"
-//  case vertraagd = "VERTRAAGD"
-//  case planGewijzigd = "PLAN-GEWIJZGD"
-//
-//  public static let impossibleFares: [FareStatus] = [
-//    .nietMogelijk,
-//    .geannuleerd
-//  ]
-//}
-
 public struct AdviceRequestCodes: Codable, Equatable {
   public let from: String
   public let to: String
@@ -82,7 +46,7 @@ public struct LegPlace: Equatable, Codable {
   public let plannedDateTime: Date
   public let actualTimeZoneOffset: Int?
   public let actualDateTime: Date?
-  public let plannedTrack: String
+  public let plannedTrack: String?
   public let checkinStatus: String
   public let name: String
   public let lng: Double
@@ -141,11 +105,11 @@ public struct HaltStation: LegStation, Equatable, Codable {
   public let actualDepartureTimeZoneOffset: Int?
   public let plannedDepartureTrack: String? // arrival leg?
   public let actualDepartureTrack: String?
-  public let plannedArrivalDateTime: Date
-  public let plannedArrivalTimeZoneOffset: Int
+  public let plannedArrivalDateTime: Date?
+  public let plannedArrivalTimeZoneOffset: Int?
   public let actualArrivalDateTime: Date?
   public let actualArrivalTimeZoneOffset: Int?
-  public let plannedArrivalTrack: String
+  public let plannedArrivalTrack: String?
   public let actualArrivalTrack: String?
   public let departureDelayInSeconds: Int?
   public let arrivalDelayInSeconds: Int?
@@ -225,8 +189,10 @@ public enum Stop: Equatable, Codable, LegStation {
 }
 
 public enum CrowdForecast: String, Codable {
+  case high = "HIGH"
   case medium = "MEDIUM"
   case low = "LOW"
+  case unknown = "UNKNOWN"
 }
 
 public struct Leg: Equatable, Codable {
@@ -244,7 +210,7 @@ public struct Leg: Equatable, Codable {
   public let destination: LegPlace
   public let stops: [Stop]
   public let steps: [String] // TODO
-  public let crowdForecast: CrowdForecast
+  public let crowdForecast: CrowdForecast?
   public let punctuality: Double
   public let reachable: Bool
 }
@@ -269,7 +235,7 @@ public struct Advice: Equatable, Codable {
   public let legs: [Leg]
   public let overviewPolyLine: [String] // TODO
   public let checksum: String
-  public let crowdForecast: CrowdForecast
+  public let crowdForecast: CrowdForecast?
   public let punctuality: Double
   public let ctxRecon: String
   public let actualDurationInMinutes: Int

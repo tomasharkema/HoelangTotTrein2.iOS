@@ -26,10 +26,11 @@ extension Advice {
       return StepViewModel(
         fromStation: item.origin.name,
         toStation: item.destination.name,
-        fromSpoor: item.origin.plannedTrack,
-        toSpoor: item.destination.plannedTrack,
+        fromSpoor: item.origin.plannedTrack ?? "",
+        toSpoor: item.destination.plannedTrack ?? "",
         fromTime: formatter.string(from: item.origin.time.actual),
-        toTime: formatter.string(from: item.destination.time.actual)
+        toTime: formatter.string(from: item.destination.time.actual),
+        destination: item.destination.name
       )
     }
   }

@@ -113,13 +113,13 @@ extension AppDataStore {
       do {
         for station in stations {
           let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-          fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code.lowercased())
+          fetchRequest.predicate = NSPredicate(format: "%K ==[c] %@", #keyPath(StationRecord.code), station.code.uppercased())
           
           if let stationRecord = try context.fetch(fetchRequest).first {
             stationRecord.name = station.name
             stationRecord.nameKort = station.namen.kort
             stationRecord.nameMiddle = station.namen.middel
-            stationRecord.code = station.code.lowercased()
+            stationRecord.code = station.code.uppercased()
             stationRecord.land = station.land
             stationRecord.lat = station.coords.lat as NSNumber
             stationRecord.lon = station.coords.lng as NSNumber
@@ -132,7 +132,7 @@ extension AppDataStore {
             newStation.name = station.name
             newStation.nameKort = station.namen.kort
             newStation.nameMiddle = station.namen.middel
-            newStation.code = station.code.lowercased()
+            newStation.code = station.code.uppercased()
             newStation.land = station.land
             newStation.lat = station.coords.lat as NSNumber
             newStation.lon = station.coords.lng as NSNumber
@@ -159,7 +159,7 @@ extension AppDataStore {
     persistentContainer.performBackgroundTask { context in
 
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.name), stationName)
+      fetchRequest.predicate = NSPredicate(format: "%K ==[c] %@", #keyPath(StationRecord.name), stationName)
 
       do {
         guard let station = try context.fetch(fetchRequest).first.flatMap({Station(record: $0)}) else {
@@ -180,7 +180,7 @@ extension AppDataStore {
 
     persistentContainer.performBackgroundTask { context in
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), stationCode.lowercased())
+      fetchRequest.predicate = NSPredicate(format: "%K ==[c] %@", #keyPath(StationRecord.code), stationCode.uppercased())
 
       do {
         guard let record = try context.fetch(fetchRequest)
@@ -241,7 +241,7 @@ extension AppDataStore {
     persistentContainer.performBackgroundTask { context in
 
       let fetchRequest: NSFetchRequest<StationRecord> = StationRecord.fetchRequest()
-      fetchRequest.predicate = NSPredicate(format: "%K == %@", #keyPath(StationRecord.code), station.code)
+      fetchRequest.predicate = NSPredicate(format: "%K ==[c] %@", #keyPath(StationRecord.code), station.code.uppercased())
 
       do {
         guard let stationRecord = try context.fetch(fetchRequest).first else {
@@ -249,7 +249,7 @@ extension AppDataStore {
         }
 
         let history = History(context: context)
-        history.stationCode = station.code
+        history.stationCode = station.code.uppercased()
         history.station = stationRecord
         history.date = Date()
         history.historyType = historyType

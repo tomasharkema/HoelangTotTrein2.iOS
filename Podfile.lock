@@ -2,32 +2,37 @@ PODS:
   - Bindable/Core (0.4.1)
   - Bindable/NSObject (0.4.1):
     - Bindable/Core
-  - Crashlytics (3.10.5):
-    - Fabric (~> 1.7.9)
-  - Fabric (1.7.9)
-  - Promissum (2.2.0):
-    - Promissum/Core (= 2.2.0)
-  - Promissum/Core (2.2.0)
-  - R.swift (4.0.0):
-    - R.swift.Library (~> 4.0.0)
-  - R.swift.Library (4.0.0)
+  - CancellationToken (3.1.0):
+    - CancellationToken/Core (= 3.1.0)
+  - CancellationToken/Core (3.1.0)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - Promissum (3.0.0):
+    - Promissum/Core (= 3.0.0)
+  - Promissum/Core (3.0.0)
+  - R.swift (5.0.0.alpha.3):
+    - R.swift.Library (~> 5.0.0.alpha.2)
+  - R.swift.Library (5.0.0)
   - SegueManager/iOS (4.0.0)
   - SegueManager/R.swift (4.0.0):
     - R.swift.Library
     - SegueManager/iOS
-  - SwiftLint (0.27.0)
+  - SwiftLint (0.29.1)
 
 DEPENDENCIES:
   - Bindable/NSObject (from `https://github.com/tomasharkema/Bindable.git`, branch `feature/watchos`)
+  - CancellationToken
   - Crashlytics
   - Fabric
   - Promissum
-  - R.swift
+  - R.swift (= 5.0.0.alpha.3)
   - SegueManager/R.swift
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CancellationToken
     - Crashlytics
     - Fabric
     - Promissum
@@ -48,14 +53,15 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Bindable: 65843743d12b98b14c7193d512e7c8ace0cfdbcb
-  Crashlytics: 7f2e38d302d9da96475b3d64d86fb29e31a542b7
-  Fabric: a2917d3895e4c1569b9c3170de7320ea1b1e6661
-  Promissum: e6a61175984d7ac4e51853644dd48e86b3446949
-  R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
-  R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
+  CancellationToken: bf4819b751b07574ba8a2275d3abb3621e31b089
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Promissum: 553c9c4d117e8ae8665757840f0ab52bd0e4232f
+  R.swift: ca4207ecc94545a1611ca0b2ae1197458b6ba30a
+  R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
   SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
-  SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
+  SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
 
-PODFILE CHECKSUM: d5721f9cc88c29bf9e706c45f937fd4d0785e495
+PODFILE CHECKSUM: 039ab3579893c5454fcaaef1cfd464d3075535d0
 
 COCOAPODS: 1.5.3

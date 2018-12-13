@@ -13,43 +13,6 @@ import Foundation
   import HoelangTotTreinAPI
 #endif
 
-public enum ModalityType {
-  case sprinter
-  case intercity
-  case intercityDirect
-  case other(String)
-
-  static func fromString(_ name: String) -> ModalityType {
-    if name == "Sprinter" {
-      return .sprinter
-    }
-
-    if name == "Intercity" {
-      return .intercity
-    }
-
-    if name == "Intercity direct" {
-      return .intercityDirect
-    }
-
-    return .other(name)
-  }
-
-  public var abbriviation: String {
-    switch self {
-    case .sprinter:
-      return "SPR"
-    case .intercity:
-      return "IC"
-    case .intercityDirect:
-      return "ICD"
-    case .other(let string):
-      return string
-    }
-  }
-
-}
-
 extension Advice {
   public var vertrekSpoor: String? {
     return legs.first?.origin.plannedTrack

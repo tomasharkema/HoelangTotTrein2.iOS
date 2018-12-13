@@ -8,12 +8,13 @@
 
 import Foundation
 import Promissum
+import CancellationToken
 
 class MockApiService: ApiService {
 
   private let date = Date().timeIntervalSince1970
 
-  func stations() -> Promise<StationsResponse, ApiError> {
+  func stations(cancellationToken: CancellationToken?) -> Promise<StationsResponse, ApiError> {
     return Promise(value: StationsResponse(payload: [])) //TODO: fix deze eens!
   }
 
@@ -45,7 +46,7 @@ class MockApiService: ApiService {
 //    }
   }
 
-  func advices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, ApiError> {
+  func advices(for adviceRequest: AdviceRequest, cancellationToken: CancellationToken?) -> Promise<AdvicesResponse, ApiError> {
 
     guard let from = adviceRequest.from, let to = adviceRequest.to else {
       return Promise(error: ApiError.noFullRequest)
