@@ -9,6 +9,7 @@ abstract_target 'HoelangTotTrein2Pods' do
   pod 'Bindable/NSObject', :git => 'https://github.com/tomasharkema/Bindable.git', :branch => 'feature/watchos'
   pod 'SwiftLint'
   pod 'CancellationToken'
+  pod 'NoticeWindow'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!

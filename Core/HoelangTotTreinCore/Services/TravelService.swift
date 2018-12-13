@@ -37,27 +37,6 @@ public class TravelService: NSObject {
   private let session = WCSession.default
   #endif
 
-//  private let currentAdviceVariable = RxSwift.Variable<Advice?>(nil)
-//  public private(set) var currentAdviceObservable: Observable<Advice?>!
-//
-//  private let currentAdvicesVariable = RxSwift.Variable<LoadingState<Advices>>(.loading)
-//  public private(set) var currentAdvicesObservable: Observable<LoadingState<Advices>>!
-//
-//  private let firstAdviceRequestVariable = RxSwift.Variable<AdviceRequest?>(nil)
-//  public private(set) var firstAdviceRequestObservable: Observable<AdviceRequest?>!
-//
-//  private let nextAdviceVariable = RxSwift.Variable<Advice?>(nil)
-//  public private(set) var nextAdviceObservable: Observable<Advice?>!
-//
-//  fileprivate let currentAdviceOnScreenVariable = RxSwift.Variable<Advice?>(nil)
-//  public private(set) var currentAdviceOnScreenObservable: Observable<Advice?>!
-//
-//  private let mostUsedStationsVariable = RxSwift.Variable<[Station]>([])
-//  public private(set) var mostUsedStationsObservable: Observable<[Station]>!
-
-//  private let currentAdviceRequestSource = Bindable.VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
-//  public let currentAdviceRequest: Bindable.Variable<AdviceRequest>
-
   private let currentAdvicesSource = VariableSource<State<Advices>>(value: .loading)
   public let currentAdvices: Variable<State<Advices>>
 
@@ -74,6 +53,9 @@ public class TravelService: NSObject {
   public let stations: Variable<Stations>
 
   public let currentAdvice: Variable<State<Advice?>>
+  
+  private let errorSource = ChannelSource<Error>()
+  public var error: Channel<Error> { return errorSource.channel }
 
   public init(apiService: ApiService, locationService: LocationService, dataStore: DataStore, preferenceStore: PreferenceStore, heartBeat: HeartBeat) {
     self.apiService = apiService
@@ -125,8 +107,9 @@ public class TravelService: NSObject {
         .then { [pickedAdviceRequestSource] request in
           pickedAdviceRequestSource.value = request
         }
-        .trap {
-          print("fromAndToCodePicked error \($0)")
+        .trap { [weak self] error in
+          self?.errorSource.post(error)
+          print("fromAndToCodePicked error \(error)")
         }
     }
   }
@@ -318,7 +301,8 @@ public class TravelService: NSObject {
         self.preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advicesResult.trips, adviceRequest: request)
         self.notifyOfNewAdvices(advicesResult.trips)
       }
-      .trap { error in
+      .trap { [weak self] error in
+        self?.errorSource.post(error)
         print(error)
       }
   }
