@@ -184,6 +184,7 @@ class TickerViewController: ViewController {
   }
 
   override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
     renderBackgroundToken = nil
   }
 
@@ -198,7 +199,7 @@ class TickerViewController: ViewController {
       controller.state = state
       controller.selectedStation = state == .from ? self?.fromStation : self?.toStation
       controller.successHandler = { [weak controller] station in
-        App.travelService.setStation(state, station: station)
+        App.travelService.setStation(state, byPicker: true, uicCode: station.UICCode)
         controller?.dismiss(animated: true, completion: nil)
       }
 

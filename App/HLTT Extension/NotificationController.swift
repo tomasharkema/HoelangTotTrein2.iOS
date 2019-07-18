@@ -9,9 +9,9 @@
 import WatchKit
 import Foundation
 
-#if os(watchOS)
+#if canImport(HoelangTotTreinAPIWatch)
   import HoelangTotTreinAPIWatch
-#elseif os(iOS)
+#elseif canImport(HoelangTotTreinAPI)
   import HoelangTotTreinAPI
 #endif
 
@@ -36,18 +36,18 @@ class NotificationController: WKUserNotificationInterfaceController {
       // This method is called when watch view controller is no longer visible
       super.didDeactivate()
   }
+  
 
-
-  override func didReceive(_ localNotification: UILocalNotification,
-                           withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
-
-    let decoder = JSONDecoder()
-    if let _ = localNotification.userInfo {
-      completionHandler(.custom)
-    } else {
-      completionHandler(.default)
-    }
-  }
+//  override func didReceive(_ localNotification: UILocalNotification,
+//                           withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
+//
+//    let decoder = JSONDecoder()
+//    if let _ = localNotification.userInfo {
+//      completionHandler(.custom)
+//    } else {
+//      completionHandler(.default)
+//    }
+//  }
 
 
 //  override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any],

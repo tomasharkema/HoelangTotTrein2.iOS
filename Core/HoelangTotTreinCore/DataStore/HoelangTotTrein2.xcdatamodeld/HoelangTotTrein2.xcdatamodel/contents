@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18C54" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="History" representedClassName="History" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="stationCode" attributeType="String" syncable="YES"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="station" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StationRecord" syncable="YES"/>
+        <attribute name="uicCode" optional="YES" attributeType="String" syncable="YES"/>
         <fetchIndex name="byStationCodeIndex">
-            <fetchIndexElement property="stationCode" type="Binary" order="ascending"/>
+            <fetchIndexElement property="uicCode" type="Binary" order="ascending"/>
         </fetchIndex>
         <fetchIndex name="byTypeIndex">
             <fetchIndexElement property="type" type="Binary" order="ascending"/>
@@ -25,6 +24,7 @@
         <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="synoniemen" optional="YES" attributeType="Transformable" customClassName="NSArray" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uicCode" optional="YES" attributeType="String" syncable="YES"/>
         <fetchIndex name="byCodeIndex">
             <fetchIndexElement property="code" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -39,7 +39,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="History" positionX="-63" positionY="18" width="128" height="105"/>
-        <element name="StationRecord" positionX="-63" positionY="-18" width="128" height="225"/>
+        <element name="History" positionX="-63" positionY="18" width="128" height="90"/>
+        <element name="StationRecord" positionX="-63" positionY="-18" width="128" height="240"/>
     </elements>
 </model>

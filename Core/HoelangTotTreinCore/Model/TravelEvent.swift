@@ -15,8 +15,8 @@ import Foundation
 
 public struct CurrentAdviceChangeData: Codable {
   public let identifier: AdviceIdentifier
-  public let fromCode: String
-  public let toCode: String
+  public let fromCode: UicCode
+  public let toCode: UicCode
 }
 
 public enum TravelEvent {

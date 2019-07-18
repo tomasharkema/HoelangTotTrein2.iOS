@@ -22,14 +22,10 @@ import Promissum
 /// a service to notify users that they need to transfer.
 class TransferService: NSObject {
 
-  private let radius: CLLocationDistance
   private let travelService: TravelService
   private let dataStore: DataStore
   private let preferenceStore: PreferenceStore
   private let locationManager = CLLocationManager()
-  
-//  private let geofenceValue: Variable<GeofenceModel?> = Variable(nil)
-//  fileprivate(set) var geofenceObservable: Observable<GeofenceModel>!
 
   private let geofenceSource = VariableSource<GeofenceModel?>(value: nil)
   public let geofence: Variable<GeofenceModel?>
@@ -41,8 +37,7 @@ class TransferService: NSObject {
     }
   }
 
-  init(travelService: TravelService, dataStore: DataStore, preferenceStore: PreferenceStore, radius: CLLocationDistance = 200) {
-    self.radius = radius
+  init(travelService: TravelService, dataStore: DataStore, preferenceStore: PreferenceStore) {
     self.travelService = travelService
     self.dataStore = dataStore
     self.preferenceStore = preferenceStore
@@ -73,7 +68,7 @@ class TransferService: NSObject {
   }
 
   private func updateGeofence(for station: Station) {
-    let region = CLCircularRegion(center: station.coords.location.coordinate, radius: radius, identifier: station.name)
+    let region = CLCircularRegion(center: station.coords.location.coordinate, radius: station.naderenRadius, identifier: station.UICCode.rawValue)
     locationManager.startMonitoring(for: region)
   }
 
@@ -95,13 +90,13 @@ class TransferService: NSObject {
     let newAdviceIsFirstLeg = (newAdvice.legs.first?.journeyDetailRef).map { preferenceStore.firstLegRitNummers.contains($0) } ?? false
     
     let geofenceType: GeofenceType
-    if newAdvice.startStation == request.from?.name {
+    if newAdvice.startStation?.uicCode == request.from {
       geofenceType = .start
     } else if newAdviceIsFirstLeg {
       geofenceType = .tussenStation
-    } else if request.to == station {
+    } else if request.to == station.UICCode {
       geofenceType = .end
-    } else if newAdvice.startStation == station.name {
+    } else if newAdvice.startStation?.uicCode == station.UICCode {
       geofenceType = .overstap
     } else {
       geofenceType = .tussenStation
@@ -111,7 +106,7 @@ class TransferService: NSObject {
       return nil
     }
     
-    return GeofenceModel(type: geofenceType, stationName: newAdvice.startStation!, stop: stop)
+    return GeofenceModel(type: geofenceType, uicCode: newAdvice.startStation!.uicCode, stop: stop)
   }
   
   private func notify(for newAdvice: Advice, request: AdviceRequest, station: Station) {
@@ -124,22 +119,31 @@ class TransferService: NSObject {
   
   private func notify(geofenceModel: GeofenceModel) {
     geofenceSource.value = geofenceModel
-    if geofenceModel.type != .tussenStation {
-      _ = travelService.setStation(.from, stationName: geofenceModel.stationName)
+    
+    switch geofenceModel.type {
+    case .start:
+      break
+    case .tussenStation:
+      break
+    case .overstap:
+      _ = travelService.setStation(.from, byPicker: false, uicCode: geofenceModel.uicCode)
+    case .end:
+      _ = travelService.setStation(.from, byPicker: true, uicCode: geofenceModel.uicCode)
     }
+    
   }
 
   private func arrive(at station: Station) {
 
-    let request = travelService.pickedAdviceRequest.value
+    let request = travelService.adviceRequest.value
     let newRequest: AdviceRequest
-    if station == request.to {
+    if station.UICCode == request.to {
       newRequest = AdviceRequest(from: request.to, to: request.from)
     } else {
-      newRequest = AdviceRequest(from: station, to: request.to)
+      newRequest = AdviceRequest(from: station.UICCode, to: request.to)
     }
 
-    travelService.fetchAdvices(for: newRequest)
+    travelService.fetchAdvices(for: newRequest, cancellationToken: nil)
       .map { ($0.trips.filter { $0.isOngoing }, request) }
       .then { (advices, request) in
         if let newAdvice = advices.first {
@@ -148,8 +152,8 @@ class TransferService: NSObject {
       }
   }
 
-  private func arrive(at stationName: String) {
-    dataStore.find(stationName: stationName)
+  private func arrive(at uicCode: UicCode) {
+    dataStore.find(uicCode: uicCode)
       .then { currentStation in
         self.arrive(at: currentStation)
       }
@@ -159,6 +163,6 @@ class TransferService: NSObject {
 
 extension TransferService: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    arrive(at: region.identifier)
+    arrive(at: UicCode(rawValue: region.identifier))
   }
 }

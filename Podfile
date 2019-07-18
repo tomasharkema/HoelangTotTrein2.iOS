@@ -10,14 +10,13 @@ abstract_target 'HoelangTotTrein2Pods' do
   pod 'SwiftLint'
   pod 'CancellationToken'
   pod 'NoticeWindow'
+  pod 'Firebase/Core'
 
 	target 'HoelangTotTrein2' do
     use_frameworks!
 		project 'App/HoelangTotTrein2.xcodeproj'
 
 		pod 'SegueManager/R.swift'
-    pod 'Fabric'
-    pod 'Crashlytics'
 
 		target 'HoelangTotTrein2Tests' do
 			inherit! :search_paths

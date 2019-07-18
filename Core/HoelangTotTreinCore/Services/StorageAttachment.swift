@@ -37,7 +37,7 @@ public class StorageAttachment: NSObject {
       self?.updateStations(event.value)
     }.disposed(by: disposeBag)
 
-    travelService.pickedAdviceRequest.subscribe { [weak self] event in
+    travelService.originalAdviceRequest.subscribe { [weak self] event in
       self?.insertHistoryFromRequest(event.value)
     }.disposed(by: disposeBag)
   }
@@ -69,8 +69,8 @@ public class StorageAttachment: NSObject {
     }
 
     let historyInsert = whenBoth(
-      dataStore.insertHistory(station: from, historyType: .from),
-      dataStore.insertHistory(station: to, historyType: .to)
+      dataStore.insertHistory(stationCode: from, historyType: .from),
+      dataStore.insertHistory(stationCode: to, historyType: .to)
     )
 
     historyInsert

@@ -15,7 +15,8 @@ struct StepViewModel {
   let toSpoor: String
   let fromTime: String
   let toTime: String
-  let destination: String
+  let direction: String?
+  let product: String
 }
 
 class StepView: UIView {
@@ -26,10 +27,11 @@ class StepView: UIView {
   @IBOutlet weak private var toStationLabel: UILabel!
   @IBOutlet weak private var toSpoorLabel: UILabel!
   @IBOutlet weak private var toTime: UILabel!
+  @IBOutlet weak var destinationView: UILabel!
 
   var viewModel: StepViewModel! {
     didSet {
-      fromStationLabel.text = "\(viewModel.fromStation) > \(viewModel.destination)"
+      fromStationLabel.text = viewModel.fromStation
       fromSpoorLabel.text = viewModel.fromSpoor
       fromTime.text = viewModel.fromTime
       fromTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)
@@ -37,6 +39,13 @@ class StepView: UIView {
       toSpoorLabel.text = viewModel.toSpoor
       toTime.text = viewModel.toTime
       toTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)
+      
+      let destinationText: [String] = [
+        viewModel.product,
+        viewModel.direction.map { "ri. \($0)" }
+      ].compactMap { $0 }
+      
+      destinationView.text = destinationText.joined(separator: " ")
     }
   }
 

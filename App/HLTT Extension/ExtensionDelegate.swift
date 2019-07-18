@@ -60,12 +60,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 //      App.preferenceStore.persistedAdvicesAndRequest?.advices = advices
 
     case .currentAdviceChange(let data):
-      let from = App.travelService.setStation(.from, stationCode: data.fromCode)
-      let to = App.travelService.setStation(.to, stationCode: data.toCode)
+      App.travelService.setStation(.from, byPicker: false, uicCode: data.fromCode)
+      App.travelService.setStation(.to, byPicker: false, uicCode: data.toCode)
       App.travelService.setCurrentAdviceOnScreen(adviceIdentifier: data.identifier)
-      whenBoth(from, to).finallyResult {
-        print($0)
-      }
     }
 
     NotificationCenter.default.post(name: Notification.Name(rawValue: AdvicesDidChangeNotification), object: nil)

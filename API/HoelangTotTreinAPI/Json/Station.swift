@@ -43,9 +43,41 @@ public struct Names {
 
 extension Names: Codable, Equatable, Hashable { }
 
+public struct StationCode: RawRepresentable, Hashable, Equatable, Codable {
+  
+  public typealias RawValue = String
+  
+  public var rawValue: String
+  
+  public init(rawValue: String) {
+    self.rawValue = rawValue
+  }
+}
+
+public struct UicCode: RawRepresentable, Hashable, Equatable, Codable {
+  
+  public typealias RawValue = String
+  
+  public var rawValue: String
+  
+  public init(rawValue: String) {
+    self.rawValue = rawValue
+  }
+  
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.singleValueContainer()
+    rawValue = try container.decode(String.self)
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.singleValueContainer()
+    try container.encode(rawValue)
+  }
+}
+
 public struct Station: Equatable, Hashable, Codable {
   public let namen: Names
-  public let code: String
+  public let code: StationCode
   public let land: String
   public let lat: Double
   public let lng: Double
@@ -53,6 +85,7 @@ public struct Station: Equatable, Hashable, Codable {
   public let radius: Double
   public let naderenRadius: Double
   public let synoniemen: [String]
+  public let UICCode: UicCode
   
   public var name: String {
     return namen.lang

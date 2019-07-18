@@ -18,12 +18,12 @@ public enum GeofenceType: String, Codable {
 
 public struct GeofenceModel: Equatable, Codable {
   public let type: GeofenceType
-  public let stationName: String
+  public let uicCode: UicCode
   public let stop: Stop
   
-  public init(type: GeofenceType, stationName: String, stop: Stop) {
+  public init(type: GeofenceType, uicCode: UicCode, stop: Stop) {
     self.type = type
-    self.stationName = stationName
+    self.uicCode = uicCode
     self.stop = stop
   }
 }

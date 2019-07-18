@@ -17,17 +17,58 @@ import HoelangTotTreinAPIWatch
 import HoelangTotTreinAPI
 #endif
 import UserNotifications
-import Fabric
-import Crashlytics
+import Firebase
+import SwiftUI
+import Bindable
+import Combine
+
+public class VariableBindable<T>: BindableObject {
+  private let disposeBag: DisposeBag
+  public let willChange = PassthroughSubject<T, Never>()
+
+  let variable: Variable<T>
+
+  var value: T
+
+  init(variable: Variable<T>) {
+    self.disposeBag = DisposeBag()
+    self.variable = variable
+
+    value = variable.value
+    variable.subscribe { [weak self] event in
+      self?.value = event.value
+      self?.willChange.send(event.value)
+    }.disposed(by: disposeBag)
+  }
+}
+
+class TimerHolder: BindableObject {
+  var timer : Timer!
+  let willChange = PassthroughSubject<TimerHolder,Never>()
+  var count = 0 {
+    didSet {
+      self.willChange.send(self)
+    }
+  }
+  func start() {
+    self.timer?.invalidate()
+    self.count = 0
+    self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) {
+      _ in
+      self.count += 1
+    }
+  }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    Fabric.with([Crashlytics.self])
+//  @State var adviceStations: AdviceStations = AdviceStations(from: nil, to: nil)
 
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
     App.storageAttachment
     _ = App.travelService.fetchStations()
     App.transferService
@@ -39,6 +80,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       self?.requestPush()
     }
 
+    if #available(iOS 13, *) {
+
+      let adviceStations = VariableBindable(variable: App.travelService.adviceStations)
+      let advices = VariableBindable(variable: App.travelService.currentAdvices.map {
+        $0.value
+      })
+
+      let holder = TimerHolder()
+      window = UIWindow(frame: UIScreen.main.bounds)
+      window?.rootViewController = UIHostingController(rootView: RootView(adviceStations: adviceStations, advices: advices)
+        .environmentObject(holder))
+      window?.makeKeyAndVisible()
+      holder.start()
+    }
+    
     return true
   }
 
@@ -110,3 +166,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
 }
+

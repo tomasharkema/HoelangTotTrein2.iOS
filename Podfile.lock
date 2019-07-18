@@ -2,30 +2,76 @@ PODS:
   - Bindable/Core (0.4.1)
   - Bindable/NSObject (0.4.1):
     - Bindable/Core
-  - CancellationToken (3.1.0):
-    - CancellationToken/Core (= 3.1.0)
-  - CancellationToken/Core (3.1.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
-  - NoticeWindow (0.7.0)
-  - Promissum (3.0.0):
-    - Promissum/Core (= 3.0.0)
-  - Promissum/Core (3.0.0)
+  - CancellationToken (3.2.0):
+    - CancellationToken/Core (= 3.2.0)
+  - CancellationToken/Core (3.2.0)
+  - Firebase/Core (6.4.0):
+    - Firebase/CoreOnly
+    - FirebaseAnalytics (= 6.0.3)
+  - Firebase/CoreOnly (6.4.0):
+    - FirebaseCore (= 6.0.4)
+  - FirebaseAnalytics (6.0.3):
+    - FirebaseCore (~> 6.0)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.0.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (6.0.4):
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseInstanceID (4.2.1):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - GoogleAppMeasurement (6.0.3):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3)
+  - GoogleUtilities/AppDelegateSwizzler (6.2.3):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (6.2.3)
+  - GoogleUtilities/Logger (6.2.3):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (6.2.3):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (6.2.3):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (6.2.3)"
+  - GoogleUtilities/Reachability (6.2.3):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (6.2.3):
+    - GoogleUtilities/Logger
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - NoticeWindow (0.8.0)
+  - Promissum (4.0.0):
+    - Promissum/Core (= 4.0.0)
+  - Promissum/Core (4.0.0)
   - R.swift (5.0.0.alpha.3):
     - R.swift.Library (~> 5.0.0.alpha.2)
-  - R.swift.Library (5.0.0)
+  - R.swift.Library (5.0.1)
   - SegueManager/iOS (4.0.0)
   - SegueManager/R.swift (4.0.0):
     - R.swift.Library
     - SegueManager/iOS
-  - SwiftLint (0.29.1)
+  - SwiftLint (0.33.1)
 
 DEPENDENCIES:
   - Bindable/NSObject (from `https://github.com/tomasharkema/Bindable.git`, branch `feature/watchos`)
   - CancellationToken
-  - Crashlytics
-  - Fabric
+  - Firebase/Core
   - NoticeWindow
   - Promissum
   - R.swift (= 5.0.0.alpha.3)
@@ -35,8 +81,13 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CancellationToken
-    - Crashlytics
-    - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleAppMeasurement
+    - GoogleUtilities
+    - nanopb
     - NoticeWindow
     - Promissum
     - R.swift
@@ -55,17 +106,22 @@ CHECKOUT OPTIONS:
     :git: https://github.com/tomasharkema/Bindable.git
 
 SPEC CHECKSUMS:
-  Bindable: 65843743d12b98b14c7193d512e7c8ace0cfdbcb
-  CancellationToken: bf4819b751b07574ba8a2275d3abb3621e31b089
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  NoticeWindow: 04ae742cf149c02e6fe2d70e76ab5c5c28eb32a9
-  Promissum: 553c9c4d117e8ae8665757840f0ab52bd0e4232f
+  Bindable: 3ab0387692d770f4507a31b0e5f52177f4233da4
+  CancellationToken: dd83b95d619d49293a52c8e71fab18a17079f6d0
+  Firebase: 9445469655a98e9010737f4bc4720e5bda465873
+  FirebaseAnalytics: 69fe25866d2ec87c6f02d72c3c9a82bce9c065a0
+  FirebaseCore: 7ea99e200f0024262650be56623fbe6a7bef1707
+  FirebaseInstanceID: 9782fcfb89e4d7da76cc28eac4b8543dc7be4a4b
+  GoogleAppMeasurement: 1e45fa601e6280c180880d57010390f6679cd971
+  GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  NoticeWindow: 6c46ff1e76f88c11e7a2baff19e3dcc9182d0e5c
+  Promissum: cdc56cbdb15e134eaccbd25d88041e75f96aac4c
   R.swift: ca4207ecc94545a1611ca0b2ae1197458b6ba30a
-  R.swift.Library: 0bf390e729bc10bb2c9e4fb78bd043164a7be4ff
+  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
-  SwiftLint: 6772320e40b52049053a518c17db9b0634a0b45a
+  SwiftLint: 9fc1143bbacec37f94994a7d0d2a85b2154b6294
 
-PODFILE CHECKSUM: 4a338830fef70775d879941a6dfb00dad37dd633
+PODFILE CHECKSUM: 2005c39829765cf6a8f32c7d3f582f6da4b97767
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.1

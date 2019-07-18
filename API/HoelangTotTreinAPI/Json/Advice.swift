@@ -52,7 +52,7 @@ public struct LegPlace: Equatable, Codable {
   public let lng: Double
   public let lat: Double
   public let countryCode: String
-  public let uicCode: String
+  public let uicCode: UicCode
   public let weight: Int
   public let products: Int
   
@@ -77,7 +77,7 @@ public protocol LegStation {
   var lng: Double { get }
   var lat: Double { get }
   var countryCode: String { get }
-  var uicCode: String { get }
+  var uicCode: UicCode { get }
 }
 
 public struct PassingStation: LegStation, Equatable, Codable {
@@ -85,7 +85,7 @@ public struct PassingStation: LegStation, Equatable, Codable {
   public let lng: Double
   public let lat: Double
   public let countryCode: String
-  public let uicCode: String
+  public let uicCode: UicCode
   public let passing: Bool
 }
 
@@ -95,7 +95,7 @@ public struct HaltStation: LegStation, Equatable, Codable {
   public let lat: Double
   public let city: String?
   public let countryCode: String
-  public let uicCode: String
+  public let uicCode: UicCode
   public let weight: Int?
   public let products: Int?
   public let routeIdx: Int
@@ -174,7 +174,7 @@ public enum Stop: Equatable, Codable, LegStation {
     return legStation.countryCode
   }
   
-  public var uicCode: String{
+  public var uicCode: UicCode {
     return legStation.uicCode
   }
   
@@ -199,7 +199,7 @@ public struct Leg: Equatable, Codable {
   public let idx: String
   public let name: String
   public let travelType: String
-  public let direction: String
+  public let direction: String?
   public let cancelled: Bool
   public let changePossible: Bool
   public let alternativeTransport: Bool
@@ -252,26 +252,26 @@ public struct Advice: Equatable, Codable {
 public typealias Advices = [Advice]
 
 public struct AdviceRequest: Equatable, Codable {
-  public var from: Station?
-  public var to: Station?
-
-  public init(from: Station?, to: Station?) {
+  public var from: UicCode?
+  public var to: UicCode?
+  
+  public init(from: UicCode?, to: UicCode?) {
     self.from = from
     self.to = to
   }
+}
+
+public struct AdviceStations {
+  public let from: String?
+  public let to: String?
   
-  public func setFrom(_ from: Station) -> AdviceRequest {
-    return AdviceRequest(from: from, to: to)
-  }
-
-  public func setTo(_ to: Station) -> AdviceRequest {
-    return AdviceRequest(from: from, to: to)
+  public init(from: String?, to: String?) {
+    self.from = from
+    self.to = to
   }
 }
 
-public func ==(lhs: AdviceRequest, rhs: AdviceRequest) -> Bool {
-  return lhs.from == rhs.from && lhs.to == rhs.to
-}
+extension AdviceStations: Equatable, Codable {}
 
 public struct AdvicesAndRequest: Codable {
   public let advices: Advices

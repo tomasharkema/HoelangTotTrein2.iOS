@@ -60,7 +60,7 @@ class AdviceCell: UICollectionViewCell {
 
     if interval > 0 {
       tickerContainer.alpha = 1
-      statusMessageLabel.text = "\(advice.status.alertDescription)|\(advice.legs.first?.crowdForecast?.rawValue ?? "UNKNOWN")"
+      statusMessageLabel.text = "\(advice.status.alertDescription) | \(advice.legs.first?.crowdForecast?.rawValue ?? "UNKNOWN")"
     } else {
       tickerContainer.alpha = 0.2
       statusMessageLabel.text = R.string.localization.departed()

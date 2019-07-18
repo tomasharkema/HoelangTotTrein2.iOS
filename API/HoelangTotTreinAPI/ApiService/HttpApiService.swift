@@ -81,13 +81,13 @@ final public class HttpApiService: ApiService {
   }
   
   public func advices(for adviceRequest: AdviceRequest, cancellationToken: CancellationToken?) -> Promise<AdvicesResponse, ApiError> {
-    guard let fromCode = adviceRequest.from?.code,
-      let toCode = adviceRequest.to?.code
+    guard let fromCode = adviceRequest.from?.rawValue,
+      let toCode = adviceRequest.to?.rawValue
       else {
         return Promise(error: .noFullRequest)
       }
-    
-    let url = URL(string: "https://ns-api.nl/reisinfo/api/v3/trips?fromStation=\(fromCode)&toStation=\(toCode)")!
+    // https://ns-api.nl/virtualtrain/v1/trein/3031?features=zitplaats,drukte
+    let url = URL(string: "https://ns-api.nl/reisinfo/api/v3/trips?originUicCode=\(fromCode)&destinationUicCode=\(toCode)")!
     var request = URLRequest(url: url)
     request.set(credentials: credentials)
     

@@ -37,11 +37,11 @@ public class ListTickerViewModel {
       return Date()
     }
 
-    fromButtonTitle = travelService.pickedAdviceRequest.map {
-      $0.from?.name ?? "[Pick Station]"
+    fromButtonTitle = travelService.adviceStations.map {
+      $0.from ?? "[Pick Station]"
     }
-    toButtonTitle = travelService.pickedAdviceRequest.map {
-      $0.to?.name ?? "[Pick Station]"
+    toButtonTitle = travelService.adviceStations.map {
+      $0.to ?? "[Pick Station]"
     }
   }
 }

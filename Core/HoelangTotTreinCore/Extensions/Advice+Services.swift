@@ -35,16 +35,16 @@ extension Advice {
 //    let isPossible = FareStatus.impossibleFares.first { $0 == status } == nil
     
 //    return isPossible &&
-    return departure.actual > Date()
+    return status != .CANCELLED && departure.actual > Date()
       && arrival.actual > Date()
   }
   
-  public var startStation: String? {
-    return legs.first?.origin.name
+  public var startStation: LegPlace? {
+    return legs.first?.origin
   }
   
-  public var endStation: String? {
-    return legs.last?.destination.name
+  public var endStation: LegPlace? {
+    return legs.last?.destination
   }
   
   public var vertrekVertraging: String? {

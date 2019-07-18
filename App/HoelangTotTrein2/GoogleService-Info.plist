@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>242774363253-cdl0vodahb8aqh4okk7ors45ljd3fluh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.242774363253-cdl0vodahb8aqh4okk7ors45ljd3fluh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCXf4ZkIINXpkhMN974ItJQJCchSIZ67Hc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>242774363253</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>nl.tomasharkema.HoelangTotTrein</string>
+	<key>PROJECT_ID</key>
+	<string>hltt-6006e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hltt-6006e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:242774363253:ios:1bcc6efc78b674fe</string>
+	<key>DATABASE_URL</key>
+	<string>https://hltt-6006e.firebaseio.com</string>
+</dict>
+</plist>

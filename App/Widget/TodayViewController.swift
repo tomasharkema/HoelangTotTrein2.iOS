@@ -47,7 +47,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return ""
       }
       let fromPlatform = advice.vertrekSpoor.map { "(\($0)) " } ?? ""
-      return "\(fromPlatform)\(advice.startStation ?? "")"
+      return "\(fromPlatform)\(advice.startStation?.name ?? "")"
     }
     fromLabel.bind(\.text, to: fromVariable)
 
@@ -56,7 +56,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return ""
       }
       let toPlatform = advice.aankomstSpoor.map { "(\($0)) " } ?? ""
-      return "\(toPlatform)\(advice.endStation ?? "")"
+      return "\(toPlatform)\(advice.endStation?.name ?? "")"
     }
     toLabel.bind(\.text, to: toVariable)
   }

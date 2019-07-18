@@ -51,6 +51,7 @@
 		C3141CEF1F816BBF009F453D /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C3141CF01F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */; };
 		C3141CF11F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C32101ED22DF7459006D8227 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32101EC22DF7459006D8227 /* RootView.swift */; };
 		C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216901EEB212400BC2745 /* UserNotifications.framework */; };
 		C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216921EEB212400BC2745 /* UserNotificationsUI.framework */; };
 		C32216961EEB212400BC2745 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32216951EEB212400BC2745 /* NotificationViewController.swift */; };
@@ -78,6 +79,7 @@
 		C3894E2D1E91307A00C6FCE2 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E61CC767FA002893B3 /* NotificationController.swift */; };
 		C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
 		C3894E2F1E91307E00C6FCE2 /* WatchTickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E21CC767FA002893B3 /* WatchTickerController.swift */; };
+		C38C24DE2202E67C0021A7AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
@@ -250,6 +252,7 @@
 		C30A16C021C1523000677EAB /* json-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "json-credentials.plist"; sourceTree = "<group>"; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
+		C32101EC22DF7459006D8227 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C322168F1EEB212400BC2745 /* TickerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TickerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32216901EEB212400BC2745 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		C32216921EEB212400BC2745 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -277,6 +280,7 @@
 		C38681641F6E899800550D96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3894E031E912FAB00C6FCE2 /* HLTT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HLTT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HLTT Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdviceCell.swift; path = ../../Views/AdviceCell.swift; sourceTree = "<group>"; };
@@ -447,6 +451,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C32101EE22DF745F006D8227 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				C32101EC22DF7459006D8227 /* RootView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		C32216941EEB212400BC2745 /* TickerNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,6 +568,7 @@
 		C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */ = {
 			isa = PBXGroup;
 			children = (
+				C32101EE22DF745F006D8227 /* SwiftUI */,
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E19C371E92C9C0003A1529 /* Features */,
 				C3E19C3B1E92CAC8003A1529 /* Fonts */,
@@ -569,6 +582,7 @@
 				C3E847561BB82A01007D17C3 /* Main.storyboard */,
 				C32D78BD1BDEC98C00603805 /* R.generated.swift */,
 				C3E19C561E96CDE1003A1529 /* Localization.strings */,
+				C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */,
 				C30A16C021C1523000677EAB /* json-credentials.plist */,
 			);
 			path = HoelangTotTrein2;
@@ -832,7 +846,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Tomas Harkema";
 				TargetAttributes = {
 					C322168E1EEB212400BC2745 = {
@@ -911,6 +925,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				nl,
 				Base,
@@ -1011,6 +1026,7 @@
 				C3F72AC11C95D3F60024CF2C /* StepView.xib in Resources */,
 				C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */,
 				C3E847581BB82A01007D17C3 /* Main.storyboard in Resources */,
+				C38C24DE2202E67C0021A7AC /* GoogleService-Info.plist in Resources */,
 				C30A16C121C1523000677EAB /* json-credentials.plist in Resources */,
 				C3E19C541E96CDE1003A1529 /* Localization.strings in Resources */,
 				C303E8C91F812A0500A9EC5C /* Leiden Centraal.gpx in Resources */,
@@ -1044,7 +1060,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bindable-watchOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/CancellationToken-watchOS/CancellationToken.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-watchOS/Promissum.framework",
@@ -1057,7 +1073,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		572ADFB4A871E91C5789A02F /* [CP] Check Pods Manifest.lock */ = {
@@ -1143,7 +1159,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/HoelangTotTrein2\"";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/HoelangTotTrein2\"\n";
 		};
 		D7E69BAEFC50F1D05969C461 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1151,26 +1167,30 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
 				"${BUILT_PRODUCTS_DIR}/CancellationToken-iOS/CancellationToken.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/NoticeWindow/NoticeWindow.framework",
 				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CancellationToken.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NoticeWindow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ECF51089AB90EE2F1F3365A8 /* [CP] Check Pods Manifest.lock */ = {
@@ -1202,7 +1222,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+			shellScript = "# \"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		FFC0C73F1F3C515200A49942 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1215,7 +1235,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 0d5f284b42c7fd8392f27151595fcb94b4ac009e fa45da05d03a9997255b9671a8f7b29baedf2fb0fdbb4a0b04563c7b79308db4";
+			shellScript = "# \"${PODS_ROOT}/Fabric/run\" 0d5f284b42c7fd8392f27151595fcb94b4ac009e fa45da05d03a9997255b9671a8f7b29baedf2fb0fdbb4a0b04563c7b79308db4\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1273,6 +1293,7 @@
 				C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */,
 				C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */,
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
+				C32101ED22DF7459006D8227 /* RootView.swift in Sources */,
 				C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1693,13 +1714,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
-				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
@@ -1720,7 +1740,7 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;

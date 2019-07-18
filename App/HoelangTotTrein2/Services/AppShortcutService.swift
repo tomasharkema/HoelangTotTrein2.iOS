@@ -45,7 +45,7 @@ class AppShortcutService: NSObject {
 
     let shortcuts: [UIApplicationShortcutItem] = firstStations.map { station in
       let icon = UIApplicationShortcutIcon(type: .favorite)
-      return UIMutableApplicationShortcutItem(type: "nl.tomasharkema.HoelangTotTrein.stationshortcut", localizedTitle: station.name, localizedSubtitle: nil, icon: icon, userInfo: ["stationCode": station.code as NSSecureCoding])
+      return UIMutableApplicationShortcutItem(type: "nl.tomasharkema.HoelangTotTrein.stationshortcut", localizedTitle: station.name, localizedSubtitle: nil, icon: icon, userInfo: ["uiccode": station.UICCode.rawValue as NSSecureCoding])
     }
 
     UIApplication.shared.shortcutItems = shortcuts
@@ -57,12 +57,12 @@ extension AppDelegate {
   func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
     App.travelService.tick(userInteraction: false)
 
-    guard let stationCode = shortcutItem.userInfo?["stationCode"] as? String else {
+    guard let stationCode = shortcutItem.userInfo?["uiccode"] as? String else {
       completionHandler(false)
       return
     }
 
-    App.travelService.setStation(.to, stationCode: stationCode)
+    App.travelService.setStation(.to, byPicker: true, uicCode: UicCode(rawValue: stationCode))
       .flatMap { _ in App.travelService.travelFromCurrentLocation() }
       .then { _ in
         completionHandler(true)

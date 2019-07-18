@@ -30,7 +30,8 @@ extension Advice {
         toSpoor: item.destination.plannedTrack ?? "",
         fromTime: formatter.string(from: item.origin.time.actual),
         toTime: formatter.string(from: item.destination.time.actual),
-        destination: item.destination.name
+        direction: item.direction,
+        product: item.product.shortCategoryName
       )
     }
   }

@@ -17,10 +17,8 @@ import HoelangTotTreinAPI
 #endif
 
 private struct Keys {
-  static let fromStationCodeKey = "FromStationCodeKey"
-  static let toStationCodeKey = "ToStationCodeKey"
-  static let fromStationByPickerCodeKey = "FromStationByPickerCodeKey"
-  static let toStationByPickerCodeKey = "ToStationByPickerCodeKey"
+  static let adviceRequestDefaults = "adviceRequestDefaults"
+  static let originalAdviceRequestDefaults = "originalAdviceRequestDefaults"
   static let userIdKey = "UserIdKey"
   static let geofenceInfoKey = "GeofenceInfoKey"
   static let persistedAdvicesAndRequest = "PersistedAdvicesAndRequest"
@@ -33,11 +31,12 @@ private struct Keys {
 private let HLTTUserDefaults = Foundation.UserDefaults(suiteName: "group.tomas.hltt")!
 
 public protocol PreferenceStore: class {
-  var fromStationByPickerCode: Variable<String?> { get }
-  var toStationByPickerCode: Variable<String?> { get }
-  func setFromStationByPickerCode(code: String?)
-  func setToStationByPickerCode(code: String?)
-
+  var adviceRequest: Variable<AdviceRequest> { get }
+  func set(adviceRequest: AdviceRequest)
+  
+  var originalAdviceRequest: Variable<AdviceRequest> { get }
+  func set(originalAdviceRequest: AdviceRequest)
+  
   var currentAdviceIdentifier: Variable<AdviceIdentifier?> { get }
   func setCurrentAdviceIdentifier(identifier: AdviceIdentifier?)
 
@@ -50,12 +49,12 @@ public protocol PreferenceStore: class {
 }
 
 public class UserDefaultsPreferenceStore: PreferenceStore {
-
-  public let fromStationByPickerCode: Variable<String?>
-  public let toStationByPickerCode: Variable<String?>
-
-  private let fromStationByPickerCodeSource = VariableSource<String?>(value: nil)
-  private let toStationByPickerCodeSource = VariableSource<String?>(value: nil)
+  
+  public var adviceRequestSource = VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
+  public var adviceRequest: Variable<AdviceRequest>
+  
+  public var originalAdviceRequestSource = VariableSource<AdviceRequest>(value: AdviceRequest(from: nil, to: nil))
+  public var originalAdviceRequest: Variable<AdviceRequest>
 
   private let currentAdviceIdentifierSource = VariableSource<AdviceIdentifier?>(value: nil)
   public let currentAdviceIdentifier: Variable<AdviceIdentifier?>
@@ -64,10 +63,9 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   public init(defaultKeepDepartedAdvice: Bool) {
     self.defaultKeepDepartedAdvice = defaultKeepDepartedAdvice
-    
-    fromStationByPickerCode = fromStationByPickerCodeSource.variable
-    toStationByPickerCode = toStationByPickerCodeSource.variable
 
+    adviceRequest = adviceRequestSource.variable
+    originalAdviceRequest = originalAdviceRequestSource.variable
     currentAdviceIdentifier = currentAdviceIdentifierSource.variable
 
     prefill()
@@ -75,65 +73,56 @@ public class UserDefaultsPreferenceStore: PreferenceStore {
 
   private func prefill() {
     currentAdviceIdentifierSource.value = currentAdviceIdentifierValue
-    fromStationByPickerCodeSource.value = fromStationByPickerCodeDefaults
-    toStationByPickerCodeSource.value = toStationByPickerCodeDefaults
+    
+    if let adviceRequestDefaults = adviceRequestDefaults {
+      adviceRequestSource.value = adviceRequestDefaults
+    }
+    if let originalAdviceRequestDefaults = originalAdviceRequestDefaults {
+      originalAdviceRequestSource.value = originalAdviceRequestDefaults
+    }
   }
-
-  public func setFromStationByPickerCode(code: String?) {
-    fromStationByPickerCodeDefaults = code
-    fromStationByPickerCodeSource.value = code
+  
+  public func set(adviceRequest: AdviceRequest) {
+    adviceRequestDefaults = adviceRequest
+    adviceRequestSource.value = adviceRequest
   }
-
-  public func setToStationByPickerCode(code: String?) {
-    toStationByPickerCodeDefaults = code
-    toStationByPickerCodeSource.value = code
+  
+  
+  public func set(originalAdviceRequest: AdviceRequest) {
+    originalAdviceRequestDefaults = originalAdviceRequest
+    originalAdviceRequestSource.value = originalAdviceRequest
   }
-
-  private var fromStationCodeDefaults: String? {
+  
+  private var adviceRequestDefaults: AdviceRequest? {
     get {
-      let fromCode = HLTTUserDefaults.string(forKey: Keys.fromStationCodeKey)
-      return fromCode
+      return HLTTUserDefaults.data(forKey: Keys.adviceRequestDefaults)
+        .flatMap {
+          try? JSONDecoder().decode(AdviceRequest.self, from: $0)
+        }
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.fromStationCodeKey)
-      HLTTUserDefaults.synchronize()
+      let data = newValue.flatMap {
+        try? JSONEncoder().encode($0)
+      }
+      HLTTUserDefaults.set(data, forKey: Keys.adviceRequestDefaults)
     }
   }
 
-  private var toStationCodeDefaults: String? {
+  private var originalAdviceRequestDefaults: AdviceRequest? {
     get {
-      let toCode = HLTTUserDefaults.string(forKey: Keys.toStationCodeKey)
-      return toCode
+      return HLTTUserDefaults.data(forKey: Keys.originalAdviceRequestDefaults)
+        .flatMap {
+          try? JSONDecoder().decode(AdviceRequest.self, from: $0)
+      }
     }
     set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.toStationCodeKey)
-      HLTTUserDefaults.synchronize()
+      let data = newValue.flatMap {
+        try? JSONEncoder().encode($0)
+      }
+      HLTTUserDefaults.set(data, forKey: Keys.originalAdviceRequestDefaults)
     }
   }
-
-  private var fromStationByPickerCodeDefaults: String? {
-    get {
-      let fromCode = HLTTUserDefaults.string(forKey: Keys.fromStationByPickerCodeKey)
-      return fromCode
-    }
-    set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.fromStationByPickerCodeKey)
-      HLTTUserDefaults.synchronize()
-    }
-  }
-
-  private var toStationByPickerCodeDefaults: String? {
-    get {
-      let toCode = HLTTUserDefaults.string(forKey: Keys.toStationByPickerCodeKey)
-      return toCode
-    }
-    set {
-      HLTTUserDefaults.set(newValue, forKey: Keys.toStationByPickerCodeKey)
-      HLTTUserDefaults.synchronize()
-    }
-  }
-
-
+  
   public var userId: String {
     let returnedUserId: String
     if let userId = HLTTUserDefaults.string(forKey: Keys.userIdKey) {

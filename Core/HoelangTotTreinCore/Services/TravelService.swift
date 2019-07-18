@@ -43,9 +43,13 @@ public class TravelService: NSObject {
   private let currentAdviceOnScreenSource = VariableSource<Advice?>(value: nil)
   public let currentAdviceOnScreen: Variable<Advice?>
 
-  private let pickedAdviceRequestSource = VariableSource(value: AdviceRequest(from: nil, to: nil))
-  public let pickedAdviceRequest: Variable<AdviceRequest>
-
+//  private let pickedAdviceRequestSource = VariableSource(value: AdviceRequest(from: nil, to: nil))
+  public let adviceRequest: Variable<AdviceRequest>
+  public let originalAdviceRequest: Variable<AdviceRequest>
+  
+  private let adviceStationsSource = VariableSource<AdviceStations>(value: AdviceStations(from: nil, to: nil))
+  public var adviceStations: Variable<AdviceStations> { return adviceStationsSource.variable }
+  
   private let mostUsedStationsSource = VariableSource(value: Stations())
   public let mostUsedStations: Variable<Stations>
 
@@ -66,7 +70,6 @@ public class TravelService: NSObject {
 
     currentAdvices = currentAdvicesSource.variable
     currentAdviceOnScreen = currentAdviceOnScreenSource.variable
-    pickedAdviceRequest = pickedAdviceRequestSource.variable
     mostUsedStations = mostUsedStationsSource.variable
     stations = stationsSource.variable
 
@@ -83,36 +86,39 @@ public class TravelService: NSObject {
         }
       }
 
+    adviceRequest = preferenceStore.adviceRequest
+    originalAdviceRequest = preferenceStore.originalAdviceRequest
+    
     super.init()
-
+    
     start()
   }
 
-  var fromAndToCodePicked: (String?, String?) = (nil, nil) {
-    didSet {
-      let from: Promise<Station?, Error> = fromAndToCodePicked.0.map {
-        self.dataStore.find(stationCode: $0)
-          .map { .some($0) }
-        } ?? Promise(value: nil)
-
-      let to: Promise<Station?, Error> = fromAndToCodePicked.1.map {
-        self.dataStore.find(stationCode: $0)
-          .map { .some($0) }
-        } ?? Promise(value: nil)
-
-      whenBoth(from, to)
-        .map {
-          AdviceRequest(from: $0.0, to: $0.1)
-        }
-        .then { [pickedAdviceRequestSource] request in
-          pickedAdviceRequestSource.value = request
-        }
-        .trap { [weak self] error in
-          self?.errorSource.post(error)
-          print("fromAndToCodePicked error \(error)")
-        }
-    }
-  }
+//  var fromAndToCodePicked: (String?, String?) = (nil, nil) {
+//    didSet {
+//      let from: Promise<Station?, Error> = fromAndToCodePicked.0.map {
+//        self.dataStore.find(stationCode: $0)
+//          .map { .some($0) }
+//        } ?? Promise(value: nil)
+//
+//      let to: Promise<Station?, Error> = fromAndToCodePicked.1.map {
+//        self.dataStore.find(stationCode: $0)
+//          .map { .some($0) }
+//        } ?? Promise(value: nil)
+//
+//      whenBoth(from, to)
+//        .map {
+//          AdviceRequest(from: $0.0, to: $0.1)
+//        }
+//        .then { [pickedAdviceRequestSource] request in
+//          pickedAdviceRequestSource.value = request
+//        }
+//        .trap { [weak self] error in
+//          self?.errorSource.post(error)
+//          print("fromAndToCodePicked error \(error)")
+//        }
+//    }
+//  }
 
   private func start() {
     heartBeatToken = heartBeat.register(type: .repeating(interval: 10)) { [weak self] _ in
@@ -124,7 +130,33 @@ public class TravelService: NSObject {
       notifyOfNewAdvices(persisted.advices)
     }
     
-    bind(\.fromAndToCodePicked, to: preferenceStore.fromStationByPickerCode && preferenceStore.toStationByPickerCode)
+    bind(\.fromAndToCodePicked, to: adviceRequest)
+  }
+  
+  private var fromAndToCodePicked: AdviceRequest! {
+    didSet {
+      let from: Promise<Station?, Error> = fromAndToCodePicked.from.map {
+        self.dataStore.find(uicCode: $0)
+          .map { .some($0) }
+        } ?? Promise(value: nil)
+
+      let to: Promise<Station?, Error> = fromAndToCodePicked.to.map {
+        self.dataStore.find(uicCode: $0)
+          .map { .some($0) }
+        } ?? Promise(value: nil)
+
+      whenBoth(from, to)
+        .map {
+          AdviceStations(from: $0.0?.name, to: $0.1?.name)
+        }
+        .then { [weak self] request in
+          self?.adviceStationsSource.value = request
+        }
+        .trap { [weak self] error in
+          self?.errorSource.post(error)
+          print("fromAndToCodePicked error \(error)")
+        }
+    }
   }
   
   public func attach() {
@@ -202,8 +234,8 @@ public class TravelService: NSObject {
 //      }
   }
 
-  @objc public func tick(userInteraction: Bool) {
-    fetchCurrentAdvices(for: nil, shouldEmitLoading: userInteraction)
+  public func tick(userInteraction: Bool) -> Promise<AdvicesResponse, Error> {
+    return fetchCurrentAdvices(shouldEmitLoading: userInteraction)
       .finallyResult {
         print("\(Date()) DID FINISH TICK has value \($0.value != nil)")
       }
@@ -219,83 +251,58 @@ public class TravelService: NSObject {
       }
   }
 
-  private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest) {
-
-    let previousAdviceRequest = pickedAdviceRequest.value // TODO: currentAdviceRequest.value
-    let adviceByPicker = pickedAdviceRequest.value
-
+  private func setCurrentAdviceRequest(_ adviceRequest: AdviceRequest, byPicker: Bool) -> Promise<AdvicesResponse, Error> {
+    let previousAdviceRequest = self.adviceRequest.value
+    let originalAdviceRequest = self.originalAdviceRequest.value
+    
     let correctedAdviceRequest: AdviceRequest
     if adviceRequest.from == adviceRequest.to && previousAdviceRequest.from == adviceRequest.from {
       correctedAdviceRequest = AdviceRequest(from: previousAdviceRequest.to, to: previousAdviceRequest.from) // TODO: figure out this case
-    } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceByPicker.from {
-      correctedAdviceRequest = AdviceRequest(from: adviceByPicker.from, to: adviceByPicker.to)
+    } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == originalAdviceRequest.from {
+      correctedAdviceRequest = AdviceRequest(from: originalAdviceRequest.from, to: originalAdviceRequest.to)
+      
     } else if adviceRequest.from == adviceRequest.to && previousAdviceRequest.to == adviceRequest.to {
-      correctedAdviceRequest = AdviceRequest(from: previousAdviceRequest.to, to: adviceByPicker.from ?? previousAdviceRequest.from)
+      correctedAdviceRequest = AdviceRequest(from: previousAdviceRequest.to, to: originalAdviceRequest.from ?? previousAdviceRequest.from)
     } else {
       correctedAdviceRequest = adviceRequest
     }
+    
+    if byPicker {
+      preferenceStore.set(originalAdviceRequest: correctedAdviceRequest)
+    }
+    
+    preferenceStore.set(adviceRequest: correctedAdviceRequest)
 
-    preferenceStore.setFromStationByPickerCode(code: correctedAdviceRequest.from?.code)
-    preferenceStore.setToStationByPickerCode(code: correctedAdviceRequest.to?.code)
-
-    tick(userInteraction: true)
+    return tick(userInteraction: previousAdviceRequest != adviceRequest)
   }
-  
-  public func setStation(_ state: PickerState, stationName: String) -> Promise<Void, Error> {
-    return dataStore.find(stationName: stationName)
-      .then {
-        self.setStation(state, station: $0)
-      }
-      .then { _ in
-        print("TravelService did set station \(stationName)")
-      }
-      .trap {
-        print("TravelService setStation did encounter error \($0)")
-      }
-      .mapVoid()
-  }
-
-  public func setStation(_ state: PickerState, stationCode: String) -> Promise<Void, Error> {
-    return dataStore.find(stationCode: stationCode)
-      .then {
-        self.setStation(state, station: $0)
-      }
-      .then { _ in
-        print("TravelService did set station \(stationCode)")
-      }
-      .trap {
-        print("TravelService setStation did encounter error \($0)")
-      }
-      .mapVoid()
-  }
-
-  public func setStation(_ state: PickerState, station: Station) {
-    let advice = pickedAdviceRequest.value
-    let newAdvice: AdviceRequest
+ 
+  public func setStation(_ state: PickerState, byPicker: Bool, uicCode: UicCode) -> Promise<AdvicesResponse, Error> {
+    var advice = adviceRequest.value
     switch state {
     case .from:
-      newAdvice = advice.setFrom(station)
+      advice.from = uicCode
     case .to:
-      newAdvice = advice.setTo(station)
+      advice.to = uicCode
     }
-
-    setCurrentAdviceRequest(newAdvice)
+    return setCurrentAdviceRequest(advice, byPicker: byPicker)
   }
 
-  public func fetchAdvices(for adviceRequest: AdviceRequest) -> Promise<AdvicesResponse, Error> {
-    advicesCancellationToken?.cancel()
-    let token = CancellationTokenSource()
-    advicesCancellationToken = token
-    return apiService.advices(for: adviceRequest, cancellationToken: token.token)
+  public func fetchAdvices(for adviceRequest: AdviceRequest, cancellationToken: CancellationToken?) -> Promise<AdvicesResponse, Error> {
+    return apiService.advices(for: adviceRequest, cancellationToken: cancellationToken)
       .mapError { $0 as Error }
   }
 
-  private func fetchCurrentAdvices(for adviceRequest: AdviceRequest? = nil, shouldEmitLoading: Bool) -> Promise<AdvicesResponse, Error> {
+  private func fetchCurrentAdvices(shouldEmitLoading: Bool) -> Promise<AdvicesResponse, Error> {
     if shouldEmitLoading {
       currentAdvicesSource.value = .loading
     }
-    let request = adviceRequest ?? pickedAdviceRequest.value
-    return fetchAdvices(for: request)
+    let request = adviceRequest.value
+    
+    advicesCancellationToken?.cancel()
+    let token = CancellationTokenSource()
+    advicesCancellationToken = token
+    
+    return fetchAdvices(for: request, cancellationToken: token.token)
       .then { advicesResult in
         print("TravelService fetchCurrentAdvices \(advicesResult.trips.count)")
         self.preferenceStore.persistedAdvicesAndRequest = AdvicesAndRequest(advices: advicesResult.trips, adviceRequest: request)
@@ -343,21 +350,21 @@ public class TravelService: NSObject {
   }
 
   public func travelFromCurrentLocation() -> Promise<Void, Error> {
-    let currentAdvice = pickedAdviceRequest.value
     return getCloseStations()
       .then { stations in
         guard let station = stations.first else {
           return //Promise(error: TravelServiceError.notChanged)
         }
-
-        self.setCurrentAdviceRequest(currentAdvice.setFrom(station))
+        var adviceRequest = self.adviceRequest.value
+        adviceRequest.from = station.UICCode
+        self.setCurrentAdviceRequest(adviceRequest, byPicker: true)
       }
       .mapVoid()
   }
 
   public func switchFromTo() {
-    let currentAdvice = pickedAdviceRequest.value
-    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from))
+    let currentAdvice = adviceRequest.value
+    setCurrentAdviceRequest(AdviceRequest(from: currentAdvice.to, to: currentAdvice.from), byPicker: true)
   }
 
   deinit {
@@ -386,7 +393,7 @@ public class TravelService: NSObject {
     return dataStore.find(stationNameContains: stationNameContains)
   }
 
-  public func find(stationCode: String) -> Promise<Station, Error> {
+  public func find(stationCode: StationCode) -> Promise<Station, Error> {
     return dataStore.find(stationCode: stationCode)
   }
 }
