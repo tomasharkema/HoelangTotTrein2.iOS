@@ -8,13 +8,14 @@
 
 import UIKit
 
-#if canImport(HoelangTotTreinAPIWatch)
-import HoelangTotTreinAPIWatch
+
+#if canImport(API)
+import API
 #endif
-#if canImport(HoelangTotTreinAPI)
-import HoelangTotTreinAPI
+#if canImport(Core)
+import Core
 #endif
-import HoelangTotTreinCore
+
 import UserNotifications
 import UserNotificationsUI
 

@@ -23,8 +23,8 @@ class TickerViewController: ViewController {
 
   private var fromStation: Station?
   private var toStation: Station?
-  private var currentAdvice: State<Advice?> = .loading { didSet { applyLoadedState() } }
-  private var currentAdvices: State<Advices> = .loading { didSet { applyLoadedState() } }
+  private var currentAdvice: LoadingState<Advice?> = .loading { didSet { applyLoadedState() } }
+  private var currentAdvices: LoadingState<AdvicesAndRequest> = .loading { didSet { applyLoadedState() } }
 
 //  private var nextAdvice: Advice?
 
@@ -241,7 +241,7 @@ class TickerViewController: ViewController {
       activityIndicator.stopAnimating()
     }
 
-    dataSource?.advices = currentAdvices.value ?? []
+    dataSource?.advices = currentAdvices.value?.advices ?? []
 
     DispatchQueue.main.async { [weak self] in
       _ = self?.notifyCurrentAdvice()

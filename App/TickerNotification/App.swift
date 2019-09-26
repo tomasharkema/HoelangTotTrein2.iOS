@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import HoelangTotTreinCore
+import Core
 
 struct App {
   static let heartBeat = HeartBeat()

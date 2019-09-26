@@ -30,10 +30,10 @@ class TransferService: NSObject {
   private let geofenceSource = VariableSource<GeofenceModel?>(value: nil)
   public let geofence: Variable<GeofenceModel?>
 
-  var advices: Advices? = [] {
+  var advices: AdvicesAndRequest? = nil {
     didSet {
       guard let advices = advices else { return }
-      updateGeofences(for: advices)
+      updateGeofences(for: advices.advices)
     }
   }
 

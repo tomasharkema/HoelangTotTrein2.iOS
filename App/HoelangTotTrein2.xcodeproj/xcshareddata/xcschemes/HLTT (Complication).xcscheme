@@ -75,6 +75,16 @@
                ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3E847701BB82A01007D17C3"
+               BuildableName = "HoelangTotTrein2UITests.xctest"
+               BlueprintName = "HoelangTotTrein2UITests"
+               ReferencedContainer = "container:HoelangTotTrein2.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

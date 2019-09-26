@@ -9,8 +9,12 @@
 import WatchKit
 import WatchConnectivity
 import ClockKit
-import HoelangTotTreinAPIWatch
-import HoelangTotTreinCoreWatch
+#if canImport(API)
+import API
+#endif
+#if canImport(Core)
+import Core
+#endif
 import Promissum
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
@@ -19,7 +23,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   private let session = WCSession.default
 
-  var cachedAdvices: [Advice] = App.preferenceStore.persistedAdvicesAndRequest?.advices ?? []
+  var cachedAdvices: [Advice] = App.preferenceStore.persistedAdvicesAndRequest(for: App.preferenceStore.adviceRequest.value)?.advices ?? []
 
   func applicationDidFinishLaunching() {
     session.delegate = self

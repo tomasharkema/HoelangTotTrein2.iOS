@@ -9,8 +9,12 @@
 import WatchKit
 import Foundation
 import WatchConnectivity
-import HoelangTotTreinAPIWatch
-import HoelangTotTreinCoreWatch
+#if canImport(API)
+import API
+#endif
+#if canImport(Core)
+import Core
+#endif
 import Bindable
 
 class WatchTickerController: WKInterfaceController {
@@ -25,7 +29,7 @@ class WatchTickerController: WKInterfaceController {
 
   private let viewModel = ListTickerViewModel(travelService: App.travelService)
 
-  private var state: State<Advices> = .loading {
+  private var state: LoadingState<Advices> = .loading {
     didSet {
 
     }

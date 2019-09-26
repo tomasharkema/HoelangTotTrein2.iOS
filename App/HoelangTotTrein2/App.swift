@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 #if canImport(HoelangTotTreinAPIWatch)
 import HoelangTotTreinAPIWatch
 #endif
@@ -27,5 +26,74 @@ struct App {
   static let transferService = TransferService(travelService: travelService, dataStore: dataStore, preferenceStore: preferenceStore)
   static let notificationService = NotificationService(transferService: transferService, dataStore: dataStore, preferenceStore: preferenceStore, apiService: apiService)
   static let appShortcutService = AppShortcutService(travelService: travelService)
+}
+
+class A: Injectable {
+  static func create() -> Self {
+    return Self()
+  }
+
+  required init() {
+
+  }
+
+  func joe() {
+    print("A")
+  }
+}
+
+class B: Injectable {
+  @Injected var a: A
+
+
+  static func create() -> Self {
+    return Self()
+  }
+
+  required init() {
+
+  }
+
+  func joe() {
+    print("B")
+  }
+}
+
+class C: Injectable {
+  @Injected var a: A
+  @Injected var b: B
+
+
+  static func create() -> Self {
+    return Self()
+  }
+
+  required init() {
+
+  }
+
+  func joe() {
+    print("C")
+  }
+}
+
+class D {
+  @Injected var a: A
+  @Injected var b: B
+  @Injected var c: C
+
+  static func create() -> Self {
+    return Self()
+  }
+
+  required init() {
+
+  }
+
+  func joe() {
+    a.joe()
+    b.joe()
+    c.joe()
+  }
 }
 

@@ -5,12 +5,6 @@
       location = "group:App/HoelangTotTrein2.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:API/HoelangTotTreinAPI.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:Core/HoelangTotTreinCore.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

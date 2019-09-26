@@ -22,41 +22,29 @@ import SwiftUI
 import Bindable
 import Combine
 
-public class VariableBindable<T>: BindableObject {
-  private let disposeBag: DisposeBag
-  public let willChange = PassthroughSubject<T, Never>()
+//class TimerHolder: BindableObject {
+//  var timer : Timer!
+//  let willChange = PassthroughSubject<TimerHolder,Never>()
+//  var count = 0 {
+//    didSet {
+//      self.willChange.send(self)
+//    }
+//  }
+//  func start() {
+//    self.timer?.invalidate()
+//    self.count = 0
+//
+//    self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
+//      _ in
+//      self.count += 1
+//    }
+//    self.timer.tolerance = 1/60
+//  }
+//}
 
-  let variable: Variable<T>
-
-  var value: T
-
-  init(variable: Variable<T>) {
-    self.disposeBag = DisposeBag()
-    self.variable = variable
-
-    value = variable.value
-    variable.subscribe { [weak self] event in
-      self?.value = event.value
-      self?.willChange.send(event.value)
-    }.disposed(by: disposeBag)
-  }
-}
-
-class TimerHolder: BindableObject {
-  var timer : Timer!
-  let willChange = PassthroughSubject<TimerHolder,Never>()
-  var count = 0 {
-    didSet {
-      self.willChange.send(self)
-    }
-  }
-  func start() {
-    self.timer?.invalidate()
-    self.count = 0
-    self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) {
-      _ in
-      self.count += 1
-    }
+class HostingController<ContentView: View>: UIHostingController<ContentView> {
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
   }
 }
 
@@ -65,9 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-//  @State var adviceStations: AdviceStations = AdviceStations(from: nil, to: nil)
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+
+    D().joe()
+    
     FirebaseApp.configure()
     App.storageAttachment
     _ = App.travelService.fetchStations()
@@ -83,16 +72,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if #available(iOS 13, *) {
 
       let adviceStations = VariableBindable(variable: App.travelService.adviceStations)
-      let advices = VariableBindable(variable: App.travelService.currentAdvices.map {
+      let currentAdvices = App.travelService.currentAdvices.map {
         $0.value
+      }
+      let advices = VariableBindable(variable: currentAdvices)
+      let mostUsedStations = VariableBindable(variable: App.travelService.mostUsedStations.map {
+        MostUsedStations(stations: $0)
       })
+      let stations = VariableBindable(variable: App.travelService.stations)
 
-      let holder = TimerHolder()
+      //      let holder = TimerHolder()
       window = UIWindow(frame: UIScreen.main.bounds)
-      window?.rootViewController = UIHostingController(rootView: RootView(adviceStations: adviceStations, advices: advices)
-        .environmentObject(holder))
+      window?.rootViewController = HostingController(rootView: ContentView()
+        .environmentObject(stations)
+        .environmentObject(advices)
+        .environmentObject(adviceStations)
+        .environmentObject(mostUsedStations)
+      )
       window?.makeKeyAndVisible()
-      holder.start()
     }
     
     return true
@@ -115,28 +112,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Saves changes in the application's managed object context before the application terminates.
   }
 
-//  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//
-//    App.travelService.currentAdviceOnScreenObservable
-//      .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
-//      .take(1)
-//      .subscribe(onNext: { _ in
-//        completionHandler(.newData)
-//      })
-//      .disposed(by: bag)
-//
-//    guard let message = userInfo["message"] as? String else {
-//      return
-//    }
-//
-//    let content = UNMutableNotificationContent()
-//    content.title = R.string.localization.delayed()
-//    content.badge = 0
-//    content.body = message
-//
-//    let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
-//    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-//  }
+  //  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+  //
+  //    App.travelService.currentAdviceOnScreenObservable
+  //      .delaySubscription(5, scheduler: MainScheduler.asyncInstance)
+  //      .take(1)
+  //      .subscribe(onNext: { _ in
+  //        completionHandler(.newData)
+  //      })
+  //      .disposed(by: bag)
+  //
+  //    guard let message = userInfo["message"] as? String else {
+  //      return
+  //    }
+  //
+  //    let content = UNMutableNotificationContent()
+  //    content.title = R.string.localization.delayed()
+  //    content.badge = 0
+  //    content.body = message
+  //
+  //    let request = UNNotificationRequest(identifier: "io.harkema.push.delay", content: content, trigger: nil)
+  //    UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+  //  }
 
   private func requestPush() {
 
@@ -155,8 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
           self?.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
-      }
     }
+  }
 
   private func requestAuthorization() {
     let center = UNUserNotificationCenter.current()

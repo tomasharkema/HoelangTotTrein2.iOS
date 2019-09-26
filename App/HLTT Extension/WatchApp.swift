@@ -7,8 +7,15 @@
 //
 
 import Foundation
-import HoelangTotTreinAPIWatch
-import HoelangTotTreinCoreWatch
+//#if canImport(API)
+//import API
+//#endif
+//#if canImport(Core)
+//import Core
+//#endif
+
+import Core
+import API
 
 struct App {
   private static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)

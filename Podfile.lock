@@ -1,10 +1,4 @@
 PODS:
-  - Bindable/Core (0.4.1)
-  - Bindable/NSObject (0.4.1):
-    - Bindable/Core
-  - CancellationToken (3.2.0):
-    - CancellationToken/Core (= 3.2.0)
-  - CancellationToken/Core (3.2.0)
   - Firebase/Core (6.4.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.0.3)
@@ -55,32 +49,12 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - NoticeWindow (0.8.0)
-  - Promissum (4.0.0):
-    - Promissum/Core (= 4.0.0)
-  - Promissum/Core (4.0.0)
-  - R.swift (5.0.0.alpha.3):
-    - R.swift.Library (~> 5.0.0.alpha.2)
-  - R.swift.Library (5.0.1)
-  - SegueManager/iOS (4.0.0)
-  - SegueManager/R.swift (4.0.0):
-    - R.swift.Library
-    - SegueManager/iOS
-  - SwiftLint (0.33.1)
 
 DEPENDENCIES:
-  - Bindable/NSObject (from `https://github.com/tomasharkema/Bindable.git`, branch `feature/watchos`)
-  - CancellationToken
   - Firebase/Core
-  - NoticeWindow
-  - Promissum
-  - R.swift (= 5.0.0.alpha.3)
-  - SegueManager/R.swift
-  - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - CancellationToken
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -88,26 +62,8 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
-    - NoticeWindow
-    - Promissum
-    - R.swift
-    - R.swift.Library
-    - SegueManager
-    - SwiftLint
-
-EXTERNAL SOURCES:
-  Bindable:
-    :branch: feature/watchos
-    :git: https://github.com/tomasharkema/Bindable.git
-
-CHECKOUT OPTIONS:
-  Bindable:
-    :commit: 95b8d93019908184b945db52051bdde7ce43b14c
-    :git: https://github.com/tomasharkema/Bindable.git
 
 SPEC CHECKSUMS:
-  Bindable: 3ab0387692d770f4507a31b0e5f52177f4233da4
-  CancellationToken: dd83b95d619d49293a52c8e71fab18a17079f6d0
   Firebase: 9445469655a98e9010737f4bc4720e5bda465873
   FirebaseAnalytics: 69fe25866d2ec87c6f02d72c3c9a82bce9c065a0
   FirebaseCore: 7ea99e200f0024262650be56623fbe6a7bef1707
@@ -115,13 +71,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 1e45fa601e6280c180880d57010390f6679cd971
   GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  NoticeWindow: 6c46ff1e76f88c11e7a2baff19e3dcc9182d0e5c
-  Promissum: cdc56cbdb15e134eaccbd25d88041e75f96aac4c
-  R.swift: ca4207ecc94545a1611ca0b2ae1197458b6ba30a
-  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
-  SegueManager: e4970e6f7150c81ec577e0b61d9fda3f27c11db5
-  SwiftLint: 9fc1143bbacec37f94994a7d0d2a85b2154b6294
 
-PODFILE CHECKSUM: 2005c39829765cf6a8f32c7d3f582f6da4b97767
+PODFILE CHECKSUM: c4e43648754ff867d25f9b16a15923573c83efeb
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.8.0

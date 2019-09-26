@@ -9,13 +9,11 @@
 import UIKit
 import Bindable
 import Promissum
-import HoelangTotTreinCore
-
-#if canImport(HoelangTotTreinAPIWatch)
-import HoelangTotTreinAPIWatch
+#if canImport(API)
+import API
 #endif
-#if canImport(HoelangTotTreinAPI)
-import HoelangTotTreinAPI
+#if canImport(Core)
+import Core
 #endif
 import NotificationCenter
 
@@ -25,7 +23,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
   @IBOutlet private weak var fromLabel: UILabel!
   @IBOutlet private weak var toLabel: UILabel!
 
-  private var currentAdvice: HoelangTotTreinCore.State<Advice?> = .loading
+  private var currentAdvice: LoadingState<Advice?> = .loading
   private var heartBeatToken: HeartBeat.Token?
 
   private var dateFormatter: DateComponentsFormatter = {

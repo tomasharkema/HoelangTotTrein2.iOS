@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		31D50C77F21EC02392B24CAF /* Pods_HoelangTotTrein2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB2EA3348B901CB466144D6 /* Pods_HoelangTotTrein2Tests.framework */; };
-		645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CEF34E9AF5CDB5E25433961 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework */; };
-		74ADAFC9E07CAA1EFF812F22 /* Pods_Widget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DFC88AF0DFAFC84270E57E /* Pods_Widget.framework */; };
 		C303E8B51F81118900A9EC5C /* Den Haag HS.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C091C552B3A00197471 /* Den Haag HS.gpx */; };
 		C303E8B61F81118900A9EC5C /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
 		C303E8B71F81118900A9EC5C /* Koog aan de Zaan.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */; };
@@ -43,34 +41,74 @@
 		C30A16C221C1523300677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
 		C30A16C321C1523300677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
 		C30A16C421C1523400677EAB /* json-credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = C30A16C021C1523000677EAB /* json-credentials.plist */; };
-		C3141CEA1F816B8F009F453D /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D81F8139E600A9EC5C /* HoelangTotTreinCore.framework */; };
-		C3141CEB1F816B8F009F453D /* HoelangTotTreinCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D81F8139E600A9EC5C /* HoelangTotTreinCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C3141CEC1F816B94009F453D /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D61F8139E100A9EC5C /* HoelangTotTreinAPI.framework */; };
-		C3141CED1F816B94009F453D /* HoelangTotTreinAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C303E8D61F8139E100A9EC5C /* HoelangTotTreinAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C3141CEE1F816BBF009F453D /* HoelangTotTreinAPIWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */; };
-		C3141CEF1F816BBF009F453D /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C3141CF01F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */; };
-		C3141CF11F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C32101ED22DF7459006D8227 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32101EC22DF7459006D8227 /* RootView.swift */; };
+		C318FC11233D3C10007D9BB2 /* Bindable in Frameworks */ = {isa = PBXBuildFile; productRef = C318FC10233D3C10007D9BB2 /* Bindable */; };
+		C318FC13233D3C10007D9BB2 /* BindableNSObject in Frameworks */ = {isa = PBXBuildFile; productRef = C318FC12233D3C10007D9BB2 /* BindableNSObject */; };
+		C318FC16233D3C68007D9BB2 /* Promissum in Frameworks */ = {isa = PBXBuildFile; productRef = C318FC15233D3C68007D9BB2 /* Promissum */; };
+		C318FC19233D3CB6007D9BB2 /* CancellationToken in Frameworks */ = {isa = PBXBuildFile; productRef = C318FC18233D3CB6007D9BB2 /* CancellationToken */; };
+		C318FC79233D3F3D007D9BB2 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC65233D3F3D007D9BB2 /* MockApiService.swift */; };
+		C318FC7A233D3F3D007D9BB2 /* Encodable+EncodeJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC67233D3F3D007D9BB2 /* Encodable+EncodeJson.swift */; };
+		C318FC7B233D3F3D007D9BB2 /* Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC69233D3F3D007D9BB2 /* Bounds.swift */; };
+		C318FC7C233D3F3D007D9BB2 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC6A233D3F3D007D9BB2 /* GeofenceModel.swift */; };
+		C318FC7D233D3F3D007D9BB2 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC6C233D3F3D007D9BB2 /* Station.swift */; };
+		C318FC7E233D3F3D007D9BB2 /* HistoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC6D233D3F3D007D9BB2 /* HistoryType.swift */; };
+		C318FC7F233D3F3D007D9BB2 /* ErrorJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC6E233D3F3D007D9BB2 /* ErrorJson.swift */; };
+		C318FC80233D3F3D007D9BB2 /* Advice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC6F233D3F3D007D9BB2 /* Advice.swift */; };
+		C318FC81233D3F3D007D9BB2 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC70233D3F3D007D9BB2 /* SuccessResponse.swift */; };
+		C318FC85233D3F3D007D9BB2 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC76233D3F3D007D9BB2 /* ApiService.swift */; };
+		C318FC86233D3F3D007D9BB2 /* HttpApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC77233D3F3D007D9BB2 /* HttpApiService.swift */; };
+		C318FCB0233D3FE0007D9BB2 /* AdviceCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC94233D3FE0007D9BB2 /* AdviceCellViewModel.swift */; };
+		C318FCB1233D3FE0007D9BB2 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC95233D3FE0007D9BB2 /* TickerViewModel.swift */; };
+		C318FCB2233D3FE0007D9BB2 /* AppDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC97233D3FE0007D9BB2 /* AppDataStore.swift */; };
+		C318FCB3233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C318FC98233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodeld */; };
+		C318FCB4233D3FE0007D9BB2 /* PreferenceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC9A233D3FE0007D9BB2 /* PreferenceStore.swift */; };
+		C318FCB5233D3FE0007D9BB2 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC9B233D3FE0007D9BB2 /* DataStore.swift */; };
+		C318FCB6233D3FE0007D9BB2 /* PickerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FC9F233D3FE0007D9BB2 /* PickerState.swift */; };
+		C318FCB7233D3FE0007D9BB2 /* TravelEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA0233D3FE0007D9BB2 /* TravelEvent.swift */; };
+		C318FCB8233D3FE0007D9BB2 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA1233D3FE0007D9BB2 /* State.swift */; };
+		C318FCB9233D3FE0007D9BB2 /* TravelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA3233D3FE0007D9BB2 /* TravelService.swift */; };
+		C318FCBA233D3FE0007D9BB2 /* StorageAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA4233D3FE0007D9BB2 /* StorageAttachment.swift */; };
+		C318FCBB233D3FE0007D9BB2 /* AppLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA5233D3FE0007D9BB2 /* AppLocationService.swift */; };
+		C318FCBC233D3FE0007D9BB2 /* HeartBeatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA6233D3FE0007D9BB2 /* HeartBeatService.swift */; };
+		C318FCBD233D3FE0007D9BB2 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA7233D3FE0007D9BB2 /* LocationService.swift */; };
+		C318FCBE233D3FE0007D9BB2 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCA9233D3FE0007D9BB2 /* Array+Extensions.swift */; };
+		C318FCBF233D3FE0007D9BB2 /* Advice+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAA233D3FE0007D9BB2 /* Advice+Services.swift */; };
+		C318FCC0233D3FE0007D9BB2 /* JsonHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAB233D3FE0007D9BB2 /* JsonHelpers.swift */; };
+		C318FCC1233D3FE0007D9BB2 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAC233D3FE0007D9BB2 /* Array+Helpers.swift */; };
+		C318FCC2233D3FE0007D9BB2 /* WatchkitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAD233D3FE0007D9BB2 /* WatchkitHelpers.swift */; };
+		C318FCC3233D3FE0007D9BB2 /* DisposeBagContainer+Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAE233D3FE0007D9BB2 /* DisposeBagContainer+Variable.swift */; };
+		C318FCC4233D3FE0007D9BB2 /* CLCircularRegion+Bounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C318FCAF233D3FE0007D9BB2 /* CLCircularRegion+Bounds.swift */; };
+		C318FCD3233D4104007D9BB2 /* libAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC2B233D3EE2007D9BB2 /* libAPI.a */; };
+		C318FCD6233D4159007D9BB2 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC8B233D3FC8007D9BB2 /* libCore.a */; };
+		C318FCD9233D4190007D9BB2 /* libAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC2B233D3EE2007D9BB2 /* libAPI.a */; };
+		C318FCDB233D41A9007D9BB2 /* Promissum in Frameworks */ = {isa = PBXBuildFile; productRef = C318FCDA233D41A9007D9BB2 /* Promissum */; };
+		C318FCE0233D4245007D9BB2 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC8B233D3FC8007D9BB2 /* libCore.a */; };
+		C318FCE6233D4266007D9BB2 /* Promissum in Frameworks */ = {isa = PBXBuildFile; productRef = C318FCE5233D4266007D9BB2 /* Promissum */; };
+		C318FCE9233D42A0007D9BB2 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC8B233D3FC8007D9BB2 /* libCore.a */; };
+		C318FCEC233D42BB007D9BB2 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC8B233D3FC8007D9BB2 /* libCore.a */; };
+		C318FCF0233D43F7007D9BB2 /* Bindable in Frameworks */ = {isa = PBXBuildFile; productRef = C318FCEF233D43F7007D9BB2 /* Bindable */; };
+		C318FCF2233D4406007D9BB2 /* BindableNSObject in Frameworks */ = {isa = PBXBuildFile; productRef = C318FCF1233D4406007D9BB2 /* BindableNSObject */; };
+		C318FCF4233D442E007D9BB2 /* Promissum in Frameworks */ = {isa = PBXBuildFile; productRef = C318FCF3233D442E007D9BB2 /* Promissum */; };
+		C318FCF5233D457A007D9BB2 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C318FC8B233D3FC8007D9BB2 /* libCore.a */; };
 		C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216901EEB212400BC2745 /* UserNotifications.framework */; };
 		C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216921EEB212400BC2745 /* UserNotificationsUI.framework */; };
 		C32216961EEB212400BC2745 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32216951EEB212400BC2745 /* NotificationViewController.swift */; };
 		C32216991EEB212400BC2745 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C32216971EEB212400BC2745 /* MainInterface.storyboard */; };
 		C322169D1EEB212400BC2745 /* TickerNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C322168F1EEB212400BC2745 /* TickerNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C32216A11EEB241200BC2745 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
-		C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C32216A61EEB3D7600BC2745 /* HoelangTotTreinAPI.framework */; };
-		C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
 		C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
 		C329C3921C86C5AD00F93CA5 /* GeofenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C329C3911C86C5AD00F93CA5 /* GeofenceTests.swift */; };
 		C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32D78BD1BDEC98C00603805 /* R.generated.swift */; };
 		C33348221EAA481000EE2340 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C33348211EAA481000EE2340 /* Interface.storyboard */; };
+		C33F0DBB22FB232E00DBE103 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F0DA422FB11C300DBE103 /* ContentView.swift */; };
+		C33F0DBC22FB232E00DBE103 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32101EC22DF7459006D8227 /* RootView.swift */; };
+		C33F0DBD22FB232E00DBE103 /* StationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337F6A122E6F4FA0050F2A1 /* StationsList.swift */; };
+		C33F0DBE22FB232E00DBE103 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337F6A322E70CBE0050F2A1 /* Ticker.swift */; };
+		C33F0DBF22FB232E00DBE103 /* VariableBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33F0DB522FB147A00DBE103 /* VariableBinding.swift */; };
 		C38335871EA932A700A9E077 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C38335861EA932A700A9E077 /* NotificationCenter.framework */; };
 		C383358A1EA932A700A9E077 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335891EA932A700A9E077 /* TodayViewController.swift */; };
 		C383358D1EA932A700A9E077 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C383358B1EA932A700A9E077 /* MainInterface.storyboard */; };
 		C38335911EA932A700A9E077 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C38335851EA932A700A9E077 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C38335961EA943AE00A9E077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E8475C1BB82A01007D17C3 /* Assets.xcassets */; };
-		C383359B1EA9490800A9E077 /* HoelangTotTreinAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359A1EA9490800A9E077 /* HoelangTotTreinAPI.framework */; };
-		C383359D1EA9491000A9E077 /* HoelangTotTreinCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C383359C1EA9491000A9E077 /* HoelangTotTreinCore.framework */; };
 		C38335A51EA94AA100A9E077 /* WidgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335A41EA94AA100A9E077 /* WidgetApp.swift */; };
 		C38335B61EAA321E00A9E077 /* WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38335B51EAA321E00A9E077 /* WatchApp.swift */; };
 		C3894E101E912FAB00C6FCE2 /* HLTT Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -112,8 +150,6 @@
 		C3F8AF0D1C55653A009B9C91 /* Hoofddorp.gpx in Resources */ = {isa = PBXBuildFile; fileRef = C3F8AF0C1C55653A009B9C91 /* Hoofddorp.gpx */; };
 		C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38681641F6E899800550D96 /* AppDelegate.swift */; };
 		C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD08161CC7CB34002893B3 /* Advice+iOS.swift */; };
-		E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E82A2E65C665356A9D3FF8F /* Pods_TickerNotification.framework */; };
-		E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C48660E07EEFA20D40BCA8BD /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework */; };
 		FF04CDA1215BE04A001B20AC /* UserNotification+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF04CDA0215BE04A001B20AC /* UserNotification+Promise.swift */; };
 		FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF647CC91F80197F008D28EC /* TransferService.swift */; };
 		FFD3651B211B35EB00A13867 /* TimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32845E11EE8A83B0012E651 /* TimeLabel.swift */; };
@@ -121,6 +157,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C318FCD7233D4159007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC8A233D3FC8007D9BB2;
+			remoteInfo = Core;
+		};
+		C318FCDE233D41E2007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC2A233D3EE2007D9BB2;
+			remoteInfo = API;
+		};
+		C318FCE1233D4245007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC8A233D3FC8007D9BB2;
+			remoteInfo = Core;
+		};
+		C318FCE7233D4299007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC8A233D3FC8007D9BB2;
+			remoteInfo = Core;
+		};
+		C318FCEA233D42A0007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC8A233D3FC8007D9BB2;
+			remoteInfo = Core;
+		};
+		C318FCF6233D457A007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC8A233D3FC8007D9BB2;
+			remoteInfo = Core;
+		};
+		C318FCF8233D4581007D9BB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318FC2A233D3EE2007D9BB2;
+			remoteInfo = API;
+		};
 		C322169B1EEB212400BC2745 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3E847471BB82A01007D17C3 /* Project object */;
@@ -166,28 +251,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		C30B40701E98F5CD00D99541 /* Embed Frameworks */ = {
+		C318FC29233D3EE2007D9BB2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
 			files = (
-				C3141CEB1F816B8F009F453D /* HoelangTotTreinCore.framework in Embed Frameworks */,
-				C3141CED1F816B94009F453D /* HoelangTotTreinAPI.framework in Embed Frameworks */,
 			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C30B408D1E98F6C700D99541 /* Embed Frameworks */ = {
+		C318FC89233D3FC8007D9BB2 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
 			files = (
-				C3141CEF1F816BBF009F453D /* HoelangTotTreinAPIWatch.framework in Embed Frameworks */,
-				C3141CF11F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Embed Frameworks */,
 			);
-			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318FCC7233D4035007D9BB2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C38335951EA932A700A9E077 /* Embed App Extensions */ = {
@@ -252,6 +340,58 @@
 		C30A16C021C1523000677EAB /* json-credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "json-credentials.plist"; sourceTree = "<group>"; };
 		C30B40661E98F18000D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
 		C30B40681E98F49500D99541 /* HoelangTotTreinAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HoelangTotTreinAPI.framework; path = "../API/build/Debug-iphoneos/HoelangTotTreinAPI.framework"; sourceTree = "<group>"; };
+		C318FC2B233D3EE2007D9BB2 /* libAPI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAPI.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C318FC32233D3EE7007D9BB2 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
+		C318FC34233D3EE7007D9BB2 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		C318FC35233D3EE7007D9BB2 /* HttpApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpApiService.swift; sourceTree = "<group>"; };
+		C318FC37233D3EE7007D9BB2 /* HoelangTotTreinAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPI.h; sourceTree = "<group>"; };
+		C318FC38233D3EE7007D9BB2 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advice.swift; sourceTree = "<group>"; };
+		C318FC39233D3EE7007D9BB2 /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJson.swift; sourceTree = "<group>"; };
+		C318FC3A233D3EE7007D9BB2 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
+		C318FC3B233D3EE7007D9BB2 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		C318FC3C233D3EE7007D9BB2 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		C318FC3D233D3EE7007D9BB2 /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
+		C318FC3E233D3EE7007D9BB2 /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
+		C318FC40233D3EE7007D9BB2 /* MockApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
+		C318FC41233D3EE7007D9BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C318FC65233D3F3D007D9BB2 /* MockApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
+		C318FC67233D3F3D007D9BB2 /* Encodable+EncodeJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encodable+EncodeJson.swift"; sourceTree = "<group>"; };
+		C318FC69233D3F3D007D9BB2 /* Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bounds.swift; sourceTree = "<group>"; };
+		C318FC6A233D3F3D007D9BB2 /* GeofenceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
+		C318FC6B233D3F3D007D9BB2 /* HoelangTotTreinAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinAPI.h; sourceTree = "<group>"; };
+		C318FC6C233D3F3D007D9BB2 /* Station.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		C318FC6D233D3F3D007D9BB2 /* HistoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryType.swift; sourceTree = "<group>"; };
+		C318FC6E233D3F3D007D9BB2 /* ErrorJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJson.swift; sourceTree = "<group>"; };
+		C318FC6F233D3F3D007D9BB2 /* Advice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Advice.swift; sourceTree = "<group>"; };
+		C318FC70233D3F3D007D9BB2 /* SuccessResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		C318FC76233D3F3D007D9BB2 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		C318FC77233D3F3D007D9BB2 /* HttpApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpApiService.swift; sourceTree = "<group>"; };
+		C318FC78233D3F3D007D9BB2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C318FC8B233D3FC8007D9BB2 /* libCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C318FC94233D3FE0007D9BB2 /* AdviceCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceCellViewModel.swift; sourceTree = "<group>"; };
+		C318FC95233D3FE0007D9BB2 /* TickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
+		C318FC97233D3FE0007D9BB2 /* AppDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDataStore.swift; sourceTree = "<group>"; };
+		C318FC99233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HoelangTotTrein2.xcdatamodel; sourceTree = "<group>"; };
+		C318FC9A233D3FE0007D9BB2 /* PreferenceStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceStore.swift; sourceTree = "<group>"; };
+		C318FC9B233D3FE0007D9BB2 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		C318FC9C233D3FE0007D9BB2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C318FC9D233D3FE0007D9BB2 /* HoelangTotTreinCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoelangTotTreinCore.h; sourceTree = "<group>"; };
+		C318FC9F233D3FE0007D9BB2 /* PickerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerState.swift; sourceTree = "<group>"; };
+		C318FCA0233D3FE0007D9BB2 /* TravelEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelEvent.swift; sourceTree = "<group>"; };
+		C318FCA1233D3FE0007D9BB2 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		C318FCA3233D3FE0007D9BB2 /* TravelService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelService.swift; sourceTree = "<group>"; };
+		C318FCA4233D3FE0007D9BB2 /* StorageAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageAttachment.swift; sourceTree = "<group>"; };
+		C318FCA5233D3FE0007D9BB2 /* AppLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLocationService.swift; sourceTree = "<group>"; };
+		C318FCA6233D3FE0007D9BB2 /* HeartBeatService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartBeatService.swift; sourceTree = "<group>"; };
+		C318FCA7233D3FE0007D9BB2 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		C318FCA9233D3FE0007D9BB2 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		C318FCAA233D3FE0007D9BB2 /* Advice+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Advice+Services.swift"; sourceTree = "<group>"; };
+		C318FCAB233D3FE0007D9BB2 /* JsonHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonHelpers.swift; sourceTree = "<group>"; };
+		C318FCAC233D3FE0007D9BB2 /* Array+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
+		C318FCAD233D3FE0007D9BB2 /* WatchkitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchkitHelpers.swift; sourceTree = "<group>"; };
+		C318FCAE233D3FE0007D9BB2 /* DisposeBagContainer+Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DisposeBagContainer+Variable.swift"; sourceTree = "<group>"; };
+		C318FCAF233D3FE0007D9BB2 /* CLCircularRegion+Bounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLCircularRegion+Bounds.swift"; sourceTree = "<group>"; };
+		C318FCC9233D4035007D9BB2 /* libAPIWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAPIWatch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32101EC22DF7459006D8227 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C322168F1EEB212400BC2745 /* TickerNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TickerNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C32216901EEB212400BC2745 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -266,7 +406,12 @@
 		C3308C571F7FD0F900D3DB10 /* HoelangTotTreinCoreWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinCoreWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3308C591F7FD10100D3DB10 /* HoelangTotTreinAPIWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HoelangTotTreinAPIWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33348211EAA481000EE2340 /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
+		C337F6A122E6F4FA0050F2A1 /* StationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsList.swift; sourceTree = "<group>"; };
+		C337F6A322E70CBE0050F2A1 /* Ticker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticker.swift; sourceTree = "<group>"; };
 		C338D6BD1CC8FDB600613A60 /* HLTT Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "HLTT Extension.entitlements"; sourceTree = "<group>"; };
+		C33F0DA422FB11C300DBE103 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C33F0DAC22FB143400DBE103 /* HLTTSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLTTSwiftUI.swift; sourceTree = "<group>"; };
+		C33F0DB522FB147A00DBE103 /* VariableBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableBinding.swift; sourceTree = "<group>"; };
 		C38335851EA932A700A9E077 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38335861EA932A700A9E077 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C38335891EA932A700A9E077 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -289,6 +434,7 @@
 		C3C26C0B1C552B4300197471 /* Koog aan de Zaan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Koog aan de Zaan.gpx"; sourceTree = "<group>"; };
 		C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sloterdijk.gpx; sourceTree = "<group>"; };
 		C3C26C151C5556C100197471 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C3D5F66A22E89824002EDF9B /* Amsterdam Centraal.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Amsterdam Centraal.gpx"; sourceTree = "<group>"; };
 		C3E19C501E9529C7003A1529 /* AppShortcutService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppShortcutService.swift; sourceTree = "<group>"; };
 		C3E19C551E96CDE1003A1529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localization.strings; sourceTree = "<group>"; };
 		C3E19C581E96CE11003A1529 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localization.strings; sourceTree = "<group>"; };
@@ -335,15 +481,37 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C318FC28233D3EE2007D9BB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C318FCE6233D4266007D9BB2 /* Promissum in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318FC88233D3FC8007D9BB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C318FCDB233D41A9007D9BB2 /* Promissum in Frameworks */,
+				C318FCD9233D4190007D9BB2 /* libAPI.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318FCC6233D4035007D9BB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C322168C1EEB212400BC2745 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C32216A91EEB9EFD00BC2745 /* HoelangTotTreinCore.framework in Frameworks */,
-				C32216A71EEB3D7700BC2745 /* HoelangTotTreinAPI.framework in Frameworks */,
 				C32216931EEB212400BC2745 /* UserNotificationsUI.framework in Frameworks */,
 				C32216911EEB212400BC2745 /* UserNotifications.framework in Frameworks */,
-				E062352159EBC79AE11377B3 /* Pods_TickerNotification.framework in Frameworks */,
+				C318FCD6233D4159007D9BB2 /* libCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,10 +519,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C383359D1EA9491000A9E077 /* HoelangTotTreinCore.framework in Frameworks */,
-				C383359B1EA9490800A9E077 /* HoelangTotTreinAPI.framework in Frameworks */,
+				C318FCE9233D42A0007D9BB2 /* libCore.a in Frameworks */,
 				C38335871EA932A700A9E077 /* NotificationCenter.framework in Frameworks */,
-				74ADAFC9E07CAA1EFF812F22 /* Pods_Widget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,9 +528,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3141CF01F816BC4009F453D /* HoelangTotTreinCoreWatch.framework in Frameworks */,
-				E503345BE71988A0798A8CB4 /* Pods_HoelangTotTrein2WatchPods_HLTT_Extension.framework in Frameworks */,
-				C3141CEE1F816BBF009F453D /* HoelangTotTreinAPIWatch.framework in Frameworks */,
+				C318FCEC233D42BB007D9BB2 /* libCore.a in Frameworks */,
+				C318FCF2233D4406007D9BB2 /* BindableNSObject in Frameworks */,
+				C318FCF5233D457A007D9BB2 /* libCore.a in Frameworks */,
+				C318FCD3233D4104007D9BB2 /* libAPI.a in Frameworks */,
+				C318FCF4233D442E007D9BB2 /* Promissum in Frameworks */,
+				C318FCF0233D43F7007D9BB2 /* Bindable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,9 +541,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3141CEA1F816B8F009F453D /* HoelangTotTreinCore.framework in Frameworks */,
-				C3141CEC1F816B94009F453D /* HoelangTotTreinAPI.framework in Frameworks */,
-				645F60EBC43BEE5F03E0EA23 /* Pods_HoelangTotTrein2Pods_HoelangTotTrein2.framework in Frameworks */,
+				C318FC19233D3CB6007D9BB2 /* CancellationToken in Frameworks */,
+				C318FC16233D3C68007D9BB2 /* Promissum in Frameworks */,
+				C318FC13233D3C10007D9BB2 /* BindableNSObject in Frameworks */,
+				C318FCE0233D4245007D9BB2 /* libCore.a in Frameworks */,
+				C318FC11233D3C10007D9BB2 /* Bindable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,10 +622,180 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C318FC33233D3EE7007D9BB2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC32233D3EE7007D9BB2 /* Encodable+EncodeJson.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C318FC36233D3EE7007D9BB2 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC34233D3EE7007D9BB2 /* ApiService.swift */,
+				C318FC35233D3EE7007D9BB2 /* HttpApiService.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
+		C318FC3F233D3EE7007D9BB2 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC37233D3EE7007D9BB2 /* HoelangTotTreinAPI.h */,
+				C318FC38233D3EE7007D9BB2 /* Advice.swift */,
+				C318FC39233D3EE7007D9BB2 /* ErrorJson.swift */,
+				C318FC3A233D3EE7007D9BB2 /* GeofenceModel.swift */,
+				C318FC3B233D3EE7007D9BB2 /* Station.swift */,
+				C318FC3C233D3EE7007D9BB2 /* SuccessResponse.swift */,
+				C318FC3D233D3EE7007D9BB2 /* Bounds.swift */,
+				C318FC3E233D3EE7007D9BB2 /* HistoryType.swift */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		C318FC42233D3EE7007D9BB2 /* HoelangTotTreinAPI */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC33233D3EE7007D9BB2 /* Extensions */,
+				C318FC36233D3EE7007D9BB2 /* ApiService */,
+				C318FC3F233D3EE7007D9BB2 /* Json */,
+				C318FC40233D3EE7007D9BB2 /* MockApiService.swift */,
+				C318FC41233D3EE7007D9BB2 /* Info.plist */,
+			);
+			path = HoelangTotTreinAPI;
+			sourceTree = "<group>";
+		};
+		C318FC64233D3F3D007D9BB2 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC65233D3F3D007D9BB2 /* MockApiService.swift */,
+				C318FC66233D3F3D007D9BB2 /* Extensions */,
+				C318FC68233D3F3D007D9BB2 /* Json */,
+				C318FC75233D3F3D007D9BB2 /* ApiService */,
+				C318FC78233D3F3D007D9BB2 /* Info.plist */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C318FC66233D3F3D007D9BB2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC67233D3F3D007D9BB2 /* Encodable+EncodeJson.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C318FC68233D3F3D007D9BB2 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC69233D3F3D007D9BB2 /* Bounds.swift */,
+				C318FC6A233D3F3D007D9BB2 /* GeofenceModel.swift */,
+				C318FC6B233D3F3D007D9BB2 /* HoelangTotTreinAPI.h */,
+				C318FC6C233D3F3D007D9BB2 /* Station.swift */,
+				C318FC6D233D3F3D007D9BB2 /* HistoryType.swift */,
+				C318FC6E233D3F3D007D9BB2 /* ErrorJson.swift */,
+				C318FC6F233D3F3D007D9BB2 /* Advice.swift */,
+				C318FC70233D3F3D007D9BB2 /* SuccessResponse.swift */,
+			);
+			path = Json;
+			sourceTree = "<group>";
+		};
+		C318FC75233D3F3D007D9BB2 /* ApiService */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC76233D3F3D007D9BB2 /* ApiService.swift */,
+				C318FC77233D3F3D007D9BB2 /* HttpApiService.swift */,
+			);
+			path = ApiService;
+			sourceTree = "<group>";
+		};
+		C318FC8C233D3FC8007D9BB2 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC96233D3FE0007D9BB2 /* DataStore */,
+				C318FCA8233D3FE0007D9BB2 /* Extensions */,
+				C318FC9D233D3FE0007D9BB2 /* HoelangTotTreinCore.h */,
+				C318FC9C233D3FE0007D9BB2 /* Info.plist */,
+				C318FC9E233D3FE0007D9BB2 /* Model */,
+				C318FCA2233D3FE0007D9BB2 /* Services */,
+				C318FC92233D3FE0007D9BB2 /* ViewModel */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C318FC92233D3FE0007D9BB2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC93233D3FE0007D9BB2 /* Ticker */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C318FC93233D3FE0007D9BB2 /* Ticker */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC94233D3FE0007D9BB2 /* AdviceCellViewModel.swift */,
+				C318FC95233D3FE0007D9BB2 /* TickerViewModel.swift */,
+			);
+			path = Ticker;
+			sourceTree = "<group>";
+		};
+		C318FC96233D3FE0007D9BB2 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC97233D3FE0007D9BB2 /* AppDataStore.swift */,
+				C318FC98233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodeld */,
+				C318FC9A233D3FE0007D9BB2 /* PreferenceStore.swift */,
+				C318FC9B233D3FE0007D9BB2 /* DataStore.swift */,
+			);
+			path = DataStore;
+			sourceTree = "<group>";
+		};
+		C318FC9E233D3FE0007D9BB2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C318FC9F233D3FE0007D9BB2 /* PickerState.swift */,
+				C318FCA0233D3FE0007D9BB2 /* TravelEvent.swift */,
+				C318FCA1233D3FE0007D9BB2 /* State.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C318FCA2233D3FE0007D9BB2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C318FCA3233D3FE0007D9BB2 /* TravelService.swift */,
+				C318FCA4233D3FE0007D9BB2 /* StorageAttachment.swift */,
+				C318FCA5233D3FE0007D9BB2 /* AppLocationService.swift */,
+				C318FCA6233D3FE0007D9BB2 /* HeartBeatService.swift */,
+				C318FCA7233D3FE0007D9BB2 /* LocationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C318FCA8233D3FE0007D9BB2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C318FCA9233D3FE0007D9BB2 /* Array+Extensions.swift */,
+				C318FCAA233D3FE0007D9BB2 /* Advice+Services.swift */,
+				C318FCAB233D3FE0007D9BB2 /* JsonHelpers.swift */,
+				C318FCAC233D3FE0007D9BB2 /* Array+Helpers.swift */,
+				C318FCAD233D3FE0007D9BB2 /* WatchkitHelpers.swift */,
+				C318FCAE233D3FE0007D9BB2 /* DisposeBagContainer+Variable.swift */,
+				C318FCAF233D3FE0007D9BB2 /* CLCircularRegion+Bounds.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C32101EE22DF745F006D8227 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				C33F0DA422FB11C300DBE103 /* ContentView.swift */,
 				C32101EC22DF7459006D8227 /* RootView.swift */,
+				C337F6A122E6F4FA0050F2A1 /* StationsList.swift */,
+				C337F6A322E70CBE0050F2A1 /* Ticker.swift */,
+				C33F0DB522FB147A00DBE103 /* VariableBinding.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -468,6 +809,14 @@
 				FFD3651C211B35FD00A13867 /* App.swift */,
 			);
 			path = TickerNotification;
+			sourceTree = "<group>";
+		};
+		C33F0DAB22FB143400DBE103 /* HLTTSwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				C33F0DAC22FB143400DBE103 /* HLTTSwiftUI.swift */,
+			);
+			path = HLTTSwiftUI;
 			sourceTree = "<group>";
 		};
 		C38335881EA932A700A9E077 /* Widget */ = {
@@ -524,6 +873,7 @@
 				C3C26C0D1C552B4A00197471 /* sloterdijk.gpx */,
 				C303E8C71F8129DE00A9EC5C /* Leiden Centraal.gpx */,
 				C303E8D31F812A2200A9EC5C /* Heemstede-Aerdenhout.gpx */,
+				C3D5F66A22E89824002EDF9B /* Amsterdam Centraal.gpx */,
 			);
 			path = Locations;
 			sourceTree = "<group>";
@@ -539,8 +889,11 @@
 			isa = PBXGroup;
 			children = (
 				C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */,
+				C318FC64233D3F3D007D9BB2 /* API */,
 				C38335881EA932A700A9E077 /* Widget */,
 				C32216941EEB212400BC2745 /* TickerNotification */,
+				C33F0DAB22FB143400DBE103 /* HLTTSwiftUI */,
+				C318FC8C233D3FC8007D9BB2 /* Core */,
 				09A521EB6C856AE8207FF398 /* Frameworks */,
 				C3FD07D01CC767FA002893B3 /* HLTT */,
 				C3FD07DF1CC767FA002893B3 /* HLTT Extension */,
@@ -561,6 +914,9 @@
 				C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */,
 				C38335851EA932A700A9E077 /* Widget.appex */,
 				C322168F1EEB212400BC2745 /* TickerNotification.appex */,
+				C318FC2B233D3EE2007D9BB2 /* libAPI.a */,
+				C318FC8B233D3FC8007D9BB2 /* libCore.a */,
+				C318FCC9233D4035007D9BB2 /* libAPIWatch.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -668,6 +1024,7 @@
 		C3FD07DF1CC767FA002893B3 /* HLTT Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C318FC42233D3EE7007D9BB2 /* HoelangTotTreinAPI */,
 				FF3D0C0420CAA10B00C9B5A6 /* Ticker */,
 				C3FD07E01CC767FA002893B3 /* Supporting Files */,
 				C3FD07EA1CC767FA002893B3 /* ComplicationController.swift */,
@@ -700,6 +1057,66 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C318FC2A233D3EE2007D9BB2 /* API */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C318FC31233D3EE2007D9BB2 /* Build configuration list for PBXNativeTarget "API" */;
+			buildPhases = (
+				C318FC27233D3EE2007D9BB2 /* Sources */,
+				C318FC28233D3EE2007D9BB2 /* Frameworks */,
+				C318FC29233D3EE2007D9BB2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C318FCE4233D4261007D9BB2 /* PBXTargetDependency */,
+			);
+			name = API;
+			packageProductDependencies = (
+				C318FCE5233D4266007D9BB2 /* Promissum */,
+			);
+			productName = API;
+			productReference = C318FC2B233D3EE2007D9BB2 /* libAPI.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C318FC8A233D3FC8007D9BB2 /* Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C318FC8F233D3FC8007D9BB2 /* Build configuration list for PBXNativeTarget "Core" */;
+			buildPhases = (
+				C318FC87233D3FC8007D9BB2 /* Sources */,
+				C318FC88233D3FC8007D9BB2 /* Frameworks */,
+				C318FC89233D3FC8007D9BB2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C318FCDF233D41E2007D9BB2 /* PBXTargetDependency */,
+				C318FCDD233D41D5007D9BB2 /* PBXTargetDependency */,
+			);
+			name = Core;
+			packageProductDependencies = (
+				C318FCDA233D41A9007D9BB2 /* Promissum */,
+			);
+			productName = Core;
+			productReference = C318FC8B233D3FC8007D9BB2 /* libCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C318FCC8233D4035007D9BB2 /* APIWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C318FCCD233D4035007D9BB2 /* Build configuration list for PBXNativeTarget "APIWatch" */;
+			buildPhases = (
+				C318FCC5233D4035007D9BB2 /* Sources */,
+				C318FCC6233D4035007D9BB2 /* Frameworks */,
+				C318FCC7233D4035007D9BB2 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = APIWatch;
+			productName = APIWatch;
+			productReference = C318FCC9233D4035007D9BB2 /* libAPIWatch.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		C322168E1EEB212400BC2745 /* TickerNotification */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C32216A01EEB212400BC2745 /* Build configuration list for PBXNativeTarget "TickerNotification" */;
@@ -712,6 +1129,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C318FCD8233D4159007D9BB2 /* PBXTargetDependency */,
 			);
 			name = TickerNotification;
 			productName = TickerNotification;
@@ -730,6 +1148,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				C318FCE8233D4299007D9BB2 /* PBXTargetDependency */,
+				C318FCEB233D42A0007D9BB2 /* PBXTargetDependency */,
 			);
 			name = Widget;
 			productName = Widget;
@@ -762,14 +1182,19 @@
 				C3894E0B1E912FAB00C6FCE2 /* Sources */,
 				C3894E0C1E912FAB00C6FCE2 /* Frameworks */,
 				C3894E0D1E912FAB00C6FCE2 /* Resources */,
-				0C347D9F4DE8D8EAC6A9A2DD /* [CP] Embed Pods Frameworks */,
-				C30B408D1E98F6C700D99541 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C318FCF9233D4581007D9BB2 /* PBXTargetDependency */,
+				C318FCF7233D457A007D9BB2 /* PBXTargetDependency */,
 			);
 			name = "HLTT Extension";
+			packageProductDependencies = (
+				C318FCEF233D43F7007D9BB2 /* Bindable */,
+				C318FCF1233D4406007D9BB2 /* BindableNSObject */,
+				C318FCF3233D442E007D9BB2 /* Promissum */,
+			);
 			productName = "HLTT Extension";
 			productReference = C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -785,7 +1210,6 @@
 				C3E8474C1BB82A01007D17C3 /* Frameworks */,
 				C3E8474D1BB82A01007D17C3 /* Resources */,
 				C3894E2B1E912FAB00C6FCE2 /* Embed Watch Content */,
-				C30B40701E98F5CD00D99541 /* Embed Frameworks */,
 				D7E69BAEFC50F1D05969C461 /* [CP] Embed Pods Frameworks */,
 				C38335951EA932A700A9E077 /* Embed App Extensions */,
 				FFC0C73F1F3C515200A49942 /* ShellScript */,
@@ -796,8 +1220,15 @@
 				C3894E221E912FAB00C6FCE2 /* PBXTargetDependency */,
 				C38335901EA932A700A9E077 /* PBXTargetDependency */,
 				C322169C1EEB212400BC2745 /* PBXTargetDependency */,
+				C318FCE2233D4245007D9BB2 /* PBXTargetDependency */,
 			);
 			name = HoelangTotTrein2;
+			packageProductDependencies = (
+				C318FC10233D3C10007D9BB2 /* Bindable */,
+				C318FC12233D3C10007D9BB2 /* BindableNSObject */,
+				C318FC15233D3C68007D9BB2 /* Promissum */,
+				C318FC18233D3CB6007D9BB2 /* CancellationToken */,
+			);
 			productName = HoelangTotTrein2;
 			productReference = C3E8474F1BB82A01007D17C3 /* HLTT.app */;
 			productType = "com.apple.product-type.application";
@@ -845,10 +1276,20 @@
 		C3E847471BB82A01007D17C3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Tomas Harkema";
 				TargetAttributes = {
+					C318FC2A233D3EE2007D9BB2 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C318FC8A233D3FC8007D9BB2 = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					C318FCC8233D4035007D9BB2 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					C322168E1EEB212400BC2745 = {
 						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = RSRVS8D9PW;
@@ -921,7 +1362,7 @@
 				};
 			};
 			buildConfigurationList = C3E8474A1BB82A01007D17C3 /* Build configuration list for PBXProject "HoelangTotTrein2" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -931,6 +1372,13 @@
 				Base,
 			);
 			mainGroup = C3E847461BB82A01007D17C3;
+			packageReferences = (
+				C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */,
+				C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */,
+				C318FC17233D3CB6007D9BB2 /* XCRemoteSwiftPackageReference "swift-cancellationtoken" */,
+				C318FC1A233D3DA9007D9BB2 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				C318FC1B233D3DCA007D9BB2 /* XCRemoteSwiftPackageReference "R" */,
+			);
 			productRefGroup = C3E847501BB82A01007D17C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -942,6 +1390,9 @@
 				C3894E0E1E912FAB00C6FCE2 /* HLTT Extension */,
 				C38335841EA932A700A9E077 /* Widget */,
 				C322168E1EEB212400BC2745 /* TickerNotification */,
+				C318FC2A233D3EE2007D9BB2 /* API */,
+				C318FC8A233D3FC8007D9BB2 /* Core */,
+				C318FCC8233D4035007D9BB2 /* APIWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -1054,28 +1505,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C347D9F4DE8D8EAC6A9A2DD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bindable-watchOS/Bindable.framework",
-				"${BUILT_PRODUCTS_DIR}/CancellationToken-watchOS/CancellationToken.framework",
-				"${BUILT_PRODUCTS_DIR}/Promissum-watchOS/Promissum.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CancellationToken.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2WatchPods-HLTT Extension/Pods-HoelangTotTrein2WatchPods-HLTT Extension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		572ADFB4A871E91C5789A02F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1166,27 +1595,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bindable-iOS/Bindable.framework",
-				"${BUILT_PRODUCTS_DIR}/CancellationToken-iOS/CancellationToken.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/NoticeWindow/NoticeWindow.framework",
-				"${BUILT_PRODUCTS_DIR}/Promissum-iOS/Promissum.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/SegueManager/SegueManager.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bindable.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CancellationToken.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NoticeWindow.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Promissum.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SegueManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HoelangTotTrein2Pods-HoelangTotTrein2/Pods-HoelangTotTrein2Pods-HoelangTotTrein2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1240,6 +1654,59 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C318FC27233D3EE2007D9BB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C318FC7B233D3F3D007D9BB2 /* Bounds.swift in Sources */,
+				C318FC81233D3F3D007D9BB2 /* SuccessResponse.swift in Sources */,
+				C318FC7D233D3F3D007D9BB2 /* Station.swift in Sources */,
+				C318FC79233D3F3D007D9BB2 /* MockApiService.swift in Sources */,
+				C318FC80233D3F3D007D9BB2 /* Advice.swift in Sources */,
+				C318FC85233D3F3D007D9BB2 /* ApiService.swift in Sources */,
+				C318FC7F233D3F3D007D9BB2 /* ErrorJson.swift in Sources */,
+				C318FC7A233D3F3D007D9BB2 /* Encodable+EncodeJson.swift in Sources */,
+				C318FC86233D3F3D007D9BB2 /* HttpApiService.swift in Sources */,
+				C318FC7E233D3F3D007D9BB2 /* HistoryType.swift in Sources */,
+				C318FC7C233D3F3D007D9BB2 /* GeofenceModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318FC87233D3FC8007D9BB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C318FCBB233D3FE0007D9BB2 /* AppLocationService.swift in Sources */,
+				C318FCB5233D3FE0007D9BB2 /* DataStore.swift in Sources */,
+				C318FCC2233D3FE0007D9BB2 /* WatchkitHelpers.swift in Sources */,
+				C318FCB1233D3FE0007D9BB2 /* TickerViewModel.swift in Sources */,
+				C318FCBF233D3FE0007D9BB2 /* Advice+Services.swift in Sources */,
+				C318FCB7233D3FE0007D9BB2 /* TravelEvent.swift in Sources */,
+				C318FCC1233D3FE0007D9BB2 /* Array+Helpers.swift in Sources */,
+				C318FCB8233D3FE0007D9BB2 /* State.swift in Sources */,
+				C318FCB2233D3FE0007D9BB2 /* AppDataStore.swift in Sources */,
+				C318FCB6233D3FE0007D9BB2 /* PickerState.swift in Sources */,
+				C318FCBD233D3FE0007D9BB2 /* LocationService.swift in Sources */,
+				C318FCC3233D3FE0007D9BB2 /* DisposeBagContainer+Variable.swift in Sources */,
+				C318FCC4233D3FE0007D9BB2 /* CLCircularRegion+Bounds.swift in Sources */,
+				C318FCC0233D3FE0007D9BB2 /* JsonHelpers.swift in Sources */,
+				C318FCB4233D3FE0007D9BB2 /* PreferenceStore.swift in Sources */,
+				C318FCB0233D3FE0007D9BB2 /* AdviceCellViewModel.swift in Sources */,
+				C318FCBA233D3FE0007D9BB2 /* StorageAttachment.swift in Sources */,
+				C318FCBE233D3FE0007D9BB2 /* Array+Extensions.swift in Sources */,
+				C318FCB3233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodeld in Sources */,
+				C318FCBC233D3FE0007D9BB2 /* HeartBeatService.swift in Sources */,
+				C318FCB9233D3FE0007D9BB2 /* TravelService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C318FCC5233D4035007D9BB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C322168B1EEB212400BC2745 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1281,10 +1748,15 @@
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
 				C3E847B51BB85608007D17C3 /* ViewController.swift in Sources */,
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
+				C33F0DBB22FB232E00DBE103 /* ContentView.swift in Sources */,
 				FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
+				C33F0DBF22FB232E00DBE103 /* VariableBinding.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
+				C33F0DBE22FB232E00DBE103 /* Ticker.swift in Sources */,
 				C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */,
+				C33F0DBC22FB232E00DBE103 /* RootView.swift in Sources */,
+				C33F0DBD22FB232E00DBE103 /* StationsList.swift in Sources */,
 				C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */,
 				C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
@@ -1293,7 +1765,6 @@
 				C3E847B91BB8577F007D17C3 /* TableViewController.swift in Sources */,
 				C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */,
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
-				C32101ED22DF7459006D8227 /* RootView.swift in Sources */,
 				C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1317,6 +1788,49 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C318FCD8233D4159007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC8A233D3FC8007D9BB2 /* Core */;
+			targetProxy = C318FCD7233D4159007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCDD233D41D5007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = C318FCDC233D41D5007D9BB2 /* Promissum */;
+		};
+		C318FCDF233D41E2007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC2A233D3EE2007D9BB2 /* API */;
+			targetProxy = C318FCDE233D41E2007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCE2233D4245007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC8A233D3FC8007D9BB2 /* Core */;
+			targetProxy = C318FCE1233D4245007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCE4233D4261007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = C318FCE3233D4261007D9BB2 /* Promissum */;
+		};
+		C318FCE8233D4299007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC8A233D3FC8007D9BB2 /* Core */;
+			targetProxy = C318FCE7233D4299007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCEB233D42A0007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC8A233D3FC8007D9BB2 /* Core */;
+			targetProxy = C318FCEA233D42A0007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCF7233D457A007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC8A233D3FC8007D9BB2 /* Core */;
+			targetProxy = C318FCF6233D457A007D9BB2 /* PBXContainerItemProxy */;
+		};
+		C318FCF9233D4581007D9BB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318FC2A233D3EE2007D9BB2 /* API */;
+			targetProxy = C318FCF8233D4581007D9BB2 /* PBXContainerItemProxy */;
+		};
 		C322169C1EEB212400BC2745 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C322168E1EEB212400BC2745 /* TickerNotification */;
@@ -1396,6 +1910,149 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C318FC2F233D3EE2007D9BB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C318FC30233D3EE2007D9BB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C318FC90233D3FC8007D9BB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C318FC91233D3FC8007D9BB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C318FCCE233D4035007D9BB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		C318FCCF233D4035007D9BB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RSRVS8D9PW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = z;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
 		C322169E1EEB212400BC2745 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E9432B06C0B0BFB84FF85486 /* Pods-TickerNotification.debug.xcconfig */;
@@ -1410,15 +2067,19 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TickerNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.TickerNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1437,13 +2098,17 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TickerNotification/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.TickerNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1460,8 +2125,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1469,7 +2138,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1485,13 +2154,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.Widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1517,7 +2190,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1544,7 +2217,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1561,7 +2234,11 @@
 				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1570,7 +2247,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1587,13 +2264,17 @@
 				CODE_SIGN_ENTITLEMENTS = "HLTT Extension/HLTT Extension.entitlements";
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = "HLTT Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
@@ -1698,7 +2379,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1707,7 +2389,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 878652F538CA47DBC5B7E2F6 /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Tomas Harkema (VKKYQ8QR84)";
@@ -1715,7 +2397,10 @@
 				DEVELOPMENT_TEAM = RSRVS8D9PW;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DDEBUG -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
@@ -1723,7 +2408,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1732,7 +2417,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A24FCB8729C6D9964200300A /* Pods-HoelangTotTrein2Pods-HoelangTotTrein2.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = HLTT/HLTT.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tomas Harkema (RSRVS8D9PW)";
@@ -1741,15 +2426,19 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				INFOPLIST_FILE = HoelangTotTrein2/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -DRELEASE -DIOSAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein;
 				PRODUCT_NAME = HLTT;
 				PROVISIONING_PROFILE = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1760,11 +2449,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HoelangTotTrein2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Debug;
@@ -1775,11 +2468,15 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = HoelangTotTrein2Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HLTT.app/HLTT";
 			};
 			name = Release;
@@ -1788,10 +2485,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = HoelangTotTrein2UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = HoelangTotTrein2;
 				USES_XCTRUNNER = YES;
 			};
@@ -1801,10 +2502,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = HoelangTotTrein2UITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nl.tomasharkema.HoelangTotTrein2UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = HoelangTotTrein2;
 				USES_XCTRUNNER = YES;
 			};
@@ -1813,6 +2518,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C318FC31233D3EE2007D9BB2 /* Build configuration list for PBXNativeTarget "API" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C318FC2F233D3EE2007D9BB2 /* Debug */,
+				C318FC30233D3EE2007D9BB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C318FC8F233D3FC8007D9BB2 /* Build configuration list for PBXNativeTarget "Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C318FC90233D3FC8007D9BB2 /* Debug */,
+				C318FC91233D3FC8007D9BB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C318FCCD233D4035007D9BB2 /* Build configuration list for PBXNativeTarget "APIWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C318FCCE233D4035007D9BB2 /* Debug */,
+				C318FCCF233D4035007D9BB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C32216A01EEB212400BC2745 /* Build configuration list for PBXNativeTarget "TickerNotification" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1886,6 +2618,120 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Q42/Bindable.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.0;
+			};
+		};
+		C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tomlokhorst/Promissum";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		C318FC17233D3CB6007D9BB2 /* XCRemoteSwiftPackageReference "swift-cancellationtoken" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tomlokhorst/swift-cancellationtoken";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+		C318FC1A233D3DA9007D9BB2 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.35.0;
+			};
+		};
+		C318FC1B233D3DCA007D9BB2 /* XCRemoteSwiftPackageReference "R" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C318FC10233D3C10007D9BB2 /* Bindable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */;
+			productName = Bindable;
+		};
+		C318FC12233D3C10007D9BB2 /* BindableNSObject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */;
+			productName = BindableNSObject;
+		};
+		C318FC15233D3C68007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+		C318FC18233D3CB6007D9BB2 /* CancellationToken */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC17233D3CB6007D9BB2 /* XCRemoteSwiftPackageReference "swift-cancellationtoken" */;
+			productName = CancellationToken;
+		};
+		C318FCDA233D41A9007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+		C318FCDC233D41D5007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+		C318FCE3233D4261007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+		C318FCE5233D4266007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+		C318FCEF233D43F7007D9BB2 /* Bindable */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */;
+			productName = Bindable;
+		};
+		C318FCF1233D4406007D9BB2 /* BindableNSObject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC0F233D3C10007D9BB2 /* XCRemoteSwiftPackageReference "Bindable" */;
+			productName = BindableNSObject;
+		};
+		C318FCF3233D442E007D9BB2 /* Promissum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C318FC14233D3C68007D9BB2 /* XCRemoteSwiftPackageReference "Promissum" */;
+			productName = Promissum;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		C318FC98233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C318FC99233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodel */,
+			);
+			currentVersion = C318FC99233D3FE0007D9BB2 /* HoelangTotTrein2.xcdatamodel */;
+			path = HoelangTotTrein2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C3E847471BB82A01007D17C3 /* Project object */;
 }
