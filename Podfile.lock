@@ -49,9 +49,13 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - R.swift (5.0.3):
+    - R.swift.Library (~> 5.0.0)
+  - R.swift.Library (5.0.1)
 
 DEPENDENCIES:
   - Firebase/Core
+  - R.swift
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -62,6 +66,9 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
+  trunk:
+    - R.swift
+    - R.swift.Library
 
 SPEC CHECKSUMS:
   Firebase: 9445469655a98e9010737f4bc4720e5bda465873
@@ -71,7 +78,9 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 1e45fa601e6280c180880d57010390f6679cd971
   GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
+  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
 
-PODFILE CHECKSUM: c4e43648754ff867d25f9b16a15923573c83efeb
+PODFILE CHECKSUM: e149c7a6349dee2213270a79215edef686c082cd
 
 COCOAPODS: 1.8.0
