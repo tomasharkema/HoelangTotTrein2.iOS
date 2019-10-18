@@ -1495,7 +1495,7 @@
 				};
 			};
 			buildConfigurationList = C3E8474A1BB82A01007D17C3 /* Build configuration list for PBXProject "HoelangTotTrein2" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
