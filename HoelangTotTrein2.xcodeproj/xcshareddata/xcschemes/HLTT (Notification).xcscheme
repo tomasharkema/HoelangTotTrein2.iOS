@@ -97,11 +97,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
-      launchAutomaticallySubstyle = "8"
-      notificationPayloadFile = "HLTT Extension/Supporting Files/PushNotificationPayload.apns">
+      launchAutomaticallySubstyle = "8">
       <RemoteRunnable
          runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.carousel"
+         BundleIdentifier = "com.apple.Carousel"
          RemotePath = "/HLTT">
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -118,11 +117,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES"
-      launchAutomaticallySubstyle = "8"
-      notificationPayloadFile = "HLTT Extension/Supporting Files/PushNotificationPayload.apns">
+      launchAutomaticallySubstyle = "8">
       <RemoteRunnable
          runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.carousel"
+         BundleIdentifier = "com.apple.Carousel"
          RemotePath = "/HLTT">
          <BuildableReference
             BuildableIdentifier = "primary"

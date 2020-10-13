@@ -2,12 +2,21 @@
   "object": {
     "pins": [
       {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "becd9a729a37bdbef5bc39dc3c702b99f9e3d046",
+          "version": "5.2.2"
+        }
+      },
+      {
         "package": "Bindable",
         "repositoryURL": "https://github.com/Q42/Bindable.git",
         "state": {
           "branch": null,
-          "revision": "4c1e861fabe90e5c587d077a06cdbd6b616f3653",
-          "version": "0.7.0"
+          "revision": "06c98c021f6f8d6c7545bc9030c02ab4937abd21",
+          "version": "0.8.1"
         }
       },
       {
@@ -15,17 +24,26 @@
         "repositoryURL": "https://github.com/tomlokhorst/Promissum",
         "state": {
           "branch": null,
-          "revision": "59e243264ff5277ab7735848076b3e906cfc3b84",
-          "version": "4.0.0"
+          "revision": "143ec366cd4468446a7db4a56381767fcdbb383d",
+          "version": "5.0.1"
         }
       },
       {
         "package": "R.swift.Library",
         "repositoryURL": "https://github.com/mac-cain13/R.swift.Library",
         "state": {
-          "branch": "master",
-          "revision": "3365947d725398694d6ed49f2e6622f05ca3fc0f",
-          "version": null
+          "branch": null,
+          "revision": "5a54805e3d08077e46edb2274ff27b20b700f568",
+          "version": "5.2.0"
+        }
+      },
+      {
+        "package": "Statham",
+        "repositoryURL": "https://github.com/tomlokhorst/Statham.git",
+        "state": {
+          "branch": null,
+          "revision": "e0575978d3f28e81569f374ad2c835b8fc9edf73",
+          "version": "2.1.0"
         }
       },
       {

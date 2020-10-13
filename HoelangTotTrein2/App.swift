@@ -7,18 +7,9 @@
 //
 
 import Foundation
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if canImport(Core)
 import Core
-#endif
-#if canImport(CoreWatch)
-import CoreWatch
-#endif
+import SwiftUI
 
 struct App {
   static private let dataStore = AppDataStore(defaultKeepDepartedAdvice: true)

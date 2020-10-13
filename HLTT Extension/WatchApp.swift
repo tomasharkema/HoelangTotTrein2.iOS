@@ -7,18 +7,8 @@
 //
 
 import Foundation
-#if canImport(API)
 import API
-#endif
-#if canImport(Core)
 import Core
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if canImport(CoreWatch)
-import CoreWatch
-#endif
 
 struct App {
   private static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)

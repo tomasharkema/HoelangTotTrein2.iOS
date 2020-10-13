@@ -54,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
+    UITableView.appearance().backgroundColor = .clear
+    UITableViewCell.appearance().backgroundColor = .clear
+    UITableView.appearance().tableFooterView = UIView()
+
     App.storageAttachment
     _ = App.travelService.fetchStations()
     App.transferService

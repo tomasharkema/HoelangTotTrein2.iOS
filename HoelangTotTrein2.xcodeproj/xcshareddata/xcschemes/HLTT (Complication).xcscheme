@@ -100,7 +100,7 @@
       launchAutomaticallySubstyle = "32">
       <RemoteRunnable
          runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.carousel"
+         BundleIdentifier = "com.apple.Carousel"
          RemotePath = "/HLTT">
          <BuildableReference
             BuildableIdentifier = "primary"
@@ -120,7 +120,7 @@
       launchAutomaticallySubstyle = "32">
       <RemoteRunnable
          runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.carousel"
+         BundleIdentifier = "com.apple.Carousel"
          RemotePath = "/HLTT">
          <BuildableReference
             BuildableIdentifier = "primary"
