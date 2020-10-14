@@ -59,6 +59,7 @@
 		C3894E2E1E91307C00C6FCE2 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3FD07E41CC767FA002893B3 /* ExtensionDelegate.swift */; };
 		C38C24DE2202E67C0021A7AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
+		C3B808DA2536E559007D80E0 /* MostUsedStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B808D92536E559007D80E0 /* MostUsedStations.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
 		C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */; };
@@ -239,6 +240,7 @@
 		C3894E0F1E912FAB00C6FCE2 /* HLTT Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HLTT Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
+		C3B808D92536E559007D80E0 /* MostUsedStations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostUsedStations.swift; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdviceCell.swift; path = ../../Views/AdviceCell.swift; sourceTree = "<group>"; };
 		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AdviceCell.xib; path = ../../Views/AdviceCell.xib; sourceTree = "<group>"; };
@@ -442,7 +444,7 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C32101EE22DF745F006D8227 /* SwiftUI */ = {
+		C32101EE22DF745F006D8227 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C33F0DA422FB11C300DBE103 /* ContentView.swift */,
@@ -451,7 +453,7 @@
 				C337F6A322E70CBE0050F2A1 /* Ticker.swift */,
 				C33F0DB522FB147A00DBE103 /* VariableBinding.swift */,
 			);
-			path = SwiftUI;
+			path = View;
 			sourceTree = "<group>";
 		};
 		C32216941EEB212400BC2745 /* TickerNotification */ = {
@@ -471,6 +473,23 @@
 				C33F0DAC22FB143400DBE103 /* HLTTSwiftUI.swift */,
 			);
 			path = HLTTSwiftUI;
+			sourceTree = "<group>";
+		};
+		C3B808D82536E54D007D80E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C3B808D92536E559007D80E0 /* MostUsedStations.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C3B808E52536E6B8007D80E0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				C384AF1725363DD600E2DA20 /* Core */,
+				C384AEFD25363D0000E2DA20 /* API */,
+			);
+			path = Packages;
 			sourceTree = "<group>";
 		};
 		C3E19C371E92C9C0003A1529 /* Features */ = {
@@ -530,8 +549,7 @@
 		C3E847461BB82A01007D17C3 = {
 			isa = PBXGroup;
 			children = (
-				C384AF1725363DD600E2DA20 /* Core */,
-				C384AEFD25363D0000E2DA20 /* API */,
+				C3B808E52536E6B8007D80E0 /* Packages */,
 				C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */,
 				C32216941EEB212400BC2745 /* TickerNotification */,
 				C33F0DAB22FB143400DBE103 /* HLTTSwiftUI */,
@@ -561,7 +579,8 @@
 		C3E847511BB82A01007D17C3 /* HoelangTotTrein2 */ = {
 			isa = PBXGroup;
 			children = (
-				C32101EE22DF745F006D8227 /* SwiftUI */,
+				C3B808D82536E54D007D80E0 /* Model */,
+				C32101EE22DF745F006D8227 /* View */,
 				C3E847A41BB840E9007D17C3 /* Extensions */,
 				C3E19C371E92C9C0003A1529 /* Features */,
 				C3E19C3B1E92CAC8003A1529 /* Fonts */,
@@ -1020,7 +1039,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if mint list | grep -q 'R.swift'; then\n  mint run R.swift rswift generate \"$SRCROOT/HoelangTotTrein2/R.generated.swift\"\nelse\n  echo \"error: R.swift not installed; run 'mint bootstrap' to install\"\n  return -1\nfi\n";
+			shellScript = "SDKROOT=macosx\nswift run --package-path BuildTools -c release rswift generate \"$SRCROOT/HoelangTotTrein2/R.generated.swift\"\n";
 		};
 		FFB3A56C211CB95600B45DE1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1033,7 +1052,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# \"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "SDKROOT=macosx\nswift run --package-path BuildTools -c release swiftlint\n";
 		};
 		FFC0C73F1F3C515200A49942 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1084,6 +1103,7 @@
 				C33F0DBB22FB232E00DBE103 /* ContentView.swift in Sources */,
 				FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
+				C3B808DA2536E559007D80E0 /* MostUsedStations.swift in Sources */,
 				C33F0DBF22FB232E00DBE103 /* VariableBinding.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
 				C33F0DBE22FB232E00DBE103 /* Ticker.swift in Sources */,

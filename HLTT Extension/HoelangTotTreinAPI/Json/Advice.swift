@@ -12,12 +12,12 @@ public struct FareTime: Equatable, Codable, Hashable {
   public let planned: Date
   public let actual: Date
   public let delay: TimeInterval?
-  
+
   init(planned: Date, actual: Date) {
     self.planned = planned
     self.actual = actual
     let interval = actual.timeIntervalSince(planned)
-    self.delay = interval == 0 ? nil : interval
+    delay = interval == 0 ? nil : interval
   }
 }
 
@@ -33,7 +33,7 @@ public struct AdviceRequestCodes: Codable, Equatable {
 
 public struct AdviceIdentifier: RawRepresentable, Equatable, Codable {
   public let rawValue: String
-  
+
   public init(rawValue: String) {
     self.rawValue = rawValue
   }
@@ -57,9 +57,9 @@ public struct LegPlace: Equatable, Codable, Hashable {
   public let weight: Int
   public let products: Int
   public let exitSide: String?
-  
+
   public var time: FareTime {
-    return FareTime(planned: plannedDateTime, actual: actualDateTime ?? plannedDateTime)
+    FareTime(planned: plannedDateTime, actual: actualDateTime ?? plannedDateTime)
   }
 }
 
@@ -101,8 +101,8 @@ public struct HaltStation: LegStation, Equatable, Codable, Hashable {
   public let weight: Int?
   public let products: Int?
   public let routeIdx: Int
-  public let plannedDepartureDateTime: Date?  // arrival leg?
-  public let plannedDepartureTimeZoneOffset: Int?  // arrival leg?
+  public let plannedDepartureDateTime: Date? // arrival leg?
+  public let plannedDepartureTimeZoneOffset: Int? // arrival leg?
   public let actualDepartureDateTime: Date?
   public let actualDepartureTimeZoneOffset: Int?
   public let plannedDepartureTrack: String? // arrival leg?
@@ -122,7 +122,7 @@ public struct HaltStation: LegStation, Equatable, Codable, Hashable {
 public enum Stop: Equatable, Codable, LegStation, Hashable {
   case stop(HaltStation)
   case passing(PassingStation)
-  
+
   public init(from decoder: Decoder) throws {
     do {
       self = .passing(try PassingStation(from: decoder))
@@ -132,7 +132,7 @@ public enum Stop: Equatable, Codable, LegStation, Hashable {
       throw error
     } }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     switch self {
     case .passing(let passing):
@@ -141,7 +141,7 @@ public enum Stop: Equatable, Codable, LegStation, Hashable {
       try stop.encode(to: encoder)
     }
   }
-  
+
   private var legStation: LegStation {
     switch self {
     case .passing(let passing):
@@ -150,7 +150,7 @@ public enum Stop: Equatable, Codable, LegStation, Hashable {
       return stop
     }
   }
-  
+
   public var halt: HaltStation? {
     switch self {
     case .stop(let stop):
@@ -159,27 +159,27 @@ public enum Stop: Equatable, Codable, LegStation, Hashable {
       return nil
     }
   }
-  
+
   public var name: String {
-    return legStation.name
+    legStation.name
   }
-  
-  public var lng: Double{
-    return legStation.lng
+
+  public var lng: Double {
+    legStation.lng
   }
-  
-  public var lat: Double{
-    return legStation.lat
+
+  public var lat: Double {
+    legStation.lat
   }
-  
-  public var countryCode: String{
-    return legStation.countryCode
+
+  public var countryCode: String {
+    legStation.countryCode
   }
-  
+
   public var uicCode: UicCode {
-    return legStation.uicCode
+    legStation.uicCode
   }
-  
+
   public var time: Date? {
     switch self {
     case .stop(let stop):
@@ -207,27 +207,27 @@ public struct Leg: Equatable, Codable, Hashable {
   public let alternativeTransport: Bool
   public let journeyDetailRef: String
   public let product: Product
-  
+
   public let origin: LegPlace
   public let destination: LegPlace
   public let stops: [Stop]
-  public let steps: [String] // TODO
+  public let steps: [String] // TODO:
   public let crowdForecast: CrowdForecast?
   public let punctuality: Double?
   public let reachable: Bool
 }
 
 public enum FareStatus: String, Codable, Hashable {
-  case CANCELLED = "CANCELLED"
-  case CHANGE_NOT_POSSIBLE = "CHANGE_NOT_POSSIBLE"
-  case CHANGE_COULD_BE_POSSIBLE = "CHANGE_COULD_BE_POSSIBLE"
-  case ALTERNATIVE_TRANSPORT = "ALTERNATIVE_TRANSPORT"
-  case DISRUPTION = "DISRUPTION"
-  case MAINTENANCE = "MAINTENANCE"
-  case REPLACEMENT = "REPLACEMENT"
-  case ADDITIONAL = "ADDITIONAL"
-  case SPECIAL = "SPECIAL"
-  case NORMAL = "NORMAL"
+  case CANCELLED
+  case CHANGE_NOT_POSSIBLE
+  case CHANGE_COULD_BE_POSSIBLE
+  case ALTERNATIVE_TRANSPORT
+  case DISRUPTION
+  case MAINTENANCE
+  case REPLACEMENT
+  case ADDITIONAL
+  case SPECIAL
+  case NORMAL
 }
 
 public struct Advice: Equatable, Codable, Hashable {
@@ -235,7 +235,7 @@ public struct Advice: Equatable, Codable, Hashable {
   public let transfers: Int
   public let status: FareStatus
   public let legs: [Leg]
-  public let overviewPolyLine: [String] // TODO
+  public let overviewPolyLine: [String] // TODO:
   public let checksum: String
   public let crowdForecast: CrowdForecast?
   public let punctuality: Double?
@@ -245,9 +245,9 @@ public struct Advice: Equatable, Codable, Hashable {
   public let optimal: Bool
   public let type: String
   public let realtime: Bool
-  
+
   public var identifier: AdviceIdentifier {
-    return AdviceIdentifier(rawValue: checksum)
+    AdviceIdentifier(rawValue: checksum)
   }
 }
 
@@ -256,7 +256,7 @@ public typealias Advices = [Advice]
 public struct AdviceRequest: Equatable, Codable {
   public var from: UicCode?
   public var to: UicCode?
-  
+
   public init(from: UicCode?, to: UicCode?) {
     self.from = from
     self.to = to
@@ -266,7 +266,7 @@ public struct AdviceRequest: Equatable, Codable {
 public struct AdviceStations {
   public let from: String?
   public let to: String?
-  
+
   public init(from: String?, to: String?) {
     self.from = from
     self.to = to
@@ -276,11 +276,10 @@ public struct AdviceStations {
 extension AdviceStations: Equatable, Codable {}
 
 public struct AdvicesAndRequest: Codable {
-  
   public let advices: Advices
   public let adviceRequest: AdviceRequest
   public let lastUpdated: Date
-  
+
   public init(advices: Advices, adviceRequest: AdviceRequest, lastUpdated: Date = Date()) {
     self.advices = advices
     self.adviceRequest = adviceRequest

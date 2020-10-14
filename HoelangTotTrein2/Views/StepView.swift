@@ -20,14 +20,13 @@ struct StepViewModel {
 }
 
 class StepView: UIView {
-
-  @IBOutlet weak private var fromStationLabel: UILabel!
-  @IBOutlet weak private var fromSpoorLabel: UILabel!
-  @IBOutlet weak private var fromTime: UILabel!
-  @IBOutlet weak private var toStationLabel: UILabel!
-  @IBOutlet weak private var toSpoorLabel: UILabel!
-  @IBOutlet weak private var toTime: UILabel!
-  @IBOutlet weak var destinationView: UILabel!
+  @IBOutlet private var fromStationLabel: UILabel!
+  @IBOutlet private var fromSpoorLabel: UILabel!
+  @IBOutlet private var fromTime: UILabel!
+  @IBOutlet private var toStationLabel: UILabel!
+  @IBOutlet private var toSpoorLabel: UILabel!
+  @IBOutlet private var toTime: UILabel!
+  @IBOutlet var destinationView: UILabel!
 
   var viewModel: StepViewModel! {
     didSet {
@@ -39,14 +38,13 @@ class StepView: UIView {
       toSpoorLabel.text = viewModel.toSpoor
       toTime.text = viewModel.toTime
       toTime.font = UIFont.monospacedDigitSystemFont(ofSize: 16, weight: .regular)
-      
+
       let destinationText: [String] = [
         viewModel.product,
-        viewModel.direction.map { "ri. \($0)" }
+        viewModel.direction.map { "ri. \($0)" },
       ].compactMap { $0 }
-      
+
       destinationView.text = destinationText.joined(separator: " ")
     }
   }
-
 }

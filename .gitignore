@@ -40,3 +40,5 @@ HockeyApp.swift
 
 /xml-credentials.plist
 /App/HoelangTotTrein2/json-credentials.plist
+
+.build

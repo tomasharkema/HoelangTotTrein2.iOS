@@ -6,19 +6,18 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
 import API
 import Core
+import UIKit
 
 class AdviceCell: UICollectionViewCell {
-
-  @IBOutlet private weak var platformLabel: UILabel!
-  @IBOutlet private weak var aankomstVertragingLabel: UILabel!
-  @IBOutlet private weak var statusMessageLabel: UILabel!
-  @IBOutlet private weak var minutesLabel: TimeLabel!
-  @IBOutlet private weak var stepsStackView: UIStackView!
-  @IBOutlet private weak var tickerContainer: UIView!
-  @IBOutlet private weak var modalityLabel: UILabel!
+  @IBOutlet private var platformLabel: UILabel!
+  @IBOutlet private var aankomstVertragingLabel: UILabel!
+  @IBOutlet private var statusMessageLabel: UILabel!
+  @IBOutlet private var minutesLabel: TimeLabel!
+  @IBOutlet private var stepsStackView: UIStackView!
+  @IBOutlet private var tickerContainer: UIView!
+  @IBOutlet private var modalityLabel: UILabel!
 
   private var heartBeatToken: HeartBeat.Token?
 
@@ -26,7 +25,7 @@ class AdviceCell: UICollectionViewCell {
     super.prepareForReuse()
 
     heartBeatToken = nil
-    
+
     minutesLabel.isActive = false
   }
 
@@ -71,9 +70,7 @@ class AdviceCell: UICollectionViewCell {
       R.string.localization.arrival($0)
     }
 
-    modalityLabel.text = advice.legs.map {
-      $0.product.shortCategoryName
-    }.joined(separator: " > ")
+    modalityLabel.text = advice.legs.map(\.product.shortCategoryName).joined(separator: " > ")
 
     render(stepModels: advice.stepModels)
   }
@@ -94,7 +91,7 @@ class AdviceCell: UICollectionViewCell {
 
 extension FareStatus {
   var alertDescription: String {
-    return self.rawValue
+    rawValue
 //    switch self {
 //    case .:
 //      return R.string.localization.delayed()

@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIColor {
-
   convenience init(hex: Int) {
     self.init(red: CGFloat((hex & 0xFF0000) >> 16) / 255.0,
               green: CGFloat((hex & 0xFF00) >> 8) / 255.0,
@@ -18,6 +17,6 @@ extension UIColor {
   }
 
   static func redTintColor() -> UIColor {
-    return UIColor(hex: 0xEC9393)
+    UIColor(hex: 0xEC9393)
   }
 }

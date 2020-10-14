@@ -21,6 +21,6 @@ extension HistoryType {
   }
 
   public func encodeJson() -> Int {
-    return rawValue
+    rawValue
   }
 }

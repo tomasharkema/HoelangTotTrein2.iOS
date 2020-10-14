@@ -1,13 +1,13 @@
 //
 //  UserNotification+Promise.swift
-//  
+//
 //
 //  Created by Tomas Harkema on 26/09/2018.
 //
 
 import Foundation
-import UserNotifications
 import Promissum
+import UserNotifications
 
 extension UNUserNotificationCenter {
   func notificationSettings() -> Promise<UNNotificationSettings, NoError> {

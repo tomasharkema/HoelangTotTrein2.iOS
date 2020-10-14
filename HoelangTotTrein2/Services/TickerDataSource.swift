@@ -6,16 +6,16 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
 import API
 import Core
+import UIKit
 
 class TickerFlowLayout: UICollectionViewFlowLayout {
   override init() {
     super.init()
     initialize()
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initialize()
@@ -28,14 +28,13 @@ class TickerFlowLayout: UICollectionViewFlowLayout {
 }
 
 class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-  
   var advices: Advices {
     didSet {
       assert(Thread.isMainThread)
       collectionView?.reloadData()
     }
   }
-  
+
   fileprivate weak var collectionView: UICollectionView?
 
   init(advices: Advices, collectionView: UICollectionView) {
@@ -49,12 +48,12 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     collectionView.reloadData()
   }
 
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
+  func numberOfSections(in _: UICollectionView) -> Int {
+    1
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return advices.count
+  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
+    advices.count
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,8 +64,7 @@ class TickerDataSource: NSObject, UICollectionViewDelegate, UICollectionViewData
     return cell
   }
 
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return collectionView.bounds.size
+  func collectionView(_ collectionView: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+    collectionView.bounds.size
   }
 }
-

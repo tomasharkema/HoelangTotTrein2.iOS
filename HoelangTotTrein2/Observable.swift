@@ -12,24 +12,23 @@ import Promissum
 struct ObservableSubject<ValueType>: Equatable {
   let guid = NSUUID().UUIDString
   let observeOn: dispatch_queue_t
-  let observable: (ValueType) -> ()
+  let observable: (ValueType) -> Void
   let once: Bool
 }
 
-func ==<ValueType>(lhs: ObservableSubject<ValueType>, rhs: ObservableSubject<ValueType>) -> Bool {
-  return lhs.guid == rhs.guid
+func == <ValueType>(lhs: ObservableSubject<ValueType>, rhs: ObservableSubject<ValueType>) -> Bool {
+  lhs.guid == rhs.guid
 }
 
 class Observable<ValueType where ValueType: Equatable> {
-
   private let queue = dispatch_queue_create("nl.tomasharkema.Observable", DISPATCH_QUEUE_SERIAL)
 
-  private var value: ValueType? = nil {
+  private var value: ValueType? {
     didSet {
       notifiy()
     }
   }
-  
+
   private var subjects = [ObservableSubject<ValueType>]()
 
   private func notifiy() {
@@ -47,11 +46,11 @@ class Observable<ValueType where ValueType: Equatable> {
     }
   }
 
-  func subscribe(subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
-    return subscribe(dispatch_get_main_queue(), subject: subject)
+  func subscribe(subject: (ValueType) -> Void) -> ObservableSubject<ValueType> {
+    subscribe(dispatch_get_main_queue(), subject: subject)
   }
 
-  func subscribe(observeOn: dispatch_queue_t, subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+  func subscribe(observeOn: dispatch_queue_t, subject: (ValueType) -> Void) -> ObservableSubject<ValueType> {
     var subscription: ObservableSubject<ValueType>!
     dispatch_sync(queue) { [weak self] in
       subscription = ObservableSubject(observeOn: observeOn, observable: subject, once: false)
@@ -92,7 +91,7 @@ class Observable<ValueType where ValueType: Equatable> {
 // MARK: Once Trigger
 
 extension Observable {
-  func once(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (ValueType) -> ()) -> ObservableSubject<ValueType> {
+  func once(observeOn: dispatch_queue_t = dispatch_get_main_queue(), subject: (ValueType) -> Void) -> ObservableSubject<ValueType> {
     var subscription: ObservableSubject<ValueType>!
     dispatch_sync(queue) { [weak self] in
       subscription = ObservableSubject(observeOn: observeOn, observable: subject, once: true)

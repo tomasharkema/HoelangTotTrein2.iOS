@@ -6,13 +6,12 @@
 //  Copyright © 2015 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
-import Bindable
 import API
+import Bindable
 import Core
+import UIKit
 
 class TickerViewController: UIViewController {
-
   private let AnimationInterval: TimeInterval = 2
 
   private var fromStation: Station?
@@ -20,28 +19,28 @@ class TickerViewController: UIViewController {
   private var currentAdvice: LoadingState<Advice?> = .loading { didSet { applyLoadedState() } }
   private var currentAdvices: LoadingState<AdvicesAndRequest> = .loading { didSet { applyLoadedState() } }
 
-//  private var nextAdvice: Advice?
+  //  private var nextAdvice: Advice?
 
   private var startTime: Date?
 
-  @IBOutlet private weak var backgroundView: UIImageView!
-  @IBOutlet fileprivate weak var stackIndicatorView: UIStackView!
+  @IBOutlet private var backgroundView: UIImageView!
+  @IBOutlet fileprivate var stackIndicatorView: UIStackView!
 
-  @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet private var activityIndicator: UIActivityIndicatorView!
 
-  @IBOutlet private weak var fromButton: UIButton!
-  @IBOutlet private weak var toButton: UIButton!
-  @IBOutlet private weak var fromIndicatorLabel: UILabel!
-  @IBOutlet private weak var toIndicatorLabel: UILabel!
+  @IBOutlet private var fromButton: UIButton!
+  @IBOutlet private var toButton: UIButton!
+  @IBOutlet private var fromIndicatorLabel: UILabel!
+  @IBOutlet private var toIndicatorLabel: UILabel!
 
-  @IBOutlet private weak var collectionView: UICollectionView!
+  @IBOutlet private var collectionView: UICollectionView!
   private var dataSource: TickerDataSource?
 
-  //next
-  @IBOutlet private weak var nextLabel: UILabel!
-  @IBOutlet private weak var nextView: UIView!
-  @IBOutlet private weak var nextViewBlur: UIVisualEffectView!
-  @IBOutlet private weak var nextDelayLabel: UILabel!
+  // next
+  @IBOutlet private var nextLabel: UILabel!
+  @IBOutlet private var nextView: UIView!
+  @IBOutlet private var nextViewBlur: UIVisualEffectView!
+  @IBOutlet private var nextDelayLabel: UILabel!
 
   private var renderBackgroundToken: HeartBeat.Token?
 
@@ -78,7 +77,7 @@ class TickerViewController: UIViewController {
 
 //    App.travelService.currentAdvicesObservable
 //      .observeOn(MainScheduler.asyncInstance)
-    
+
 //      .distinctUntilChanged { (lhs, rhs) in
 //        switch (lhs, rhs) {
 //        case (.loading, .loading):
@@ -150,10 +149,6 @@ class TickerViewController: UIViewController {
 //      })
 //      .disposed(by: bag)
 
-
-
-
-
 //    App.travelService.firstAdviceRequestObservable
 //      .observeOn(MainScheduler.asyncInstance)
 //      .subscribe(onNext: { [weak self] adviceRequest in
@@ -162,8 +157,8 @@ class TickerViewController: UIViewController {
 //        }
 //        self?.fromStation = adviceRequest.from
 //        self?.toStation = adviceRequest.to
-////        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
-////        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
+    ////        self?.fromButton.setTitle(adviceRequest.from?.name ?? R.string.localization.select(), for: .normal)
+    ////        self?.toButton.setTitle(adviceRequest.to?.name ?? R.string.localization.select(), for: .normal)
 //      })
 //      .disposed(by: bag)
 
@@ -183,8 +178,7 @@ class TickerViewController: UIViewController {
     renderBackgroundToken = nil
   }
 
-  func showPickerController(_ state: PickerState) {
-
+  func showPickerController(_: PickerState) {
 //    segueManager.performSegue(withIdentifier: R.segue.tickerViewController.presentPickerSegue.identifier) { [weak self] segue in
 //
 //      guard let controller = segue.destination as? PickerViewController else {
@@ -228,7 +222,6 @@ class TickerViewController: UIViewController {
   }
 
   private func applyLoadedState() {
-
     switch currentAdvices {
     case .loading:
       activityIndicator.startAnimating()
@@ -251,42 +244,40 @@ class TickerViewController: UIViewController {
 //      })
   }
 
-  private func applyErrorState() {
+  private func applyErrorState() {}
 
-  }
-
-  @IBAction func fromButtonPressed(_ sender: AnyObject) {
+  @IBAction func fromButtonPressed(_: AnyObject) {
     showPickerController(.from)
   }
 
-  @IBAction func toButtonPressed(_ sender: AnyObject) {
+  @IBAction func toButtonPressed(_: AnyObject) {
     showPickerController(.to)
   }
 
-  @IBAction func currentLocationPressed(_ sender: AnyObject) {
-    App.locationService.requestAuthorization().flatMap { state in
+  @IBAction func currentLocationPressed(_: AnyObject) {
+    App.locationService.requestAuthorization().flatMap { _ in
       App.travelService.travelFromCurrentLocation()
     }.then { print($0) }
-    .trap {
-      print("ERROR: \($0)")
-    }
+      .trap {
+        print("ERROR: \($0)")
+      }
   }
 
-  @IBAction func switchPressed(_ sender: AnyObject) {
+  @IBAction func switchPressed(_: AnyObject) {
     App.travelService.switchFromTo()
   }
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
+    .lightContent
   }
 
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    return .portrait
+    .portrait
   }
 
   fileprivate func scrollToPersistedAdvice(_ advices: Advices, currentAdviceIdentifier: AdviceIdentifier) {
     let adviceAndIndexOpt = advices.enumerated().lazy
-      .first{ $0.element.identifier == currentAdviceIdentifier }
+      .first { $0.element.identifier == currentAdviceIdentifier }
     guard let adviceAndIndex = adviceAndIndexOpt else {
       return
     }
@@ -295,11 +286,10 @@ class TickerViewController: UIViewController {
   }
 
   private func notifyCurrentAdvice() -> Advice? {
-
     let center = view.convert(view.center, to: collectionView)
     guard let indexPath = collectionView.indexPathForItem(at: center),
       let advice = (collectionView.cellForItem(at: indexPath) as? AdviceCell)?.advice
-      else {
+    else {
       return nil
     }
 
@@ -330,12 +320,11 @@ class TickerViewController: UIViewController {
 }
 
 extension TickerViewController {
-
   fileprivate func createIndicatorView() -> UIView {
     let width: CGFloat = 15
     let height: CGFloat = width
     let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-    view.layer.cornerRadius = width/2
+    view.layer.cornerRadius = width / 2
     view.layer.borderWidth = 1
     view.layer.borderColor = UIColor.white.cgColor
 
@@ -350,7 +339,7 @@ extension TickerViewController {
 
     stackIndicatorView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-    showAdvices.enumerated().forEach { (idx, element) in
+    showAdvices.enumerated().forEach { idx, element in
       let view = createIndicatorView()
       stackIndicatorView.addArrangedSubview(view)
 
@@ -371,6 +360,5 @@ extension TickerViewController {
 
       view.backgroundColor = bgColor
     }
-
   }
 }

@@ -6,6 +6,4 @@
 //  Copyright © 2019 Tomas Harkema. All rights reserved.
 //
 
-class HLTTSwiftUI {
-
-}
+class HLTTSwiftUI {}

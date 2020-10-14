@@ -6,8 +6,8 @@
 //  Copyright © 2015 Tomas Harkema. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 import Promissum
 import RxSwift
 #if os(watchOS)
@@ -23,12 +23,11 @@ struct SignificantLocation: Equatable {
   let neighbouringStations: [Station]
 }
 
-func ==(lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
-  return lhs.location == rhs.location
+func == (lhs: SignificantLocation, rhs: SignificantLocation) -> Bool {
+  lhs.location == rhs.location
 }
 
 class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
-
   let manager: CLLocationManager
 
   let significantLocationChangeObservable = Variable<SignificantLocation?>(nil).asObservable()
@@ -41,16 +40,14 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
     initialize()
   }
 
-  func initialize() {
-
-  }
+  func initialize() {}
 
   deinit {
     requestAuthorizationPromise = nil
     currentLocationPromise = nil
   }
 
-  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+  func locationManager(_: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     requestAuthorizationPromise?.resolve(status)
     switch status {
     case .authorizedAlways:
@@ -90,7 +87,7 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
     return currentLocationPromise!.promise
   }
 
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+  func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let closestLocation = locations.sorted { lhs, rhs in
       (lhs.horizontalAccuracy + lhs.verticalAccuracy) > (rhs.horizontalAccuracy + rhs.verticalAccuracy)
     }.first
@@ -104,7 +101,7 @@ class AppLocationService: NSObject, CLLocationManagerDelegate, LocationService {
 }
 
 extension AppLocationService {
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+  func locationManager(_: CLLocationManager, didFailWithError error: Error) {
     currentLocationPromise?.reject(error)
   }
 }

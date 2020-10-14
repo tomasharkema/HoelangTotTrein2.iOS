@@ -6,10 +6,10 @@
 //  Copyright © 2015 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
-import CoreData
 import API
 import Core
+import CoreData
+import UIKit
 
 extension PickerState: CustomStringConvertible {
   public var description: String {
@@ -23,32 +23,34 @@ extension PickerState: CustomStringConvertible {
 }
 
 class PickerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
   var state: PickerState!
   var selectedStation: Station?
 
-  @IBOutlet private weak var tableView: UITableView!
-  @IBOutlet private weak var currentStation: UILabel!
-  @IBOutlet private weak var searchField: UITextField!
+  @IBOutlet private var tableView: UITableView!
+  @IBOutlet private var currentStation: UILabel!
+  @IBOutlet private var searchField: UITextField!
 
-  var cancelHandler: (() -> ())?
-  var successHandler: ((Station) -> ())?
+  var cancelHandler: (() -> Void)?
+  var successHandler: ((Station) -> Void)?
 
   private var closeStations: [Station]? {
     didSet {
       tableView.reloadData()
     }
   }
+
   private var mostUsedStations: [Station]? {
     didSet {
       tableView.reloadData()
     }
   }
+
   private var ordinaryStations: [Station]? {
     didSet {
       tableView.reloadData()
     }
   }
+
   private var searchResults: [Station]? {
     didSet {
       tableView.reloadData()
@@ -56,7 +58,7 @@ class PickerViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
 
   private var isSearching: Bool {
-    return searchField.text ?? "" != ""
+    searchField.text ?? "" != ""
   }
 
   override func viewDidLoad() {
@@ -91,11 +93,11 @@ class PickerViewController: UIViewController, UITableViewDelegate, UITableViewDa
       }
   }
 
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return isSearching ? 1 : 3
+  func numberOfSections(in _: UITableView) -> Int {
+    isSearching ? 1 : 3
   }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch (isSearching, section) {
     case (true, _):
       return searchResults?.count ?? 0
@@ -142,15 +144,14 @@ class PickerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     return cell
   }
 
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let station = getStation(fromIndexPath: indexPath) {
       searchField.resignFirstResponder()
       successHandler?(station)
     }
   }
 
-  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
+  func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
     if isSearching {
       return R.string.localization.searchResults()
     }
@@ -164,19 +165,19 @@ class PickerViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
   }
 
-  @IBAction func closedPressed(_ sender: AnyObject) {
+  @IBAction func closedPressed(_: AnyObject) {
     cancelHandler?()
   }
 
-  @IBAction func texstfieldTouchDown(_ sender: AnyObject) {
+  @IBAction func texstfieldTouchDown(_: AnyObject) {
     search(searchField.text ?? "")
   }
 
-  override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-    return .portrait
+  override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    .portrait
   }
 
-  override var preferredStatusBarStyle : UIStatusBarStyle {
-    return .lightContent
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    .lightContent
   }
 }

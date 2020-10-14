@@ -6,33 +6,31 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import WatchKit
 import Foundation
+import WatchKit
 
 class NotificationController: WKUserNotificationInterfaceController {
-
   @IBOutlet var platformLabel: WKInterfaceLabel!
   @IBOutlet var timeLabel: WKInterfaceTimer!
 
   override init() {
-      // Initialize variables here.
-      super.init()
-      
-      // Configure interface objects here.
+    // Initialize variables here.
+    super.init()
+
+    // Configure interface objects here.
   }
 
   override func willActivate() {
-      // This method is called when watch view controller is about to be visible to user
-      super.willActivate()
+    // This method is called when watch view controller is about to be visible to user
+    super.willActivate()
   }
 
   override func didDeactivate() {
-      // This method is called when watch view controller is no longer visible
-      super.didDeactivate()
+    // This method is called when watch view controller is no longer visible
+    super.didDeactivate()
   }
-  
 
-//  override func didReceive(_ localNotification: UILocalNotification,
+  //  override func didReceive(_ localNotification: UILocalNotification,
 //                           withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
 //
 //    let decoder = JSONDecoder()
@@ -41,10 +39,9 @@ class NotificationController: WKUserNotificationInterfaceController {
 //    } else {
 //      completionHandler(.default)
 //    }
-//  }
+  //  }
 
-
-//  override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any],
+  //  override func didReceiveRemoteNotification(_ remoteNotification: [AnyHashable: Any],
 //                                             withCompletion completionHandler: (@escaping (WKUserNotificationInterfaceType) -> Void)) {
 //
 //    let decoder = JSONDecoder()
@@ -62,6 +59,5 @@ class NotificationController: WKUserNotificationInterfaceController {
 //    timeLabel.setDate(model.stop.time)
 //    timeLabel.start()
 //    completionHandler(.custom)
-//  }
-
+  //  }
 }

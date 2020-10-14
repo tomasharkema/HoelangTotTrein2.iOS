@@ -1,0 +1,7 @@
+--indent 2
+--swiftversion 5.3
+--exclude Pods,**/R.generated.swift,BuildTools
+--elseposition "same-line"
+--disable redundantRawValues
+--maxwidth 200
+--patternlet inline

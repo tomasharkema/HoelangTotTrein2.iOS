@@ -6,12 +6,11 @@
 //  Copyright © 2017 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
 import API
 import Core
+import UIKit
 
 class TimeLabel: UILabel {
-
   private let heartBeat = App.heartBeat
   var goNegative = false
 

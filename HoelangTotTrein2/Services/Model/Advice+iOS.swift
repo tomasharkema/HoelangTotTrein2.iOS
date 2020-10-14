@@ -6,14 +6,14 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import Foundation
-import CoreData
 import API
 import Core
+import CoreData
+import Foundation
 
 extension Advice {
   var stepModels: [StepViewModel] {
-    return legs.compactMap { item in
+    legs.compactMap { item in
 
       let formatter = DateFormatter()
       formatter.dateFormat = "HH:mm"

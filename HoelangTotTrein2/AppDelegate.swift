@@ -6,15 +6,15 @@
 //  Copyright © 2015 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
-import CoreData
-import Promissum
-import UserNotifications
-import SwiftUI
 import Bindable
 import Combine
+import CoreData
+import Promissum
+import SwiftUI
+import UIKit
+import UserNotifications
 
-//class TimerHolder: BindableObject {
+// class TimerHolder: BindableObject {
 //  var timer : Timer!
 //  let willChange = PassthroughSubject<TimerHolder,Never>()
 //  var count = 0 {
@@ -32,21 +32,19 @@ import Combine
 //    }
 //    self.timer.tolerance = 1/60
 //  }
-//}
+// }
 
 class HostingController<ContentView: View>: UIHostingController<ContentView> {
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
+    .lightContent
   }
 }
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
   var window: UIWindow?
 
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-
+  func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     UITableView.appearance().backgroundColor = .clear
     UITableViewCell.appearance().backgroundColor = .clear
     UITableView.appearance().tableFooterView = UIView()
@@ -63,11 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     if #available(iOS 13, *) {
-
       let adviceStations = VariableBindable(variable: App.travelService.adviceStations)
-      let currentAdvices = App.travelService.currentAdvices.map {
-        $0.value
-      }
+      let currentAdvices = App.travelService.currentAdvices.map(\.value)
       let advices = VariableBindable(variable: currentAdvices)
       let mostUsedStations = VariableBindable(variable: App.travelService.mostUsedStations.map {
         MostUsedStations(stations: $0)
@@ -80,27 +75,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         .environmentObject(stations)
         .environmentObject(advices)
         .environmentObject(adviceStations)
-        .environmentObject(mostUsedStations)
-      )
+        .environmentObject(mostUsedStations))
       window?.makeKeyAndVisible()
     }
-    
+
     return true
   }
 
-  func applicationDidEnterBackground(_ application: UIApplication) {
+  func applicationDidEnterBackground(_: UIApplication) {
     App.heartBeat.isSuspended = true
   }
 
-  func applicationWillEnterForeground(_ application: UIApplication) {
+  func applicationWillEnterForeground(_: UIApplication) {
     App.heartBeat.isSuspended = false
   }
 
-  func applicationDidBecomeActive(_ application: UIApplication) {
+  func applicationDidBecomeActive(_: UIApplication) {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
   }
 
-  func applicationWillTerminate(_ application: UIApplication) {
+  func applicationWillTerminate(_: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
   }
@@ -129,11 +123,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   //  }
 
   private func requestPush() {
-
     UNUserNotificationCenter.current().notificationSettings()
       .then { [weak self] settings in
         if settings.authorizationStatus == .notDetermined {
-          let alert = UIAlertController(title: "Push Notificaties", message: "Deze app kan je een notificatie sturen als je op je eindbestemming aankomt. Wil je dit?", preferredStyle: .alert)
+          let alert = UIAlertController(
+            title: "Push Notificaties",
+            message: "Deze app kan je een notificatie sturen als je op je eindbestemming aankomt. Wil je dit?",
+            preferredStyle: .alert
+          )
 
           alert.addAction(UIAlertAction(title: "Nu niet", style: .cancel, handler: { _ in
             alert.dismiss(animated: true)
@@ -145,15 +142,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
           self?.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
-    }
+      }
   }
 
   private func requestAuthorization() {
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-    center.requestAuthorization(options: options) { (_, _) in
+    center.requestAuthorization(options: options) { _, _ in
     }
   }
-
 }
-

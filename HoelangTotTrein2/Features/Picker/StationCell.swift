@@ -9,5 +9,5 @@
 import UIKit
 
 class StationCell: UITableViewCell {
-  @IBOutlet weak var stationLabel: UILabel!
+  @IBOutlet var stationLabel: UILabel!
 }

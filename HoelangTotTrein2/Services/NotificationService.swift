@@ -6,10 +6,10 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
-import Bindable
 import API
+import Bindable
 import Core
+import UIKit
 import UserNotifications
 
 class NotificationService: NSObject {
@@ -23,9 +23,9 @@ class NotificationService: NSObject {
       guard let currentGeofence = currentGeofence,
         currentGeofence.type == .overstap,
         preferenceStore.appSettings.contains(.transferNotificationEnabled)
-        else {
-          return
-        }
+      else {
+        return
+      }
 
       notify(for: currentGeofence)
     }
@@ -47,7 +47,6 @@ class NotificationService: NSObject {
   }
 
   fileprivate func fireNotification(_ identifier: String, title: String, body: String, categoryIdentifier: String?, userInfo: [String: Any]?) {
-
     let content = UNMutableNotificationContent()
     content.title = title
     content.body = body
@@ -80,7 +79,7 @@ class NotificationService: NSObject {
     guard let time = model.stop.time else {
       return
     }
-    
+
     switch model.type {
     case .start:
       let timeString = secondsToStringOffset(time)
@@ -91,7 +90,8 @@ class NotificationService: NSObject {
           title: R.string.localization.startNotificationTitle(),
           body: R.string.localization.startNotificationBody(timeString, model.stop.halt?.plannedDepartureTrack ?? ""),
           categoryIdentifier: "nextStationNotification",
-          userInfo: ["geofenceModel": try model.encodeJson()])
+          userInfo: ["geofenceModel": try model.encodeJson()]
+        )
       } catch {
         print("ERROR \(error)")
       }
@@ -100,7 +100,6 @@ class NotificationService: NSObject {
 
     case .overstap:
       do {
-
         guard time > Date() else {
           return
         }
@@ -111,7 +110,8 @@ class NotificationService: NSObject {
           title: R.string.localization.transferNotificationTitle(),
           body: R.string.localization.transferNotificationBody(model.stop.halt?.plannedDepartureTrack ?? "", timeString),
           categoryIdentifier: "nextStationNotification",
-          userInfo: ["geofenceModel": try model.encodeJson()])
+          userInfo: ["geofenceModel": try model.encodeJson()]
+        )
       } catch {
         print("Error: \(error)")
       }
@@ -122,7 +122,8 @@ class NotificationService: NSObject {
         title: R.string.localization.endNotificationTitle(),
         body: R.string.localization.endNotificationBody(),
         categoryIdentifier: nil,
-        userInfo: nil)
+        userInfo: nil
+      )
     }
   }
 }

@@ -6,25 +6,23 @@
 //  Copyright © 2017 Tomas Harkema. All rights reserved.
 //
 
-import UIKit
 import API
 import Core
+import UIKit
 import UserNotifications
 import UserNotificationsUI
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
-
-  @IBOutlet weak var from: UILabel!
-  @IBOutlet weak var to: UILabel!
-  @IBOutlet weak var time: TimeLabel!
+  @IBOutlet var from: UILabel!
+  @IBOutlet var to: UILabel!
+  @IBOutlet var time: TimeLabel!
 
   override func viewDidLoad() {
-      super.viewDidLoad()
-      // Do any required interface initialization here.
+    super.viewDidLoad()
+    // Do any required interface initialization here.
   }
-    
-  func didReceive(_ notification: UNNotification) {
 
+  func didReceive(_ notification: UNNotification) {
     print(notification.request)
 
     from.text = "\(notification.request.content.userInfo)"
@@ -33,16 +31,15 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
       let geofenceModelJson = notification.request.content.userInfo["geofenceModel"],
       let geofenceModel = try? GeofenceModel.decodeJson(data: geofenceModelJson),
       case .stop(let stop) = geofenceModel.stop
-      else {
-        return
-      }
+    else {
+      return
+    }
 
-    from.text = "\(geofenceModel.stop.name) \(stop.actualDepartureDateTime)" //"\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
-    to.text = "" //"\(geofenceModel.toStop?.name ?? "") (\(geofenceModel.toStop?.timeDate.description ?? ""))"
+    from.text = "\(geofenceModel.stop.name) \(stop.actualDepartureDateTime)" // "\(geofenceModel.fromStop?.name ?? "") (\(geofenceModel.fromStop?.timeDate.description ?? ""))"
+    to.text = "" // "\(geofenceModel.toStop?.name ?? "") (\(geofenceModel.toStop?.timeDate.description ?? ""))"
     let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.minute, .second]
     time.formatter = formatter
     time.date = stop.actualDepartureDateTime
   }
-
 }

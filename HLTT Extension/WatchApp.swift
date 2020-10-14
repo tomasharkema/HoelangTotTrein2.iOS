@@ -6,13 +6,13 @@
 //  Copyright © 2017 Tomas Harkema. All rights reserved.
 //
 
-import Foundation
 import API
 import Core
+import Foundation
 
 struct App {
   private static let dataStore = AppDataStore(defaultKeepDepartedAdvice: false)
-  static private let apiService = HttpApiService(credentials: ApiCredentials(file: Bundle.main.url(forResource: "json-credentials", withExtension: "plist")!))
+  private static let apiService = HttpApiService(credentials: ApiCredentials(file: Bundle.main.url(forResource: "json-credentials", withExtension: "plist")!))
   static let heartBeat = HeartBeat()
   static let locationService = AppLocationService()
   static let preferenceStore = UserDefaultsPreferenceStore(defaultKeepDepartedAdvice: false)

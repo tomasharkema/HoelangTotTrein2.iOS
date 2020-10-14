@@ -6,17 +6,16 @@
 //  Copyright © 2016 Tomas Harkema. All rights reserved.
 //
 
-import WatchKit
-import WatchConnectivity
-import ClockKit
 import API
+import ClockKit
 import Core
 import Promissum
+import WatchConnectivity
+import WatchKit
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
-
   private let session = WCSession.default
 
   var cachedAdvices: [Advice] = App.preferenceStore.persistedAdvicesAndRequest(for: App.preferenceStore.adviceRequest.value)?.advices ?? []
@@ -30,21 +29,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     requestInitialState()
   }
 
-  func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
+  func session(_: WCSession, didReceiveUserInfo userInfo: [String: Any]) {
     if let data = userInfo["data"] as? Data {
       on(data: data)
     }
   }
 
-  func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+  func session(_: WCSession, didReceiveMessageData messageData: Data) {
     on(data: messageData)
   }
-  
-  func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+
+  func session(_: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
     on(data: messageData)
     replyHandler(Data(bytes: []))
   }
-  
+
   fileprivate func on(data: Data) {
     do {
       on(travelEvent: try JSONDecoder().decode(TravelEvent.self, from: data))
@@ -55,7 +54,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
 
   fileprivate func on(travelEvent event: TravelEvent) {
     switch event {
-    case let .advicesChange(advice: advices):
+    case .advicesChange(advice: let advices):
       cachedAdvices = advices
 //      App.preferenceStore.persistedAdvicesAndRequest?.advices = advices
 
@@ -71,8 +70,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
   }
 
-  func requestInitialState(_ completionHandler: ((Error?) -> ())? = nil) {
-
+  func requestInitialState(_ completionHandler: ((Error?) -> Void)? = nil) {
     guard let someData = Data(base64Encoded: "initialstate", options: []) else {
       return
     }
@@ -96,11 +94,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
     }
   }
 
-  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+  func session(_: WCSession, activationDidCompleteWith _: WCSessionActivationState, error _: Error?) {
     requestInitialState()
   }
 
-  func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+  func session(_: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
     if let data = applicationContext["data"] as? Data {
       on(data: data)
     }

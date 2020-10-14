@@ -6,16 +6,15 @@
 //  Copyright © 2017 Tomas Harkema. All rights reserved.
 //
 
-import Foundation
-import CoreLocation
-import Bindable
 import API
+import Bindable
 import Core
+import CoreLocation
+import Foundation
 import Promissum
 
 /// a service to notify users that they need to transfer.
 class TransferService: NSObject {
-
   private let travelService: TravelService
   private let dataStore: DataStore
   private let preferenceStore: PreferenceStore
@@ -24,7 +23,7 @@ class TransferService: NSObject {
   private let geofenceSource = VariableSource<GeofenceModel?>(value: nil)
   public let geofence: Variable<GeofenceModel?>
 
-  var advices: AdvicesAndRequest? = nil {
+  var advices: AdvicesAndRequest? {
     didSet {
       guard let advices = advices else { return }
       updateGeofences(for: advices.advices)
@@ -44,14 +43,12 @@ class TransferService: NSObject {
   }
 
   func start() {
-    bind(\.advices, to: travelService.currentAdvices.map { $0.value })
+    bind(\.advices, to: travelService.currentAdvices.map(\.value))
   }
 
   private func getStationNames(from advice: Advice) -> Set<String> {
-    return Set(advice.legs.flatMap {
-      $0.stops.map {
-        $0.name
-      }
+    Set(advice.legs.flatMap {
+      $0.stops.map(\.name)
     })
   }
 
@@ -75,14 +72,13 @@ class TransferService: NSObject {
       self.resetGeofences()
       stations.forEach { self.updateGeofence(for: $0) }
     }
-    let ritNummers = advices.compactMap { $0.legs.first }.compactMap { $0.journeyDetailRef }
+    let ritNummers = advices.compactMap(\.legs.first).compactMap(\.journeyDetailRef)
     preferenceStore.firstLegRitNummers = ritNummers
   }
-  
+
   private func geofenceModel(for newAdvice: Advice, request: AdviceRequest, station: Station) -> GeofenceModel? {
-    
     let newAdviceIsFirstLeg = (newAdvice.legs.first?.journeyDetailRef).map { preferenceStore.firstLegRitNummers.contains($0) } ?? false
-    
+
     let geofenceType: GeofenceType
     if newAdvice.startStation?.uicCode == request.from {
       geofenceType = .start
@@ -95,25 +91,25 @@ class TransferService: NSObject {
     } else {
       geofenceType = .tussenStation
     }
-    
+
     guard let stop = newAdvice.legs.first?.stops.first else {
       return nil
     }
-    
+
     return GeofenceModel(type: geofenceType, uicCode: newAdvice.startStation!.uicCode, stop: stop)
   }
-  
+
   private func notify(for newAdvice: Advice, request: AdviceRequest, station: Station) {
     guard let geofenceModel = self.geofenceModel(for: newAdvice, request: request, station: station) else {
       return
     }
-    
+
     notify(geofenceModel: geofenceModel)
   }
-  
+
   private func notify(geofenceModel: GeofenceModel) {
     geofenceSource.value = geofenceModel
-    
+
     switch geofenceModel.type {
     case .start:
       break
@@ -124,11 +120,9 @@ class TransferService: NSObject {
     case .end:
       _ = travelService.setStation(.from, byPicker: true, uicCode: geofenceModel.uicCode)
     }
-    
   }
 
   private func arrive(at station: Station) {
-
     let request = travelService.adviceRequest.value
     let newRequest: AdviceRequest
     if station.UICCode == request.to {
@@ -139,7 +133,7 @@ class TransferService: NSObject {
 
     travelService.fetchAdvices(for: newRequest, cancellationToken: nil)
       .map { ($0.trips.filter { $0.isOngoing }, request) }
-      .then { (advices, request) in
+      .then { advices, request in
         if let newAdvice = advices.first {
           self.notify(for: newAdvice, request: request, station: station)
         }
@@ -152,11 +146,10 @@ class TransferService: NSObject {
         self.arrive(at: currentStation)
       }
   }
-
 }
 
 extension TransferService: CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+  func locationManager(_: CLLocationManager, didEnterRegion region: CLRegion) {
     arrive(at: UicCode(rawValue: region.identifier))
   }
 }

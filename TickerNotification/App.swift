@@ -6,8 +6,8 @@
 //  Copyright © 2018 Tomas Harkema. All rights reserved.
 //
 
-import Foundation
 import Core
+import Foundation
 
 struct App {
   static let heartBeat = HeartBeat()
