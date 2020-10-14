@@ -9,18 +9,8 @@
 import WatchKit
 import WatchConnectivity
 import ClockKit
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if canImport(Core)
 import Core
-#endif
-#if canImport(CoreWatch)
-import CoreWatch
-#endif
 import Promissum
 
 let AdvicesDidChangeNotification = "AdvicesDidChangeNotification"

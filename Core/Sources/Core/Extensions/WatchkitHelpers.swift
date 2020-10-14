@@ -9,13 +9,7 @@
 import Foundation
 import WatchConnectivity
 import Promissum
-
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 extension WCSession {
   func sendEvent(_ event: TravelEvent) {

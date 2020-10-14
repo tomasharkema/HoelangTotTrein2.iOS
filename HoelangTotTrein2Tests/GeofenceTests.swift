@@ -7,13 +7,8 @@
 ////
 //
 //import XCTest
-//@testable 
-#if canImport(HoelangTotTreinAPIWatch)
-import HoelangTotTreinAPIWatch
-#endif
-#if canImport(HoelangTotTreinAPI)
-import HoelangTotTreinAPI
-#endif
+//@testable
+
 //@testable import HoelangTotTreinCore
 //@testable import HLTT
 //

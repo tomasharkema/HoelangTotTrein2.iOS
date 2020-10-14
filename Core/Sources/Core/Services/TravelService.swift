@@ -12,15 +12,8 @@ import Promissum
 import Bindable
 import BindableNSObject
 import CancellationToken
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if os(iOS)
 import WatchConnectivity
-#endif
 
 enum TravelServiceError: Error {
   case notChanged

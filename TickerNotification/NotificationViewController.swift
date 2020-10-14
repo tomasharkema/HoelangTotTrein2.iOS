@@ -7,15 +7,8 @@
 //
 
 import UIKit
-
-
-#if canImport(API)
 import API
-#endif
-#if canImport(Core)
 import Core
-#endif
-
 import UserNotifications
 import UserNotificationsUI
 

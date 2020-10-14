@@ -9,18 +9,8 @@
 import Foundation
 import CoreLocation
 import Bindable
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if canImport(Core)
 import Core
-#endif
-#if canImport(CoreWatch)
-import CoreWatch
-#endif
 import Promissum
 
 /// a service to notify users that they need to transfer.

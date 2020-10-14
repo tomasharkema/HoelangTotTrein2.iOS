@@ -8,12 +8,7 @@
 
 import Foundation
 import Bindable
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 public class ListTickerViewModel {
   private let stateSource = VariableSource<LoadingState<Advices>>(value: .loading)

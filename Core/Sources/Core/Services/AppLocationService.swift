@@ -10,13 +10,7 @@ import Foundation
 import CoreLocation
 import Promissum
 import Bindable
-
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 struct SignificantLocation: Equatable {
   let location: CLLocation

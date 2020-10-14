@@ -9,13 +9,6 @@
 import UIKit
 import CoreData
 import Promissum
-
-#if canImport(HoelangTotTreinAPIWatch)
-import HoelangTotTreinAPIWatch
-#endif
-#if canImport(HoelangTotTreinAPI)
-import HoelangTotTreinAPI
-#endif
 import UserNotifications
 import SwiftUI
 import Bindable

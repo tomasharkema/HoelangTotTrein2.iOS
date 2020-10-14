@@ -7,12 +7,8 @@
 //
 
 import UIKit
-#if canImport(API)
 import API
-#endif
-#if canImport(Core)
 import Core
-#endif
 
 class TimeLabel: UILabel {
 

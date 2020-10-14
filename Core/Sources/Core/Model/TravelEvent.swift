@@ -7,12 +7,7 @@
 //
 
 import Foundation
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 public struct CurrentAdviceChangeData: Codable {
   public let identifier: AdviceIdentifier

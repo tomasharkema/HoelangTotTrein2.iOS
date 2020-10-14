@@ -8,13 +8,7 @@
 
 import Foundation
 import Bindable
-
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 private struct Keys {
   static let adviceRequestDefaults = "adviceRequestDefaults"

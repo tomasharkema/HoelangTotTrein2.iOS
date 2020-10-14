@@ -9,12 +9,7 @@
 import Foundation
 import Promissum
 import Bindable
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 public enum DataStoreError: Error {
   case notFound

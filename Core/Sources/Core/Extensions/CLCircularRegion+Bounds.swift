@@ -8,13 +8,7 @@
 
 import UIKit
 import CoreLocation
-
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 extension CLCircularRegion {
   var bounds: Bounds {

@@ -9,12 +9,6 @@
 import WatchKit
 import Foundation
 
-#if canImport(HoelangTotTreinAPIWatch)
-  import HoelangTotTreinAPIWatch
-#elseif canImport(HoelangTotTreinAPI)
-  import HoelangTotTreinAPI
-#endif
-
 class NotificationController: WKUserNotificationInterfaceController {
 
   @IBOutlet var platformLabel: WKInterfaceLabel!

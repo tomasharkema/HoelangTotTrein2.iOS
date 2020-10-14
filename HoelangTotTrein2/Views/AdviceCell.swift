@@ -7,18 +7,8 @@
 //
 
 import UIKit
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
-#if canImport(Core)
 import Core
-#endif
-#if canImport(CoreWatch)
-import CoreWatch
-#endif
 
 class AdviceCell: UICollectionViewCell {
 

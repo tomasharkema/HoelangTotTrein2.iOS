@@ -11,13 +11,7 @@ import CoreData
 import Bindable
 import Promissum
 import BindableNSObject
-
-#if canImport(API)
 import API
-#endif
-#if canImport(APIWatch)
-import APIWatch
-#endif
 
 public class StorageAttachment: NSObject {
 
