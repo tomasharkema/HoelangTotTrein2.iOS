@@ -6,9 +6,6 @@ disabled_rules: # rule identifiers to exclude from running
   - identifier_name # please enable at some point because too many inconsitencies throughout the codebase 
   - type_name
   - opening_brace
-  
-opt_in_rules:
-  - force_unwrapping
 
 line_length:
   warning: 400

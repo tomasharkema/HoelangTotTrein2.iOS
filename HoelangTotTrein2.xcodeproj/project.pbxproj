@@ -60,6 +60,21 @@
 		C38C24DE2202E67C0021A7AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */; };
 		C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */; };
 		C3B808DA2536E559007D80E0 /* MostUsedStations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B808D92536E559007D80E0 /* MostUsedStations.swift */; };
+		C3B809052536ECF6007D80E0 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809042536ECF6007D80E0 /* FooterView.swift */; };
+		C3B8090C2536ED47007D80E0 /* HeaderPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8090B2536ED47007D80E0 /* HeaderPickerView.swift */; };
+		C3B809132536ED8D007D80E0 /* StationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809122536ED8D007D80E0 /* StationPicker.swift */; };
+		C3B8091A2536EE02007D80E0 /* AdvicesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809192536EE02007D80E0 /* AdvicesScrollView.swift */; };
+		C3B809212536EE51007D80E0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809202536EE51007D80E0 /* ActivityIndicator.swift */; };
+		C3B809282536EE6E007D80E0 /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809272536EE6E007D80E0 /* TrackView.swift */; };
+		C3B8092F2536EE88007D80E0 /* FareTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8092E2536EE88007D80E0 /* FareTimeView.swift */; };
+		C3B809362536EEB1007D80E0 /* AdviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809352536EEB1007D80E0 /* AdviceView.swift */; };
+		C3B8093D2536EEEB007D80E0 /* ModalityTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8093C2536EEEB007D80E0 /* ModalityTypes.swift */; };
+		C3B809442536EF08007D80E0 /* LegView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809432536EF08007D80E0 /* LegView.swift */; };
+		C3B8094B2536EF39007D80E0 /* CollapsedLegsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8094A2536EF39007D80E0 /* CollapsedLegsView.swift */; };
+		C3B809522536EF6E007D80E0 /* LegsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809512536EF6E007D80E0 /* LegsView.swift */; };
+		C3B809592536EF96007D80E0 /* CrowdForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809582536EF96007D80E0 /* CrowdForecastView.swift */; };
+		C3B809652536EFD5007D80E0 /* LegPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B809642536EFD5007D80E0 /* LegPlaceView.swift */; };
+		C3B8096C2536F021007D80E0 /* DelayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B8096B2536F021007D80E0 /* DelayTextView.swift */; };
 		C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */; };
 		C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */; };
 		C3BEFEAC1CB8FCCD00B7564F /* AdviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */; };
@@ -241,6 +256,21 @@
 		C38C24DD2202E67C0021A7AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3B484DB1CCB92E000EB25D5 /* UIColor+HLTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HLTT.swift"; sourceTree = "<group>"; };
 		C3B808D92536E559007D80E0 /* MostUsedStations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostUsedStations.swift; sourceTree = "<group>"; };
+		C3B809042536ECF6007D80E0 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		C3B8090B2536ED47007D80E0 /* HeaderPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPickerView.swift; sourceTree = "<group>"; };
+		C3B809122536ED8D007D80E0 /* StationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationPicker.swift; sourceTree = "<group>"; };
+		C3B809192536EE02007D80E0 /* AdvicesScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvicesScrollView.swift; sourceTree = "<group>"; };
+		C3B809202536EE51007D80E0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		C3B809272536EE6E007D80E0 /* TrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
+		C3B8092E2536EE88007D80E0 /* FareTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FareTimeView.swift; sourceTree = "<group>"; };
+		C3B809352536EEB1007D80E0 /* AdviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceView.swift; sourceTree = "<group>"; };
+		C3B8093C2536EEEB007D80E0 /* ModalityTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalityTypes.swift; sourceTree = "<group>"; };
+		C3B809432536EF08007D80E0 /* LegView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegView.swift; sourceTree = "<group>"; };
+		C3B8094A2536EF39007D80E0 /* CollapsedLegsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedLegsView.swift; sourceTree = "<group>"; };
+		C3B809512536EF6E007D80E0 /* LegsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegsView.swift; sourceTree = "<group>"; };
+		C3B809582536EF96007D80E0 /* CrowdForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdForecastView.swift; sourceTree = "<group>"; };
+		C3B809642536EFD5007D80E0 /* LegPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegPlaceView.swift; sourceTree = "<group>"; };
+		C3B8096B2536F021007D80E0 /* DelayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayTextView.swift; sourceTree = "<group>"; };
 		C3BEFEA71CB8FAE300B7564F /* TickerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerDataSource.swift; sourceTree = "<group>"; };
 		C3BEFEA91CB8FCBF00B7564F /* AdviceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdviceCell.swift; path = ../../Views/AdviceCell.swift; sourceTree = "<group>"; };
 		C3BEFEAB1CB8FCCD00B7564F /* AdviceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AdviceCell.xib; path = ../../Views/AdviceCell.xib; sourceTree = "<group>"; };
@@ -452,6 +482,21 @@
 				C337F6A122E6F4FA0050F2A1 /* StationsList.swift */,
 				C337F6A322E70CBE0050F2A1 /* Ticker.swift */,
 				C33F0DB522FB147A00DBE103 /* VariableBinding.swift */,
+				C3B809042536ECF6007D80E0 /* FooterView.swift */,
+				C3B8090B2536ED47007D80E0 /* HeaderPickerView.swift */,
+				C3B809122536ED8D007D80E0 /* StationPicker.swift */,
+				C3B809192536EE02007D80E0 /* AdvicesScrollView.swift */,
+				C3B809202536EE51007D80E0 /* ActivityIndicator.swift */,
+				C3B809272536EE6E007D80E0 /* TrackView.swift */,
+				C3B8092E2536EE88007D80E0 /* FareTimeView.swift */,
+				C3B809352536EEB1007D80E0 /* AdviceView.swift */,
+				C3B8093C2536EEEB007D80E0 /* ModalityTypes.swift */,
+				C3B809432536EF08007D80E0 /* LegView.swift */,
+				C3B8094A2536EF39007D80E0 /* CollapsedLegsView.swift */,
+				C3B809512536EF6E007D80E0 /* LegsView.swift */,
+				C3B809582536EF96007D80E0 /* CrowdForecastView.swift */,
+				C3B809642536EFD5007D80E0 /* LegPlaceView.swift */,
+				C3B8096B2536F021007D80E0 /* DelayTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1096,27 +1141,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E847921BB836A5007D17C3 /* App.swift in Sources */,
+				C3B809592536EF96007D80E0 /* CrowdForecastView.swift in Sources */,
+				C3B809522536EF6E007D80E0 /* LegsView.swift in Sources */,
 				FF04CDA1215BE04A001B20AC /* UserNotification+Promise.swift in Sources */,
+				C3B809282536EE6E007D80E0 /* TrackView.swift in Sources */,
+				C3B8092F2536EE88007D80E0 /* FareTimeView.swift in Sources */,
 				C3B484DC1CCB92E000EB25D5 /* UIColor+HLTT.swift in Sources */,
+				C3B809132536ED8D007D80E0 /* StationPicker.swift in Sources */,
+				C3B8094B2536EF39007D80E0 /* CollapsedLegsView.swift in Sources */,
+				C3B8090C2536ED47007D80E0 /* HeaderPickerView.swift in Sources */,
 				C3E847B71BB8575E007D17C3 /* PickerViewController.swift in Sources */,
+				C3B809362536EEB1007D80E0 /* AdviceView.swift in Sources */,
+				C3B8096C2536F021007D80E0 /* DelayTextView.swift in Sources */,
 				C3C26C161C5556C100197471 /* NotificationService.swift in Sources */,
 				C33F0DBB22FB232E00DBE103 /* ContentView.swift in Sources */,
 				FF647CCA1F80197F008D28EC /* TransferService.swift in Sources */,
+				C3B8091A2536EE02007D80E0 /* AdvicesScrollView.swift in Sources */,
 				C32D78BE1BDEC98C00603805 /* R.generated.swift in Sources */,
 				C3B808DA2536E559007D80E0 /* MostUsedStations.swift in Sources */,
 				C33F0DBF22FB232E00DBE103 /* VariableBinding.swift in Sources */,
 				C3E847BD1BB86058007D17C3 /* StationCell.swift in Sources */,
 				C33F0DBE22FB232E00DBE103 /* Ticker.swift in Sources */,
+				C3B809652536EFD5007D80E0 /* LegPlaceView.swift in Sources */,
 				C3F92E081F6E8B1000A2B19F /* AppDelegate.swift in Sources */,
+				C3B809212536EE51007D80E0 /* ActivityIndicator.swift in Sources */,
 				C33F0DBC22FB232E00DBE103 /* RootView.swift in Sources */,
 				C33F0DBD22FB232E00DBE103 /* StationsList.swift in Sources */,
 				C3FD08171CC7CB34002893B3 /* Advice+iOS.swift in Sources */,
 				C32845E21EE8A83B0012E651 /* TimeLabel.swift in Sources */,
 				C3E847551BB82A01007D17C3 /* TickerViewController.swift in Sources */,
+				C3B8093D2536EEEB007D80E0 /* ModalityTypes.swift in Sources */,
 				C3BEFEAA1CB8FCBF00B7564F /* AdviceCell.swift in Sources */,
+				C3B809442536EF08007D80E0 /* LegView.swift in Sources */,
 				C3BEFEA81CB8FAE300B7564F /* TickerDataSource.swift in Sources */,
 				C3F72ABF1C95D3E30024CF2C /* StepView.swift in Sources */,
 				C3E19C511E9529C7003A1529 /* AppShortcutService.swift in Sources */,
+				C3B809052536ECF6007D80E0 /* FooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
