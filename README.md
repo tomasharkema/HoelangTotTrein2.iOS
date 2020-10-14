@@ -3,6 +3,8 @@ Hi there! 👋 Welcome to the HLTTv2 repository.
 
 This also is scholarship entry for WWDC 2016.
 
+![alt text](https://github.com/tomasharkema/HoelangTotTrein2.iOS/raw/master/Images/mac.png)
+
 ### _HoelangTotTrein: How long 'till train_
 
 # About
@@ -21,14 +23,7 @@ Currently, version 1.0 is live in the App Store, but I'm working very hard to re
 
 # Installation
 
-- Run pod install
-
-`pod install`
-
-- Open the project via the workspace
-
 `open HoelangTotTrein2.xcworkspace`
-
 - Enjoy!
 
 # API
